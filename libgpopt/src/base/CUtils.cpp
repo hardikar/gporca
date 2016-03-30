@@ -589,24 +589,26 @@ CUtils::PexprScalarCmp
 	CExpression *pexprNewRight = pexprRight;
 
 	IMDId *pmdidCmpOp = NULL;
+
 	if (CMDAccessorUtils::FCmpExists(pmda, pmdidLeft, pmdidRight, ecmpt))
 	{
 		pmdidCmpOp = PmdidScCmp(pmda, pmdidLeft, pmdidRight, ecmpt);
 	}
+	else if (CMDAccessorUtils::FCmpExists(pmda, pmdidRight, pmdidRight, ecmpt) && CMDAccessorUtils::FCastExists(pmda, pmdidLeft, pmdidRight))
+	{
+		pexprNewLeft = PexprCast(pmp, pmda, pexprLeft, pmdidRight);
+		pmdidCmpOp = PmdidScCmp(pmda, pmdidRight, pmdidRight, ecmpt);
+	}
+	else if (CMDAccessorUtils::FCmpExists(pmda, pmdidLeft, pmdidLeft, ecmpt) && CMDAccessorUtils::FCastExists(pmda, pmdidRight, pmdidLeft))
+	{
+		pexprNewRight = PexprCast(pmp, pmda, pexprRight, pmdidLeft);
+		pmdidCmpOp = PmdidScCmp(pmda, pmdidLeft, pmdidLeft, ecmpt);
+	}
 	else
 	{
-		// generate a scalar comparison by casting one of the two sides
-		if (CMDAccessorUtils::FCastExists(pmda, pmdidLeft, pmdidRight))
-		{
-			pexprNewLeft = PexprCast(pmp, pmda, pexprLeft, pmdidRight);
-			pmdidCmpOp = PmdidScCmp(pmda, pmdidRight, pmdidRight, ecmpt);
-		}
-		else
-		{
-			GPOS_ASSERT(CMDAccessorUtils::FCastExists(pmda, pmdidRight, pmdidLeft));
-			pexprNewRight = PexprCast(pmp, pmda, pexprRight, pmdidLeft);
-			pmdidCmpOp = PmdidScCmp(pmda, pmdidLeft, pmdidLeft, ecmpt);
-		}
+		// The caller tried to created a comparison between two Expressions that cannot be compared.
+		// If it happened, we error out as a retail assert
+		GPOS_RTL_ASSERT (false);
 	}
 	
 	pmdidCmpOp->AddRef();
@@ -711,7 +713,6 @@ CUtils::PexprScalarEqCmp
 
 	return PexprScalarCmp(pmp, pexprLeft, pcrRight, IMDType::EcmptEq);
 }
-
 
 //---------------------------------------------------------------------------
 //	@function:
