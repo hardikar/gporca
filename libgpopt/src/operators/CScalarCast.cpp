@@ -93,5 +93,34 @@ CScalarCast::FMatch
 	return false;
 }
 
+
+//---------------------------------------------------------------------------
+//	@function:
+//		CScalarCast::OsPrint
+//
+//	@doc:
+//		debug print
+//
+//---------------------------------------------------------------------------
+IOstream &
+CScalarCast::OsPrint
+	(
+	IOstream &os
+	)
+	const
+{
+	os << "(Return Type: ";
+	m_pmdidReturnType->OsPrint(os);
+	os << " Function Type: ";
+	m_pmdidFunc->OsPrint(os);
+	os << " Binary Coercible: " << m_fBinaryCoercible;
+	os << " Returns Null On Null Input" << m_fReturnsNullOnNullInput;
+	os << " Boolean return type: " << m_fBoolReturnType;
+	os << ")";
+
+	return os;
+}
+
+
 // EOF
 

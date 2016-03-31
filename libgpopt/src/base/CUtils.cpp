@@ -261,7 +261,20 @@ CUtils::PmdidScCmp
 		return pmdtypeLeft->PmdidCmp(ecmpt);
 	}
 	
-	return pmda->Pmdsccmp(pmdidLeft, pmdidRight, ecmpt)->PmdidOp();
+	if (CMDAccessorUtils::FCmpExists(pmda, pmdidLeft, pmdidRight, ecmpt))
+	{
+		return pmda->Pmdsccmp(pmdidLeft, pmdidRight, ecmpt)->PmdidOp();
+	}
+
+	if (CMDAccessorUtils::FCmpExists(pmda, pmdidRight, pmdidRight, ecmpt) && CMDAccessorUtils::FCastExists(pmda, pmdidLeft, pmdidRight))
+	{
+		return pmda->Pmdsccmp(pmdidRight, pmdidRight, ecmpt)->PmdidOp();
+	}
+
+	// ASSERT if we have to cast the left hand side
+	GPOS_ASSERT(CMDAccessorUtils::FCmpExists(pmda, pmdidLeft, pmdidLeft, ecmpt) && CMDAccessorUtils::FCastExists(pmda, pmdidRight, pmdidLeft));
+
+	return pmda->Pmdsccmp(pmdidLeft, pmdidLeft, ecmpt)->PmdidOp();
 }
 
 //---------------------------------------------------------------------------
@@ -594,34 +607,35 @@ CUtils::PexprScalarCmp
 	{
 		pmdidCmpOp = PmdidScCmp(pmda, pmdidLeft, pmdidRight, ecmpt);
 	}
-	else if (CMDAccessorUtils::FCmpExists(pmda, pmdidRight, pmdidRight, ecmpt) && CMDAccessorUtils::FCastExists(pmda, pmdidLeft, pmdidRight))
-	{
-		pexprNewLeft = PexprCast(pmp, pmda, pexprLeft, pmdidRight);
-		pmdidCmpOp = PmdidScCmp(pmda, pmdidRight, pmdidRight, ecmpt);
-	}
 	else if (CMDAccessorUtils::FCmpExists(pmda, pmdidLeft, pmdidLeft, ecmpt) && CMDAccessorUtils::FCastExists(pmda, pmdidRight, pmdidLeft))
 	{
 		pexprNewRight = PexprCast(pmp, pmda, pexprRight, pmdidLeft);
 		pmdidCmpOp = PmdidScCmp(pmda, pmdidLeft, pmdidLeft, ecmpt);
 	}
-	else
+	else if (CMDAccessorUtils::FCmpExists(pmda, pmdidRight, pmdidRight, ecmpt) && CMDAccessorUtils::FCastExists(pmda, pmdidLeft, pmdidRight))
 	{
-		// The caller tried to created a comparison between two Expressions that cannot be compared.
-		// If it happened, we error out as a retail assert
-		GPOS_RTL_ASSERT (false);
+		pexprNewLeft = PexprCast(pmp, pmda, pexprLeft, pmdidRight);
+		pmdidCmpOp = PmdidScCmp(pmda, pmdidRight, pmdidRight, ecmpt);
 	}
 	
 	pmdidCmpOp->AddRef();
 	const CMDName mdname = pmda->Pmdscop(pmdidCmpOp)->Mdname();
 	CWStringConst strCmpOpName(mdname.Pstr()->Wsz());
 	
-	return GPOS_NEW(pmp) CExpression
+	CExpression *pexprResult = GPOS_NEW(pmp) CExpression
 					(
 					pmp,
 					GPOS_NEW(pmp) CScalarCmp(pmp, pmdidCmpOp, GPOS_NEW(pmp) CWStringConst(pmp, strCmpOpName.Wsz()), ecmpt),
 					pexprNewLeft,
 					pexprNewRight
 					);
+
+	{
+		CAutoTrace at(pmp);
+		at.Os() << *pexprResult;
+	}
+
+	return pexprResult;
 }
 
 //---------------------------------------------------------------------------

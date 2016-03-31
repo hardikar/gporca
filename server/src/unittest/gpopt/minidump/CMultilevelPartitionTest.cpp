@@ -35,6 +35,7 @@ ULONG CMultilevelPartitionTest::m_ulMLPTTestCounter = 0;  // start from first te
 // minidump files
 const CHAR *rgszMultilevel[] =
 	{
+		"../data/dxl/minidump/casting.thread.0.mdp",
 		"../data/dxl/multilevel-partitioning/Multilevel-FullScan.mdp",
 		"../data/dxl/multilevel-partitioning/Multilevel-ConstPred-Level1-NoDefault.mdp",
 		"../data/dxl/multilevel-partitioning/Multilevel-ConstPred-Level1-Default.mdp",

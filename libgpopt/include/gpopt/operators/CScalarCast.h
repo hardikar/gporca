@@ -160,6 +160,10 @@ namespace gpopt
 				return dynamic_cast<CScalarCast*>(pop);
 			}
 
+			// print
+			virtual
+			IOstream &OsPrint(IOstream &os) const;
+
 	}; // class CScalarCast
 
 }
