@@ -1,0 +1,15 @@
+platform: linux
+image: docker:///shardikar/gpcodegen#latest
+inputs:
+  - name: bin_gpos_centos7_release
+  - name: bin_xerces_centos7
+  - name: orca_src
+outputs:
+  - name: build_and_test_centos7_release
+run:
+  path: orca_src/concourse/build_and_test.py
+  args:
+    - --build_type=RELEASE
+    - --output_dir=build_and_test_centos7_release/install
+    - bin_gpos_centos7_release
+    - bin_xerces_centos7
