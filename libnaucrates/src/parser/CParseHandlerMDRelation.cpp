@@ -340,7 +340,7 @@ CParseHandlerMDRelation::ParseChildNodes()
 	m_pphm->ActivateParseHandler(pphTriggerList);
 
 	// parse handler for indices list
-	CParseHandlerBase *pphIndexList = CParseHandlerFactory::Pph(m_pmp, CDXLTokens::XmlstrToken(EdxltokenMetadataIdList), m_pphm, this);
+	CParseHandlerBase *pphIndexList = CParseHandlerFactory::Pph(m_pmp, CDXLTokens::XmlstrToken(EdxltokenIndexInfoList), m_pphm, this);
 	m_pphm->ActivateParseHandler(pphIndexList);
 
 	// parse handler for the columns

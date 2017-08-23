@@ -74,6 +74,9 @@ namespace gpdxl
 				CParseHandlerBase *pphRoot
 				);
 
+			// dtor
+			~CParseHandlerMDIndexInfo();
+
 			DrgPmdIndexInfo *PdrgpmdIndexInfo();
 	};
 }

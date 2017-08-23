@@ -33,10 +33,10 @@ BOOL CMDIndexInfo::FIsPartial()
 
 void CMDIndexInfo::Serialize(gpdxl::CXMLSerializer *pxmlser) const
 {
-	pxmlser->OpenElement(CDXLTokens::PstrToken(EdxltokenNamespacePrefix), CDXLTokens::PstrToken(EdxltokenIndex));
+	pxmlser->OpenElement(CDXLTokens::PstrToken(EdxltokenNamespacePrefix), CDXLTokens::PstrToken(EdxltokenIndexInfo));
 
 	m_mdid->Serialize(pxmlser, CDXLTokens::PstrToken(EdxltokenMdid));
 	pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenIndexPartial), m_fIsPartial);
 
-	pxmlser->CloseElement(CDXLTokens::PstrToken(EdxltokenNamespacePrefix), CDXLTokens::PstrToken(EdxltokenIndex));
+	pxmlser->CloseElement(CDXLTokens::PstrToken(EdxltokenNamespacePrefix), CDXLTokens::PstrToken(EdxltokenIndexInfo));
 }

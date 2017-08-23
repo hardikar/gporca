@@ -728,7 +728,7 @@ CMDRelationGPDB::Serialize
 	
 	// serialize index infos
 	pxmlser->OpenElement(CDXLTokens::PstrToken(EdxltokenNamespacePrefix),
-						CDXLTokens::PstrToken(EdxltokenIndexes));
+						CDXLTokens::PstrToken(EdxltokenIndexInfoList));
 	for (ULONG ul = 0; ul < m_pdrgpmdidIndices->UlLength(); ul++)
 	{
 		CMDIndexInfo *pmdIndexInfo = (*m_pdrgpmdidIndices)[ul];
@@ -738,7 +738,7 @@ CMDRelationGPDB::Serialize
 	}
 
 	pxmlser->CloseElement(CDXLTokens::PstrToken(EdxltokenNamespacePrefix),
-						CDXLTokens::PstrToken(EdxltokenIndexes));
+						CDXLTokens::PstrToken(EdxltokenIndexInfoList));
 
 
 	// serialize trigger information

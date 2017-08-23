@@ -41,7 +41,8 @@ CParseHandlerMDIndexInfo::CParseHandlerMDIndexInfo
 	:
 	CParseHandlerBase(pmp, pphm, pphRoot),
 	m_pmdid(NULL),
-	m_fPartial(false)
+	m_fPartial(false),
+	m_pdrgpmdIndexInfo(NULL)
 {
 }
 
@@ -62,17 +63,17 @@ CParseHandlerMDIndexInfo::StartElement
 	const Attributes& attrs
 	)
 {
-	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndexes), xmlszLocalname))
+	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndexInfoList), xmlszLocalname))
 	{
 		m_pdrgpmdIndexInfo = GPOS_NEW(m_pmp) DrgPmdIndexInfo(m_pmp);
 	}
-	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndex), xmlszLocalname))
+	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndexInfo), xmlszLocalname))
 	{
 		// parse mdid
-		m_pmdid = CDXLOperatorFactory::PmdidFromAttrs(m_pphm->Pmm(), attrs, EdxltokenMdid, EdxltokenIndex);
+		m_pmdid = CDXLOperatorFactory::PmdidFromAttrs(m_pphm->Pmm(), attrs, EdxltokenMdid, EdxltokenIndexInfo);
 
 		// parse index clustering, key columns and included columns information
-		m_fPartial = CDXLOperatorFactory::FValueFromAttrs(m_pphm->Pmm(), attrs, EdxltokenIndexPartial, EdxltokenIndex);
+		m_fPartial = CDXLOperatorFactory::FValueFromAttrs(m_pphm->Pmm(), attrs, EdxltokenIndexPartial, EdxltokenIndexInfo);
 
 		CMDIndexInfo *pmdIndexInfo = GPOS_NEW(m_pmp) CMDIndexInfo
 								(
@@ -105,18 +106,27 @@ CParseHandlerMDIndexInfo::EndElement
 	const XMLCh* const // xmlszQname
 	)
 {
-	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndex), xmlszLocalname) ||
-	    0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndexes), xmlszLocalname))
+	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndexInfoList), xmlszLocalname))
 	{
 		// deactivate handler
 		m_pphm->DeactivateHandler();
 	}
-	else
+	else if (0 != XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndexInfo), xmlszLocalname))
 	{
 		CWStringDynamic *pstr = CDXLUtils::PstrFromXMLCh(m_pphm->Pmm(), xmlszLocalname);
 		GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLUnexpectedTag, pstr->Wsz());
 	}
 	
+}
+
+CParseHandlerMDIndexInfo::~CParseHandlerMDIndexInfo()
+{
+	CRefCount::SafeRelease(m_pdrgpmdIndexInfo);
+}
+
+DrgPmdIndexInfo *CParseHandlerMDIndexInfo::PdrgpmdIndexInfo()
+{
+	return m_pdrgpmdIndexInfo;
 }
 
 // EOF
