@@ -29,6 +29,7 @@ add_library(naucrates
             include/naucrates/md/IMDColumn.h
             include/naucrates/md/IMDFunction.h
             include/naucrates/md/IMDId.h
+            include/naucrates/md/CMDIndexInfo.h
             include/naucrates/md/IMDInterface.h
             include/naucrates/md/IMDPartConstraint.h
             include/naucrates/md/IMDRelationCtas.h
@@ -102,6 +103,8 @@ add_library(naucrates
             src/md/CMDIdColStats.cpp
             include/naucrates/md/CMDIdGPDB.h
             src/md/CMDIdGPDB.cpp
+            include/naucrates/md/CMDIndexInfo.h
+            src/md/CMDIndexInfo.cpp
             include/naucrates/md/CMDIdGPDBCtas.h
             src/md/CMDIdGPDBCtas.cpp
             include/naucrates/md/CMDIdRelStats.h
@@ -588,6 +591,8 @@ add_library(naucrates
             src/parser/CParseHandlerMDGPDBTrigger.cpp
             include/naucrates/dxl/parser/CParseHandlerMDIndex.h
             src/parser/CParseHandlerMDIndex.cpp
+            include/naucrates/dxl/parser/CParseHandlerMDIndexInfo.h
+            src/parser/CParseHandlerMDIndexInfo.cpp
             include/naucrates/dxl/parser/CParseHandlerMDRelation.h
             src/parser/CParseHandlerMDRelation.cpp
             include/naucrates/dxl/parser/CParseHandlerMDRelationCtas.h
