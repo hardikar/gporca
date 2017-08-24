@@ -271,6 +271,9 @@ namespace gpmd
 			// retrieve the id of the metadata cache index at the given position
 			virtual 
 			IMDId *PmdidIndex(ULONG ulPos) const;
+
+			virtual
+			BOOL FPartialIndex(ULONG ulPos) const;
 				
 			// retrieve the id of the metadata cache trigger at the given position
 			virtual

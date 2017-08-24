@@ -578,6 +578,16 @@ CMDRelationGPDB::PmdidIndex
 	return (*m_pdrgpmdidIndices)[ulPos]->PIMDId();
 }
 
+BOOL
+CMDRelationGPDB::FPartialIndex
+	(
+	ULONG ulPos
+	)
+	const
+{
+	return (*m_pdrgpmdidIndices)[ulPos]->FIsPartial();
+}
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CMDRelationGPDB::PmdidTrigger
