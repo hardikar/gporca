@@ -121,4 +121,13 @@ IMDRelation::FPartialIndex
 	return false;
 }
 
+BOOL
+IMDRelation::FPartialIndex
+	(
+	IMDId * // mdid
+	) const
+{
+	return false;
+}
+
 // EOF

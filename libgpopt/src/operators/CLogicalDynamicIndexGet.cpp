@@ -49,6 +49,12 @@ CLogicalDynamicIndexGet::CLogicalDynamicIndexGet
 {
 }
 
+BOOL CLogicalDynamicIndexGet::fIndexIsPartial(CTableDescriptor *ptabdesc, const IMDIndex *pmdindex)
+{
+	CMDAccessor *pmda = COptCtxt::PoctxtFromTLS()->Pmda();
+	const IMDRelation *pmdrel = pmda->Pmdrel(ptabdesc->Pmdid());
+	return pmdrel->FPartialIndex(pmdindex->Pmdid());
+}
 
 //---------------------------------------------------------------------------
 //	@function:
@@ -73,7 +79,7 @@ CLogicalDynamicIndexGet::CLogicalDynamicIndexGet
 	CPartConstraint *ppartcnstrRel
 	)
 	:
-	CLogicalDynamicGetBase(pmp, pnameAlias, ptabdesc, ulPartIndexId, pdrgpcrOutput, pdrgpdrgpcrPart, ulSecondaryPartIndexId, pmdindex->FPartial(), ppartcnstr, ppartcnstrRel),
+	CLogicalDynamicGetBase(pmp, pnameAlias, ptabdesc, ulPartIndexId, pdrgpcrOutput, pdrgpdrgpcrPart, ulSecondaryPartIndexId, fIndexIsPartial(ptabdesc, pmdindex), ppartcnstr, ppartcnstrRel),
 	m_pindexdesc(NULL),
 	m_ulOriginOpId(ulOriginOpId)
 {

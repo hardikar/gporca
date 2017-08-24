@@ -275,6 +275,9 @@ namespace gpmd
 			virtual
 			BOOL FPartialIndex(ULONG ulPos) const;
 				
+			virtual
+			BOOL FPartialIndex(IMDId *pmdid) const;
+
 			// retrieve the id of the metadata cache trigger at the given position
 			virtual
 			IMDId *PmdidTrigger(ULONG ulPos) const;

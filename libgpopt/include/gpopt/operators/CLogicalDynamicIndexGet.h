@@ -50,6 +50,9 @@ namespace gpopt
 			// private copy ctor
 			CLogicalDynamicIndexGet(const CLogicalDynamicIndexGet &);
 
+			static
+			BOOL fIndexIsPartial(CTableDescriptor *ptabdesc, const IMDIndex *pmdindex);
+
 		public:
 
 			// ctors
