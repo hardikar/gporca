@@ -3,8 +3,9 @@
 
 #include "gpopt/mdcache/CMDCache.h"
 #include "gpopt/minidump/CMetadataAccessorFactory.h"
-#include "gpos/common/CAutoRef.h"
+#include "gpos/common/CSharedPtr.h"
 #include "naucrates/md/CMDProviderMemory.h"
+
 
 namespace gpopt
 {
@@ -17,21 +18,20 @@ namespace gpopt
 	{
 
 		// set up MD providers
-		CAutoRef<CMDProviderMemory> apmdp(GPOS_NEW(pmp) CMDProviderMemory(pmp, szFileName));
+		CSharedPtr<IMDProvider> spmdp(GPOS_NEW(pmp) CMDProviderMemory(pmp, szFileName));
+
 		const DrgPsysid *pdrgpsysid = pdxlmd->Pdrgpsysid();
-		CAutoRef<DrgPmdp> apdrgpmdp(GPOS_NEW(pmp) DrgPmdp(pmp));
+		CSharedPtr<DrgPmdp> spdrgpmdp(GPOS_NEW(pmp) DrgPmdp(pmp));
 
 		// ensure there is at least ONE system id
-		apmdp->AddRef();
-		apdrgpmdp->Append(apmdp.Pt());
+		spdrgpmdp->Append(spmdp);
 
 		for (ULONG ul = 1; ul < pdrgpsysid->UlLength(); ul++)
 		{
-			apmdp->AddRef();
-			apdrgpmdp->Append(apmdp.Pt());
+			spdrgpmdp->Append(spmdp);
 		}
 
-		m_apmda = GPOS_NEW(pmp) CMDAccessor(pmp, CMDCache::Pcache(), pdxlmd->Pdrgpsysid(), apdrgpmdp.Pt());
+		m_apmda = GPOS_NEW(pmp) CMDAccessor(pmp, CMDCache::Pcache(), pdxlmd->Pdrgpsysid(), spdrgpmdp.Get());
 	}
 
 	CMDAccessor *CMetadataAccessorFactory::Pmda()

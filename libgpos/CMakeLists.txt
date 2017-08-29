@@ -42,6 +42,7 @@ add_library(gpos
             include/gpos/common/clibtypes.h
             include/gpos/common/CList.h
             include/gpos/common/CRefCount.h
+            include/gpos/common/CSharedPtr.h
             include/gpos/common/CStack.h
             include/gpos/common/CSyncHashtable.h
             include/gpos/common/CSyncHashtableAccessByIter.h

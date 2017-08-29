@@ -14,6 +14,7 @@
 #include "gpos/base.h"
 #include "gpos/common/CRefCount.h"
 #include "gpos/common/clibwrapper.h"
+#include "gpos/common/CSharedPtr.h"
 
 namespace gpos
 {
@@ -149,9 +150,16 @@ namespace gpos
                 m_ppt[m_ulSize] = pt;
                 ++m_ulSize;
             }
-			
-			// append array -- flatten it
-			void AppendArray(const CDynamicPtrArray<T, pfnDestroy> *pdrg)
+
+            // append element to end of array
+            void Append(CSharedPtr<T> &spt)
+            {
+                spt->AddRef();
+                Append(spt.Get());
+            }
+
+            // append array -- flatten it
+            void AppendArray(const CDynamicPtrArray<T, pfnDestroy> *pdrg)
             {
                 GPOS_ASSERT(NULL != pdrg);
                 GPOS_ASSERT(this != pdrg && "Cannot append array to itself");
