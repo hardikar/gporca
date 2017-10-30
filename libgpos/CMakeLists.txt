@@ -33,6 +33,7 @@ add_library(gpos
             include/gpos/common/CDouble.h
             include/gpos/common/CDynamicPtrArray.h
             include/gpos/common/CDynamicPtrArrayUtils.h
+            include/gpos/common/CDynamicArray.h
             include/gpos/common/CEnumSet.h
             include/gpos/common/CEnumSetIter.h
             include/gpos/common/CHashMap.h
