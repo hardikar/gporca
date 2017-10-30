@@ -27,6 +27,7 @@
 #include "unittest/gpos/common/CBitSetTest.h"
 #include "unittest/gpos/common/CBitVectorTest.h"
 #include "unittest/gpos/common/CDynamicPtrArrayTest.h"
+#include "unittest/gpos/common/CDynamicArrayTest.h"
 #include "unittest/gpos/common/CEnumSetTest.h"
 #include "unittest/gpos/common/CDoubleTest.h"
 #include "unittest/gpos/common/CHashMapTest.h"
@@ -87,6 +88,7 @@ static gpos::CUnittest rgut[] =
 	GPOS_UNITTEST_STD(CBitSetTest),
 	GPOS_UNITTEST_STD(CBitVectorTest),
 	GPOS_UNITTEST_STD(CDynamicPtrArrayTest),
+	GPOS_UNITTEST_STD(CDynamicArrayTest),
 	GPOS_UNITTEST_STD(CEnumSetTest),
 	GPOS_UNITTEST_STD(CDoubleTest),
 	GPOS_UNITTEST_STD(CHashMapTest),

@@ -36,9 +36,6 @@ namespace gpos
 			static GPOS_RESULT EresUnittest_ArrayAppendExactFit();
 			static GPOS_RESULT EresUnittest_PdrgpulSubsequenceIndexes();
 
-			// destructor function for char's
-			static void DestroyChar(char *);
-
 	}; // class CDynamicPtrArrayTest
 }
 

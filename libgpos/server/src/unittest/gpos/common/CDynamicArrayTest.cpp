@@ -3,7 +3,7 @@
 //	Copyright (C) 2008 Greenplum, Inc.
 //
 //	@filename:
-//		CDynamicPtrArrayTest.cpp
+//		CDynamicArrayTest.cpp
 //
 //	@doc:
 //		Test for CDynamicPtrArray
@@ -14,28 +14,28 @@
 #include "gpos/memory/CAutoMemoryPool.h"
 #include "gpos/test/CUnittest.h"
 
-#include "unittest/gpos/common/CDynamicPtrArrayTest.h"
+#include "unittest/gpos/common/CDynamicArrayTest.h"
 
 using namespace gpos;
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDynamicPtrArrayTest::EresUnittest
+//		CDynamicArrayTest::EresUnittest
 //
 //	@doc:
 //		Unittest for ref-counting
 //
 //---------------------------------------------------------------------------
 GPOS_RESULT
-CDynamicPtrArrayTest::EresUnittest()
+CDynamicArrayTest::EresUnittest()
 {
 	CUnittest rgut[] =
 		{
-		GPOS_UNITTEST_FUNC(CDynamicPtrArrayTest::EresUnittest_Basic),
-//		GPOS_UNITTEST_FUNC(CDynamicPtrArrayTest::EresUnittest_Ownership),
-//		GPOS_UNITTEST_FUNC(CDynamicPtrArrayTest::EresUnittest_ArrayAppend),
-//		GPOS_UNITTEST_FUNC(CDynamicPtrArrayTest::EresUnittest_ArrayAppendExactFit),
-//		GPOS_UNITTEST_FUNC(CDynamicPtrArrayTest::EresUnittest_PdrgpulSubsequenceIndexes),
+		GPOS_UNITTEST_FUNC(CDynamicArrayTest::EresUnittest_Basic),
+//		GPOS_UNITTEST_FUNC(CDynamicArrayTest::EresUnittest_Ownership),
+//		GPOS_UNITTEST_FUNC(CDynamicArrayTest::EresUnittest_ArrayAppend),
+//		GPOS_UNITTEST_FUNC(CDynamicArrayTest::EresUnittest_ArrayAppendExactFit),
+//		GPOS_UNITTEST_FUNC(CDynamicArrayTest::EresUnittest_PdrgpulSubsequenceIndexes),
 		};
 
 	return CUnittest::EresExecute(rgut, GPOS_ARRAY_SIZE(rgut));
@@ -44,14 +44,14 @@ CDynamicPtrArrayTest::EresUnittest()
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDynamicPtrArrayTest::EresUnittest_Basic
+//		CDynamicArrayTest::EresUnittest_Basic
 //
 //	@doc:
 //		Basic array allocation test
 //
 //---------------------------------------------------------------------------
 GPOS_RESULT
-CDynamicPtrArrayTest::EresUnittest_Basic()
+CDynamicArrayTest::EresUnittest_Basic()
 {
 	// create memory pool
 	CAutoMemoryPool amp;
@@ -132,14 +132,14 @@ CDynamicPtrArrayTest::EresUnittest_Basic()
 //
 ////---------------------------------------------------------------------------
 ////	@function:
-////		CDynamicPtrArrayTest::EresUnittest_Ownership
+////		CDynamicArrayTest::EresUnittest_Ownership
 ////
 ////	@doc:
 ////		Basic array test with ownership
 ////
 ////---------------------------------------------------------------------------
 //GPOS_RESULT
-//CDynamicPtrArrayTest::EresUnittest_Ownership()
+//CDynamicArrayTest::EresUnittest_Ownership()
 //{
 //	// create memory pool
 //	CAutoMemoryPool amp;
@@ -185,14 +185,14 @@ CDynamicPtrArrayTest::EresUnittest_Basic()
 //
 ////---------------------------------------------------------------------------
 ////	@function:
-////		CDynamicPtrArrayTest::EresUnittest_ArrayAppend
+////		CDynamicArrayTest::EresUnittest_ArrayAppend
 ////
 ////	@doc:
 ////		Appending arrays
 ////
 ////---------------------------------------------------------------------------
 //GPOS_RESULT
-//CDynamicPtrArrayTest::EresUnittest_ArrayAppend()
+//CDynamicArrayTest::EresUnittest_ArrayAppend()
 //{
 //	// create memory pool
 //	CAutoMemoryPool amp;
@@ -234,14 +234,14 @@ CDynamicPtrArrayTest::EresUnittest_Basic()
 //
 ////---------------------------------------------------------------------------
 ////	@function:
-////		CDynamicPtrArrayTest::EresUnittest_ArrayAppendExactFit
+////		CDynamicArrayTest::EresUnittest_ArrayAppendExactFit
 ////
 ////	@doc:
 ////		Appending arrays when there is enough memory in first
 ////
 ////---------------------------------------------------------------------------
 //GPOS_RESULT
-//CDynamicPtrArrayTest::EresUnittest_ArrayAppendExactFit()
+//CDynamicArrayTest::EresUnittest_ArrayAppendExactFit()
 //{
 //	// create memory pool
 //	CAutoMemoryPool amp;
@@ -286,7 +286,7 @@ CDynamicPtrArrayTest::EresUnittest_Basic()
 //
 ////---------------------------------------------------------------------------
 ////	@function:
-////		CDynamicPtrArrayTest::EresUnittest_PdrgpulSubsequenceIndexes
+////		CDynamicArrayTest::EresUnittest_PdrgpulSubsequenceIndexes
 ////
 ////	@doc:
 ////		Finding the first occurrences of the elements of the first array
@@ -294,7 +294,7 @@ CDynamicPtrArrayTest::EresUnittest_Basic()
 ////
 ////---------------------------------------------------------------------------
 //GPOS_RESULT
-//CDynamicPtrArrayTest::EresUnittest_PdrgpulSubsequenceIndexes()
+//CDynamicArrayTest::EresUnittest_PdrgpulSubsequenceIndexes()
 //{
 //	typedef CDynamicPtrArray<ULONG, CleanupNULL<ULONG> > DrgULONG;
 //
