@@ -37,6 +37,7 @@ add_executable(gpos_test
                src/unittest/gpos/common/CBitVectorTest.cpp
                src/unittest/gpos/common/CDoubleTest.cpp
                src/unittest/gpos/common/CDynamicPtrArrayTest.cpp
+               src/unittest/gpos/common/CDynamicArrayTest.cpp
                src/unittest/gpos/common/CEnumSetTest.cpp
                src/unittest/gpos/common/CHashMapIterTest.cpp
                src/unittest/gpos/common/CHashMapTest.cpp
@@ -105,6 +106,7 @@ add_gpos_test(CBitSetIterTest)
 add_gpos_test(CBitSetTest)
 add_gpos_test(CBitVectorTest)
 add_gpos_test(CDynamicPtrArrayTest)
+add_gpos_test(CDynamicArrayTest)
 add_gpos_test(CEnumSetTest)
 add_gpos_test(CDoubleTest)
 add_gpos_test(CHashMapTest)
