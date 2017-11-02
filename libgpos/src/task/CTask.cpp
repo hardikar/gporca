@@ -22,6 +22,8 @@ CAtomicULONG_PTR CTaskId::m_aupl(0);
 
 const CTaskId CTaskId::m_tidInvalid;
 
+volatile bool CTask::abort_requested = false;
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CTask::~CTask

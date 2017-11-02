@@ -295,6 +295,9 @@ namespace gpos
 				return dynamic_cast<CTask *>(ITask::PtskSelf());
 			}
 
+			static
+			volatile bool abort_requested;
+
 	}; // class CTask
 
 }

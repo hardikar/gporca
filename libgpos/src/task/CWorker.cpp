@@ -171,6 +171,7 @@ CWorker::CheckForAbort
 
 		if (m_ptsk->FCanceled())
 		{
+			CTask::abort_requested = false;
 			// raise exception
 			GPOS_ABORT;
 		}
