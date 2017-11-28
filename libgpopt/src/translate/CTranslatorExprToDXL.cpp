@@ -2656,7 +2656,6 @@ CTranslatorExprToDXL::BuildSubplansForCorrelatedLOJ
 	(
 	CExpression *pexprCorrelatedLOJ,
 	DrgPdxlcr *pdrgdxlcr,
-	DrgPmdid *pdrgmdid,
 	CDXLNode **ppdxlnScalar, // output: scalar condition after replacing inner child reference with subplan
 	DrgPds *pdrgpdsBaseTables,
 	ULONG *pulNonGatherMotions,
@@ -2677,7 +2676,7 @@ CTranslatorExprToDXL::BuildSubplansForCorrelatedLOJ
 	if (EdxlSubPlanTypeScalar == edxlsubplantype)
 	{
 		// for correlated left outer join for scalar subplan type, we generate a scalar subplan
-		BuildScalarSubplans(pdrgpcrInner, pexprInner, pdrgdxlcr, pdrgmdid, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
+		BuildScalarSubplans(pdrgpcrInner, pexprInner, pdrgdxlcr, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
 
 		// now translate the scalar - references to the inner child will be
 		// replaced by the subplan
@@ -2698,12 +2697,12 @@ CTranslatorExprToDXL::BuildSubplansForCorrelatedLOJ
 	// we need to generate quantified/exitential subplan
 	if (EdxlSubPlanTypeAny == edxlsubplantype || EdxlSubPlanTypeAll == edxlsubplantype)
 	{
-		(void) PdxlnQuantifiedSubplan(pdrgpcrInner, pexprCorrelatedLOJ, pdrgdxlcr, pdrgmdid, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
+		(void) PdxlnQuantifiedSubplan(pdrgpcrInner, pexprCorrelatedLOJ, pdrgdxlcr, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
 	}
 	else
 	{
 		GPOS_ASSERT(EdxlSubPlanTypeExists == edxlsubplantype || EdxlSubPlanTypeNotExists == edxlsubplantype);
-		(void) PdxlnExistentialSubplan(pdrgpcrInner, pexprCorrelatedLOJ, pdrgdxlcr, pdrgmdid, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
+		(void) PdxlnExistentialSubplan(pdrgpcrInner, pexprCorrelatedLOJ, pdrgdxlcr, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
 	}
 
 	CExpression *pexprTrue = CUtils::PexprScalarConstBool(m_pmp, true /*fVal*/, false /*fNull*/);
@@ -2725,7 +2724,6 @@ CTranslatorExprToDXL::BuildSubplans
 	(
 	CExpression *pexprCorrelatedNLJoin,
 	DrgPdxlcr *pdrgdxlcr,
-	DrgPmdid *pdrgmdid,
 	CDXLNode **ppdxlnScalar, // output: scalar condition after replacing inner child reference with subplan
 	DrgPds *pdrgpdsBaseTables, 
 	ULONG *pulNonGatherMotions,
@@ -2746,11 +2744,11 @@ CTranslatorExprToDXL::BuildSubplans
 	switch (eopid)
 	{
 		case COperator::EopPhysicalCorrelatedLeftOuterNLJoin:
-			BuildSubplansForCorrelatedLOJ(pexprCorrelatedNLJoin, pdrgdxlcr, pdrgmdid, ppdxlnScalar, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
+			BuildSubplansForCorrelatedLOJ(pexprCorrelatedNLJoin, pdrgdxlcr, ppdxlnScalar, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
 			return;
 
 		case COperator::EopPhysicalCorrelatedInnerNLJoin:
-			BuildScalarSubplans(pdrgpcrInner, pexprInner, pdrgdxlcr, pdrgmdid, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
+			BuildScalarSubplans(pdrgpcrInner, pexprInner, pdrgdxlcr, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
 
 			// now translate the scalar - references to the inner child will be
 			// replaced by the subplan
@@ -2759,14 +2757,14 @@ CTranslatorExprToDXL::BuildSubplans
 
 		case COperator::EopPhysicalCorrelatedInLeftSemiNLJoin:
 		case COperator::EopPhysicalCorrelatedNotInLeftAntiSemiNLJoin:
-			pdxlnSubPlan = PdxlnQuantifiedSubplan(pdrgpcrInner, pexprCorrelatedNLJoin, pdrgdxlcr, pdrgmdid, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
+			pdxlnSubPlan = PdxlnQuantifiedSubplan(pdrgpcrInner, pexprCorrelatedNLJoin, pdrgdxlcr, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
 			pdxlnSubPlan->AddRef();
 			*ppdxlnScalar = pdxlnSubPlan;
 			return;
 
 		case COperator::EopPhysicalCorrelatedLeftSemiNLJoin:
 		case COperator::EopPhysicalCorrelatedLeftAntiSemiNLJoin:
-			pdxlnSubPlan = PdxlnExistentialSubplan(pdrgpcrInner, pexprCorrelatedNLJoin, pdrgdxlcr, pdrgmdid, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
+			pdxlnSubPlan = PdxlnExistentialSubplan(pdrgpcrInner, pexprCorrelatedNLJoin, pdrgdxlcr, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
 			pdxlnSubPlan->AddRef();
 			*ppdxlnScalar = pdxlnSubPlan;
 			return;
@@ -2855,7 +2853,6 @@ CTranslatorExprToDXL::PdxlnQuantifiedSubplan
 	DrgPcr *pdrgpcrInner,
 	CExpression *pexprCorrelatedNLJoin,
 	DrgPdxlcr *pdrgdxlcr,
-	DrgPmdid *pdrgmdid,
 	DrgPds *pdrgpdsBaseTables, 
 	ULONG *pulNonGatherMotions,
 	BOOL *pfDML
@@ -2910,7 +2907,7 @@ CTranslatorExprToDXL::PdxlnQuantifiedSubplan
 	pmdid->AddRef();
 
 	// construct a subplan node, with the inner child under it
-	CDXLNode *pdxlnSubPlan = GPOS_NEW(m_pmp) CDXLNode(m_pmp, GPOS_NEW(m_pmp) CDXLScalarSubPlan(m_pmp, pmdid, pdrgdxlcr, pdrgmdid, edxlsubplantype, pdxlnTestExpr));
+	CDXLNode *pdxlnSubPlan = GPOS_NEW(m_pmp) CDXLNode(m_pmp, GPOS_NEW(m_pmp) CDXLScalarSubPlan(m_pmp, pmdid, pdrgdxlcr, edxlsubplantype, pdxlnTestExpr));
 	pdxlnSubPlan->AddChild(pdxlnInner);
 
 	// add to hashmap
@@ -3070,7 +3067,6 @@ CTranslatorExprToDXL::PdxlnExistentialSubplan
 	DrgPcr *pdrgpcrInner,
 	CExpression *pexprCorrelatedNLJoin,
 	DrgPdxlcr *pdrgdxlcr,
-	DrgPmdid *pdrgmdid,
 	DrgPds *pdrgpdsBaseTables, 
 	ULONG *pulNonGatherMotions,
 	BOOL *pfDML
@@ -3115,7 +3111,7 @@ CTranslatorExprToDXL::PdxlnExistentialSubplan
 
 	// construct a subplan node, with the inner child under it
 	CDXLNode *pdxlnSubPlan =
-		GPOS_NEW(m_pmp) CDXLNode(m_pmp, GPOS_NEW(m_pmp) CDXLScalarSubPlan(m_pmp, pmdid, pdrgdxlcr, pdrgmdid, edxlsubplantype, NULL /*pdxlnTestExpr*/));
+		GPOS_NEW(m_pmp) CDXLNode(m_pmp, GPOS_NEW(m_pmp) CDXLScalarSubPlan(m_pmp, pmdid, pdrgdxlcr, edxlsubplantype, NULL /*pdxlnTestExpr*/));
 	pdxlnSubPlan->AddChild(pdxlnInner);
 
 	// add to hashmap
@@ -3143,7 +3139,6 @@ CTranslatorExprToDXL::BuildScalarSubplans
 	DrgPcr *pdrgpcrInner,
 	CExpression *pexprInner,
 	DrgPdxlcr *pdrgdxlcr,
-	DrgPmdid *pdrgmdid,
 	DrgPds *pdrgpdsBaseTables, 
 	ULONG *pulNonGatherMotions,
 	BOOL *pfDML
@@ -3172,10 +3167,9 @@ CTranslatorExprToDXL::BuildScalarSubplans
 		{
 			// if there is more than one subplan, we need to add-ref passed arrays
 			pdrgdxlcr->AddRef();
-			pdrgmdid->AddRef();
 		}
 		const CColRef *pcrInner = (*pdrgpcrInner)[ul];
-		BuildDxlnSubPlan(pdxlnInner, pcrInner, pdrgdxlcr, pdrgmdid);
+		BuildDxlnSubPlan(pdxlnInner, pcrInner, pdrgdxlcr);
 	}
 
 	pdrgpdxlnInner->Release();
@@ -3235,7 +3229,6 @@ CTranslatorExprToDXL::PdxlnCorrelatedNLJoin
 
 	// outer references in the inner child
 	DrgPdxlcr *pdrgdxlcr = GPOS_NEW(m_pmp) DrgPdxlcr(m_pmp);
-	DrgPmdid *pdrgmdid = GPOS_NEW(m_pmp) DrgPmdid(m_pmp);
 
 	CColRefSet *pcrsOuter = PcrsOuterRefsForCorrelatedNLJoin(pexpr);
 	CColRefSetIter crsi(*pcrsOuter);
@@ -3243,11 +3236,10 @@ CTranslatorExprToDXL::PdxlnCorrelatedNLJoin
 	{
 		CColRef *pcr = crsi.Pcr();
 		CMDName *pmdname = GPOS_NEW(m_pmp) CMDName(m_pmp, pcr->Name().Pstr());
-		CDXLColRef *pdxlcr = GPOS_NEW(m_pmp) CDXLColRef(m_pmp, pmdname, pcr->UlId());
 		IMDId *pmdid = pcr->Pmdtype()->Pmdid();
-		pmdid->AddRef();
+		pmdid->AddRef(); // TODO: probably not needed
+		CDXLColRef *pdxlcr = GPOS_NEW(m_pmp) CDXLColRef(m_pmp, pmdname, pcr->UlId(), pmdid);
 		pdrgdxlcr->Append(pdxlcr);
-		pdrgmdid->Append(pmdid);
 	}
 
 	COperator::EOperatorId eopid = pexpr->Pop()->Eopid();
@@ -3277,11 +3269,11 @@ CTranslatorExprToDXL::PdxlnCorrelatedNLJoin
 
 		// if the filter predicate is a constant TRUE, create a subplan that returns
 		// Boolean from the inner child, and use that as the scalar condition
-		pdxlnCond = PdxlnBooleanScalarWithSubPlan(pdxlnInnerChild, pdrgdxlcr, pdrgmdid);
+		pdxlnCond = PdxlnBooleanScalarWithSubPlan(pdxlnInnerChild, pdrgdxlcr);
 	}
 	else
 	{
-		BuildSubplans(pexpr, pdrgdxlcr, pdrgmdid, &pdxlnCond, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
+		BuildSubplans(pexpr, pdrgdxlcr, &pdxlnCond, pdrgpdsBaseTables, pulNonGatherMotions, pfDML);
 	}
 
 	// extract dxl properties from correlated join
@@ -3332,8 +3324,7 @@ CTranslatorExprToDXL::BuildDxlnSubPlan
 	(
 	CDXLNode *pdxlnRelChild,
 	const CColRef *pcr,
-	DrgPdxlcr *pdrgdxlcr,
-	DrgPmdid *pdrgmdid
+	DrgPdxlcr *pdrgdxlcr
 	)
 {
 	GPOS_ASSERT(NULL != pcr);
@@ -3341,7 +3332,7 @@ CTranslatorExprToDXL::BuildDxlnSubPlan
 	pmdid->AddRef();
 
 	// construct a subplan node, with the inner child under it
-	CDXLNode *pdxlnSubPlan = GPOS_NEW(m_pmp) CDXLNode(m_pmp, GPOS_NEW(m_pmp) CDXLScalarSubPlan(m_pmp, pmdid, pdrgdxlcr, pdrgmdid, EdxlSubPlanTypeScalar, NULL));
+	CDXLNode *pdxlnSubPlan = GPOS_NEW(m_pmp) CDXLNode(m_pmp, GPOS_NEW(m_pmp) CDXLScalarSubPlan(m_pmp, pmdid, pdrgdxlcr, EdxlSubPlanTypeScalar, NULL));
 	pdxlnSubPlan->AddChild(pdxlnRelChild);
 
 	// add to hashmap
@@ -3367,8 +3358,7 @@ CDXLNode *
 CTranslatorExprToDXL::PdxlnBooleanScalarWithSubPlan
 	(
 	CDXLNode *pdxlnRelChild,
-	DrgPdxlcr *pdrgdxlcr,
-	DrgPmdid *pdrgmdid
+	DrgPdxlcr *pdrgdxlcr
 	)
 {
 	// create a new project element (const:true), and replace the first child with it
@@ -3396,7 +3386,7 @@ CTranslatorExprToDXL::PdxlnBooleanScalarWithSubPlan
 
 	// construct a subplan node, with the Result node under it
 	pmdid->AddRef();
-	CDXLNode *pdxlnSubPlan = GPOS_NEW(m_pmp) CDXLNode(m_pmp, GPOS_NEW(m_pmp) CDXLScalarSubPlan(m_pmp, pmdid, pdrgdxlcr, pdrgmdid, EdxlSubPlanTypeScalar, NULL));
+	CDXLNode *pdxlnSubPlan = GPOS_NEW(m_pmp) CDXLNode(m_pmp, GPOS_NEW(m_pmp) CDXLScalarSubPlan(m_pmp, pmdid, pdrgdxlcr, EdxlSubPlanTypeScalar, NULL));
 	pdxlnSubPlan->AddChild(pdxlnResult);
 
 	return pdxlnSubPlan;
