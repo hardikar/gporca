@@ -55,6 +55,9 @@ namespace gpmd
 			
 			// minor version number
 			ULONG m_ulVersionMinor;
+
+			// Type modification
+			INT m_iTypeModification;
 		
 			// buffer for the serialized mdid
 			WCHAR m_wszBuffer[GPDXL_MDID_LENGTH];
@@ -72,6 +75,7 @@ namespace gpmd
 			explicit 
 			CMDIdGPDB(OID oid);
 			CMDIdGPDB(OID oid, ULONG ulVersionMajor, ULONG ulVersionMinor);
+			CMDIdGPDB(OID oid, ULONG ulVersionMajor, ULONG ulVersionMinor, INT iTypeModification);
 			
 			// copy ctor
 			explicit
@@ -105,6 +109,10 @@ namespace gpmd
 			// minor version
 			virtual
 			ULONG UlVersionMinor() const;
+
+			// type modification
+			virtual
+			INT ITypeModification() const;
 
 			// equality check
 			virtual

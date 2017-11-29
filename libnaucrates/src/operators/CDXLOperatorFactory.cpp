@@ -39,7 +39,7 @@ using namespace gpdxl;
 
 XERCES_CPP_NAMESPACE_USE
 
-#define GPDXL_GPDB_MDID_COMPONENTS 3
+#define GPDXL_GPDB_MDID_COMPONENTS 4
 #define GPDXL_DEFAULT_USERID 0
 
 //---------------------------------------------------------------------------
@@ -2690,11 +2690,14 @@ CDXLOperatorFactory::PmdidGPDB
 	XMLCh *xmlszVersionMajor = (*pdrgpxmlsz)[1];
 	ULONG ulVersionMajor = UlValueFromXmlstr(pmm, xmlszVersionMajor, edxltokenAttr, edxltokenElement);
 
-	XMLCh *xmlszVersionMinor = (*pdrgpxmlsz)[2];;
+	XMLCh *xmlszVersionMinor = (*pdrgpxmlsz)[2];
 	ULONG ulVersionMinor = UlValueFromXmlstr(pmm, xmlszVersionMinor, edxltokenAttr, edxltokenElement);
 
+	XMLCh *xmlszTypeModification = (*pdrgpxmlsz)[3];
+	INT iTypeModification = IValueFromXmlstr(pmm, xmlszTypeModification, edxltokenAttr, edxltokenElement);
+
 	// construct metadata id object
-	return GPOS_NEW(pmm->Pmp()) CMDIdGPDB(ulOid, ulVersionMajor, ulVersionMinor);
+	return GPOS_NEW(pmm->Pmp()) CMDIdGPDB(ulOid, ulVersionMajor, ulVersionMinor, iTypeModification);
 }
 
 //---------------------------------------------------------------------------
@@ -2744,7 +2747,7 @@ CDXLOperatorFactory::PmdidColStats
 
 	CMDIdGPDB *pmdidRel = PmdidGPDB(pmm, pdrgpxmlsz, edxltokenAttr, edxltokenElement);
 	
-	XMLCh *xmlszAttno = (*pdrgpxmlsz)[3];
+	XMLCh *xmlszAttno = (*pdrgpxmlsz)[4];
 	ULONG ulAttno = UlValueFromXmlstr(pmm, xmlszAttno, edxltokenAttr, edxltokenElement);
 
 	// construct metadata id object

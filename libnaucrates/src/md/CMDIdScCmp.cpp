@@ -73,14 +73,16 @@ CMDIdScCmp::Serialize()
 	// serialize mdid as SystemType.mdidLeft;mdidRight;CmpType
 	m_str.AppendFormat
 			(
-			GPOS_WSZ_LIT("%d.%d.%d.%d;%d.%d.%d;%d"), 
+			GPOS_WSZ_LIT("%d.%d.%d.%d.%d;%d.%d.%d.%d;%d"),
 			Emdidt(), 
 			m_pmdidLeft->OidObjectId(),
 			m_pmdidLeft->UlVersionMajor(),
 			m_pmdidLeft->UlVersionMinor(),
+			m_pmdidLeft->ITypeModification(),
 			m_pmdidRight->OidObjectId(),
 			m_pmdidRight->UlVersionMajor(),
 			m_pmdidRight->UlVersionMinor(),
+			m_pmdidRight->ITypeModification(),
 			m_ecmpt
 			);
 }

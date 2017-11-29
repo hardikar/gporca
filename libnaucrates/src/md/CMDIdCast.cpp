@@ -66,17 +66,19 @@ CMDIdCast::~CMDIdCast()
 void
 CMDIdCast::Serialize()
 {
-	// serialize mdid as SystemType.mdidSrc.mdidDest
+	// serialize mdid as SystemType.mdidSrc;mdidDest
 	m_str.AppendFormat
 			(
-			GPOS_WSZ_LIT("%d.%d.%d.%d;%d.%d.%d"), 
+			GPOS_WSZ_LIT("%d.%d.%d.%d.%d;%d.%d.%d.%d"),
 			Emdidt(), 
 			m_pmdidSrc->OidObjectId(),
 			m_pmdidSrc->UlVersionMajor(),
 			m_pmdidSrc->UlVersionMinor(),
+			m_pmdidSrc->ITypeModification(),
 			m_pmdidDest->OidObjectId(),
 			m_pmdidDest->UlVersionMajor(),
-			m_pmdidDest->UlVersionMinor()			
+			m_pmdidDest->UlVersionMinor(),
+			m_pmdidDest->ITypeModification()
 			);
 }
 

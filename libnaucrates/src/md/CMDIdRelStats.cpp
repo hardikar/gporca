@@ -63,11 +63,12 @@ CMDIdRelStats::Serialize()
 	// serialize mdid as SystemType.Oid.Major.Minor
 	m_str.AppendFormat
 			(
-			GPOS_WSZ_LIT("%d.%d.%d.%d"), 
+			GPOS_WSZ_LIT("%d.%d.%d.%d.%d"),
 			Emdidt(), 
 			m_pmdidRel->OidObjectId(),
 			m_pmdidRel->UlVersionMajor(),
-			m_pmdidRel->UlVersionMinor()
+			m_pmdidRel->UlVersionMinor(),
+			m_pmdidRel->ITypeModification()
 			);
 }
 

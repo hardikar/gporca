@@ -120,6 +120,7 @@ CMDIdGPDB::CMDIdGPDB
 	m_oid(oid),
 	m_ulVersionMajor(1),
 	m_ulVersionMinor(0),
+	m_iTypeModification(-1),
 	m_str(m_wszBuffer, GPOS_ARRAY_SIZE(m_wszBuffer))
 {
 	if (CMDIdGPDB::m_mdidInvalidKey.OidObjectId() == oid)
@@ -150,6 +151,7 @@ CMDIdGPDB::CMDIdGPDB
 	m_oid(oid),
 	m_ulVersionMajor(1),
 	m_ulVersionMinor(0),
+	m_iTypeModification(-1),
 	m_str(m_wszBuffer, GPOS_ARRAY_SIZE(m_wszBuffer))
 {
 	if (CMDIdGPDB::m_mdidInvalidKey.OidObjectId() == oid)
@@ -183,6 +185,35 @@ CMDIdGPDB::CMDIdGPDB
 	m_oid(oid),
 	m_ulVersionMajor(ulVersionMajor),
 	m_ulVersionMinor(ulVersionMinor),
+	m_iTypeModification(-1),
+	m_str(m_wszBuffer, GPOS_ARRAY_SIZE(m_wszBuffer))
+{
+	// TODO:  - Jan 31, 2012; supply system id in constructor
+	// serialize mdid into static string
+	Serialize();
+}
+
+//---------------------------------------------------------------------------
+//	@function:
+//		CMDIdGPDB::CMDIdGPDB
+//
+//	@doc:
+//		Constructs a metadata identifier
+//
+//---------------------------------------------------------------------------
+CMDIdGPDB::CMDIdGPDB
+(
+	OID oid,
+	ULONG ulVersionMajor,
+	ULONG ulVersionMinor,
+	INT iTypeModification
+	)
+	:
+	m_sysid(IMDId::EmdidGPDB, GPMD_GPDB_SYSID),
+	m_oid(oid),
+	m_ulVersionMajor(ulVersionMajor),
+	m_ulVersionMinor(ulVersionMinor),
+	m_iTypeModification(iTypeModification),
 	m_str(m_wszBuffer, GPOS_ARRAY_SIZE(m_wszBuffer))
 {
 	// TODO:  - Jan 31, 2012; supply system id in constructor
@@ -208,6 +239,7 @@ CMDIdGPDB::CMDIdGPDB
 	m_oid(mdidSource.OidObjectId()),
 	m_ulVersionMajor(mdidSource.UlVersionMajor()),
 	m_ulVersionMinor(mdidSource.UlVersionMinor()),
+	m_iTypeModification(-1),
 	m_str(m_wszBuffer, GPOS_ARRAY_SIZE(m_wszBuffer))
 {
 	GPOS_ASSERT(mdidSource.FValid());
@@ -230,7 +262,7 @@ CMDIdGPDB::Serialize()
 {
 	m_str.Reset();
 	// serialize mdid as SystemType.Oid.Major.Minor
-	m_str.AppendFormat(GPOS_WSZ_LIT("%d.%d.%d.%d"), Emdidt(), m_oid, m_ulVersionMajor, m_ulVersionMinor);
+	m_str.AppendFormat(GPOS_WSZ_LIT("%d.%d.%d.%d.%d"), Emdidt(), m_oid, m_ulVersionMajor, m_ulVersionMinor, m_iTypeModification);
 }
 
 //---------------------------------------------------------------------------
@@ -290,6 +322,19 @@ CMDIdGPDB::UlVersionMinor() const
 	return m_ulVersionMinor;
 }
 
+//---------------------------------------------------------------------------
+//	@function:
+//		CMDIdGPDB::ITypeModification
+//
+//	@doc:
+//		Returns the object's type modification
+//
+//---------------------------------------------------------------------------
+INT
+CMDIdGPDB::ITypeModification() const
+{
+	return m_iTypeModification;
+}
 
 //---------------------------------------------------------------------------
 //	@function:
@@ -313,7 +358,8 @@ CMDIdGPDB::FEquals
 	}
 	
 	const CMDIdGPDB *pmdidGPDB = CMDIdGPDB::PmdidConvert(const_cast<IMDId *>(pmdid));
-	
+
+	// TODO does typemod matter?
 	return (m_oid == pmdidGPDB->OidObjectId() && m_ulVersionMajor == pmdidGPDB->UlVersionMajor() &&
 			m_ulVersionMinor == pmdidGPDB->UlVersionMinor()); 
 }
@@ -366,8 +412,12 @@ CMDIdGPDB::OsPrint
 	) 
 	const
 {
-	os << "(" << OidObjectId() << "," << 
-				UlVersionMajor() << "." << UlVersionMinor() << ")";
+	os << "("
+		<< OidObjectId() << "."
+		<< UlVersionMajor() << "."
+		<< UlVersionMinor() << "."
+		<< ITypeModification()
+		<< ")";
 	return os;
 }
 
