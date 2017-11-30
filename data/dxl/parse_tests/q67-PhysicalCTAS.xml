@@ -6,7 +6,7 @@
         <dxl:Cost StartupCost="1.005" TotalCost="5.8" Rows="10" Width="8"/>
       </dxl:Properties>
       <dxl:Columns>
-        <dxl:Column ColId="1" Attno="1" ColName="a" TypeMdid="0.23.1.0"/>
+        <dxl:Column ColId="1" Attno="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
       </dxl:Columns>
       <dxl:CTASOptions OnCommitAction="Drop">
         <dxl:CTASOption CtasOptionType="653" Name="compression" Value="zlib" IsNull="false"/>
@@ -14,7 +14,7 @@
       </dxl:CTASOptions>
       <dxl:ProjList>
         <dxl:ProjElem ColId="1" Alias="?column?">
-          <dxl:Ident ColId="1" ColName="?column?" TypeMdid="0.23.1.0"/>
+          <dxl:Ident ColId="1" ColName="?column?" TypeMdid="0.23.1.0.-1"/>
         </dxl:ProjElem>
       </dxl:ProjList>
       <dxl:Result>
@@ -23,7 +23,7 @@
         </dxl:Properties>
         <dxl:ProjList>
           <dxl:ProjElem ColId="1" Alias="?column?">
-            <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+            <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
           </dxl:ProjElem>
         </dxl:ProjList>
         <dxl:Filter/>
@@ -34,7 +34,7 @@
           </dxl:Properties>
           <dxl:ProjList>
             <dxl:ProjElem ColId="0" Alias="">
-              <dxl:ConstValue TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+              <dxl:ConstValue TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
             </dxl:ProjElem>
           </dxl:ProjList>
           <dxl:Filter/>

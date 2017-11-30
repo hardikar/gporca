@@ -7,16 +7,16 @@
       </dxl:Properties>
       <dxl:ProjList>
         <dxl:ProjElem ColId="0" Alias="r.a">
-          <dxl:Ident ColId="0" ColName="r.a" TypeMdid="0.23.1.0"/>
+          <dxl:Ident ColId="0" ColName="r.a" TypeMdid="0.23.1.0.-1"/>
         </dxl:ProjElem>
         <dxl:ProjElem ColId="1" Alias="r.b">
-          <dxl:Ident ColId="1" ColName="r.b" TypeMdid="0.23.1.0"/>
+          <dxl:Ident ColId="1" ColName="r.b" TypeMdid="0.23.1.0.-1"/>
         </dxl:ProjElem>
       </dxl:ProjList>
       <dxl:Filter>
-        <dxl:IsDistinctFrom OperatorMdid="0.96.1.0">
-          <dxl:Ident ColId="0" ColName="r.a" TypeMdid="0.23.1.0"/>
-          <dxl:Ident ColId="1" ColName="r.b" TypeMdid="0.23.1.0"/>
+        <dxl:IsDistinctFrom OperatorMdid="0.96.1.0.-1">
+          <dxl:Ident ColId="0" ColName="r.a" TypeMdid="0.23.1.0.-1"/>
+          <dxl:Ident ColId="1" ColName="r.b" TypeMdid="0.23.1.0.-1"/>
         </dxl:IsDistinctFrom>
       </dxl:Filter>
       <dxl:OneTimeFilter/>
@@ -26,17 +26,17 @@
         </dxl:Properties>
         <dxl:ProjList>
           <dxl:ProjElem ColId="0" Alias="r.a">
-            <dxl:Ident ColId="0" ColName="r.a" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="0" ColName="r.a" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="1" Alias="r.b">
-            <dxl:Ident ColId="1" ColName="r.b" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="1" ColName="r.b" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
         </dxl:ProjList>
         <dxl:Filter/>
-        <dxl:TableDescriptor Mdid="0.18452.1.1" TableName="r">
+        <dxl:TableDescriptor Mdid="0.18452.1.1.-1" TableName="r">
           <dxl:Columns>
-            <dxl:Column ColId="0" Attno="1" ColName="a" TypeMdid="0.23.1.0"/>
-            <dxl:Column ColId="1" Attno="2" ColName="b" TypeMdid="0.23.1.0"/>
+            <dxl:Column ColId="0" Attno="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
+            <dxl:Column ColId="1" Attno="2" ColName="b" TypeMdid="0.23.1.0.-1"/>
           </dxl:Columns>
         </dxl:TableDescriptor>
       </dxl:TableScan>

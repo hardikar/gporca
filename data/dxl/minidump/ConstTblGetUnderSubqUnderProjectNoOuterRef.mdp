@@ -13,25 +13,25 @@ EXPLAIN SELECT (VALUES (true));
       <dxl:TraceFlags Value="101000,102120,103001,103003,103014,103015,103022,104004,104005,105000"/>
     </dxl:OptimizerConfig>
     <dxl:Metadata SystemIds="0.GPDB">
-      <dxl:Type Mdid="0.16.1.0" Name="bool" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="1" PassByValue="true">
-        <dxl:EqualityOp Mdid="0.91.1.0"/>
-        <dxl:InequalityOp Mdid="0.85.1.0"/>
-        <dxl:LessThanOp Mdid="0.58.1.0"/>
-        <dxl:LessThanEqualsOp Mdid="0.1694.1.0"/>
-        <dxl:GreaterThanOp Mdid="0.59.1.0"/>
-        <dxl:GreaterThanEqualsOp Mdid="0.1695.1.0"/>
-        <dxl:ComparisonOp Mdid="0.1693.1.0"/>
-        <dxl:ArrayType Mdid="0.1000.1.0"/>
-        <dxl:MinAgg Mdid="0.0.0.0"/>
-        <dxl:MaxAgg Mdid="0.0.0.0"/>
-        <dxl:AvgAgg Mdid="0.0.0.0"/>
-        <dxl:SumAgg Mdid="0.0.0.0"/>
-        <dxl:CountAgg Mdid="0.2147.1.0"/>
+      <dxl:Type Mdid="0.16.1.0.-1" Name="bool" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="1" PassByValue="true">
+        <dxl:EqualityOp Mdid="0.91.1.0.-1"/>
+        <dxl:InequalityOp Mdid="0.85.1.0.-1"/>
+        <dxl:LessThanOp Mdid="0.58.1.0.-1"/>
+        <dxl:LessThanEqualsOp Mdid="0.1694.1.0.-1"/>
+        <dxl:GreaterThanOp Mdid="0.59.1.0.-1"/>
+        <dxl:GreaterThanEqualsOp Mdid="0.1695.1.0.-1"/>
+        <dxl:ComparisonOp Mdid="0.1693.1.0.-1"/>
+        <dxl:ArrayType Mdid="0.1000.1.0.-1"/>
+        <dxl:MinAgg Mdid="0.0.0.0.-1"/>
+        <dxl:MaxAgg Mdid="0.0.0.0.-1"/>
+        <dxl:AvgAgg Mdid="0.0.0.0.-1"/>
+        <dxl:SumAgg Mdid="0.0.0.0.-1"/>
+        <dxl:CountAgg Mdid="0.2147.1.0.-1"/>
       </dxl:Type>
     </dxl:Metadata>
     <dxl:Query>
       <dxl:OutputColumns>
-        <dxl:Ident ColId="3" ColName="?column?" TypeMdid="0.16.1.0"/>
+        <dxl:Ident ColId="3" ColName="?column?" TypeMdid="0.16.1.0.-1"/>
       </dxl:OutputColumns>
       <dxl:CTEList/>
       <dxl:LogicalProject>
@@ -40,10 +40,10 @@ EXPLAIN SELECT (VALUES (true));
             <dxl:ScalarSubquery ColId="2">
               <dxl:LogicalConstTable>
                 <dxl:Columns>
-                  <dxl:Column ColId="2" Attno="1" ColName="column1" TypeMdid="0.16.1.0"/>
+                  <dxl:Column ColId="2" Attno="1" ColName="column1" TypeMdid="0.16.1.0.-1"/>
                 </dxl:Columns>
                 <dxl:ConstTuple>
-                  <dxl:Datum TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+                  <dxl:Datum TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
                 </dxl:ConstTuple>
               </dxl:LogicalConstTable>
             </dxl:ScalarSubquery>
@@ -51,10 +51,10 @@ EXPLAIN SELECT (VALUES (true));
         </dxl:ProjList>
         <dxl:LogicalConstTable>
           <dxl:Columns>
-            <dxl:Column ColId="1" Attno="1" ColName="" TypeMdid="0.16.1.0"/>
+            <dxl:Column ColId="1" Attno="1" ColName="" TypeMdid="0.16.1.0.-1"/>
           </dxl:Columns>
           <dxl:ConstTuple>
-            <dxl:Datum TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+            <dxl:Datum TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
           </dxl:ConstTuple>
         </dxl:LogicalConstTable>
       </dxl:LogicalProject>
@@ -66,7 +66,7 @@ EXPLAIN SELECT (VALUES (true));
         </dxl:Properties>
         <dxl:ProjList>
           <dxl:ProjElem ColId="2" Alias="?column?">
-            <dxl:Ident ColId="1" ColName="column1" TypeMdid="0.16.1.0"/>
+            <dxl:Ident ColId="1" ColName="column1" TypeMdid="0.16.1.0.-1"/>
           </dxl:ProjElem>
         </dxl:ProjList>
         <dxl:Filter/>
@@ -77,12 +77,12 @@ EXPLAIN SELECT (VALUES (true));
           </dxl:Properties>
           <dxl:ProjList>
             <dxl:ProjElem ColId="1" Alias="column1">
-              <dxl:Ident ColId="1" ColName="column1" TypeMdid="0.16.1.0"/>
+              <dxl:Ident ColId="1" ColName="column1" TypeMdid="0.16.1.0.-1"/>
             </dxl:ProjElem>
           </dxl:ProjList>
           <dxl:Filter/>
           <dxl:JoinFilter>
-            <dxl:ConstValue TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+            <dxl:ConstValue TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
           </dxl:JoinFilter>
           <dxl:Result>
             <dxl:Properties>
@@ -90,7 +90,7 @@ EXPLAIN SELECT (VALUES (true));
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="0" Alias="">
-                <dxl:ConstValue TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+                <dxl:ConstValue TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
               </dxl:ProjElem>
             </dxl:ProjList>
             <dxl:Filter/>
@@ -102,7 +102,7 @@ EXPLAIN SELECT (VALUES (true));
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="1" Alias="column1">
-                <dxl:ConstValue TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+                <dxl:ConstValue TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
               </dxl:ProjElem>
             </dxl:ProjList>
             <dxl:Filter/>

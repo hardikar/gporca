@@ -7,13 +7,13 @@
       </dxl:Properties>
       <dxl:ProjList>
         <dxl:ProjElem ColId="1" Alias="t1">
-          <dxl:Ident ColId="1" ColName="t1" TypeMdid="0.23.1.0"/>
+          <dxl:Ident ColId="1" ColName="t1" TypeMdid="0.23.1.0.-1"/>
         </dxl:ProjElem>
         <dxl:ProjElem ColId="2" Alias="t2">
-          <dxl:Ident ColId="2" ColName="t2" TypeMdid="0.23.1.0"/>
+          <dxl:Ident ColId="2" ColName="t2" TypeMdid="0.23.1.0.-1"/>
         </dxl:ProjElem>
         <dxl:ProjElem ColId="3" Alias="t3">
-          <dxl:Ident ColId="3" ColName="t3" TypeMdid="0.23.1.0"/>
+          <dxl:Ident ColId="3" ColName="t3" TypeMdid="0.23.1.0.-1"/>
         </dxl:ProjElem>
       </dxl:ProjList>
       <dxl:Filter/>
@@ -24,23 +24,23 @@
         </dxl:Properties>
         <dxl:ProjList>
           <dxl:ProjElem ColId="1" Alias="t1">
-            <dxl:Ident ColId="1" ColName="t1" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="1" ColName="t1" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="2" Alias="t2">
-            <dxl:Ident ColId="2" ColName="t2" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="2" ColName="t2" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="3" Alias="t3">
-            <dxl:Ident ColId="3" ColName="t3" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="3" ColName="t3" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
         </dxl:ProjList>
         <dxl:Filter>
-          <dxl:Comparison ComparisonOperator="&gt;" OperatorMdid="0.521.1.0">
-            <dxl:Ident ColId="1" ColName="t1" TypeMdid="0.23.1.0"/>
-            <dxl:SubPlan TypeMdid="0.20.1.0" SubPlanType="ScalarSubPlan">
+          <dxl:Comparison ComparisonOperator="&gt;" OperatorMdid="0.521.1.0.-1">
+            <dxl:Ident ColId="1" ColName="t1" TypeMdid="0.23.1.0.-1"/>
+            <dxl:SubPlan TypeMdid="0.20.1.0.-1" SubPlanType="ScalarSubPlan">
               <dxl:TestExpr/>
               <dxl:ParamList>
-                <dxl:Param ColId="2" ColName="t2" TypeMdid="0.23.1.0"/>
-                <dxl:Param ColId="3" ColName="t3" TypeMdid="0.23.1.0"/>
+                <dxl:Param ColId="2" ColName="t2" TypeMdid="0.23.1.0.-1"/>
+                <dxl:Param ColId="3" ColName="t3" TypeMdid="0.23.1.0.-1"/>
               </dxl:ParamList>
               <dxl:Aggregate AggregationStrategy="Plain" StreamSafe="false">
                 <dxl:Properties>
@@ -49,8 +49,8 @@
                 <dxl:GroupingColumns/>
                 <dxl:ProjList>
                   <dxl:ProjElem ColId="7" Alias="min">
-                    <dxl:AggFunc AggMdid="0.2132.1.0" AggDistinct="false" AggStage="Normal">
-                      <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0"/>
+                    <dxl:AggFunc AggMdid="0.2132.1.0.-1" AggDistinct="false" AggStage="Normal">
+                      <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0.-1"/>
                     </dxl:AggFunc>
                   </dxl:ProjElem>
                 </dxl:ProjList>
@@ -61,18 +61,18 @@
                   </dxl:Properties>
                   <dxl:ProjList>
                     <dxl:ProjElem ColId="4" Alias="r1">
-                      <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0"/>
+                      <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0.-1"/>
                     </dxl:ProjElem>
                   </dxl:ProjList>
                   <dxl:Filter>
                     <dxl:And>
-                      <dxl:Comparison ComparisonOperator="&lt;" OperatorMdid="0.97.1.0">
-                        <dxl:Ident ColId="5" ColName="r2" TypeMdid="0.23.1.0"/>
-                        <dxl:Ident ColId="2" ColName="t2" TypeMdid="0.23.1.0"/>
+                      <dxl:Comparison ComparisonOperator="&lt;" OperatorMdid="0.97.1.0.-1">
+                        <dxl:Ident ColId="5" ColName="r2" TypeMdid="0.23.1.0.-1"/>
+                        <dxl:Ident ColId="2" ColName="t2" TypeMdid="0.23.1.0.-1"/>
                       </dxl:Comparison>
-                      <dxl:Comparison ComparisonOperator="&lt;" OperatorMdid="0.97.1.0">
-                        <dxl:Ident ColId="6" ColName="r3" TypeMdid="0.23.1.0"/>
-                        <dxl:Ident ColId="3" ColName="t3" TypeMdid="0.23.1.0"/>
+                      <dxl:Comparison ComparisonOperator="&lt;" OperatorMdid="0.97.1.0.-1">
+                        <dxl:Ident ColId="6" ColName="r3" TypeMdid="0.23.1.0.-1"/>
+                        <dxl:Ident ColId="3" ColName="t3" TypeMdid="0.23.1.0.-1"/>
                       </dxl:Comparison>
                     </dxl:And>
                   </dxl:Filter>
@@ -83,13 +83,13 @@
                     </dxl:Properties>
                     <dxl:ProjList>
                       <dxl:ProjElem ColId="4" Alias="r1">
-                        <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0"/>
+                        <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="5" Alias="r2">
-                        <dxl:Ident ColId="5" ColName="r2" TypeMdid="0.23.1.0"/>
+                        <dxl:Ident ColId="5" ColName="r2" TypeMdid="0.23.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="6" Alias="r3">
-                        <dxl:Ident ColId="6" ColName="r3" TypeMdid="0.23.1.0"/>
+                        <dxl:Ident ColId="6" ColName="r3" TypeMdid="0.23.1.0.-1"/>
                       </dxl:ProjElem>
                     </dxl:ProjList>
                     <dxl:Filter/>
@@ -99,13 +99,13 @@
                       </dxl:Properties>
                       <dxl:ProjList>
                         <dxl:ProjElem ColId="4" Alias="r1">
-                          <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0"/>
+                          <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="5" Alias="r2">
-                          <dxl:Ident ColId="5" ColName="r2" TypeMdid="0.23.1.0"/>
+                          <dxl:Ident ColId="5" ColName="r2" TypeMdid="0.23.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="6" Alias="r3">
-                          <dxl:Ident ColId="6" ColName="r3" TypeMdid="0.23.1.0"/>
+                          <dxl:Ident ColId="6" ColName="r3" TypeMdid="0.23.1.0.-1"/>
                         </dxl:ProjElem>
                       </dxl:ProjList>
                       <dxl:Filter/>
@@ -116,21 +116,21 @@
                         </dxl:Properties>
                         <dxl:ProjList>
                           <dxl:ProjElem ColId="4" Alias="r1">
-                            <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="4" ColName="r1" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="5" Alias="r2">
-                            <dxl:Ident ColId="5" ColName="r2" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="5" ColName="r2" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="6" Alias="r3">
-                            <dxl:Ident ColId="6" ColName="r3" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="6" ColName="r3" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                         </dxl:ProjList>
                         <dxl:Filter/>
-                        <dxl:TableDescriptor Mdid="0.899640.1.1" TableName="r">
+                        <dxl:TableDescriptor Mdid="0.899640.1.1.-1" TableName="r">
                           <dxl:Columns>
-                            <dxl:Column ColId="4" Attno="1" ColName="r1" TypeMdid="0.23.1.0"/>
-                            <dxl:Column ColId="5" Attno="2" ColName="r2" TypeMdid="0.23.1.0"/>
-                            <dxl:Column ColId="6" Attno="3" ColName="r3" TypeMdid="0.23.1.0"/>
+                            <dxl:Column ColId="4" Attno="1" ColName="r1" TypeMdid="0.23.1.0.-1"/>
+                            <dxl:Column ColId="5" Attno="2" ColName="r2" TypeMdid="0.23.1.0.-1"/>
+                            <dxl:Column ColId="6" Attno="3" ColName="r3" TypeMdid="0.23.1.0.-1"/>
                           </dxl:Columns>
                         </dxl:TableDescriptor>
                       </dxl:TableScan>
@@ -141,11 +141,11 @@
             </dxl:SubPlan>
           </dxl:Comparison>
         </dxl:Filter>
-        <dxl:TableDescriptor Mdid="0.899686.1.1" TableName="t">
+        <dxl:TableDescriptor Mdid="0.899686.1.1.-1" TableName="t">
           <dxl:Columns>
-            <dxl:Column ColId="1" Attno="1" ColName="t1" TypeMdid="0.23.1.0"/>
-            <dxl:Column ColId="2" Attno="2" ColName="t2" TypeMdid="0.23.1.0"/>
-            <dxl:Column ColId="3" Attno="3" ColName="t3" TypeMdid="0.23.1.0"/>
+            <dxl:Column ColId="1" Attno="1" ColName="t1" TypeMdid="0.23.1.0.-1"/>
+            <dxl:Column ColId="2" Attno="2" ColName="t2" TypeMdid="0.23.1.0.-1"/>
+            <dxl:Column ColId="3" Attno="3" ColName="t3" TypeMdid="0.23.1.0.-1"/>
           </dxl:Columns>
         </dxl:TableDescriptor>
       </dxl:TableScan>

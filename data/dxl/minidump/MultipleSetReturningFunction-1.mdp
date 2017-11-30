@@ -13,109 +13,109 @@ select generate_series(0,2) rn, unnest(arr) cnt_div from (select ARRAY['0','1','
       <dxl:TraceFlags Value="102120,103001,103003,103014,103015,103022,104004,104005,105000"/>
     </dxl:OptimizerConfig>
     <dxl:Metadata SystemIds="0.GPDB">
-      <dxl:Type Mdid="0.16.1.0" Name="bool" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="1" PassByValue="true">
-        <dxl:EqualityOp Mdid="0.91.1.0"/>
-        <dxl:InequalityOp Mdid="0.85.1.0"/>
-        <dxl:LessThanOp Mdid="0.58.1.0"/>
-        <dxl:LessThanEqualsOp Mdid="0.1694.1.0"/>
-        <dxl:GreaterThanOp Mdid="0.59.1.0"/>
-        <dxl:GreaterThanEqualsOp Mdid="0.1695.1.0"/>
-        <dxl:ComparisonOp Mdid="0.1693.1.0"/>
-        <dxl:ArrayType Mdid="0.1000.1.0"/>
-        <dxl:MinAgg Mdid="0.0.0.0"/>
-        <dxl:MaxAgg Mdid="0.0.0.0"/>
-        <dxl:AvgAgg Mdid="0.0.0.0"/>
-        <dxl:SumAgg Mdid="0.0.0.0"/>
-        <dxl:CountAgg Mdid="0.2147.1.0"/>
+      <dxl:Type Mdid="0.16.1.0.-1" Name="bool" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="1" PassByValue="true">
+        <dxl:EqualityOp Mdid="0.91.1.0.-1"/>
+        <dxl:InequalityOp Mdid="0.85.1.0.-1"/>
+        <dxl:LessThanOp Mdid="0.58.1.0.-1"/>
+        <dxl:LessThanEqualsOp Mdid="0.1694.1.0.-1"/>
+        <dxl:GreaterThanOp Mdid="0.59.1.0.-1"/>
+        <dxl:GreaterThanEqualsOp Mdid="0.1695.1.0.-1"/>
+        <dxl:ComparisonOp Mdid="0.1693.1.0.-1"/>
+        <dxl:ArrayType Mdid="0.1000.1.0.-1"/>
+        <dxl:MinAgg Mdid="0.0.0.0.-1"/>
+        <dxl:MaxAgg Mdid="0.0.0.0.-1"/>
+        <dxl:AvgAgg Mdid="0.0.0.0.-1"/>
+        <dxl:SumAgg Mdid="0.0.0.0.-1"/>
+        <dxl:CountAgg Mdid="0.2147.1.0.-1"/>
       </dxl:Type>
-      <dxl:Type Mdid="0.23.1.0" Name="int4" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="4" PassByValue="true">
-        <dxl:EqualityOp Mdid="0.96.1.0"/>
-        <dxl:InequalityOp Mdid="0.518.1.0"/>
-        <dxl:LessThanOp Mdid="0.97.1.0"/>
-        <dxl:LessThanEqualsOp Mdid="0.523.1.0"/>
-        <dxl:GreaterThanOp Mdid="0.521.1.0"/>
-        <dxl:GreaterThanEqualsOp Mdid="0.525.1.0"/>
-        <dxl:ComparisonOp Mdid="0.351.1.0"/>
-        <dxl:ArrayType Mdid="0.1007.1.0"/>
-        <dxl:MinAgg Mdid="0.2132.1.0"/>
-        <dxl:MaxAgg Mdid="0.2116.1.0"/>
-        <dxl:AvgAgg Mdid="0.2101.1.0"/>
-        <dxl:SumAgg Mdid="0.2108.1.0"/>
-        <dxl:CountAgg Mdid="0.2147.1.0"/>
+      <dxl:Type Mdid="0.23.1.0.-1" Name="int4" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="4" PassByValue="true">
+        <dxl:EqualityOp Mdid="0.96.1.0.-1"/>
+        <dxl:InequalityOp Mdid="0.518.1.0.-1"/>
+        <dxl:LessThanOp Mdid="0.97.1.0.-1"/>
+        <dxl:LessThanEqualsOp Mdid="0.523.1.0.-1"/>
+        <dxl:GreaterThanOp Mdid="0.521.1.0.-1"/>
+        <dxl:GreaterThanEqualsOp Mdid="0.525.1.0.-1"/>
+        <dxl:ComparisonOp Mdid="0.351.1.0.-1"/>
+        <dxl:ArrayType Mdid="0.1007.1.0.-1"/>
+        <dxl:MinAgg Mdid="0.2132.1.0.-1"/>
+        <dxl:MaxAgg Mdid="0.2116.1.0.-1"/>
+        <dxl:AvgAgg Mdid="0.2101.1.0.-1"/>
+        <dxl:SumAgg Mdid="0.2108.1.0.-1"/>
+        <dxl:CountAgg Mdid="0.2147.1.0.-1"/>
       </dxl:Type>
-      <dxl:Type Mdid="0.25.1.0" Name="text" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="false" PassByValue="false">
-        <dxl:EqualityOp Mdid="0.98.1.0"/>
-        <dxl:InequalityOp Mdid="0.531.1.0"/>
-        <dxl:LessThanOp Mdid="0.664.1.0"/>
-        <dxl:LessThanEqualsOp Mdid="0.665.1.0"/>
-        <dxl:GreaterThanOp Mdid="0.666.1.0"/>
-        <dxl:GreaterThanEqualsOp Mdid="0.667.1.0"/>
-        <dxl:ComparisonOp Mdid="0.360.1.0"/>
-        <dxl:ArrayType Mdid="0.1009.1.0"/>
-        <dxl:MinAgg Mdid="0.2145.1.0"/>
-        <dxl:MaxAgg Mdid="0.2129.1.0"/>
-        <dxl:AvgAgg Mdid="0.0.0.0"/>
-        <dxl:SumAgg Mdid="0.0.0.0"/>
-        <dxl:CountAgg Mdid="0.2147.1.0"/>
+      <dxl:Type Mdid="0.25.1.0.-1" Name="text" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="false" PassByValue="false">
+        <dxl:EqualityOp Mdid="0.98.1.0.-1"/>
+        <dxl:InequalityOp Mdid="0.531.1.0.-1"/>
+        <dxl:LessThanOp Mdid="0.664.1.0.-1"/>
+        <dxl:LessThanEqualsOp Mdid="0.665.1.0.-1"/>
+        <dxl:GreaterThanOp Mdid="0.666.1.0.-1"/>
+        <dxl:GreaterThanEqualsOp Mdid="0.667.1.0.-1"/>
+        <dxl:ComparisonOp Mdid="0.360.1.0.-1"/>
+        <dxl:ArrayType Mdid="0.1009.1.0.-1"/>
+        <dxl:MinAgg Mdid="0.2145.1.0.-1"/>
+        <dxl:MaxAgg Mdid="0.2129.1.0.-1"/>
+        <dxl:AvgAgg Mdid="0.0.0.0.-1"/>
+        <dxl:SumAgg Mdid="0.0.0.0.-1"/>
+        <dxl:CountAgg Mdid="0.2147.1.0.-1"/>
       </dxl:Type>
-      <dxl:GPDBFunc Mdid="0.3240.1.0" Name="unnest" ReturnsSet="true" Stability="Immutable" DataAccess="NoSQL" IsStrict="true">
-        <dxl:ResultType Mdid="0.2283.1.0"/>
+      <dxl:GPDBFunc Mdid="0.3240.1.0.-1" Name="unnest" ReturnsSet="true" Stability="Immutable" DataAccess="NoSQL" IsStrict="true">
+        <dxl:ResultType Mdid="0.2283.1.0.-1"/>
       </dxl:GPDBFunc>
-      <dxl:GPDBFunc Mdid="0.1067.1.0" Name="generate_series" ReturnsSet="true" Stability="Volatile" DataAccess="NoSQL" IsStrict="true">
-        <dxl:ResultType Mdid="0.23.1.0"/>
+      <dxl:GPDBFunc Mdid="0.1067.1.0.-1" Name="generate_series" ReturnsSet="true" Stability="Volatile" DataAccess="NoSQL" IsStrict="true">
+        <dxl:ResultType Mdid="0.23.1.0.-1"/>
       </dxl:GPDBFunc>
-      <dxl:Type Mdid="0.1009.1.0" Name="_text" IsRedistributable="true" IsHashable="false" IsComposite="false" IsFixedLength="false" PassByValue="false">
-        <dxl:EqualityOp Mdid="0.1070.1.0"/>
-        <dxl:InequalityOp Mdid="0.1071.1.0"/>
-        <dxl:LessThanOp Mdid="0.1072.1.0"/>
-        <dxl:LessThanEqualsOp Mdid="0.1074.1.0"/>
-        <dxl:GreaterThanOp Mdid="0.1073.1.0"/>
-        <dxl:GreaterThanEqualsOp Mdid="0.1075.1.0"/>
-        <dxl:ComparisonOp Mdid="0.382.1.0"/>
-        <dxl:ArrayType Mdid="0.0.0.0"/>
-        <dxl:MinAgg Mdid="0.0.0.0"/>
-        <dxl:MaxAgg Mdid="0.0.0.0"/>
-        <dxl:AvgAgg Mdid="0.0.0.0"/>
-        <dxl:SumAgg Mdid="0.0.0.0"/>
-        <dxl:CountAgg Mdid="0.2147.1.0"/>
+      <dxl:Type Mdid="0.1009.1.0.-1" Name="_text" IsRedistributable="true" IsHashable="false" IsComposite="false" IsFixedLength="false" PassByValue="false">
+        <dxl:EqualityOp Mdid="0.1070.1.0.-1"/>
+        <dxl:InequalityOp Mdid="0.1071.1.0.-1"/>
+        <dxl:LessThanOp Mdid="0.1072.1.0.-1"/>
+        <dxl:LessThanEqualsOp Mdid="0.1074.1.0.-1"/>
+        <dxl:GreaterThanOp Mdid="0.1073.1.0.-1"/>
+        <dxl:GreaterThanEqualsOp Mdid="0.1075.1.0.-1"/>
+        <dxl:ComparisonOp Mdid="0.382.1.0.-1"/>
+        <dxl:ArrayType Mdid="0.0.0.0.-1"/>
+        <dxl:MinAgg Mdid="0.0.0.0.-1"/>
+        <dxl:MaxAgg Mdid="0.0.0.0.-1"/>
+        <dxl:AvgAgg Mdid="0.0.0.0.-1"/>
+        <dxl:SumAgg Mdid="0.0.0.0.-1"/>
+        <dxl:CountAgg Mdid="0.2147.1.0.-1"/>
       </dxl:Type>
     </dxl:Metadata>
     <dxl:Query>
       <dxl:OutputColumns>
-        <dxl:Ident ColId="3" ColName="rn" TypeMdid="0.23.1.0"/>
-        <dxl:Ident ColId="4" ColName="cnt_div" TypeMdid="0.25.1.0"/>
+        <dxl:Ident ColId="3" ColName="rn" TypeMdid="0.23.1.0.-1"/>
+        <dxl:Ident ColId="4" ColName="cnt_div" TypeMdid="0.25.1.0.-1"/>
       </dxl:OutputColumns>
       <dxl:CTEList/>
       <dxl:LogicalProject>
         <dxl:ProjList>
           <dxl:ProjElem ColId="3" Alias="rn">
-            <dxl:FuncExpr FuncId="0.1067.1.0" FuncRetSet="true" TypeMdid="0.23.1.0">
-              <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
-              <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="2"/>
+            <dxl:FuncExpr FuncId="0.1067.1.0.-1" FuncRetSet="true" TypeMdid="0.23.1.0.-1">
+              <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
+              <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="2"/>
             </dxl:FuncExpr>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="4" Alias="cnt_div">
-            <dxl:FuncExpr FuncId="0.3240.1.0" FuncRetSet="true" TypeMdid="0.25.1.0">
-              <dxl:Ident ColId="2" ColName="arr" TypeMdid="0.1009.1.0"/>
+            <dxl:FuncExpr FuncId="0.3240.1.0.-1" FuncRetSet="true" TypeMdid="0.25.1.0.-1">
+              <dxl:Ident ColId="2" ColName="arr" TypeMdid="0.1009.1.0.-1"/>
             </dxl:FuncExpr>
           </dxl:ProjElem>
         </dxl:ProjList>
         <dxl:LogicalProject>
           <dxl:ProjList>
             <dxl:ProjElem ColId="2" Alias="arr">
-              <dxl:Array ArrayType="0.1009.1.0" ElementType="0.25.1.0" MultiDimensional="false">
-                <dxl:ConstValue TypeMdid="0.25.1.0" IsNull="false" IsByValue="false" Value="AAAABTA=" LintValue="161088044"/>
-                <dxl:ConstValue TypeMdid="0.25.1.0" IsNull="false" IsByValue="false" Value="AAAABTE=" LintValue="161096236"/>
-                <dxl:ConstValue TypeMdid="0.25.1.0" IsNull="false" IsByValue="false" Value="AAAABTI=" LintValue="161104428"/>
+              <dxl:Array ArrayType="0.1009.1.0.-1" ElementType="0.25.1.0.-1" MultiDimensional="false">
+                <dxl:ConstValue TypeMdid="0.25.1.0.-1" IsNull="false" IsByValue="false" Value="AAAABTA=" LintValue="161088044"/>
+                <dxl:ConstValue TypeMdid="0.25.1.0.-1" IsNull="false" IsByValue="false" Value="AAAABTE=" LintValue="161096236"/>
+                <dxl:ConstValue TypeMdid="0.25.1.0.-1" IsNull="false" IsByValue="false" Value="AAAABTI=" LintValue="161104428"/>
               </dxl:Array>
             </dxl:ProjElem>
           </dxl:ProjList>
           <dxl:LogicalConstTable>
             <dxl:Columns>
-              <dxl:Column ColId="1" Attno="1" ColName="" TypeMdid="0.16.1.0"/>
+              <dxl:Column ColId="1" Attno="1" ColName="" TypeMdid="0.16.1.0.-1"/>
             </dxl:Columns>
             <dxl:ConstTuple>
-              <dxl:Datum TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+              <dxl:Datum TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
             </dxl:ConstTuple>
           </dxl:LogicalConstTable>
         </dxl:LogicalProject>
@@ -128,14 +128,14 @@ select generate_series(0,2) rn, unnest(arr) cnt_div from (select ARRAY['0','1','
         </dxl:Properties>
         <dxl:ProjList>
           <dxl:ProjElem ColId="2" Alias="rn">
-            <dxl:FuncExpr FuncId="0.1067.1.0" FuncRetSet="true" TypeMdid="0.23.1.0">
-              <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
-              <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="2"/>
+            <dxl:FuncExpr FuncId="0.1067.1.0.-1" FuncRetSet="true" TypeMdid="0.23.1.0.-1">
+              <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
+              <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="2"/>
             </dxl:FuncExpr>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="3" Alias="cnt_div">
-            <dxl:FuncExpr FuncId="0.3240.1.0" FuncRetSet="true" TypeMdid="0.25.1.0">
-              <dxl:Ident ColId="1" ColName="arr" TypeMdid="0.1009.1.0"/>
+            <dxl:FuncExpr FuncId="0.3240.1.0.-1" FuncRetSet="true" TypeMdid="0.25.1.0.-1">
+              <dxl:Ident ColId="1" ColName="arr" TypeMdid="0.1009.1.0.-1"/>
             </dxl:FuncExpr>
           </dxl:ProjElem>
         </dxl:ProjList>
@@ -147,10 +147,10 @@ select generate_series(0,2) rn, unnest(arr) cnt_div from (select ARRAY['0','1','
           </dxl:Properties>
           <dxl:ProjList>
             <dxl:ProjElem ColId="1" Alias="arr">
-              <dxl:Array ArrayType="0.1009.1.0" ElementType="0.25.1.0" MultiDimensional="false">
-                <dxl:ConstValue TypeMdid="0.25.1.0" IsNull="false" IsByValue="false" Value="AAAABTA=" LintValue="161088044"/>
-                <dxl:ConstValue TypeMdid="0.25.1.0" IsNull="false" IsByValue="false" Value="AAAABTE=" LintValue="161096236"/>
-                <dxl:ConstValue TypeMdid="0.25.1.0" IsNull="false" IsByValue="false" Value="AAAABTI=" LintValue="161104428"/>
+              <dxl:Array ArrayType="0.1009.1.0.-1" ElementType="0.25.1.0.-1" MultiDimensional="false">
+                <dxl:ConstValue TypeMdid="0.25.1.0.-1" IsNull="false" IsByValue="false" Value="AAAABTA=" LintValue="161088044"/>
+                <dxl:ConstValue TypeMdid="0.25.1.0.-1" IsNull="false" IsByValue="false" Value="AAAABTE=" LintValue="161096236"/>
+                <dxl:ConstValue TypeMdid="0.25.1.0.-1" IsNull="false" IsByValue="false" Value="AAAABTI=" LintValue="161104428"/>
               </dxl:Array>
             </dxl:ProjElem>
           </dxl:ProjList>
@@ -162,7 +162,7 @@ select generate_series(0,2) rn, unnest(arr) cnt_div from (select ARRAY['0','1','
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="0" Alias="">
-                <dxl:ConstValue TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+                <dxl:ConstValue TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
               </dxl:ProjElem>
             </dxl:ProjList>
             <dxl:Filter/>

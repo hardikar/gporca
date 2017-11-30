@@ -6,10 +6,10 @@
     </Properties>
     <ProjList>
       <ProjElem ColId="1" Alias="A">
-        <Ident ColId="1" ColName="A" TypeMdid="0.23.1.0"/>
+        <Ident ColId="1" ColName="A" TypeMdid="0.23.1.0.-1"/>
       </ProjElem>
       <ProjElem ColId="2" Alias="A">
-        <Ident ColId="2" ColName="B" TypeId="0.23.1.0"/>
+        <Ident ColId="2" ColName="B" TypeId="0.23.1.0.-1"/>
       </ProjElem>
     </ProjList>
     <TableScan>
@@ -18,16 +18,16 @@
       </Properties>
       <ProjList>
         <ProjElem ColId="1" Alias="A">
-          <Ident ColId="1" ColName="A" TypeId="0.23.1.0"/>
+          <Ident ColId="1" ColName="A" TypeId="0.23.1.0.-1"/>
         </ProjElem>
         <ProjElem ColId="2" Alias="A">
-          <Ident ColId="2" ColName="B" TypeId="0.23.1.0"/>
+          <Ident ColId="2" ColName="B" TypeId="0.23.1.0.-1"/>
         </ProjElem>
       </ProjList>
       <Filter>
-        <Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-          <Ident ColId="1" ColName="A" TypeId="0.23.1.0"/>
-          <Ident ColId="2" ColName="B" TypeId="0.23.1.0"/>
+        <Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+          <Ident ColId="1" ColName="A" TypeId="0.23.1.0.-1"/>
+          <Ident ColId="2" ColName="B" TypeId="0.23.1.0.-1"/>
         </Comparison>
       </Filter>
       <TableDescriptor TableName="R">

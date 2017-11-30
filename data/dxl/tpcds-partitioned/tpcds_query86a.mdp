@@ -11,21 +11,21 @@
     </dxl:Metadata>
     <dxl:Query>
       <dxl:OutputColumns>
-        <dxl:Ident ColId="136" ColName="total_sum" TypeMdid="0.1700.1.0"/>
-        <dxl:Ident ColId="137" ColName="i_category" TypeMdid="0.1042.1.0"/>
-        <dxl:Ident ColId="138" ColName="i_class" TypeMdid="0.1042.1.0"/>
-        <dxl:Ident ColId="141" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
-        <dxl:Ident ColId="142" ColName="rank_within_parent" TypeMdid="0.20.1.0"/>
+        <dxl:Ident ColId="136" ColName="total_sum" TypeMdid="0.1700.1.0.-1"/>
+        <dxl:Ident ColId="137" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
+        <dxl:Ident ColId="138" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
+        <dxl:Ident ColId="141" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
+        <dxl:Ident ColId="142" ColName="rank_within_parent" TypeMdid="0.20.1.0.-1"/>
       </dxl:OutputColumns>
       <dxl:CTEList>
         <dxl:LogicalCTEProducer CTEId="1" Columns="106,89,87,107,108">
           <dxl:LogicalProject>
             <dxl:ProjList>
               <dxl:ProjElem ColId="107" Alias="g_category">
-                <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
               </dxl:ProjElem>
               <dxl:ProjElem ColId="108" Alias="g_class">
-                <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
               </dxl:ProjElem>
             </dxl:ProjList>
             <dxl:LogicalGroupBy>
@@ -35,147 +35,147 @@
               </dxl:GroupingColumns>
               <dxl:ProjList>
                 <dxl:ProjElem ColId="106" Alias="sum">
-                  <dxl:AggFunc AggMdid="0.2114.1.0" AggDistinct="false" AggStage="Normal">
-                    <dxl:Ident ColId="30" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
+                  <dxl:AggFunc AggMdid="0.2114.1.0.-1" AggDistinct="false" AggStage="Normal">
+                    <dxl:Ident ColId="30" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
                   </dxl:AggFunc>
                 </dxl:ProjElem>
               </dxl:ProjList>
               <dxl:LogicalJoin JoinType="Inner">
                 <dxl:LogicalGet>
-                  <dxl:TableDescriptor Mdid="0.3338348.1.1" TableName="web_sales">
+                  <dxl:TableDescriptor Mdid="0.3338348.1.1.-1" TableName="web_sales">
                     <dxl:Columns>
-                      <dxl:Column ColId="1" Attno="1" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="2" Attno="2" ColName="ws_sold_time_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="3" Attno="3" ColName="ws_ship_date_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="4" Attno="4" ColName="ws_item_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="5" Attno="5" ColName="ws_bill_customer_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="6" Attno="6" ColName="ws_bill_cdemo_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="7" Attno="7" ColName="ws_bill_hdemo_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="8" Attno="8" ColName="ws_bill_addr_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="9" Attno="9" ColName="ws_ship_customer_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="10" Attno="10" ColName="ws_ship_cdemo_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="11" Attno="11" ColName="ws_ship_hdemo_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="12" Attno="12" ColName="ws_ship_addr_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="13" Attno="13" ColName="ws_web_page_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="14" Attno="14" ColName="ws_web_site_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="15" Attno="15" ColName="ws_ship_mode_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="16" Attno="16" ColName="ws_warehouse_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="17" Attno="17" ColName="ws_promo_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="18" Attno="18" ColName="ws_order_number" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="19" Attno="19" ColName="ws_quantity" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="20" Attno="20" ColName="ws_wholesale_cost" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="21" Attno="21" ColName="ws_list_price" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="22" Attno="22" ColName="ws_sales_price" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="23" Attno="23" ColName="ws_ext_discount_amt" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="24" Attno="24" ColName="ws_ext_sales_price" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="25" Attno="25" ColName="ws_ext_wholesale_cost" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="26" Attno="26" ColName="ws_ext_list_price" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="27" Attno="27" ColName="ws_ext_tax" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="28" Attno="28" ColName="ws_coupon_amt" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="29" Attno="29" ColName="ws_ext_ship_cost" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="30" Attno="30" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="31" Attno="31" ColName="ws_net_paid_inc_tax" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="32" Attno="32" ColName="ws_net_paid_inc_ship" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="33" Attno="33" ColName="ws_net_paid_inc_ship_tax" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="34" Attno="34" ColName="ws_net_profit" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="35" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0"/>
-                      <dxl:Column ColId="36" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0"/>
-                      <dxl:Column ColId="37" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0"/>
-                      <dxl:Column ColId="38" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0"/>
-                      <dxl:Column ColId="39" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0"/>
-                      <dxl:Column ColId="40" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0"/>
-                      <dxl:Column ColId="41" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0"/>
+                      <dxl:Column ColId="1" Attno="1" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="2" Attno="2" ColName="ws_sold_time_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="3" Attno="3" ColName="ws_ship_date_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="4" Attno="4" ColName="ws_item_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="5" Attno="5" ColName="ws_bill_customer_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="6" Attno="6" ColName="ws_bill_cdemo_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="7" Attno="7" ColName="ws_bill_hdemo_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="8" Attno="8" ColName="ws_bill_addr_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="9" Attno="9" ColName="ws_ship_customer_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="10" Attno="10" ColName="ws_ship_cdemo_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="11" Attno="11" ColName="ws_ship_hdemo_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="12" Attno="12" ColName="ws_ship_addr_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="13" Attno="13" ColName="ws_web_page_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="14" Attno="14" ColName="ws_web_site_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="15" Attno="15" ColName="ws_ship_mode_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="16" Attno="16" ColName="ws_warehouse_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="17" Attno="17" ColName="ws_promo_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="18" Attno="18" ColName="ws_order_number" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="19" Attno="19" ColName="ws_quantity" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="20" Attno="20" ColName="ws_wholesale_cost" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="21" Attno="21" ColName="ws_list_price" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="22" Attno="22" ColName="ws_sales_price" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="23" Attno="23" ColName="ws_ext_discount_amt" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="24" Attno="24" ColName="ws_ext_sales_price" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="25" Attno="25" ColName="ws_ext_wholesale_cost" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="26" Attno="26" ColName="ws_ext_list_price" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="27" Attno="27" ColName="ws_ext_tax" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="28" Attno="28" ColName="ws_coupon_amt" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="29" Attno="29" ColName="ws_ext_ship_cost" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="30" Attno="30" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="31" Attno="31" ColName="ws_net_paid_inc_tax" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="32" Attno="32" ColName="ws_net_paid_inc_ship" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="33" Attno="33" ColName="ws_net_paid_inc_ship_tax" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="34" Attno="34" ColName="ws_net_profit" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="35" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0.-1"/>
+                      <dxl:Column ColId="36" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0.-1"/>
+                      <dxl:Column ColId="37" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0.-1"/>
+                      <dxl:Column ColId="38" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0.-1"/>
+                      <dxl:Column ColId="39" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0.-1"/>
+                      <dxl:Column ColId="40" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0.-1"/>
+                      <dxl:Column ColId="41" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0.-1"/>
                     </dxl:Columns>
                   </dxl:TableDescriptor>
                 </dxl:LogicalGet>
                 <dxl:LogicalGet>
-                  <dxl:TableDescriptor Mdid="0.3324312.1.1" TableName="date_dim">
+                  <dxl:TableDescriptor Mdid="0.3324312.1.1.-1" TableName="date_dim">
                     <dxl:Columns>
-                      <dxl:Column ColId="42" Attno="1" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="43" Attno="2" ColName="d_date_id" TypeMdid="0.1042.1.0" ColWidth="16"/>
-                      <dxl:Column ColId="44" Attno="3" ColName="d_date" TypeMdid="0.1082.1.0"/>
-                      <dxl:Column ColId="45" Attno="4" ColName="d_month_seq" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="46" Attno="5" ColName="d_week_seq" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="47" Attno="6" ColName="d_quarter_seq" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="48" Attno="7" ColName="d_year" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="49" Attno="8" ColName="d_dow" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="50" Attno="9" ColName="d_moy" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="51" Attno="10" ColName="d_dom" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="52" Attno="11" ColName="d_qoy" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="53" Attno="12" ColName="d_fy_year" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="54" Attno="13" ColName="d_fy_quarter_seq" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="55" Attno="14" ColName="d_fy_week_seq" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="56" Attno="15" ColName="d_day_name" TypeMdid="0.1042.1.0" ColWidth="9"/>
-                      <dxl:Column ColId="57" Attno="16" ColName="d_quarter_name" TypeMdid="0.1042.1.0" ColWidth="6"/>
-                      <dxl:Column ColId="58" Attno="17" ColName="d_holiday" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                      <dxl:Column ColId="59" Attno="18" ColName="d_weekend" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                      <dxl:Column ColId="60" Attno="19" ColName="d_following_holiday" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                      <dxl:Column ColId="61" Attno="20" ColName="d_first_dom" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="62" Attno="21" ColName="d_last_dom" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="63" Attno="22" ColName="d_same_day_ly" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="64" Attno="23" ColName="d_same_day_lq" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="65" Attno="24" ColName="d_current_day" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                      <dxl:Column ColId="66" Attno="25" ColName="d_current_week" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                      <dxl:Column ColId="67" Attno="26" ColName="d_current_month" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                      <dxl:Column ColId="68" Attno="27" ColName="d_current_quarter" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                      <dxl:Column ColId="69" Attno="28" ColName="d_current_year" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                      <dxl:Column ColId="70" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0"/>
-                      <dxl:Column ColId="71" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0"/>
-                      <dxl:Column ColId="72" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0"/>
-                      <dxl:Column ColId="73" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0"/>
-                      <dxl:Column ColId="74" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0"/>
-                      <dxl:Column ColId="75" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0"/>
-                      <dxl:Column ColId="76" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0"/>
+                      <dxl:Column ColId="42" Attno="1" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="43" Attno="2" ColName="d_date_id" TypeMdid="0.1042.1.0.-1" ColWidth="16"/>
+                      <dxl:Column ColId="44" Attno="3" ColName="d_date" TypeMdid="0.1082.1.0.-1"/>
+                      <dxl:Column ColId="45" Attno="4" ColName="d_month_seq" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="46" Attno="5" ColName="d_week_seq" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="47" Attno="6" ColName="d_quarter_seq" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="48" Attno="7" ColName="d_year" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="49" Attno="8" ColName="d_dow" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="50" Attno="9" ColName="d_moy" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="51" Attno="10" ColName="d_dom" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="52" Attno="11" ColName="d_qoy" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="53" Attno="12" ColName="d_fy_year" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="54" Attno="13" ColName="d_fy_quarter_seq" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="55" Attno="14" ColName="d_fy_week_seq" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="56" Attno="15" ColName="d_day_name" TypeMdid="0.1042.1.0.-1" ColWidth="9"/>
+                      <dxl:Column ColId="57" Attno="16" ColName="d_quarter_name" TypeMdid="0.1042.1.0.-1" ColWidth="6"/>
+                      <dxl:Column ColId="58" Attno="17" ColName="d_holiday" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                      <dxl:Column ColId="59" Attno="18" ColName="d_weekend" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                      <dxl:Column ColId="60" Attno="19" ColName="d_following_holiday" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                      <dxl:Column ColId="61" Attno="20" ColName="d_first_dom" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="62" Attno="21" ColName="d_last_dom" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="63" Attno="22" ColName="d_same_day_ly" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="64" Attno="23" ColName="d_same_day_lq" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="65" Attno="24" ColName="d_current_day" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                      <dxl:Column ColId="66" Attno="25" ColName="d_current_week" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                      <dxl:Column ColId="67" Attno="26" ColName="d_current_month" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                      <dxl:Column ColId="68" Attno="27" ColName="d_current_quarter" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                      <dxl:Column ColId="69" Attno="28" ColName="d_current_year" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                      <dxl:Column ColId="70" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0.-1"/>
+                      <dxl:Column ColId="71" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0.-1"/>
+                      <dxl:Column ColId="72" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0.-1"/>
+                      <dxl:Column ColId="73" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0.-1"/>
+                      <dxl:Column ColId="74" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0.-1"/>
+                      <dxl:Column ColId="75" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0.-1"/>
+                      <dxl:Column ColId="76" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0.-1"/>
                     </dxl:Columns>
                   </dxl:TableDescriptor>
                 </dxl:LogicalGet>
                 <dxl:LogicalGet>
-                  <dxl:TableDescriptor Mdid="0.3336389.1.1" TableName="item">
+                  <dxl:TableDescriptor Mdid="0.3336389.1.1.-1" TableName="item">
                     <dxl:Columns>
-                      <dxl:Column ColId="77" Attno="1" ColName="i_item_sk" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="78" Attno="2" ColName="i_item_id" TypeMdid="0.1042.1.0" ColWidth="16"/>
-                      <dxl:Column ColId="79" Attno="3" ColName="i_rec_start_date" TypeMdid="0.1082.1.0"/>
-                      <dxl:Column ColId="80" Attno="4" ColName="i_rec_end_date" TypeMdid="0.1082.1.0"/>
-                      <dxl:Column ColId="81" Attno="5" ColName="i_item_desc" TypeMdid="0.1043.1.0" ColWidth="200"/>
-                      <dxl:Column ColId="82" Attno="6" ColName="i_current_price" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="83" Attno="7" ColName="i_wholesale_cost" TypeMdid="0.1700.1.0"/>
-                      <dxl:Column ColId="84" Attno="8" ColName="i_brand_id" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="85" Attno="9" ColName="i_brand" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                      <dxl:Column ColId="86" Attno="10" ColName="i_class_id" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="87" Attno="11" ColName="i_class" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                      <dxl:Column ColId="88" Attno="12" ColName="i_category_id" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="89" Attno="13" ColName="i_category" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                      <dxl:Column ColId="90" Attno="14" ColName="i_manufact_id" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="91" Attno="15" ColName="i_manufact" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                      <dxl:Column ColId="92" Attno="16" ColName="i_size" TypeMdid="0.1042.1.0" ColWidth="20"/>
-                      <dxl:Column ColId="93" Attno="17" ColName="i_formulation" TypeMdid="0.1042.1.0" ColWidth="20"/>
-                      <dxl:Column ColId="94" Attno="18" ColName="i_color" TypeMdid="0.1042.1.0" ColWidth="20"/>
-                      <dxl:Column ColId="95" Attno="19" ColName="i_units" TypeMdid="0.1042.1.0" ColWidth="10"/>
-                      <dxl:Column ColId="96" Attno="20" ColName="i_container" TypeMdid="0.1042.1.0" ColWidth="10"/>
-                      <dxl:Column ColId="97" Attno="21" ColName="i_manager_id" TypeMdid="0.23.1.0"/>
-                      <dxl:Column ColId="98" Attno="22" ColName="i_product_name" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                      <dxl:Column ColId="99" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0"/>
-                      <dxl:Column ColId="100" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0"/>
-                      <dxl:Column ColId="101" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0"/>
-                      <dxl:Column ColId="102" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0"/>
-                      <dxl:Column ColId="103" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0"/>
-                      <dxl:Column ColId="104" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0"/>
-                      <dxl:Column ColId="105" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0"/>
+                      <dxl:Column ColId="77" Attno="1" ColName="i_item_sk" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="78" Attno="2" ColName="i_item_id" TypeMdid="0.1042.1.0.-1" ColWidth="16"/>
+                      <dxl:Column ColId="79" Attno="3" ColName="i_rec_start_date" TypeMdid="0.1082.1.0.-1"/>
+                      <dxl:Column ColId="80" Attno="4" ColName="i_rec_end_date" TypeMdid="0.1082.1.0.-1"/>
+                      <dxl:Column ColId="81" Attno="5" ColName="i_item_desc" TypeMdid="0.1043.1.0.-1" ColWidth="200"/>
+                      <dxl:Column ColId="82" Attno="6" ColName="i_current_price" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="83" Attno="7" ColName="i_wholesale_cost" TypeMdid="0.1700.1.0.-1"/>
+                      <dxl:Column ColId="84" Attno="8" ColName="i_brand_id" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="85" Attno="9" ColName="i_brand" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                      <dxl:Column ColId="86" Attno="10" ColName="i_class_id" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="87" Attno="11" ColName="i_class" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                      <dxl:Column ColId="88" Attno="12" ColName="i_category_id" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="89" Attno="13" ColName="i_category" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                      <dxl:Column ColId="90" Attno="14" ColName="i_manufact_id" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="91" Attno="15" ColName="i_manufact" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                      <dxl:Column ColId="92" Attno="16" ColName="i_size" TypeMdid="0.1042.1.0.-1" ColWidth="20"/>
+                      <dxl:Column ColId="93" Attno="17" ColName="i_formulation" TypeMdid="0.1042.1.0.-1" ColWidth="20"/>
+                      <dxl:Column ColId="94" Attno="18" ColName="i_color" TypeMdid="0.1042.1.0.-1" ColWidth="20"/>
+                      <dxl:Column ColId="95" Attno="19" ColName="i_units" TypeMdid="0.1042.1.0.-1" ColWidth="10"/>
+                      <dxl:Column ColId="96" Attno="20" ColName="i_container" TypeMdid="0.1042.1.0.-1" ColWidth="10"/>
+                      <dxl:Column ColId="97" Attno="21" ColName="i_manager_id" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:Column ColId="98" Attno="22" ColName="i_product_name" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                      <dxl:Column ColId="99" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0.-1"/>
+                      <dxl:Column ColId="100" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0.-1"/>
+                      <dxl:Column ColId="101" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0.-1"/>
+                      <dxl:Column ColId="102" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0.-1"/>
+                      <dxl:Column ColId="103" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0.-1"/>
+                      <dxl:Column ColId="104" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0.-1"/>
+                      <dxl:Column ColId="105" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0.-1"/>
                     </dxl:Columns>
                   </dxl:TableDescriptor>
                 </dxl:LogicalGet>
                 <dxl:And>
-                  <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                    <dxl:Ident ColId="48" ColName="d_year" TypeMdid="0.23.1.0"/>
-                    <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="2000"/>
+                  <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                    <dxl:Ident ColId="48" ColName="d_year" TypeMdid="0.23.1.0.-1"/>
+                    <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="2000"/>
                   </dxl:Comparison>
-                  <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                    <dxl:Ident ColId="42" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
-                    <dxl:Ident ColId="1" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0"/>
+                  <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                    <dxl:Ident ColId="42" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
+                    <dxl:Ident ColId="1" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0.-1"/>
                   </dxl:Comparison>
-                  <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                    <dxl:Ident ColId="77" ColName="i_item_sk" TypeMdid="0.23.1.0"/>
-                    <dxl:Ident ColId="4" ColName="ws_item_sk" TypeMdid="0.23.1.0"/>
+                  <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                    <dxl:Ident ColId="77" ColName="i_item_sk" TypeMdid="0.23.1.0.-1"/>
+                    <dxl:Ident ColId="4" ColName="ws_item_sk" TypeMdid="0.23.1.0.-1"/>
                   </dxl:Comparison>
                 </dxl:And>
               </dxl:LogicalJoin>
@@ -185,26 +185,26 @@
         <dxl:LogicalCTEProducer CTEId="2" Columns="109,110,111,112,113,114">
           <dxl:Union InputColumns="109,110,111,112,113,114;130,131,132,133,134,135" CastAcrossInputs="false">
             <dxl:Columns>
-              <dxl:Column ColId="109" Attno="1" ColName="total_sum" TypeMdid="0.1700.1.0"/>
-              <dxl:Column ColId="110" Attno="2" ColName="i_category" TypeMdid="0.1042.1.0"/>
-              <dxl:Column ColId="111" Attno="3" ColName="i_class" TypeMdid="0.1042.1.0"/>
-              <dxl:Column ColId="112" Attno="4" ColName="g_category" TypeMdid="0.23.1.0"/>
-              <dxl:Column ColId="113" Attno="5" ColName="g_class" TypeMdid="0.23.1.0"/>
-              <dxl:Column ColId="114" Attno="6" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+              <dxl:Column ColId="109" Attno="1" ColName="total_sum" TypeMdid="0.1700.1.0.-1"/>
+              <dxl:Column ColId="110" Attno="2" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
+              <dxl:Column ColId="111" Attno="3" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
+              <dxl:Column ColId="112" Attno="4" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
+              <dxl:Column ColId="113" Attno="5" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
+              <dxl:Column ColId="114" Attno="6" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
             </dxl:Columns>
             <dxl:Union InputColumns="109,110,111,112,113,114;120,116,121,122,123,124" CastAcrossInputs="false">
               <dxl:Columns>
-                <dxl:Column ColId="109" Attno="1" ColName="total_sum" TypeMdid="0.1700.1.0"/>
-                <dxl:Column ColId="110" Attno="2" ColName="i_category" TypeMdid="0.1042.1.0"/>
-                <dxl:Column ColId="111" Attno="3" ColName="i_class" TypeMdid="0.1042.1.0"/>
-                <dxl:Column ColId="112" Attno="4" ColName="g_category" TypeMdid="0.23.1.0"/>
-                <dxl:Column ColId="113" Attno="5" ColName="g_class" TypeMdid="0.23.1.0"/>
-                <dxl:Column ColId="114" Attno="6" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                <dxl:Column ColId="109" Attno="1" ColName="total_sum" TypeMdid="0.1700.1.0.-1"/>
+                <dxl:Column ColId="110" Attno="2" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
+                <dxl:Column ColId="111" Attno="3" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
+                <dxl:Column ColId="112" Attno="4" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
+                <dxl:Column ColId="113" Attno="5" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
+                <dxl:Column ColId="114" Attno="6" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
               </dxl:Columns>
               <dxl:LogicalProject>
                 <dxl:ProjList>
                   <dxl:ProjElem ColId="114" Alias="lochierarchy">
-                    <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                    <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                   </dxl:ProjElem>
                 </dxl:ProjList>
                 <dxl:LogicalCTEConsumer CTEId="1" Columns="109,110,111,112,113"/>
@@ -212,16 +212,16 @@
               <dxl:LogicalProject>
                 <dxl:ProjList>
                   <dxl:ProjElem ColId="121" Alias="i_class">
-                    <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                    <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="122" Alias="g_category">
-                    <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                    <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="123" Alias="g_class">
-                    <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                    <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="124" Alias="lochierarchy">
-                    <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                    <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
                   </dxl:ProjElem>
                 </dxl:ProjList>
                 <dxl:LogicalGroupBy>
@@ -230,8 +230,8 @@
                   </dxl:GroupingColumns>
                   <dxl:ProjList>
                     <dxl:ProjElem ColId="120" Alias="sum">
-                      <dxl:AggFunc AggMdid="0.2114.1.0" AggDistinct="false" AggStage="Normal">
-                        <dxl:Ident ColId="115" ColName="total_sum" TypeMdid="0.1700.1.0"/>
+                      <dxl:AggFunc AggMdid="0.2114.1.0.-1" AggDistinct="false" AggStage="Normal">
+                        <dxl:Ident ColId="115" ColName="total_sum" TypeMdid="0.1700.1.0.-1"/>
                       </dxl:AggFunc>
                     </dxl:ProjElem>
                   </dxl:ProjList>
@@ -242,27 +242,27 @@
             <dxl:LogicalProject>
               <dxl:ProjList>
                 <dxl:ProjElem ColId="131" Alias="i_category">
-                  <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                  <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="132" Alias="i_class">
-                  <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                  <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="133" Alias="g_category">
-                  <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                  <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="134" Alias="g_class">
-                  <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                  <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="135" Alias="lochierarchy">
-                  <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="2"/>
+                  <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="2"/>
                 </dxl:ProjElem>
               </dxl:ProjList>
               <dxl:LogicalGroupBy>
                 <dxl:GroupingColumns/>
                 <dxl:ProjList>
                   <dxl:ProjElem ColId="130" Alias="sum">
-                    <dxl:AggFunc AggMdid="0.2114.1.0" AggDistinct="false" AggStage="Normal">
-                      <dxl:Ident ColId="125" ColName="total_sum" TypeMdid="0.1700.1.0"/>
+                    <dxl:AggFunc AggMdid="0.2114.1.0.-1" AggDistinct="false" AggStage="Normal">
+                      <dxl:Ident ColId="125" ColName="total_sum" TypeMdid="0.1700.1.0.-1"/>
                     </dxl:AggFunc>
                   </dxl:ProjElem>
                 </dxl:ProjList>
@@ -276,24 +276,24 @@
         <dxl:LogicalCTEAnchor CTEId="2">
           <dxl:LogicalLimit>
             <dxl:SortingColumnList>
-              <dxl:SortingColumn ColId="141" SortOperatorMdid="0.521.1.0" SortOperatorName="&gt;" SortNullsFirst="false"/>
-              <dxl:SortingColumn ColId="144" SortOperatorMdid="0.1058.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
-              <dxl:SortingColumn ColId="142" SortOperatorMdid="0.412.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
+              <dxl:SortingColumn ColId="141" SortOperatorMdid="0.521.1.0.-1" SortOperatorName="&gt;" SortNullsFirst="false"/>
+              <dxl:SortingColumn ColId="144" SortOperatorMdid="0.1058.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
+              <dxl:SortingColumn ColId="142" SortOperatorMdid="0.412.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
             </dxl:SortingColumnList>
             <dxl:LimitCount>
-              <dxl:ConstValue TypeMdid="0.20.1.0" IsNull="false" IsByValue="true" Value="100"/>
+              <dxl:ConstValue TypeMdid="0.20.1.0.-1" IsNull="false" IsByValue="true" Value="100"/>
             </dxl:LimitCount>
             <dxl:LimitOffset/>
             <dxl:LogicalProject>
               <dxl:ProjList>
                 <dxl:ProjElem ColId="144" Alias="?column?">
-                  <dxl:If TypeMdid="0.1042.1.0">
-                    <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                      <dxl:Ident ColId="141" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
-                      <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                  <dxl:If TypeMdid="0.1042.1.0.-1">
+                    <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                      <dxl:Ident ColId="141" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
+                      <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                     </dxl:Comparison>
-                    <dxl:Ident ColId="137" ColName="?column?" TypeMdid="0.1042.1.0"/>
-                    <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                    <dxl:Ident ColId="137" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
+                    <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                   </dxl:If>
                 </dxl:ProjElem>
               </dxl:ProjList>
@@ -301,37 +301,37 @@
                 <dxl:WindowSpecList>
                   <dxl:WindowSpec PartitionColumns="141,143">
                     <dxl:SortingColumnList>
-                      <dxl:SortingColumn ColId="136" SortOperatorMdid="0.1756.1.0" SortOperatorName="&gt;" SortNullsFirst="false"/>
+                      <dxl:SortingColumn ColId="136" SortOperatorMdid="0.1756.1.0.-1" SortOperatorName="&gt;" SortNullsFirst="false"/>
                     </dxl:SortingColumnList>
                   </dxl:WindowSpec>
                 </dxl:WindowSpecList>
                 <dxl:ProjList>
                   <dxl:ProjElem ColId="136" Alias="total_sum">
-                    <dxl:Ident ColId="136" ColName="total_sum" TypeMdid="0.1700.1.0"/>
+                    <dxl:Ident ColId="136" ColName="total_sum" TypeMdid="0.1700.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="137" Alias="?column?">
-                    <dxl:Ident ColId="137" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                    <dxl:Ident ColId="137" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="138" Alias="?column?">
-                    <dxl:Ident ColId="138" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                    <dxl:Ident ColId="138" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="141" Alias="lochierarchy">
-                    <dxl:Ident ColId="141" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                    <dxl:Ident ColId="141" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="142" Alias="rank">
-                    <dxl:WindowFunc Mdid="0.7001.1.0" TypeMdid="0.20.1.0" Distinct="false" WindowStrategy="Immediate" WinSpecPos="0"/>
+                    <dxl:WindowFunc Mdid="0.7001.1.0.-1" TypeMdid="0.20.1.0.-1" Distinct="false" WindowStrategy="Immediate" WinSpecPos="0"/>
                   </dxl:ProjElem>
                 </dxl:ProjList>
                 <dxl:LogicalProject>
                   <dxl:ProjList>
                     <dxl:ProjElem ColId="143" Alias="?column?">
-                      <dxl:If TypeMdid="0.1042.1.0">
-                        <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                          <dxl:Ident ColId="140" ColName="g_class" TypeMdid="0.23.1.0"/>
-                          <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                      <dxl:If TypeMdid="0.1042.1.0.-1">
+                        <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                          <dxl:Ident ColId="140" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
+                          <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                         </dxl:Comparison>
-                        <dxl:Ident ColId="137" ColName="i_category" TypeMdid="0.1042.1.0"/>
-                        <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                        <dxl:Ident ColId="137" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
+                        <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                       </dxl:If>
                     </dxl:ProjElem>
                   </dxl:ProjList>
@@ -350,19 +350,19 @@
         </dxl:Properties>
         <dxl:ProjList>
           <dxl:ProjElem ColId="444" Alias="total_sum">
-            <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+            <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="445" Alias="i_category">
-            <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+            <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="446" Alias="i_class">
-            <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+            <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="449" Alias="lochierarchy">
-            <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="781" Alias="rank_within_parent">
-            <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+            <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
           </dxl:ProjElem>
         </dxl:ProjList>
         <dxl:Filter/>
@@ -373,29 +373,29 @@
           </dxl:Properties>
           <dxl:ProjList>
             <dxl:ProjElem ColId="444" Alias="sum">
-              <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+              <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
             </dxl:ProjElem>
             <dxl:ProjElem ColId="445" Alias="i_category">
-              <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+              <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
             </dxl:ProjElem>
             <dxl:ProjElem ColId="446" Alias="i_class">
-              <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+              <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
             </dxl:ProjElem>
             <dxl:ProjElem ColId="449" Alias="lochierarchy">
-              <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+              <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
             </dxl:ProjElem>
             <dxl:ProjElem ColId="781" Alias="rank">
-              <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+              <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
             </dxl:ProjElem>
             <dxl:ProjElem ColId="782" Alias="?column?">
-              <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+              <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
             </dxl:ProjElem>
           </dxl:ProjList>
           <dxl:Filter/>
           <dxl:SortingColumnList>
-            <dxl:SortingColumn ColId="449" SortOperatorMdid="0.521.1.0" SortOperatorName="&gt;" SortNullsFirst="false"/>
-            <dxl:SortingColumn ColId="782" SortOperatorMdid="0.1058.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
-            <dxl:SortingColumn ColId="781" SortOperatorMdid="0.412.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
+            <dxl:SortingColumn ColId="449" SortOperatorMdid="0.521.1.0.-1" SortOperatorName="&gt;" SortNullsFirst="false"/>
+            <dxl:SortingColumn ColId="782" SortOperatorMdid="0.1058.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
+            <dxl:SortingColumn ColId="781" SortOperatorMdid="0.412.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
           </dxl:SortingColumnList>
           <dxl:Sort SortDiscardDuplicates="false">
             <dxl:Properties>
@@ -403,29 +403,29 @@
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="444" Alias="sum">
-                <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
               </dxl:ProjElem>
               <dxl:ProjElem ColId="445" Alias="i_category">
-                <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
               </dxl:ProjElem>
               <dxl:ProjElem ColId="446" Alias="i_class">
-                <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
               </dxl:ProjElem>
               <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
               </dxl:ProjElem>
               <dxl:ProjElem ColId="781" Alias="rank">
-                <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
               </dxl:ProjElem>
               <dxl:ProjElem ColId="782" Alias="?column?">
-                <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
               </dxl:ProjElem>
             </dxl:ProjList>
             <dxl:Filter/>
             <dxl:SortingColumnList>
-              <dxl:SortingColumn ColId="449" SortOperatorMdid="0.521.1.0" SortOperatorName="&gt;" SortNullsFirst="false"/>
-              <dxl:SortingColumn ColId="782" SortOperatorMdid="0.1058.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
-              <dxl:SortingColumn ColId="781" SortOperatorMdid="0.412.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
+              <dxl:SortingColumn ColId="449" SortOperatorMdid="0.521.1.0.-1" SortOperatorName="&gt;" SortNullsFirst="false"/>
+              <dxl:SortingColumn ColId="782" SortOperatorMdid="0.1058.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
+              <dxl:SortingColumn ColId="781" SortOperatorMdid="0.412.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
             </dxl:SortingColumnList>
             <dxl:LimitCount/>
             <dxl:LimitOffset/>
@@ -435,22 +435,22 @@
               </dxl:Properties>
               <dxl:ProjList>
                 <dxl:ProjElem ColId="444" Alias="sum">
-                  <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                  <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="445" Alias="i_category">
-                  <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                  <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="446" Alias="i_class">
-                  <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                  <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                  <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                  <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="781" Alias="rank">
-                  <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                  <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
                 </dxl:ProjElem>
                 <dxl:ProjElem ColId="782" Alias="?column?">
-                  <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                  <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                 </dxl:ProjElem>
               </dxl:ProjList>
               <dxl:CTEProducer CTEId="0" Columns="105,88,86,106,107">
@@ -459,19 +459,19 @@
                 </dxl:Properties>
                 <dxl:ProjList>
                   <dxl:ProjElem ColId="105" Alias="sum">
-                    <dxl:Ident ColId="105" ColName="sum" TypeMdid="0.1700.1.0"/>
+                    <dxl:Ident ColId="105" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="88" Alias="i_category">
-                    <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                    <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="86" Alias="i_class">
-                    <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                    <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="106" Alias="g_category">
-                    <dxl:Ident ColId="106" ColName="g_category" TypeMdid="0.23.1.0"/>
+                    <dxl:Ident ColId="106" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="107" Alias="g_class">
-                    <dxl:Ident ColId="107" ColName="g_class" TypeMdid="0.23.1.0"/>
+                    <dxl:Ident ColId="107" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                   </dxl:ProjElem>
                 </dxl:ProjList>
                 <dxl:Result>
@@ -480,19 +480,19 @@
                   </dxl:Properties>
                   <dxl:ProjList>
                     <dxl:ProjElem ColId="105" Alias="sum">
-                      <dxl:Ident ColId="105" ColName="sum" TypeMdid="0.1700.1.0"/>
+                      <dxl:Ident ColId="105" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="88" Alias="i_category">
-                      <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                      <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="86" Alias="i_class">
-                      <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                      <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="106" Alias="g_category">
-                      <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                      <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="107" Alias="g_class">
-                      <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                      <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                     </dxl:ProjElem>
                   </dxl:ProjList>
                   <dxl:Filter/>
@@ -507,15 +507,15 @@
                     </dxl:GroupingColumns>
                     <dxl:ProjList>
                       <dxl:ProjElem ColId="105" Alias="sum">
-                        <dxl:AggFunc AggMdid="0.2114.1.0" AggDistinct="false" AggStage="Normal">
-                          <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
+                        <dxl:AggFunc AggMdid="0.2114.1.0.-1" AggDistinct="false" AggStage="Normal">
+                          <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
                         </dxl:AggFunc>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="86" Alias="i_class">
-                        <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                        <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="88" Alias="i_category">
-                        <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                        <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                       </dxl:ProjElem>
                     </dxl:ProjList>
                     <dxl:Filter/>
@@ -525,23 +525,23 @@
                       </dxl:Properties>
                       <dxl:ProjList>
                         <dxl:ProjElem ColId="29" Alias="ws_net_paid">
-                          <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
+                          <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="86" Alias="i_class">
-                          <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                          <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="88" Alias="i_category">
-                          <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                          <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:ProjElem>
                       </dxl:ProjList>
                       <dxl:Filter/>
                       <dxl:SortingColumnList/>
                       <dxl:HashExprList>
-                        <dxl:HashExpr TypeMdid="0.1042.1.0">
-                          <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                        <dxl:HashExpr TypeMdid="0.1042.1.0.-1">
+                          <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:HashExpr>
-                        <dxl:HashExpr TypeMdid="0.1042.1.0">
-                          <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                        <dxl:HashExpr TypeMdid="0.1042.1.0.-1">
+                          <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:HashExpr>
                       </dxl:HashExprList>
                       <dxl:HashJoin JoinType="Inner">
@@ -550,21 +550,21 @@
                         </dxl:Properties>
                         <dxl:ProjList>
                           <dxl:ProjElem ColId="29" Alias="ws_net_paid">
-                            <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
+                            <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="86" Alias="i_class">
-                            <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="88" Alias="i_category">
-                            <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                         </dxl:ProjList>
                         <dxl:Filter/>
                         <dxl:JoinFilter/>
                         <dxl:HashCondList>
-                          <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                            <dxl:Ident ColId="76" ColName="i_item_sk" TypeMdid="0.23.1.0"/>
-                            <dxl:Ident ColId="3" ColName="ws_item_sk" TypeMdid="0.23.1.0"/>
+                          <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                            <dxl:Ident ColId="76" ColName="i_item_sk" TypeMdid="0.23.1.0.-1"/>
+                            <dxl:Ident ColId="3" ColName="ws_item_sk" TypeMdid="0.23.1.0.-1"/>
                           </dxl:Comparison>
                         </dxl:HashCondList>
                         <dxl:TableScan>
@@ -573,47 +573,47 @@
                           </dxl:Properties>
                           <dxl:ProjList>
                             <dxl:ProjElem ColId="76" Alias="i_item_sk">
-                              <dxl:Ident ColId="76" ColName="i_item_sk" TypeMdid="0.23.1.0"/>
+                              <dxl:Ident ColId="76" ColName="i_item_sk" TypeMdid="0.23.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="86" Alias="i_class">
-                              <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                              <dxl:Ident ColId="86" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="88" Alias="i_category">
-                              <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                              <dxl:Ident ColId="88" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:ProjElem>
                           </dxl:ProjList>
                           <dxl:Filter/>
-                          <dxl:TableDescriptor Mdid="0.3336389.1.1" TableName="item">
+                          <dxl:TableDescriptor Mdid="0.3336389.1.1.-1" TableName="item">
                             <dxl:Columns>
-                              <dxl:Column ColId="76" Attno="1" ColName="i_item_sk" TypeMdid="0.23.1.0"/>
-                              <dxl:Column ColId="77" Attno="2" ColName="i_item_id" TypeMdid="0.1042.1.0" ColWidth="16"/>
-                              <dxl:Column ColId="78" Attno="3" ColName="i_rec_start_date" TypeMdid="0.1082.1.0"/>
-                              <dxl:Column ColId="79" Attno="4" ColName="i_rec_end_date" TypeMdid="0.1082.1.0"/>
-                              <dxl:Column ColId="80" Attno="5" ColName="i_item_desc" TypeMdid="0.1043.1.0" ColWidth="200"/>
-                              <dxl:Column ColId="81" Attno="6" ColName="i_current_price" TypeMdid="0.1700.1.0"/>
-                              <dxl:Column ColId="82" Attno="7" ColName="i_wholesale_cost" TypeMdid="0.1700.1.0"/>
-                              <dxl:Column ColId="83" Attno="8" ColName="i_brand_id" TypeMdid="0.23.1.0"/>
-                              <dxl:Column ColId="84" Attno="9" ColName="i_brand" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                              <dxl:Column ColId="85" Attno="10" ColName="i_class_id" TypeMdid="0.23.1.0"/>
-                              <dxl:Column ColId="86" Attno="11" ColName="i_class" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                              <dxl:Column ColId="87" Attno="12" ColName="i_category_id" TypeMdid="0.23.1.0"/>
-                              <dxl:Column ColId="88" Attno="13" ColName="i_category" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                              <dxl:Column ColId="89" Attno="14" ColName="i_manufact_id" TypeMdid="0.23.1.0"/>
-                              <dxl:Column ColId="90" Attno="15" ColName="i_manufact" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                              <dxl:Column ColId="91" Attno="16" ColName="i_size" TypeMdid="0.1042.1.0" ColWidth="20"/>
-                              <dxl:Column ColId="92" Attno="17" ColName="i_formulation" TypeMdid="0.1042.1.0" ColWidth="20"/>
-                              <dxl:Column ColId="93" Attno="18" ColName="i_color" TypeMdid="0.1042.1.0" ColWidth="20"/>
-                              <dxl:Column ColId="94" Attno="19" ColName="i_units" TypeMdid="0.1042.1.0" ColWidth="10"/>
-                              <dxl:Column ColId="95" Attno="20" ColName="i_container" TypeMdid="0.1042.1.0" ColWidth="10"/>
-                              <dxl:Column ColId="96" Attno="21" ColName="i_manager_id" TypeMdid="0.23.1.0"/>
-                              <dxl:Column ColId="97" Attno="22" ColName="i_product_name" TypeMdid="0.1042.1.0" ColWidth="50"/>
-                              <dxl:Column ColId="98" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0"/>
-                              <dxl:Column ColId="99" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0"/>
-                              <dxl:Column ColId="100" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0"/>
-                              <dxl:Column ColId="101" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0"/>
-                              <dxl:Column ColId="102" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0"/>
-                              <dxl:Column ColId="103" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0"/>
-                              <dxl:Column ColId="104" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0"/>
+                              <dxl:Column ColId="76" Attno="1" ColName="i_item_sk" TypeMdid="0.23.1.0.-1"/>
+                              <dxl:Column ColId="77" Attno="2" ColName="i_item_id" TypeMdid="0.1042.1.0.-1" ColWidth="16"/>
+                              <dxl:Column ColId="78" Attno="3" ColName="i_rec_start_date" TypeMdid="0.1082.1.0.-1"/>
+                              <dxl:Column ColId="79" Attno="4" ColName="i_rec_end_date" TypeMdid="0.1082.1.0.-1"/>
+                              <dxl:Column ColId="80" Attno="5" ColName="i_item_desc" TypeMdid="0.1043.1.0.-1" ColWidth="200"/>
+                              <dxl:Column ColId="81" Attno="6" ColName="i_current_price" TypeMdid="0.1700.1.0.-1"/>
+                              <dxl:Column ColId="82" Attno="7" ColName="i_wholesale_cost" TypeMdid="0.1700.1.0.-1"/>
+                              <dxl:Column ColId="83" Attno="8" ColName="i_brand_id" TypeMdid="0.23.1.0.-1"/>
+                              <dxl:Column ColId="84" Attno="9" ColName="i_brand" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                              <dxl:Column ColId="85" Attno="10" ColName="i_class_id" TypeMdid="0.23.1.0.-1"/>
+                              <dxl:Column ColId="86" Attno="11" ColName="i_class" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                              <dxl:Column ColId="87" Attno="12" ColName="i_category_id" TypeMdid="0.23.1.0.-1"/>
+                              <dxl:Column ColId="88" Attno="13" ColName="i_category" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                              <dxl:Column ColId="89" Attno="14" ColName="i_manufact_id" TypeMdid="0.23.1.0.-1"/>
+                              <dxl:Column ColId="90" Attno="15" ColName="i_manufact" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                              <dxl:Column ColId="91" Attno="16" ColName="i_size" TypeMdid="0.1042.1.0.-1" ColWidth="20"/>
+                              <dxl:Column ColId="92" Attno="17" ColName="i_formulation" TypeMdid="0.1042.1.0.-1" ColWidth="20"/>
+                              <dxl:Column ColId="93" Attno="18" ColName="i_color" TypeMdid="0.1042.1.0.-1" ColWidth="20"/>
+                              <dxl:Column ColId="94" Attno="19" ColName="i_units" TypeMdid="0.1042.1.0.-1" ColWidth="10"/>
+                              <dxl:Column ColId="95" Attno="20" ColName="i_container" TypeMdid="0.1042.1.0.-1" ColWidth="10"/>
+                              <dxl:Column ColId="96" Attno="21" ColName="i_manager_id" TypeMdid="0.23.1.0.-1"/>
+                              <dxl:Column ColId="97" Attno="22" ColName="i_product_name" TypeMdid="0.1042.1.0.-1" ColWidth="50"/>
+                              <dxl:Column ColId="98" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0.-1"/>
+                              <dxl:Column ColId="99" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0.-1"/>
+                              <dxl:Column ColId="100" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0.-1"/>
+                              <dxl:Column ColId="101" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0.-1"/>
+                              <dxl:Column ColId="102" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0.-1"/>
+                              <dxl:Column ColId="103" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0.-1"/>
+                              <dxl:Column ColId="104" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0.-1"/>
                             </dxl:Columns>
                           </dxl:TableDescriptor>
                         </dxl:TableScan>
@@ -623,10 +623,10 @@
                           </dxl:Properties>
                           <dxl:ProjList>
                             <dxl:ProjElem ColId="3" Alias="ws_item_sk">
-                              <dxl:Ident ColId="3" ColName="ws_item_sk" TypeMdid="0.23.1.0"/>
+                              <dxl:Ident ColId="3" ColName="ws_item_sk" TypeMdid="0.23.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="29" Alias="ws_net_paid">
-                              <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
+                              <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
                             </dxl:ProjElem>
                           </dxl:ProjList>
                           <dxl:Filter/>
@@ -637,18 +637,18 @@
                             </dxl:Properties>
                             <dxl:ProjList>
                               <dxl:ProjElem ColId="3" Alias="ws_item_sk">
-                                <dxl:Ident ColId="3" ColName="ws_item_sk" TypeMdid="0.23.1.0"/>
+                                <dxl:Ident ColId="3" ColName="ws_item_sk" TypeMdid="0.23.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="29" Alias="ws_net_paid">
-                                <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
+                                <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
                               </dxl:ProjElem>
                             </dxl:ProjList>
                             <dxl:Filter/>
                             <dxl:JoinFilter/>
                             <dxl:HashCondList>
-                              <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                                <dxl:Ident ColId="0" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0"/>
-                                <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
+                              <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                                <dxl:Ident ColId="0" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0.-1"/>
+                                <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
                               </dxl:Comparison>
                             </dxl:HashCondList>
                             <dxl:DynamicTableScan PartIndexId="0">
@@ -657,59 +657,59 @@
                               </dxl:Properties>
                               <dxl:ProjList>
                                 <dxl:ProjElem ColId="0" Alias="ws_sold_date_sk">
-                                  <dxl:Ident ColId="0" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0"/>
+                                  <dxl:Ident ColId="0" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="3" Alias="ws_item_sk">
-                                  <dxl:Ident ColId="3" ColName="ws_item_sk" TypeMdid="0.23.1.0"/>
+                                  <dxl:Ident ColId="3" ColName="ws_item_sk" TypeMdid="0.23.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="29" Alias="ws_net_paid">
-                                  <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
+                                  <dxl:Ident ColId="29" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
                                 </dxl:ProjElem>
                               </dxl:ProjList>
                               <dxl:Filter/>
-                              <dxl:TableDescriptor Mdid="0.3338348.1.1" TableName="web_sales">
+                              <dxl:TableDescriptor Mdid="0.3338348.1.1.-1" TableName="web_sales">
                                 <dxl:Columns>
-                                  <dxl:Column ColId="0" Attno="1" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="1" Attno="2" ColName="ws_sold_time_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="2" Attno="3" ColName="ws_ship_date_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="3" Attno="4" ColName="ws_item_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="4" Attno="5" ColName="ws_bill_customer_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="5" Attno="6" ColName="ws_bill_cdemo_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="6" Attno="7" ColName="ws_bill_hdemo_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="7" Attno="8" ColName="ws_bill_addr_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="8" Attno="9" ColName="ws_ship_customer_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="9" Attno="10" ColName="ws_ship_cdemo_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="10" Attno="11" ColName="ws_ship_hdemo_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="11" Attno="12" ColName="ws_ship_addr_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="12" Attno="13" ColName="ws_web_page_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="13" Attno="14" ColName="ws_web_site_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="14" Attno="15" ColName="ws_ship_mode_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="15" Attno="16" ColName="ws_warehouse_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="16" Attno="17" ColName="ws_promo_sk" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="17" Attno="18" ColName="ws_order_number" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="18" Attno="19" ColName="ws_quantity" TypeMdid="0.23.1.0"/>
-                                  <dxl:Column ColId="19" Attno="20" ColName="ws_wholesale_cost" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="20" Attno="21" ColName="ws_list_price" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="21" Attno="22" ColName="ws_sales_price" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="22" Attno="23" ColName="ws_ext_discount_amt" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="23" Attno="24" ColName="ws_ext_sales_price" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="24" Attno="25" ColName="ws_ext_wholesale_cost" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="25" Attno="26" ColName="ws_ext_list_price" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="26" Attno="27" ColName="ws_ext_tax" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="27" Attno="28" ColName="ws_coupon_amt" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="28" Attno="29" ColName="ws_ext_ship_cost" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="29" Attno="30" ColName="ws_net_paid" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="30" Attno="31" ColName="ws_net_paid_inc_tax" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="31" Attno="32" ColName="ws_net_paid_inc_ship" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="32" Attno="33" ColName="ws_net_paid_inc_ship_tax" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="33" Attno="34" ColName="ws_net_profit" TypeMdid="0.1700.1.0"/>
-                                  <dxl:Column ColId="34" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0"/>
-                                  <dxl:Column ColId="35" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0"/>
-                                  <dxl:Column ColId="36" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0"/>
-                                  <dxl:Column ColId="37" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0"/>
-                                  <dxl:Column ColId="38" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0"/>
-                                  <dxl:Column ColId="39" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0"/>
-                                  <dxl:Column ColId="40" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0"/>
+                                  <dxl:Column ColId="0" Attno="1" ColName="ws_sold_date_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="1" Attno="2" ColName="ws_sold_time_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="2" Attno="3" ColName="ws_ship_date_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="3" Attno="4" ColName="ws_item_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="4" Attno="5" ColName="ws_bill_customer_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="5" Attno="6" ColName="ws_bill_cdemo_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="6" Attno="7" ColName="ws_bill_hdemo_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="7" Attno="8" ColName="ws_bill_addr_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="8" Attno="9" ColName="ws_ship_customer_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="9" Attno="10" ColName="ws_ship_cdemo_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="10" Attno="11" ColName="ws_ship_hdemo_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="11" Attno="12" ColName="ws_ship_addr_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="12" Attno="13" ColName="ws_web_page_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="13" Attno="14" ColName="ws_web_site_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="14" Attno="15" ColName="ws_ship_mode_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="15" Attno="16" ColName="ws_warehouse_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="16" Attno="17" ColName="ws_promo_sk" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="17" Attno="18" ColName="ws_order_number" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="18" Attno="19" ColName="ws_quantity" TypeMdid="0.23.1.0.-1"/>
+                                  <dxl:Column ColId="19" Attno="20" ColName="ws_wholesale_cost" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="20" Attno="21" ColName="ws_list_price" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="21" Attno="22" ColName="ws_sales_price" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="22" Attno="23" ColName="ws_ext_discount_amt" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="23" Attno="24" ColName="ws_ext_sales_price" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="24" Attno="25" ColName="ws_ext_wholesale_cost" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="25" Attno="26" ColName="ws_ext_list_price" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="26" Attno="27" ColName="ws_ext_tax" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="27" Attno="28" ColName="ws_coupon_amt" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="28" Attno="29" ColName="ws_ext_ship_cost" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="29" Attno="30" ColName="ws_net_paid" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="30" Attno="31" ColName="ws_net_paid_inc_tax" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="31" Attno="32" ColName="ws_net_paid_inc_ship" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="32" Attno="33" ColName="ws_net_paid_inc_ship_tax" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="33" Attno="34" ColName="ws_net_profit" TypeMdid="0.1700.1.0.-1"/>
+                                  <dxl:Column ColId="34" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0.-1"/>
+                                  <dxl:Column ColId="35" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0.-1"/>
+                                  <dxl:Column ColId="36" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0.-1"/>
+                                  <dxl:Column ColId="37" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0.-1"/>
+                                  <dxl:Column ColId="38" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0.-1"/>
+                                  <dxl:Column ColId="39" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0.-1"/>
+                                  <dxl:Column ColId="40" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0.-1"/>
                                 </dxl:Columns>
                               </dxl:TableDescriptor>
                             </dxl:DynamicTableScan>
@@ -719,14 +719,14 @@
                               </dxl:Properties>
                               <dxl:ProjList>
                                 <dxl:ProjElem ColId="41" Alias="d_date_sk">
-                                  <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
+                                  <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="788" Alias="gp_partition_propagation">
-                                  <dxl:FuncExpr FuncId="0.6083.1.0" FuncRetSet="false" TypeMdid="0.2278.1.0">
-                                    <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
-                                    <dxl:FuncExpr FuncId="0.6084.1.0" FuncRetSet="false" TypeMdid="0.26.1.0">
-                                      <dxl:ConstValue TypeMdid="0.26.1.0" IsNull="false" IsByValue="true" Value="3338348"/>
-                                      <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
+                                  <dxl:FuncExpr FuncId="0.6083.1.0.-1" FuncRetSet="false" TypeMdid="0.2278.1.0.-1">
+                                    <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
+                                    <dxl:FuncExpr FuncId="0.6084.1.0.-1" FuncRetSet="false" TypeMdid="0.26.1.0.-1">
+                                      <dxl:ConstValue TypeMdid="0.26.1.0.-1" IsNull="false" IsByValue="true" Value="3338348"/>
+                                      <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
                                     </dxl:FuncExpr>
                                   </dxl:FuncExpr>
                                 </dxl:ProjElem>
@@ -739,7 +739,7 @@
                                 </dxl:Properties>
                                 <dxl:ProjList>
                                   <dxl:ProjElem ColId="41" Alias="d_date_sk">
-                                    <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
+                                    <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
                                   </dxl:ProjElem>
                                 </dxl:ProjList>
                                 <dxl:Filter/>
@@ -750,7 +750,7 @@
                                   </dxl:Properties>
                                   <dxl:ProjList>
                                     <dxl:ProjElem ColId="41" Alias="d_date_sk">
-                                      <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
+                                      <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
                                     </dxl:ProjElem>
                                   </dxl:ProjList>
                                   <dxl:Result>
@@ -759,24 +759,24 @@
                                     </dxl:Properties>
                                     <dxl:ProjList>
                                       <dxl:ProjElem ColId="787" Alias="gp_partition_propagation">
-                                        <dxl:FuncExpr FuncId="0.6083.1.0" FuncRetSet="false" TypeMdid="0.2278.1.0">
-                                          <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
-                                          <dxl:Ident ColId="786" ColName="gp_partition_propagation" TypeMdid="0.26.1.0"/>
+                                        <dxl:FuncExpr FuncId="0.6083.1.0.-1" FuncRetSet="false" TypeMdid="0.2278.1.0.-1">
+                                          <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
+                                          <dxl:Ident ColId="786" ColName="gp_partition_propagation" TypeMdid="0.26.1.0.-1"/>
                                         </dxl:FuncExpr>
                                       </dxl:ProjElem>
                                     </dxl:ProjList>
                                     <dxl:Filter/>
                                     <dxl:OneTimeFilter/>
-                                    <dxl:TableValuedFunction FuncId="0.6085.1.0" Name="gp_partition_expansion" TypeMdid="0.26.1.0">
+                                    <dxl:TableValuedFunction FuncId="0.6085.1.0.-1" Name="gp_partition_expansion" TypeMdid="0.26.1.0.-1">
                                       <dxl:Properties>
                                         <dxl:Cost StartupCost="10" TotalCost="100" Rows="100" Width="4"/>
                                       </dxl:Properties>
                                       <dxl:ProjList>
                                         <dxl:ProjElem ColId="786" Alias="gp_partition_expansion">
-                                          <dxl:Ident ColId="786" ColName="gp_partition_expansion" TypeMdid="0.26.1.0"/>
+                                          <dxl:Ident ColId="786" ColName="gp_partition_expansion" TypeMdid="0.26.1.0.-1"/>
                                         </dxl:ProjElem>
                                       </dxl:ProjList>
-                                      <dxl:ConstValue TypeMdid="0.26.1.0" IsNull="false" IsByValue="true" Value="3324312"/>
+                                      <dxl:ConstValue TypeMdid="0.26.1.0.-1" IsNull="false" IsByValue="true" Value="3324312"/>
                                     </dxl:TableValuedFunction>
                                   </dxl:Result>
                                   <dxl:Result>
@@ -785,7 +785,7 @@
                                     </dxl:Properties>
                                     <dxl:ProjList>
                                       <dxl:ProjElem ColId="41" Alias="d_date_sk">
-                                        <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
+                                        <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
                                       </dxl:ProjElem>
                                     </dxl:ProjList>
                                     <dxl:Filter/>
@@ -796,55 +796,55 @@
                                       </dxl:Properties>
                                       <dxl:ProjList>
                                         <dxl:ProjElem ColId="41" Alias="d_date_sk">
-                                          <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
+                                          <dxl:Ident ColId="41" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
                                         </dxl:ProjElem>
                                         <dxl:ProjElem ColId="47" Alias="d_year">
-                                          <dxl:Ident ColId="47" ColName="d_year" TypeMdid="0.23.1.0"/>
+                                          <dxl:Ident ColId="47" ColName="d_year" TypeMdid="0.23.1.0.-1"/>
                                         </dxl:ProjElem>
                                       </dxl:ProjList>
                                       <dxl:Filter>
-                                        <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                                          <dxl:Ident ColId="47" ColName="d_year" TypeMdid="0.23.1.0"/>
-                                          <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="2000"/>
+                                        <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                                          <dxl:Ident ColId="47" ColName="d_year" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="2000"/>
                                         </dxl:Comparison>
                                       </dxl:Filter>
-                                      <dxl:TableDescriptor Mdid="0.3324312.1.1" TableName="date_dim">
+                                      <dxl:TableDescriptor Mdid="0.3324312.1.1.-1" TableName="date_dim">
                                         <dxl:Columns>
-                                          <dxl:Column ColId="41" Attno="1" ColName="d_date_sk" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="42" Attno="2" ColName="d_date_id" TypeMdid="0.1042.1.0" ColWidth="16"/>
-                                          <dxl:Column ColId="43" Attno="3" ColName="d_date" TypeMdid="0.1082.1.0"/>
-                                          <dxl:Column ColId="44" Attno="4" ColName="d_month_seq" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="45" Attno="5" ColName="d_week_seq" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="46" Attno="6" ColName="d_quarter_seq" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="47" Attno="7" ColName="d_year" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="48" Attno="8" ColName="d_dow" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="49" Attno="9" ColName="d_moy" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="50" Attno="10" ColName="d_dom" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="51" Attno="11" ColName="d_qoy" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="52" Attno="12" ColName="d_fy_year" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="53" Attno="13" ColName="d_fy_quarter_seq" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="54" Attno="14" ColName="d_fy_week_seq" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="55" Attno="15" ColName="d_day_name" TypeMdid="0.1042.1.0" ColWidth="9"/>
-                                          <dxl:Column ColId="56" Attno="16" ColName="d_quarter_name" TypeMdid="0.1042.1.0" ColWidth="6"/>
-                                          <dxl:Column ColId="57" Attno="17" ColName="d_holiday" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                                          <dxl:Column ColId="58" Attno="18" ColName="d_weekend" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                                          <dxl:Column ColId="59" Attno="19" ColName="d_following_holiday" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                                          <dxl:Column ColId="60" Attno="20" ColName="d_first_dom" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="61" Attno="21" ColName="d_last_dom" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="62" Attno="22" ColName="d_same_day_ly" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="63" Attno="23" ColName="d_same_day_lq" TypeMdid="0.23.1.0"/>
-                                          <dxl:Column ColId="64" Attno="24" ColName="d_current_day" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                                          <dxl:Column ColId="65" Attno="25" ColName="d_current_week" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                                          <dxl:Column ColId="66" Attno="26" ColName="d_current_month" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                                          <dxl:Column ColId="67" Attno="27" ColName="d_current_quarter" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                                          <dxl:Column ColId="68" Attno="28" ColName="d_current_year" TypeMdid="0.1042.1.0" ColWidth="1"/>
-                                          <dxl:Column ColId="69" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0"/>
-                                          <dxl:Column ColId="70" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0"/>
-                                          <dxl:Column ColId="71" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0"/>
-                                          <dxl:Column ColId="72" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0"/>
-                                          <dxl:Column ColId="73" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0"/>
-                                          <dxl:Column ColId="74" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0"/>
-                                          <dxl:Column ColId="75" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0"/>
+                                          <dxl:Column ColId="41" Attno="1" ColName="d_date_sk" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="42" Attno="2" ColName="d_date_id" TypeMdid="0.1042.1.0.-1" ColWidth="16"/>
+                                          <dxl:Column ColId="43" Attno="3" ColName="d_date" TypeMdid="0.1082.1.0.-1"/>
+                                          <dxl:Column ColId="44" Attno="4" ColName="d_month_seq" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="45" Attno="5" ColName="d_week_seq" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="46" Attno="6" ColName="d_quarter_seq" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="47" Attno="7" ColName="d_year" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="48" Attno="8" ColName="d_dow" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="49" Attno="9" ColName="d_moy" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="50" Attno="10" ColName="d_dom" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="51" Attno="11" ColName="d_qoy" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="52" Attno="12" ColName="d_fy_year" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="53" Attno="13" ColName="d_fy_quarter_seq" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="54" Attno="14" ColName="d_fy_week_seq" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="55" Attno="15" ColName="d_day_name" TypeMdid="0.1042.1.0.-1" ColWidth="9"/>
+                                          <dxl:Column ColId="56" Attno="16" ColName="d_quarter_name" TypeMdid="0.1042.1.0.-1" ColWidth="6"/>
+                                          <dxl:Column ColId="57" Attno="17" ColName="d_holiday" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                                          <dxl:Column ColId="58" Attno="18" ColName="d_weekend" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                                          <dxl:Column ColId="59" Attno="19" ColName="d_following_holiday" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                                          <dxl:Column ColId="60" Attno="20" ColName="d_first_dom" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="61" Attno="21" ColName="d_last_dom" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="62" Attno="22" ColName="d_same_day_ly" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="63" Attno="23" ColName="d_same_day_lq" TypeMdid="0.23.1.0.-1"/>
+                                          <dxl:Column ColId="64" Attno="24" ColName="d_current_day" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                                          <dxl:Column ColId="65" Attno="25" ColName="d_current_week" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                                          <dxl:Column ColId="66" Attno="26" ColName="d_current_month" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                                          <dxl:Column ColId="67" Attno="27" ColName="d_current_quarter" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                                          <dxl:Column ColId="68" Attno="28" ColName="d_current_year" TypeMdid="0.1042.1.0.-1" ColWidth="1"/>
+                                          <dxl:Column ColId="69" Attno="-1" ColName="ctid" TypeMdid="0.27.1.0.-1"/>
+                                          <dxl:Column ColId="70" Attno="-3" ColName="xmin" TypeMdid="0.28.1.0.-1"/>
+                                          <dxl:Column ColId="71" Attno="-4" ColName="cmin" TypeMdid="0.29.1.0.-1"/>
+                                          <dxl:Column ColId="72" Attno="-5" ColName="xmax" TypeMdid="0.28.1.0.-1"/>
+                                          <dxl:Column ColId="73" Attno="-6" ColName="cmax" TypeMdid="0.29.1.0.-1"/>
+                                          <dxl:Column ColId="74" Attno="-7" ColName="tableoid" TypeMdid="0.26.1.0.-1"/>
+                                          <dxl:Column ColId="75" Attno="-8" ColName="gp_segment_id" TypeMdid="0.23.1.0.-1"/>
                                         </dxl:Columns>
                                       </dxl:TableDescriptor>
                                     </dxl:DynamicTableScan>
@@ -865,22 +865,22 @@
                 </dxl:Properties>
                 <dxl:ProjList>
                   <dxl:ProjElem ColId="444" Alias="sum">
-                    <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                    <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="445" Alias="i_category">
-                    <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                    <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="446" Alias="i_class">
-                    <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                    <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                    <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                    <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="781" Alias="rank">
-                    <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                    <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
                   </dxl:ProjElem>
                   <dxl:ProjElem ColId="782" Alias="?column?">
-                    <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                    <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                   </dxl:ProjElem>
                 </dxl:ProjList>
                 <dxl:CTEProducer CTEId="1" Columns="108,109,110,111,112,216">
@@ -889,22 +889,22 @@
                   </dxl:Properties>
                   <dxl:ProjList>
                     <dxl:ProjElem ColId="108" Alias="sum">
-                      <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                      <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="109" Alias="i_category">
-                      <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                      <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="110" Alias="i_class">
-                      <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                      <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="111" Alias="g_category">
-                      <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                      <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="112" Alias="g_class">
-                      <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                      <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="216" Alias="lochierarchy">
-                      <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                      <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                     </dxl:ProjElem>
                   </dxl:ProjList>
                   <dxl:Aggregate AggregationStrategy="Hashed" StreamSafe="false">
@@ -921,22 +921,22 @@
                     </dxl:GroupingColumns>
                     <dxl:ProjList>
                       <dxl:ProjElem ColId="108" Alias="sum">
-                        <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                        <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="109" Alias="i_category">
-                        <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                        <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="110" Alias="i_class">
-                        <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                        <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="111" Alias="g_category">
-                        <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                        <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="112" Alias="g_class">
-                        <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                        <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="216" Alias="lochierarchy">
-                        <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                        <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                       </dxl:ProjElem>
                     </dxl:ProjList>
                     <dxl:Filter/>
@@ -946,22 +946,22 @@
                       </dxl:Properties>
                       <dxl:ProjList>
                         <dxl:ProjElem ColId="108" Alias="sum">
-                          <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                          <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="109" Alias="i_category">
-                          <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                          <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="110" Alias="i_class">
-                          <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                          <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="111" Alias="g_category">
-                          <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                          <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="112" Alias="g_class">
-                          <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                          <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="216" Alias="lochierarchy">
-                          <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                          <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                         </dxl:ProjElem>
                       </dxl:ProjList>
                       <dxl:Filter/>
@@ -979,22 +979,22 @@
                         </dxl:GroupingColumns>
                         <dxl:ProjList>
                           <dxl:ProjElem ColId="108" Alias="sum">
-                            <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                            <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="109" Alias="i_category">
-                            <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="110" Alias="i_class">
-                            <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="111" Alias="g_category">
-                            <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="112" Alias="g_class">
-                            <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="216" Alias="lochierarchy">
-                            <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                         </dxl:ProjList>
                         <dxl:Filter/>
@@ -1004,44 +1004,44 @@
                           </dxl:Properties>
                           <dxl:ProjList>
                             <dxl:ProjElem ColId="108" Alias="sum">
-                              <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                              <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="109" Alias="i_category">
-                              <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                              <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="110" Alias="i_class">
-                              <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                              <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="111" Alias="g_category">
-                              <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                              <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="112" Alias="g_class">
-                              <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                              <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="216" Alias="lochierarchy">
-                              <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                              <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                             </dxl:ProjElem>
                           </dxl:ProjList>
                           <dxl:Filter/>
                           <dxl:SortingColumnList/>
                           <dxl:HashExprList>
-                            <dxl:HashExpr TypeMdid="0.1700.1.0">
-                              <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                            <dxl:HashExpr TypeMdid="0.1700.1.0.-1">
+                              <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                             </dxl:HashExpr>
-                            <dxl:HashExpr TypeMdid="0.1042.1.0">
-                              <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                            <dxl:HashExpr TypeMdid="0.1042.1.0.-1">
+                              <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:HashExpr>
-                            <dxl:HashExpr TypeMdid="0.1042.1.0">
-                              <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                            <dxl:HashExpr TypeMdid="0.1042.1.0.-1">
+                              <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:HashExpr>
-                            <dxl:HashExpr TypeMdid="0.23.1.0">
-                              <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                            <dxl:HashExpr TypeMdid="0.23.1.0.-1">
+                              <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                             </dxl:HashExpr>
-                            <dxl:HashExpr TypeMdid="0.23.1.0">
-                              <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                            <dxl:HashExpr TypeMdid="0.23.1.0.-1">
+                              <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                             </dxl:HashExpr>
-                            <dxl:HashExpr TypeMdid="0.23.1.0">
-                              <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                            <dxl:HashExpr TypeMdid="0.23.1.0.-1">
+                              <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                             </dxl:HashExpr>
                           </dxl:HashExprList>
                           <dxl:Append IsTarget="false" IsZapped="false">
@@ -1050,22 +1050,22 @@
                             </dxl:Properties>
                             <dxl:ProjList>
                               <dxl:ProjElem ColId="108" Alias="sum">
-                                <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="109" Alias="i_category">
-                                <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="110" Alias="i_class">
-                                <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="111" Alias="g_category">
-                                <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                                <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="112" Alias="g_class">
-                                <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                                <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="216" Alias="lochierarchy">
-                                <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                <dxl:Ident ColId="216" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                               </dxl:ProjElem>
                             </dxl:ProjList>
                             <dxl:Filter/>
@@ -1075,22 +1075,22 @@
                               </dxl:Properties>
                               <dxl:ProjList>
                                 <dxl:ProjElem ColId="108" Alias="sum">
-                                  <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                  <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="109" Alias="i_category">
-                                  <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                  <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="110" Alias="i_class">
-                                  <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                  <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="111" Alias="g_category">
-                                  <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                                  <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="112" Alias="g_class">
-                                  <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                                  <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="216" Alias="lochierarchy">
-                                  <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                                  <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                                 </dxl:ProjElem>
                               </dxl:ProjList>
                               <dxl:Filter/>
@@ -1101,19 +1101,19 @@
                                 </dxl:Properties>
                                 <dxl:ProjList>
                                   <dxl:ProjElem ColId="108" Alias="sum">
-                                    <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                    <dxl:Ident ColId="108" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="109" Alias="i_category">
-                                    <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                    <dxl:Ident ColId="109" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="110" Alias="i_class">
-                                    <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                    <dxl:Ident ColId="110" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="111" Alias="g_category">
-                                    <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0"/>
+                                    <dxl:Ident ColId="111" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="112" Alias="g_class">
-                                    <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0"/>
+                                    <dxl:Ident ColId="112" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                                   </dxl:ProjElem>
                                 </dxl:ProjList>
                               </dxl:CTEConsumer>
@@ -1124,22 +1124,22 @@
                               </dxl:Properties>
                               <dxl:ProjList>
                                 <dxl:ProjElem ColId="325" Alias="sum">
-                                  <dxl:Ident ColId="325" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                  <dxl:Ident ColId="325" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="218" Alias="i_category">
-                                  <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                  <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="326" Alias="i_class">
-                                  <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                                  <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="327" Alias="g_category">
-                                  <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                                  <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="328" Alias="g_class">
-                                  <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                                  <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="329" Alias="lochierarchy">
-                                  <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                                  <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
                                 </dxl:ProjElem>
                               </dxl:ProjList>
                               <dxl:Filter/>
@@ -1153,12 +1153,12 @@
                                 </dxl:GroupingColumns>
                                 <dxl:ProjList>
                                   <dxl:ProjElem ColId="325" Alias="sum">
-                                    <dxl:AggFunc AggMdid="0.2114.1.0" AggDistinct="false" AggStage="Final">
-                                      <dxl:Ident ColId="784" ColName="ColRef_0784" TypeMdid="0.1700.1.0"/>
+                                    <dxl:AggFunc AggMdid="0.2114.1.0.-1" AggDistinct="false" AggStage="Final">
+                                      <dxl:Ident ColId="784" ColName="ColRef_0784" TypeMdid="0.1700.1.0.-1"/>
                                     </dxl:AggFunc>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="218" Alias="i_category">
-                                    <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                    <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                   </dxl:ProjElem>
                                 </dxl:ProjList>
                                 <dxl:Filter/>
@@ -1168,17 +1168,17 @@
                                   </dxl:Properties>
                                   <dxl:ProjList>
                                     <dxl:ProjElem ColId="218" Alias="i_category">
-                                      <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                      <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="784" Alias="ColRef_0784">
-                                      <dxl:Ident ColId="784" ColName="ColRef_0784" TypeMdid="0.1700.1.0"/>
+                                      <dxl:Ident ColId="784" ColName="ColRef_0784" TypeMdid="0.1700.1.0.-1"/>
                                     </dxl:ProjElem>
                                   </dxl:ProjList>
                                   <dxl:Filter/>
                                   <dxl:SortingColumnList/>
                                   <dxl:HashExprList>
-                                    <dxl:HashExpr TypeMdid="0.1042.1.0">
-                                      <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                    <dxl:HashExpr TypeMdid="0.1042.1.0.-1">
+                                      <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                     </dxl:HashExpr>
                                   </dxl:HashExprList>
                                   <dxl:Result>
@@ -1187,10 +1187,10 @@
                                     </dxl:Properties>
                                     <dxl:ProjList>
                                       <dxl:ProjElem ColId="218" Alias="i_category">
-                                        <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                        <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                       </dxl:ProjElem>
                                       <dxl:ProjElem ColId="784" Alias="ColRef_0784">
-                                        <dxl:Ident ColId="784" ColName="ColRef_0784" TypeMdid="0.1700.1.0"/>
+                                        <dxl:Ident ColId="784" ColName="ColRef_0784" TypeMdid="0.1700.1.0.-1"/>
                                       </dxl:ProjElem>
                                     </dxl:ProjList>
                                     <dxl:Filter/>
@@ -1204,12 +1204,12 @@
                                       </dxl:GroupingColumns>
                                       <dxl:ProjList>
                                         <dxl:ProjElem ColId="784" Alias="ColRef_0784">
-                                          <dxl:AggFunc AggMdid="0.2114.1.0" AggDistinct="false" AggStage="Partial">
-                                            <dxl:Ident ColId="217" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                          <dxl:AggFunc AggMdid="0.2114.1.0.-1" AggDistinct="false" AggStage="Partial">
+                                            <dxl:Ident ColId="217" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                           </dxl:AggFunc>
                                         </dxl:ProjElem>
                                         <dxl:ProjElem ColId="218" Alias="i_category">
-                                          <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                          <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                         </dxl:ProjElem>
                                       </dxl:ProjList>
                                       <dxl:Filter/>
@@ -1219,19 +1219,19 @@
                                         </dxl:Properties>
                                         <dxl:ProjList>
                                           <dxl:ProjElem ColId="217" Alias="sum">
-                                            <dxl:Ident ColId="217" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                            <dxl:Ident ColId="217" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="218" Alias="i_category">
-                                            <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                            <dxl:Ident ColId="218" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="219" Alias="i_class">
-                                            <dxl:Ident ColId="219" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                            <dxl:Ident ColId="219" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="220" Alias="g_category">
-                                            <dxl:Ident ColId="220" ColName="g_category" TypeMdid="0.23.1.0"/>
+                                            <dxl:Ident ColId="220" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="221" Alias="g_class">
-                                            <dxl:Ident ColId="221" ColName="g_class" TypeMdid="0.23.1.0"/>
+                                            <dxl:Ident ColId="221" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                                           </dxl:ProjElem>
                                         </dxl:ProjList>
                                       </dxl:CTEConsumer>
@@ -1249,44 +1249,44 @@
                         </dxl:Properties>
                         <dxl:ProjList>
                           <dxl:ProjElem ColId="438" Alias="sum">
-                            <dxl:Ident ColId="438" ColName="sum" TypeMdid="0.1700.1.0"/>
+                            <dxl:Ident ColId="438" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="439" Alias="i_category">
-                            <dxl:Ident ColId="439" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="439" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="440" Alias="i_class">
-                            <dxl:Ident ColId="440" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="440" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="441" Alias="g_category">
-                            <dxl:Ident ColId="441" ColName="g_category" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="441" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="442" Alias="g_class">
-                            <dxl:Ident ColId="442" ColName="g_class" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="442" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="443" Alias="lochierarchy">
-                            <dxl:Ident ColId="443" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="443" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                         </dxl:ProjList>
                         <dxl:Filter/>
                         <dxl:SortingColumnList/>
                         <dxl:HashExprList>
-                          <dxl:HashExpr TypeMdid="0.1700.1.0">
-                            <dxl:Ident ColId="438" ColName="sum" TypeMdid="0.1700.1.0"/>
+                          <dxl:HashExpr TypeMdid="0.1700.1.0.-1">
+                            <dxl:Ident ColId="438" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                           </dxl:HashExpr>
-                          <dxl:HashExpr TypeMdid="0.1042.1.0">
-                            <dxl:Ident ColId="439" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                          <dxl:HashExpr TypeMdid="0.1042.1.0.-1">
+                            <dxl:Ident ColId="439" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:HashExpr>
-                          <dxl:HashExpr TypeMdid="0.1042.1.0">
-                            <dxl:Ident ColId="440" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                          <dxl:HashExpr TypeMdid="0.1042.1.0.-1">
+                            <dxl:Ident ColId="440" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:HashExpr>
-                          <dxl:HashExpr TypeMdid="0.23.1.0">
-                            <dxl:Ident ColId="441" ColName="g_category" TypeMdid="0.23.1.0"/>
+                          <dxl:HashExpr TypeMdid="0.23.1.0.-1">
+                            <dxl:Ident ColId="441" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                           </dxl:HashExpr>
-                          <dxl:HashExpr TypeMdid="0.23.1.0">
-                            <dxl:Ident ColId="442" ColName="g_class" TypeMdid="0.23.1.0"/>
+                          <dxl:HashExpr TypeMdid="0.23.1.0.-1">
+                            <dxl:Ident ColId="442" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                           </dxl:HashExpr>
-                          <dxl:HashExpr TypeMdid="0.23.1.0">
-                            <dxl:Ident ColId="443" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                          <dxl:HashExpr TypeMdid="0.23.1.0.-1">
+                            <dxl:Ident ColId="443" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                           </dxl:HashExpr>
                         </dxl:HashExprList>
                         <dxl:Result>
@@ -1295,22 +1295,22 @@
                           </dxl:Properties>
                           <dxl:ProjList>
                             <dxl:ProjElem ColId="438" Alias="sum">
-                              <dxl:Ident ColId="438" ColName="sum" TypeMdid="0.1700.1.0"/>
+                              <dxl:Ident ColId="438" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="439" Alias="i_category">
-                              <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                              <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="440" Alias="i_class">
-                              <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                              <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="441" Alias="g_category">
-                              <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                              <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="442" Alias="g_class">
-                              <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                              <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="443" Alias="lochierarchy">
-                              <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="2"/>
+                              <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="2"/>
                             </dxl:ProjElem>
                           </dxl:ProjList>
                           <dxl:Filter/>
@@ -1322,8 +1322,8 @@
                             <dxl:GroupingColumns/>
                             <dxl:ProjList>
                               <dxl:ProjElem ColId="438" Alias="sum">
-                                <dxl:AggFunc AggMdid="0.2114.1.0" AggDistinct="false" AggStage="Final">
-                                  <dxl:Ident ColId="783" ColName="ColRef_0783" TypeMdid="0.1700.1.0"/>
+                                <dxl:AggFunc AggMdid="0.2114.1.0.-1" AggDistinct="false" AggStage="Final">
+                                  <dxl:Ident ColId="783" ColName="ColRef_0783" TypeMdid="0.1700.1.0.-1"/>
                                 </dxl:AggFunc>
                               </dxl:ProjElem>
                             </dxl:ProjList>
@@ -1334,7 +1334,7 @@
                               </dxl:Properties>
                               <dxl:ProjList>
                                 <dxl:ProjElem ColId="783" Alias="ColRef_0783">
-                                  <dxl:Ident ColId="783" ColName="ColRef_0783" TypeMdid="0.1700.1.0"/>
+                                  <dxl:Ident ColId="783" ColName="ColRef_0783" TypeMdid="0.1700.1.0.-1"/>
                                 </dxl:ProjElem>
                               </dxl:ProjList>
                               <dxl:Filter/>
@@ -1346,8 +1346,8 @@
                                 <dxl:GroupingColumns/>
                                 <dxl:ProjList>
                                   <dxl:ProjElem ColId="783" Alias="ColRef_0783">
-                                    <dxl:AggFunc AggMdid="0.2114.1.0" AggDistinct="false" AggStage="Partial">
-                                      <dxl:Ident ColId="330" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                    <dxl:AggFunc AggMdid="0.2114.1.0.-1" AggDistinct="false" AggStage="Partial">
+                                      <dxl:Ident ColId="330" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                     </dxl:AggFunc>
                                   </dxl:ProjElem>
                                 </dxl:ProjList>
@@ -1358,19 +1358,19 @@
                                   </dxl:Properties>
                                   <dxl:ProjList>
                                     <dxl:ProjElem ColId="330" Alias="sum">
-                                      <dxl:Ident ColId="330" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                      <dxl:Ident ColId="330" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="331" Alias="i_category">
-                                      <dxl:Ident ColId="331" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                      <dxl:Ident ColId="331" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="332" Alias="i_class">
-                                      <dxl:Ident ColId="332" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                      <dxl:Ident ColId="332" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="333" Alias="g_category">
-                                      <dxl:Ident ColId="333" ColName="g_category" TypeMdid="0.23.1.0"/>
+                                      <dxl:Ident ColId="333" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="334" Alias="g_class">
-                                      <dxl:Ident ColId="334" ColName="g_class" TypeMdid="0.23.1.0"/>
+                                      <dxl:Ident ColId="334" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                                     </dxl:ProjElem>
                                   </dxl:ProjList>
                                 </dxl:CTEConsumer>
@@ -1388,22 +1388,22 @@
                   </dxl:Properties>
                   <dxl:ProjList>
                     <dxl:ProjElem ColId="444" Alias="sum">
-                      <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                      <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="445" Alias="i_category">
-                      <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                      <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="446" Alias="i_class">
-                      <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                      <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                      <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                      <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="781" Alias="rank">
-                      <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                      <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
                     </dxl:ProjElem>
                     <dxl:ProjElem ColId="782" Alias="?column?">
-                      <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                      <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                     </dxl:ProjElem>
                   </dxl:ProjList>
                   <dxl:Filter/>
@@ -1414,22 +1414,22 @@
                     </dxl:Properties>
                     <dxl:ProjList>
                       <dxl:ProjElem ColId="444" Alias="sum">
-                        <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                        <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="445" Alias="i_category">
-                        <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                        <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="446" Alias="i_class">
-                        <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                        <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                        <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                        <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="781" Alias="rank">
-                        <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                        <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
                       </dxl:ProjElem>
                       <dxl:ProjElem ColId="782" Alias="?column?">
-                        <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                        <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                       </dxl:ProjElem>
                     </dxl:ProjList>
                     <dxl:GatherMotion InputSegments="0,1" OutputSegments="-1">
@@ -1438,29 +1438,29 @@
                       </dxl:Properties>
                       <dxl:ProjList>
                         <dxl:ProjElem ColId="444" Alias="sum">
-                          <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                          <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="445" Alias="i_category">
-                          <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                          <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="446" Alias="i_class">
-                          <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                          <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                          <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                          <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="781" Alias="rank">
-                          <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                          <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
                         </dxl:ProjElem>
                         <dxl:ProjElem ColId="782" Alias="?column?">
-                          <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                          <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                         </dxl:ProjElem>
                       </dxl:ProjList>
                       <dxl:Filter/>
                       <dxl:SortingColumnList>
-                        <dxl:SortingColumn ColId="449" SortOperatorMdid="0.521.1.0" SortOperatorName="&gt;" SortNullsFirst="false"/>
-                        <dxl:SortingColumn ColId="782" SortOperatorMdid="0.1058.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
-                        <dxl:SortingColumn ColId="781" SortOperatorMdid="0.412.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
+                        <dxl:SortingColumn ColId="449" SortOperatorMdid="0.521.1.0.-1" SortOperatorName="&gt;" SortNullsFirst="false"/>
+                        <dxl:SortingColumn ColId="782" SortOperatorMdid="0.1058.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
+                        <dxl:SortingColumn ColId="781" SortOperatorMdid="0.412.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
                       </dxl:SortingColumnList>
                       <dxl:Limit>
                         <dxl:Properties>
@@ -1468,22 +1468,22 @@
                         </dxl:Properties>
                         <dxl:ProjList>
                           <dxl:ProjElem ColId="444" Alias="sum">
-                            <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                            <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="445" Alias="i_category">
-                            <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="446" Alias="i_class">
-                            <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                            <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                            <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="781" Alias="rank">
-                            <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                            <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
                           </dxl:ProjElem>
                           <dxl:ProjElem ColId="782" Alias="?column?">
-                            <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                            <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                           </dxl:ProjElem>
                         </dxl:ProjList>
                         <dxl:Sort SortDiscardDuplicates="false">
@@ -1492,29 +1492,29 @@
                           </dxl:Properties>
                           <dxl:ProjList>
                             <dxl:ProjElem ColId="444" Alias="sum">
-                              <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                              <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="445" Alias="i_category">
-                              <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                              <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="446" Alias="i_class">
-                              <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                              <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                              <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                              <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="781" Alias="rank">
-                              <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                              <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
                             </dxl:ProjElem>
                             <dxl:ProjElem ColId="782" Alias="?column?">
-                              <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                              <dxl:Ident ColId="782" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                             </dxl:ProjElem>
                           </dxl:ProjList>
                           <dxl:Filter/>
                           <dxl:SortingColumnList>
-                            <dxl:SortingColumn ColId="449" SortOperatorMdid="0.521.1.0" SortOperatorName="&gt;" SortNullsFirst="false"/>
-                            <dxl:SortingColumn ColId="782" SortOperatorMdid="0.1058.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
-                            <dxl:SortingColumn ColId="781" SortOperatorMdid="0.412.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
+                            <dxl:SortingColumn ColId="449" SortOperatorMdid="0.521.1.0.-1" SortOperatorName="&gt;" SortNullsFirst="false"/>
+                            <dxl:SortingColumn ColId="782" SortOperatorMdid="0.1058.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
+                            <dxl:SortingColumn ColId="781" SortOperatorMdid="0.412.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
                           </dxl:SortingColumnList>
                           <dxl:LimitCount/>
                           <dxl:LimitOffset/>
@@ -1524,28 +1524,28 @@
                             </dxl:Properties>
                             <dxl:ProjList>
                               <dxl:ProjElem ColId="444" Alias="sum">
-                                <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="445" Alias="i_category">
-                                <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="446" Alias="i_class">
-                                <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                                <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="781" Alias="rank">
-                                <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0"/>
+                                <dxl:Ident ColId="781" ColName="rank" TypeMdid="0.20.1.0.-1"/>
                               </dxl:ProjElem>
                               <dxl:ProjElem ColId="782" Alias="?column?">
-                                <dxl:If TypeMdid="0.1042.1.0">
-                                  <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                                    <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
-                                    <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                                <dxl:If TypeMdid="0.1042.1.0.-1">
+                                  <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                                    <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
+                                    <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                                   </dxl:Comparison>
-                                  <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
-                                  <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                                  <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
+                                  <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                                 </dxl:If>
                               </dxl:ProjElem>
                             </dxl:ProjList>
@@ -1557,22 +1557,22 @@
                               </dxl:Properties>
                               <dxl:ProjList>
                                 <dxl:ProjElem ColId="781" Alias="rank">
-                                  <dxl:WindowFunc Mdid="0.7001.1.0" TypeMdid="0.20.1.0" Distinct="false" WindowStrategy="Immediate" WinSpecPos="0"/>
+                                  <dxl:WindowFunc Mdid="0.7001.1.0.-1" TypeMdid="0.20.1.0.-1" Distinct="false" WindowStrategy="Immediate" WinSpecPos="0"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="444" Alias="sum">
-                                  <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                  <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="445" Alias="i_category">
-                                  <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                  <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="446" Alias="i_class">
-                                  <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                  <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                                  <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                  <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                                 </dxl:ProjElem>
                                 <dxl:ProjElem ColId="780" Alias="?column?">
-                                  <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                                  <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                                 </dxl:ProjElem>
                               </dxl:ProjList>
                               <dxl:Filter/>
@@ -1582,26 +1582,26 @@
                                 </dxl:Properties>
                                 <dxl:ProjList>
                                   <dxl:ProjElem ColId="444" Alias="sum">
-                                    <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                    <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="445" Alias="i_category">
-                                    <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                    <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="446" Alias="i_class">
-                                    <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                    <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                                    <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                    <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                                   </dxl:ProjElem>
                                   <dxl:ProjElem ColId="780" Alias="?column?">
-                                    <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                                    <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                                   </dxl:ProjElem>
                                 </dxl:ProjList>
                                 <dxl:Filter/>
                                 <dxl:SortingColumnList>
-                                  <dxl:SortingColumn ColId="449" SortOperatorMdid="0.97.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
-                                  <dxl:SortingColumn ColId="780" SortOperatorMdid="0.1058.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
-                                  <dxl:SortingColumn ColId="444" SortOperatorMdid="0.1756.1.0" SortOperatorName="&gt;" SortNullsFirst="false"/>
+                                  <dxl:SortingColumn ColId="449" SortOperatorMdid="0.97.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
+                                  <dxl:SortingColumn ColId="780" SortOperatorMdid="0.1058.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
+                                  <dxl:SortingColumn ColId="444" SortOperatorMdid="0.1756.1.0.-1" SortOperatorName="&gt;" SortNullsFirst="false"/>
                                 </dxl:SortingColumnList>
                                 <dxl:LimitCount/>
                                 <dxl:LimitOffset/>
@@ -1611,29 +1611,29 @@
                                   </dxl:Properties>
                                   <dxl:ProjList>
                                     <dxl:ProjElem ColId="444" Alias="sum">
-                                      <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                      <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="445" Alias="i_category">
-                                      <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                      <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="446" Alias="i_class">
-                                      <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                      <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                                      <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                      <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                                     </dxl:ProjElem>
                                     <dxl:ProjElem ColId="780" Alias="?column?">
-                                      <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                                      <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                                     </dxl:ProjElem>
                                   </dxl:ProjList>
                                   <dxl:Filter/>
                                   <dxl:SortingColumnList/>
                                   <dxl:HashExprList>
-                                    <dxl:HashExpr TypeMdid="0.23.1.0">
-                                      <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                    <dxl:HashExpr TypeMdid="0.23.1.0.-1">
+                                      <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                                     </dxl:HashExpr>
-                                    <dxl:HashExpr TypeMdid="0.1042.1.0">
-                                      <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                                    <dxl:HashExpr TypeMdid="0.1042.1.0.-1">
+                                      <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                                     </dxl:HashExpr>
                                   </dxl:HashExprList>
                                   <dxl:Result>
@@ -1642,19 +1642,19 @@
                                     </dxl:Properties>
                                     <dxl:ProjList>
                                       <dxl:ProjElem ColId="444" Alias="sum">
-                                        <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                        <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                       </dxl:ProjElem>
                                       <dxl:ProjElem ColId="445" Alias="i_category">
-                                        <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                        <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                       </dxl:ProjElem>
                                       <dxl:ProjElem ColId="446" Alias="i_class">
-                                        <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                        <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                       </dxl:ProjElem>
                                       <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                                        <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                        <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                                       </dxl:ProjElem>
                                       <dxl:ProjElem ColId="780" Alias="?column?">
-                                        <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0"/>
+                                        <dxl:Ident ColId="780" ColName="?column?" TypeMdid="0.1042.1.0.-1"/>
                                       </dxl:ProjElem>
                                     </dxl:ProjList>
                                     <dxl:Filter/>
@@ -1665,26 +1665,26 @@
                                       </dxl:Properties>
                                       <dxl:ProjList>
                                         <dxl:ProjElem ColId="780" Alias="?column?">
-                                          <dxl:If TypeMdid="0.1042.1.0">
-                                            <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0">
-                                              <dxl:Ident ColId="448" ColName="g_class" TypeMdid="0.23.1.0"/>
-                                              <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                                          <dxl:If TypeMdid="0.1042.1.0.-1">
+                                            <dxl:Comparison ComparisonOperator="=" OperatorMdid="0.96.1.0.-1">
+                                              <dxl:Ident ColId="448" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
+                                              <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                                             </dxl:Comparison>
-                                            <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
-                                            <dxl:ConstValue TypeMdid="0.1042.1.0" IsNull="true" IsByValue="false" LintValue="0"/>
+                                            <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
+                                            <dxl:ConstValue TypeMdid="0.1042.1.0.-1" IsNull="true" IsByValue="false" LintValue="0"/>
                                           </dxl:If>
                                         </dxl:ProjElem>
                                         <dxl:ProjElem ColId="444" Alias="sum">
-                                          <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                          <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                         </dxl:ProjElem>
                                         <dxl:ProjElem ColId="445" Alias="i_category">
-                                          <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                          <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                         </dxl:ProjElem>
                                         <dxl:ProjElem ColId="446" Alias="i_class">
-                                          <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                          <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                         </dxl:ProjElem>
                                         <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                                          <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                          <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                                         </dxl:ProjElem>
                                       </dxl:ProjList>
                                       <dxl:Filter/>
@@ -1695,22 +1695,22 @@
                                         </dxl:Properties>
                                         <dxl:ProjList>
                                           <dxl:ProjElem ColId="444" Alias="sum">
-                                            <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0"/>
+                                            <dxl:Ident ColId="444" ColName="sum" TypeMdid="0.1700.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="445" Alias="i_category">
-                                            <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0"/>
+                                            <dxl:Ident ColId="445" ColName="i_category" TypeMdid="0.1042.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="446" Alias="i_class">
-                                            <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0"/>
+                                            <dxl:Ident ColId="446" ColName="i_class" TypeMdid="0.1042.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="447" Alias="g_category">
-                                            <dxl:Ident ColId="447" ColName="g_category" TypeMdid="0.23.1.0"/>
+                                            <dxl:Ident ColId="447" ColName="g_category" TypeMdid="0.23.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="448" Alias="g_class">
-                                            <dxl:Ident ColId="448" ColName="g_class" TypeMdid="0.23.1.0"/>
+                                            <dxl:Ident ColId="448" ColName="g_class" TypeMdid="0.23.1.0.-1"/>
                                           </dxl:ProjElem>
                                           <dxl:ProjElem ColId="449" Alias="lochierarchy">
-                                            <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0"/>
+                                            <dxl:Ident ColId="449" ColName="lochierarchy" TypeMdid="0.23.1.0.-1"/>
                                           </dxl:ProjElem>
                                         </dxl:ProjList>
                                       </dxl:CTEConsumer>
@@ -1721,7 +1721,7 @@
                               <dxl:WindowKeyList>
                                 <dxl:WindowKey>
                                   <dxl:SortingColumnList>
-                                    <dxl:SortingColumn ColId="444" SortOperatorMdid="0.1756.1.0" SortOperatorName="&gt;" SortNullsFirst="false"/>
+                                    <dxl:SortingColumn ColId="444" SortOperatorMdid="0.1756.1.0.-1" SortOperatorName="&gt;" SortNullsFirst="false"/>
                                   </dxl:SortingColumnList>
                                 </dxl:WindowKey>
                               </dxl:WindowKeyList>
@@ -1729,18 +1729,18 @@
                           </dxl:Result>
                         </dxl:Sort>
                         <dxl:LimitCount>
-                          <dxl:ConstValue TypeMdid="0.20.1.0" IsNull="false" IsByValue="true" Value="100"/>
+                          <dxl:ConstValue TypeMdid="0.20.1.0.-1" IsNull="false" IsByValue="true" Value="100"/>
                         </dxl:LimitCount>
                         <dxl:LimitOffset>
-                          <dxl:ConstValue TypeMdid="0.20.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                          <dxl:ConstValue TypeMdid="0.20.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                         </dxl:LimitOffset>
                       </dxl:Limit>
                     </dxl:GatherMotion>
                     <dxl:LimitCount>
-                      <dxl:ConstValue TypeMdid="0.20.1.0" IsNull="false" IsByValue="true" Value="100"/>
+                      <dxl:ConstValue TypeMdid="0.20.1.0.-1" IsNull="false" IsByValue="true" Value="100"/>
                     </dxl:LimitCount>
                     <dxl:LimitOffset>
-                      <dxl:ConstValue TypeMdid="0.20.1.0" IsNull="false" IsByValue="true" Value="0"/>
+                      <dxl:ConstValue TypeMdid="0.20.1.0.-1" IsNull="false" IsByValue="true" Value="0"/>
                     </dxl:LimitOffset>
                   </dxl:Limit>
                 </dxl:RandomMotion>

@@ -7,15 +7,15 @@
       </dxl:Properties>
       <dxl:ProjList>
         <dxl:ProjElem ColId="1" Alias="a">
-          <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0"/>
+          <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
         </dxl:ProjElem>
         <dxl:ProjElem ColId="3" Alias="x">
-          <dxl:Ident ColId="3" ColName="x" TypeMdid="0.20.1.0"/>
+          <dxl:Ident ColId="3" ColName="x" TypeMdid="0.20.1.0.-1"/>
         </dxl:ProjElem>
       </dxl:ProjList>
       <dxl:Filter/>
       <dxl:SortingColumnList>
-        <dxl:SortingColumn ColId="3" SortOperatorMdid="0.412.1.0" SortOperatorName="&lt;" SortNullsFirst="false"/>
+        <dxl:SortingColumn ColId="3" SortOperatorMdid="0.412.1.0.-1" SortOperatorName="&lt;" SortNullsFirst="false"/>
       </dxl:SortingColumnList>
       <dxl:LimitCount/>
       <dxl:LimitOffset/>
@@ -28,11 +28,11 @@
         </dxl:GroupingColumns>
         <dxl:ProjList>
           <dxl:ProjElem ColId="1" Alias="a">
-            <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="3" Alias="x">
-            <dxl:AggFunc AggMdid="0.2108.1.0" AggDistinct="false" AggStage="Normal">
-              <dxl:Ident ColId="2" ColName="b" TypeMdid="0.23.1.0"/>
+            <dxl:AggFunc AggMdid="0.2108.1.0.-1" AggDistinct="false" AggStage="Normal">
+              <dxl:Ident ColId="2" ColName="b" TypeMdid="0.23.1.0.-1"/>
             </dxl:AggFunc>
           </dxl:ProjElem>
         </dxl:ProjList>
@@ -43,17 +43,17 @@
           </dxl:Properties>
           <dxl:ProjList>
             <dxl:ProjElem ColId="1" Alias="a">
-              <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0"/>
+              <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
             </dxl:ProjElem>
             <dxl:ProjElem ColId="2" Alias="b">
-              <dxl:Ident ColId="2" ColName="b" TypeMdid="0.23.1.0"/>
+              <dxl:Ident ColId="2" ColName="b" TypeMdid="0.23.1.0.-1"/>
             </dxl:ProjElem>
           </dxl:ProjList>
           <dxl:Filter/>
-          <dxl:TableDescriptor Mdid="0.17140.1.1" TableName="r">
+          <dxl:TableDescriptor Mdid="0.17140.1.1.-1" TableName="r">
             <dxl:Columns>
-              <dxl:Column ColId="1" Attno="1" ColName="a" TypeMdid="0.23.1.0"/>
-              <dxl:Column ColId="2" Attno="2" ColName="b" TypeMdid="0.23.1.0"/>
+              <dxl:Column ColId="1" Attno="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
+              <dxl:Column ColId="2" Attno="2" ColName="b" TypeMdid="0.23.1.0.-1"/>
             </dxl:Columns>
           </dxl:TableDescriptor>
         </dxl:TableScan>

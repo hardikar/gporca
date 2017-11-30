@@ -12,68 +12,68 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
       <dxl:TraceFlags Value="101013,102024,102025,102115,102116,102117,102119,102121,103001,103003,103016"/>
     </dxl:OptimizerConfig>
     <dxl:Metadata SystemIds="0.GPDB">
-      <dxl:Type Mdid="0.16.1.0" Name="bool" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="1" PassByValue="true">
-        <dxl:EqualityOp Mdid="0.91.1.0"/>
-        <dxl:InequalityOp Mdid="0.85.1.0"/>
-        <dxl:LessThanOp Mdid="0.58.1.0"/>
-        <dxl:LessThanEqualsOp Mdid="0.1694.1.0"/>
-        <dxl:GreaterThanOp Mdid="0.59.1.0"/>
-        <dxl:GreaterThanEqualsOp Mdid="0.1695.1.0"/>
-        <dxl:ComparisonOp Mdid="0.1693.1.0"/>
-        <dxl:ArrayType Mdid="0.1000.1.0"/>
-        <dxl:MinAgg Mdid="0.0.0.0"/>
-        <dxl:MaxAgg Mdid="0.0.0.0"/>
-        <dxl:AvgAgg Mdid="0.0.0.0"/>
-        <dxl:SumAgg Mdid="0.0.0.0"/>
-        <dxl:CountAgg Mdid="0.2147.1.0"/>
+      <dxl:Type Mdid="0.16.1.0.-1" Name="bool" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="1" PassByValue="true">
+        <dxl:EqualityOp Mdid="0.91.1.0.-1"/>
+        <dxl:InequalityOp Mdid="0.85.1.0.-1"/>
+        <dxl:LessThanOp Mdid="0.58.1.0.-1"/>
+        <dxl:LessThanEqualsOp Mdid="0.1694.1.0.-1"/>
+        <dxl:GreaterThanOp Mdid="0.59.1.0.-1"/>
+        <dxl:GreaterThanEqualsOp Mdid="0.1695.1.0.-1"/>
+        <dxl:ComparisonOp Mdid="0.1693.1.0.-1"/>
+        <dxl:ArrayType Mdid="0.1000.1.0.-1"/>
+        <dxl:MinAgg Mdid="0.0.0.0.-1"/>
+        <dxl:MaxAgg Mdid="0.0.0.0.-1"/>
+        <dxl:AvgAgg Mdid="0.0.0.0.-1"/>
+        <dxl:SumAgg Mdid="0.0.0.0.-1"/>
+        <dxl:CountAgg Mdid="0.2147.1.0.-1"/>
       </dxl:Type>
-      <dxl:Type Mdid="0.23.1.0" Name="int4" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="4" PassByValue="true">
-        <dxl:EqualityOp Mdid="0.96.1.0"/>
-        <dxl:InequalityOp Mdid="0.518.1.0"/>
-        <dxl:LessThanOp Mdid="0.97.1.0"/>
-        <dxl:LessThanEqualsOp Mdid="0.523.1.0"/>
-        <dxl:GreaterThanOp Mdid="0.521.1.0"/>
-        <dxl:GreaterThanEqualsOp Mdid="0.525.1.0"/>
-        <dxl:ComparisonOp Mdid="0.351.1.0"/>
-        <dxl:ArrayType Mdid="0.1007.1.0"/>
-        <dxl:MinAgg Mdid="0.2132.1.0"/>
-        <dxl:MaxAgg Mdid="0.2116.1.0"/>
-        <dxl:AvgAgg Mdid="0.2101.1.0"/>
-        <dxl:SumAgg Mdid="0.2108.1.0"/>
-        <dxl:CountAgg Mdid="0.2147.1.0"/>
+      <dxl:Type Mdid="0.23.1.0.-1" Name="int4" IsRedistributable="true" IsHashable="true" IsComposite="false" IsFixedLength="true" Length="4" PassByValue="true">
+        <dxl:EqualityOp Mdid="0.96.1.0.-1"/>
+        <dxl:InequalityOp Mdid="0.518.1.0.-1"/>
+        <dxl:LessThanOp Mdid="0.97.1.0.-1"/>
+        <dxl:LessThanEqualsOp Mdid="0.523.1.0.-1"/>
+        <dxl:GreaterThanOp Mdid="0.521.1.0.-1"/>
+        <dxl:GreaterThanEqualsOp Mdid="0.525.1.0.-1"/>
+        <dxl:ComparisonOp Mdid="0.351.1.0.-1"/>
+        <dxl:ArrayType Mdid="0.1007.1.0.-1"/>
+        <dxl:MinAgg Mdid="0.2132.1.0.-1"/>
+        <dxl:MaxAgg Mdid="0.2116.1.0.-1"/>
+        <dxl:AvgAgg Mdid="0.2101.1.0.-1"/>
+        <dxl:SumAgg Mdid="0.2108.1.0.-1"/>
+        <dxl:CountAgg Mdid="0.2147.1.0.-1"/>
       </dxl:Type>
-      <dxl:GPDBScalarOp Mdid="0.96.1.0" Name="=" ComparisonType="Eq" ReturnsNullOnNullInput="true">
-        <dxl:LeftType Mdid="0.23.1.0"/>
-        <dxl:RightType Mdid="0.23.1.0"/>
-        <dxl:ResultType Mdid="0.16.1.0"/>
-        <dxl:OpFunc Mdid="0.65.1.0"/>
-        <dxl:Commutator Mdid="0.96.1.0"/>
-        <dxl:InverseOp Mdid="0.518.1.0"/>
+      <dxl:GPDBScalarOp Mdid="0.96.1.0.-1" Name="=" ComparisonType="Eq" ReturnsNullOnNullInput="true">
+        <dxl:LeftType Mdid="0.23.1.0.-1"/>
+        <dxl:RightType Mdid="0.23.1.0.-1"/>
+        <dxl:ResultType Mdid="0.16.1.0.-1"/>
+        <dxl:OpFunc Mdid="0.65.1.0.-1"/>
+        <dxl:Commutator Mdid="0.96.1.0.-1"/>
+        <dxl:InverseOp Mdid="0.518.1.0.-1"/>
         <dxl:OpClasses>
-          <dxl:OpClass Mdid="0.1978.1.0"/>
-          <dxl:OpClass Mdid="0.1979.1.0"/>
-          <dxl:OpClass Mdid="0.3027.1.0"/>
+          <dxl:OpClass Mdid="0.1978.1.0.-1"/>
+          <dxl:OpClass Mdid="0.1979.1.0.-1"/>
+          <dxl:OpClass Mdid="0.3027.1.0.-1"/>
         </dxl:OpClasses>
       </dxl:GPDBScalarOp>
     </dxl:Metadata>
     <dxl:Query>
       <dxl:OutputColumns>
-        <dxl:Ident ColId="3" ColName="one" TypeMdid="0.23.1.0"/>
+        <dxl:Ident ColId="3" ColName="one" TypeMdid="0.23.1.0.-1"/>
       </dxl:OutputColumns>
       <dxl:CTEList>
         <dxl:LogicalCTEProducer CTEId="1" Columns="2">
           <dxl:LogicalProject>
             <dxl:ProjList>
               <dxl:ProjElem ColId="2" Alias="one">
-                <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
               </dxl:ProjElem>
             </dxl:ProjList>
             <dxl:LogicalConstTable>
               <dxl:Columns>
-                <dxl:Column ColId="1" Attno="1" ColName="" TypeMdid="0.16.1.0"/>
+                <dxl:Column ColId="1" Attno="1" ColName="" TypeMdid="0.16.1.0.-1"/>
               </dxl:Columns>
               <dxl:ConstTuple>
-                <dxl:Datum TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+                <dxl:Datum TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
               </dxl:ConstTuple>
             </dxl:LogicalConstTable>
           </dxl:LogicalProject>
@@ -82,11 +82,11 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
       <dxl:LogicalCTEAnchor CTEId="1">
         <dxl:UnionAll InputColumns="3;5" CastAcrossInputs="false">
           <dxl:Columns>
-            <dxl:Column ColId="3" Attno="1" ColName="one" TypeMdid="0.23.1.0"/>
+            <dxl:Column ColId="3" Attno="1" ColName="one" TypeMdid="0.23.1.0.-1"/>
           </dxl:Columns>
           <dxl:UnionAll InputColumns="3;4" CastAcrossInputs="false">
             <dxl:Columns>
-              <dxl:Column ColId="3" Attno="1" ColName="one" TypeMdid="0.23.1.0"/>
+              <dxl:Column ColId="3" Attno="1" ColName="one" TypeMdid="0.23.1.0.-1"/>
             </dxl:Columns>
             <dxl:LogicalCTEConsumer CTEId="1" Columns="3"/>
             <dxl:LogicalCTEConsumer CTEId="1" Columns="4"/>
@@ -102,7 +102,7 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
         </dxl:Properties>
         <dxl:ProjList>
           <dxl:ProjElem ColId="2" Alias="one">
-            <dxl:Ident ColId="2" ColName="one" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="2" ColName="one" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
         </dxl:ProjList>
         <dxl:CTEProducer CTEId="0" Columns="1">
@@ -111,7 +111,7 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
           </dxl:Properties>
           <dxl:ProjList>
             <dxl:ProjElem ColId="1" Alias="one">
-              <dxl:Ident ColId="1" ColName="one" TypeMdid="0.23.1.0"/>
+              <dxl:Ident ColId="1" ColName="one" TypeMdid="0.23.1.0.-1"/>
             </dxl:ProjElem>
           </dxl:ProjList>
           <dxl:Result>
@@ -120,7 +120,7 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="1" Alias="one">
-                <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="1"/>
+                <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="1"/>
               </dxl:ProjElem>
             </dxl:ProjList>
             <dxl:Filter/>
@@ -131,7 +131,7 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
               </dxl:Properties>
               <dxl:ProjList>
                 <dxl:ProjElem ColId="0" Alias="">
-                  <dxl:ConstValue TypeMdid="0.16.1.0" IsNull="false" IsByValue="true" Value="true"/>
+                  <dxl:ConstValue TypeMdid="0.16.1.0.-1" IsNull="false" IsByValue="true" Value="true"/>
                 </dxl:ProjElem>
               </dxl:ProjList>
               <dxl:Filter/>
@@ -145,7 +145,7 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
           </dxl:Properties>
           <dxl:ProjList>
             <dxl:ProjElem ColId="2" Alias="one">
-              <dxl:Ident ColId="2" ColName="one" TypeMdid="0.23.1.0"/>
+              <dxl:Ident ColId="2" ColName="one" TypeMdid="0.23.1.0.-1"/>
             </dxl:ProjElem>
           </dxl:ProjList>
           <dxl:Filter/>
@@ -155,7 +155,7 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="2" Alias="one">
-                <dxl:Ident ColId="2" ColName="one" TypeMdid="0.23.1.0"/>
+                <dxl:Ident ColId="2" ColName="one" TypeMdid="0.23.1.0.-1"/>
               </dxl:ProjElem>
             </dxl:ProjList>
           </dxl:CTEConsumer>
@@ -165,7 +165,7 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="4" Alias="one">
-                <dxl:Ident ColId="4" ColName="one" TypeMdid="0.23.1.0"/>
+                <dxl:Ident ColId="4" ColName="one" TypeMdid="0.23.1.0.-1"/>
               </dxl:ProjElem>
             </dxl:ProjList>
           </dxl:CTEConsumer>
@@ -175,7 +175,7 @@ SQL: with v as (select 1 as one) select one from v union all select one from v u
             </dxl:Properties>
             <dxl:ProjList>
               <dxl:ProjElem ColId="6" Alias="one">
-                <dxl:Ident ColId="6" ColName="one" TypeMdid="0.23.1.0"/>
+                <dxl:Ident ColId="6" ColName="one" TypeMdid="0.23.1.0.-1"/>
               </dxl:ProjElem>
             </dxl:ProjList>
           </dxl:CTEConsumer>

@@ -8,11 +8,11 @@
       <dxl:GroupingColumns/>
       <dxl:ProjList>
         <dxl:ProjElem ColId="3" Alias="?column?">
-          <dxl:OpExpr OperatorName="/" OperatorMdid="0.691.1.0">
-            <dxl:AggFunc AggMdid="0.2108.1.0" AggDistinct="false" AggStage="Normal">
-              <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0"/>
+          <dxl:OpExpr OperatorName="/" OperatorMdid="0.691.1.0.-1">
+            <dxl:AggFunc AggMdid="0.2108.1.0.-1" AggDistinct="false" AggStage="Normal">
+              <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
             </dxl:AggFunc>
-            <dxl:ConstValue TypeMdid="0.23.1.0" IsNull="false" IsByValue="true" Value="12"/>
+            <dxl:ConstValue TypeMdid="0.23.1.0.-1" IsNull="false" IsByValue="true" Value="12"/>
           </dxl:OpExpr>
         </dxl:ProjElem>
       </dxl:ProjList>
@@ -23,17 +23,17 @@
         </dxl:Properties>
         <dxl:ProjList>
           <dxl:ProjElem ColId="1" Alias="a">
-            <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
           <dxl:ProjElem ColId="2" Alias="b">
-            <dxl:Ident ColId="2" ColName="b" TypeMdid="0.23.1.0"/>
+            <dxl:Ident ColId="2" ColName="b" TypeMdid="0.23.1.0.-1"/>
           </dxl:ProjElem>
         </dxl:ProjList>
         <dxl:Filter/>
-        <dxl:TableDescriptor Mdid="0.17140.1.1" TableName="r">
+        <dxl:TableDescriptor Mdid="0.17140.1.1.-1" TableName="r">
           <dxl:Columns>
-            <dxl:Column ColId="1" Attno="1" ColName="a" TypeMdid="0.23.1.0"/>
-            <dxl:Column ColId="2" Attno="2" ColName="b" TypeMdid="0.23.1.0"/>
+            <dxl:Column ColId="1" Attno="1" ColName="a" TypeMdid="0.23.1.0.-1"/>
+            <dxl:Column ColId="2" Attno="2" ColName="b" TypeMdid="0.23.1.0.-1"/>
           </dxl:Columns>
         </dxl:TableDescriptor>
       </dxl:TableScan>
