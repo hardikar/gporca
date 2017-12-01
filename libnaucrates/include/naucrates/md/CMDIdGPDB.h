@@ -74,6 +74,8 @@ namespace gpmd
 			CMDIdGPDB(CSystemId sysid, OID oid);
 			explicit 
 			CMDIdGPDB(OID oid);
+			explicit
+			CMDIdGPDB(OID oid, INT iTypeModification);
 			CMDIdGPDB(OID oid, ULONG ulVersionMajor, ULONG ulVersionMinor);
 			CMDIdGPDB(OID oid, ULONG ulVersionMajor, ULONG ulVersionMinor, INT iTypeModification);
 			

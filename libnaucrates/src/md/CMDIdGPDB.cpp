@@ -162,7 +162,41 @@ CMDIdGPDB::CMDIdGPDB
 	
 	// TODO:  - Jan 31, 2012; supply system id in constructor
 	
-	// serialize mdid into static string 
+	// serialize mdid into static string
+	Serialize();
+}
+
+//---------------------------------------------------------------------------
+//	@function:
+//		CMDIdGPDB::CMDIdGPDB
+//
+//	@doc:
+//		Constructs a metadata identifier with specified oid, type modification
+//		and default version of 1.0
+//
+//---------------------------------------------------------------------------
+CMDIdGPDB::CMDIdGPDB
+	(
+	OID oid,
+	INT iTypeModification
+	)
+	:
+	m_sysid(IMDId::EmdidGPDB, GPMD_GPDB_SYSID),
+	m_oid(oid),
+	m_ulVersionMajor(1),
+	m_ulVersionMinor(0),
+	m_iTypeModification(iTypeModification),
+	m_str(m_wszBuffer, GPOS_ARRAY_SIZE(m_wszBuffer))
+{
+	if (CMDIdGPDB::m_mdidInvalidKey.OidObjectId() == oid)
+	{
+		// construct an invalid mdid 0.0.0
+		m_ulVersionMajor = 0;
+	}
+
+	// TODO:  - Jan 31, 2012; supply system id in constructor
+
+	// serialize mdid into static string
 	Serialize();
 }
 
