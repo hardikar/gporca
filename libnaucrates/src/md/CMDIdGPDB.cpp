@@ -394,8 +394,10 @@ CMDIdGPDB::FEquals
 	const CMDIdGPDB *pmdidGPDB = CMDIdGPDB::PmdidConvert(const_cast<IMDId *>(pmdid));
 
 	// TODO does typemod matter?
-	return (m_oid == pmdidGPDB->OidObjectId() && m_ulVersionMajor == pmdidGPDB->UlVersionMajor() &&
-			m_ulVersionMinor == pmdidGPDB->UlVersionMinor()); 
+	return (m_oid == pmdidGPDB->OidObjectId() &&
+			m_ulVersionMajor == pmdidGPDB->UlVersionMajor() &&
+			m_ulVersionMinor == pmdidGPDB->UlVersionMinor() &&
+			m_iTypeModification == pmdidGPDB->m_iTypeModification);
 }
 
 //---------------------------------------------------------------------------
