@@ -440,7 +440,7 @@ CMDTypeGenericGPDB::Pdxldatum
 	for (ULONG ul = 0; ul < ulMaps; ul++)
 	{
 		SGenericDXLDatumMap elem = rgGenericDXLDatumMap[ul];
-		if (pmdid->FEquals(elem.m_pmdid))
+		if (pmdid->FEqualsForCache(elem.m_pmdid))
 		{
 			pf = elem.m_pf;
 			break;

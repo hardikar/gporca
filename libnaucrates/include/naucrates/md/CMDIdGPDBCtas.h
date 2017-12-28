@@ -60,6 +60,10 @@ namespace gpmd
 			// equality check
 			virtual
 			BOOL FEquals(const IMDId *pmdid) const;
+
+			// equality check for cache
+			virtual
+			BOOL FEqualsForCache(const IMDId *pmdid) const;
 			
 			// is the mdid valid
 			virtual

@@ -85,6 +85,19 @@ CMDIdGPDBCtas::FEquals
 	return m_oid == pmdidGPDBCTAS->OidObjectId(); 
 }
 
+
+BOOL
+CMDIdGPDBCtas::FEqualsForCache
+(
+	const IMDId *pmdid
+	)
+const
+{
+	return FEquals(pmdid);
+}
+
+
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CMDIdGPDBCtas::FValid

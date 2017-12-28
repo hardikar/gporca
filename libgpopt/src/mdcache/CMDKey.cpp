@@ -82,7 +82,7 @@ CMDKey::FEqualMDKey
 	
 	GPOS_ASSERT(NULL != pvLeft && NULL != pvRight);
 	
-	return pvLeft->Pmdid()->FEquals(pvRight->Pmdid());
+	return pvLeft->Pmdid()->FEqualsForCache(pvRight->Pmdid());
 }
 
 //---------------------------------------------------------------------------

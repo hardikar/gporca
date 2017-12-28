@@ -137,7 +137,7 @@ CMDAccessor::SMDAccessorElem::FEqual
 		return pmdidLeft == m_pmdidInvalid && pmdidRight == m_pmdidInvalid;
 	}
 
-	return pmdidLeft->FEquals(pmdidRight);
+	return pmdidLeft->FEqualsForCache(pmdidRight);
 }
 
 //---------------------------------------------------------------------------

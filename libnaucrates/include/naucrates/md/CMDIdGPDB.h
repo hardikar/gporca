@@ -119,11 +119,16 @@ namespace gpmd
 			// equality check
 			virtual
 			BOOL FEquals(const IMDId *pmdid) const;
+
+			// equality check for cache
+			virtual
+			BOOL FEqualsForCache(const IMDId *pmdid) const;
 			
 			// computes the hash value for the metadata id
 			virtual
 			ULONG UlHash() const
 			{
+				// TODO: add typemod here?
 				return gpos::UlCombineHashes(Emdidt(),
 						gpos::UlCombineHashes(gpos::UlHash(&m_oid),
 											gpos::UlCombineHashes(gpos::UlHash(&m_ulVersionMajor), gpos::UlHash(&m_ulVersionMinor))));

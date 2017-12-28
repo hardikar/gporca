@@ -96,12 +96,18 @@ namespace gpmd
 			// system id
 			virtual
 			CSystemId Sysid() const = 0;
-			
-			
+
 			// equality check
 			virtual 
 			BOOL FEquals(const IMDId *pmdid) const = 0;
 					
+			// equality check
+			virtual
+			BOOL FEqualsForCache(const IMDId *pmdid) const
+			{
+				return FEquals(pmdid);
+			}
+
 			// computes the hash value for the metadata id
 			virtual
 			ULONG UlHash() const = 0;
@@ -167,7 +173,7 @@ namespace gpmd
 				)
 			{
 				GPOS_ASSERT(NULL != pmdidLeft && NULL != pmdidRight);
-				return pmdidLeft->FEquals(pmdidRight);
+				return pmdidLeft->FEqualsForCache(pmdidRight);
 			}
 			
 			// equality function for using mdids in a cache
@@ -191,7 +197,7 @@ namespace gpmd
 			
 				IMDId *pmdidLeft = static_cast<IMDId *> (pvLeft);
 				IMDId *pmdidRight = static_cast<IMDId *> (pvRight);
-				return pmdidLeft->FEquals(pmdidRight);
+				return pmdidLeft->FEqualsForCache(pmdidRight);
 
 			}
 			

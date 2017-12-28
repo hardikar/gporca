@@ -396,6 +396,26 @@ CMDIdGPDB::FEquals
 	// TODO does typemod matter?
 	return (m_oid == pmdidGPDB->OidObjectId() &&
 			m_ulVersionMajor == pmdidGPDB->UlVersionMajor() &&
+			m_ulVersionMinor == pmdidGPDB->UlVersionMinor());
+}
+
+BOOL
+CMDIdGPDB::FEqualsForCache
+	(
+	const IMDId *pmdid
+	)
+const
+{
+	if (NULL == pmdid || EmdidGPDB != pmdid->Emdidt())
+	{
+		return false;
+	}
+
+	const CMDIdGPDB *pmdidGPDB = CMDIdGPDB::PmdidConvert(const_cast<IMDId *>(pmdid));
+
+	// TODO does typemod matter?
+	return (m_oid == pmdidGPDB->OidObjectId() &&
+			m_ulVersionMajor == pmdidGPDB->UlVersionMajor() &&
 			m_ulVersionMinor == pmdidGPDB->UlVersionMinor() &&
 			m_iTypeModification == pmdidGPDB->m_iTypeModification);
 }
