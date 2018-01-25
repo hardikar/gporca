@@ -1764,6 +1764,20 @@ CDXLOperatorFactory::Pdxlcd
 							EdxltokenColDescr
 							);
 
+	// parse optional type modifier from attributes
+	const XMLCh *xmlszTypeModifier = XmlstrFromAttrs
+										(
+										attrs,
+										EdxltokenTypeMod,
+										EdxltokenColDescr
+										);
+	INT iTypeModifier = -1;
+
+	if ( NULL != xmlszTypeModifier)
+	{
+		iTypeModifier = IValueFromXmlstr(pmm, xmlszTypeModifier, EdxltokenTypeMod, EdxltokenColDescr);
+	}
+
 	BOOL fColDropped = false;
 	
 	const XMLCh *xmlszColDropped = attrs.getValue(CDXLTokens::XmlstrToken(EdxltokenColDropped));
@@ -1803,7 +1817,7 @@ CDXLOperatorFactory::Pdxlcd
 	
 	GPOS_DELETE(pstrColumnName);
 	
-	return GPOS_NEW(pmp) CDXLColDescr(pmp, pmdname, ulId, iAttno, pmdidType, fColDropped, ulColLen);
+	return GPOS_NEW(pmp) CDXLColDescr(pmp, pmdname, ulId, iAttno, pmdidType, iTypeModifier, fColDropped, ulColLen);
 }
 
 //---------------------------------------------------------------------------
@@ -1864,8 +1878,19 @@ CDXLOperatorFactory::Pdxlcr
 						edxltokenElement
 						);
 
+	// parse optional type modifier
+	INT iTypeModifier;
+	const XMLCh *xmlszTypeModifier = attrs.getValue(CDXLTokens::XmlstrToken(EdxltokenTypeMod));
+	if (NULL == xmlszTypeModifier)
+	{
+		iTypeModifier = -1;
+	}
+	else
+	{
+		iTypeModifier = XMLString::parseInt(xmlszTypeModifier);
+	}
 	
-	return GPOS_NEW(pmp) CDXLColRef(pmp, pmdname, ulId, pmdidType);
+	return GPOS_NEW(pmp) CDXLColRef(pmp, pmdname, ulId, pmdidType, iTypeModifier);
 }
 
 //---------------------------------------------------------------------------

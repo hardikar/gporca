@@ -228,7 +228,7 @@ CTestUtils::PtabdescPlainWithColNameFormat
 		CWStringConst strName(pstrName->Wsz());
 		CName nameColumnInt(&strName);
 
-		CColumnDescriptor *pcoldescInt = GPOS_NEW(pmp) CColumnDescriptor(pmp, pmdtypeint4, nameColumnInt, i + 1, fNullable);
+		CColumnDescriptor *pcoldescInt = GPOS_NEW(pmp) CColumnDescriptor(pmp, pmdtypeint4, -1 /* ITypeModifier */, nameColumnInt, i + 1, fNullable);
 		ptabdesc->AddColumn(pcoldescInt);
 	}
 
@@ -1753,11 +1753,12 @@ CTestUtils::PexprPrjElemWithSum
 									);
 
 	// map a computed column to SUM expression
-	IMDId *pmdidType = CScalar::PopConvert(pexprScalarAgg->Pop())->PmdidType();
+	CScalar *pop = CScalar::PopConvert(pexprScalarAgg->Pop());
+	IMDId *pmdidType = pop->PmdidType();
 	const IMDType *pmdtype = pmda->Pmdtype(pmdidType);
 	CWStringConst str(GPOS_WSZ_LIT("sum_col"));
 	CName name(pmp, &str);
-	CColRef *pcrComputed = COptCtxt::PoctxtFromTLS()->Pcf()->PcrCreate(pmdtype, name);
+	CColRef *pcrComputed = COptCtxt::PoctxtFromTLS()->Pcf()->PcrCreate(pmdtype, pop->ITypeModifier(), name);
 
 	return CUtils::PexprScalarProjectElement(pmp, pcrComputed, pexprScalarAgg);
 }
@@ -1882,8 +1883,16 @@ CTestUtils::PexprConstTableGet
 	// create an integer column descriptor
 	CWStringConst strName(GPOS_WSZ_LIT("A"));
 	CName name(&strName);
-	CColumnDescriptor *pcoldescInt = GPOS_NEW(pmp) CColumnDescriptor(pmp, pmdtypeint4, name, 1 /* iAttno */, false /*FNullable*/);
-	
+	CColumnDescriptor *pcoldescInt = GPOS_NEW(pmp) CColumnDescriptor
+													(
+													pmp,
+													pmdtypeint4,
+													-1 /* iTypeMmodifier */,
+													name,
+													1 /* iAttno */,
+													false /*FNullable*/
+													);
+
 	DrgPcoldesc *pdrgpcoldesc = GPOS_NEW(pmp) DrgPcoldesc(pmp);
 	pdrgpcoldesc->Append(pcoldescInt);
 
@@ -2224,7 +2233,7 @@ CTestUtils::PexprLogicalTVF
 	CWStringConst strName(GPOS_WSZ_LIT("generate_series"));
 	CName name(&strName);
 
-	CColumnDescriptor *pcoldescInt = GPOS_NEW(pmp) CColumnDescriptor(pmp, pmdtypeint8, name, 1 /* iAttno */, false /*FNullable*/);
+	CColumnDescriptor *pcoldescInt = GPOS_NEW(pmp) CColumnDescriptor(pmp, pmdtypeint8, -1 /* iTypeModifier */, name, 1 /* iAttno */, false /*FNullable*/);
 
 	DrgPcoldesc *pdrgpcoldesc = GPOS_NEW(pmp) DrgPcoldesc(pmp);
 	pdrgpcoldesc->Append(pcoldescInt);
@@ -2530,7 +2539,7 @@ CTestUtils::PexprLogicalSequenceProject
 							false /*fSimpleAgg*/
 							)
 				);
-	CColRef *pcrComputed = pcf->PcrCreate(pmda->Pmdtype(pmdfunc->PmdidTypeResult()));
+	CColRef *pcrComputed = pcf->PcrCreate(pmda->Pmdtype(pmdfunc->PmdidTypeResult()), -1 /* TODO: extract type modifier */);
 
 	CExpression *pexprPrjList =
 		GPOS_NEW(pmp) CExpression

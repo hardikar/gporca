@@ -107,7 +107,7 @@ CParseHandlerMetadataColumn::StartElement
 								EdxltokenAttno,
 								EdxltokenMetadataColumn
 								);
-	
+
 	m_pmdidType = CDXLOperatorFactory::PmdidFromAttrs
 								(
 								m_pphm->Pmm(),
@@ -116,7 +116,24 @@ CParseHandlerMetadataColumn::StartElement
 								EdxltokenMetadataColumn
 								);
 
-	
+	// parse optional type modifier
+	const XMLCh *xmlszTypeModifier = attrs.getValue(CDXLTokens::XmlstrToken(EdxltokenTypeMod));
+
+	if (NULL != xmlszTypeModifier)
+	{
+		m_iTypeModifier = CDXLOperatorFactory::IValueFromXmlstr
+						(
+						m_pphm->Pmm(),
+						xmlszTypeModifier,
+						EdxltokenColWidth,
+						EdxltokenColDescr
+						);
+	}
+	else
+	{
+		m_iTypeModifier = -1;
+	}
+
 	// parse attribute number
 	m_fNullable = CDXLOperatorFactory::FValueFromAttrs
 								(
@@ -207,6 +224,7 @@ CParseHandlerMetadataColumn::EndElement
 							m_pmdname,
 							m_iAttNo,
 							m_pmdidType,
+							m_iTypeModifier,
 							m_fNullable,
 							m_fDropped,
 							m_pdxlnDefaultValue,

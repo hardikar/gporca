@@ -1498,6 +1498,7 @@ CStatisticsTest::PtabdescTwoColumnSource
 											(
 											pmp,
 											pmdtype,
+											-1, /* iTypeModifier */
 											nameColumn,
 											ul + 1,
 											false /*fNullable*/
@@ -1540,6 +1541,7 @@ CStatisticsTest::EresUnittest_CStatisticsBasic()
 		(void) pcf->PcrCreate
 				(
 				pmdtypeint4,
+				-1 /* iTypeModifier */,
 				0 /* iAttno */,
 				false /*FNullable*/,
 				1 /* ulId */,
@@ -1553,6 +1555,7 @@ CStatisticsTest::EresUnittest_CStatisticsBasic()
 		(void) pcf->PcrCreate
 				(
 				pmdtypeint4,
+				-1 /* iTypeModifier */,
 				1 /* iAttno */,
 				false /*FNullable*/,
 				2 /* ulId */,

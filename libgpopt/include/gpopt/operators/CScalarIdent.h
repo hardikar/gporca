@@ -123,6 +123,9 @@ namespace gpopt
 			virtual 
 			IMDId *PmdidType() const;
 
+			virtual
+			INT ITypeModifier() const;
+
 			// print
 			virtual 
 			IOstream &OsPrint(IOstream &os) const;
