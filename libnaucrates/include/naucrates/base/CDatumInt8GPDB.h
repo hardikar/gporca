@@ -60,6 +60,9 @@ namespace gpnaucrates
 			virtual
 			IMDId *Pmdid() const;
 
+			virtual
+			INT ITypeModifier() const;
+
 			// accessor of size
 			virtual
 			ULONG UlSize() const;

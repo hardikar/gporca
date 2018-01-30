@@ -58,6 +58,9 @@ class CDatumInt2GPDB : public IDatumInt2
 		virtual
 		IMDId *Pmdid() const;
 
+		virtual
+		INT ITypeModifier() const;
+
 		// accessor of size
 		virtual
 		ULONG UlSize() const;

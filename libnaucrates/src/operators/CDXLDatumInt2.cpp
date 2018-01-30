@@ -37,7 +37,7 @@ CDXLDatumInt2::CDXLDatumInt2
 	SINT sVal
 	)
 	:
-	CDXLDatum(pmp, pmdidType, fNull, 2 /*ulLength*/ ),
+	CDXLDatum(pmp, pmdidType, -1 /* iTypeModifier */, fNull, 2 /*ulLength*/ ),
 	m_sVal(sVal)
 {
 }

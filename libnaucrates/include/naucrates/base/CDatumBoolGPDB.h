@@ -62,6 +62,9 @@ class CDatumBoolGPDB : public IDatumBool
 		virtual
 		BOOL FValue() const;
 
+		virtual
+		INT ITypeModifier() const;
+
 		// accessor of size
 		virtual
 		ULONG UlSize() const;

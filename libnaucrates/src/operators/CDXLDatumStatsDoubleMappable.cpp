@@ -34,6 +34,7 @@ CDXLDatumStatsDoubleMappable::CDXLDatumStatsDoubleMappable
 	(
 	IMemoryPool *pmp,
 	IMDId *pmdidType,
+	INT iTypeModifier,
 	BOOL fByVal,
 	BOOL fNull,
 	BYTE *pba,
@@ -41,7 +42,7 @@ CDXLDatumStatsDoubleMappable::CDXLDatumStatsDoubleMappable
 	CDouble dValue
 	)
 	:
-	CDXLDatumGeneric(pmp, pmdidType, fByVal, fNull, pba, ulLength),
+	CDXLDatumGeneric(pmp, pmdidType, iTypeModifier, fByVal, fNull, pba, ulLength),
 	m_dValue(dValue)
 {
 }

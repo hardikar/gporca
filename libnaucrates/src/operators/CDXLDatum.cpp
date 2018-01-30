@@ -33,12 +33,14 @@ CDXLDatum::CDXLDatum
 	(
 	IMemoryPool *pmp,
 	IMDId *pmdidType,
+	INT iTypeModifier,
 	BOOL fNull,
 	ULONG ulLength
 	)
 	:
 	m_pmp(pmp),
 	m_pmdidType(pmdidType),
+	m_iTypeModifier(iTypeModifier),
 	m_fNull(fNull),
 	m_ulLength(ulLength)
 {

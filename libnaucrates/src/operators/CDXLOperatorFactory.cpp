@@ -1122,7 +1122,9 @@ CDXLOperatorFactory::PdxlopFuncExpr
 							EdxltokenScalarFuncExpr
 							);
 
-	return GPOS_NEW(pmp) CDXLScalarFuncExpr(pmp, pmdidFunc, pmdidRetType, fRetset);
+	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCast, -1 /* default value */);
+
+	return GPOS_NEW(pmp) CDXLScalarFuncExpr(pmp, pmdidFunc, pmdidRetType, iTypeModifier, fRetset);
 }
 
 //---------------------------------------------------------------------------
@@ -3166,9 +3168,11 @@ CDXLOperatorFactory::PdxldatumGeneric
 			// unable to decode value. probably not Base64 encoded.
 			GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLInvalidAttributeValue, CDXLTokens::XmlstrToken(EdxltokenValue), CDXLTokens::PstrToken(edxltokenElement));
 		}
-	}	
+	}
 
-	return GPOS_NEW(pmp) CDXLDatumGeneric(pmp, pmdid, fConstByVal, fConstNull, pba, ulPbaLength);
+	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCast, -1 /* default value */ );
+
+	return GPOS_NEW(pmp) CDXLDatumGeneric(pmp, pmdid, iTypeModifier, fConstByVal, fConstNull, pba, ulPbaLength);
 }
 
 
@@ -3204,7 +3208,9 @@ CDXLOperatorFactory::PdxldatumStatsLintMappable
 		lValue = LValue(pmm, attrs, edxltokenElement, pba);
 	}
 
-	return GPOS_NEW(pmp) CDXLDatumStatsLintMappable(pmp, pmdid, fConstByVal, fConstNull, pba, ulPbaLength, lValue);
+	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCast, -1 /* default value */ );
+
+	return GPOS_NEW(pmp) CDXLDatumStatsLintMappable(pmp, pmdid, iTypeModifier, fConstByVal, fConstNull, pba, ulPbaLength, lValue);
 }
 
 //---------------------------------------------------------------------------
@@ -3294,7 +3300,8 @@ CDXLOperatorFactory::PdxldatumStatsDoubleMappable
 
 		dValue = DValueFromAttrs(pmm, attrs, EdxltokenDoubleValue, edxltokenElement);
 	}
-	return GPOS_NEW(pmp) CDXLDatumStatsDoubleMappable(pmp, pmdid, fConstByVal, fConstNull, pba, ulPbaLength, dValue);
+	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCast, -1 /* default value */ );
+	return GPOS_NEW(pmp) CDXLDatumStatsDoubleMappable(pmp, pmdid, iTypeModifier, fConstByVal, fConstNull, pba, ulPbaLength, dValue);
 }
 
 //---------------------------------------------------------------------------

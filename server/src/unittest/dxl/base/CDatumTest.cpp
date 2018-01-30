@@ -257,7 +257,17 @@ CDatumTest::PdatumGeneric
 	CMDIdGPDB *pmdidChar = GPOS_NEW(pmp) CMDIdGPDB(GPDB_CHAR);
 
 	const CHAR *szVal = "test";
-	return GPOS_NEW(pmp) CDatumGenericGPDB(pmp, pmdidChar, szVal, 5 /*ulLength*/, fNull, 0 /*lValue*/, 0/*dValue*/);
+	return GPOS_NEW(pmp) CDatumGenericGPDB
+							(
+							pmp,
+							pmdidChar,
+							-1 /* iTypeModifier */,
+							szVal,
+							5 /*ulLength*/,
+							fNull,
+							0 /*lValue*/,
+							0/*dValue*/
+							);
 }
 
 

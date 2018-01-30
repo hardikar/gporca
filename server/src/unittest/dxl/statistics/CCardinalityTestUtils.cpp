@@ -205,6 +205,7 @@ CCardinalityTestUtils::PpointNumeric
 											(
 											pmp,
 											pmdid,
+											-1 /* iTypeModifier */,
 											pmdtype->FByValue() /*fConstByVal*/,
 											false /*fConstNull*/,
 											pba,

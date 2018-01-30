@@ -1972,24 +1972,6 @@ CUtils::PexprAggFunc
 	return GPOS_NEW(pmp) CExpression(pmp, popScAggFunc, pdrgpexpr);
 }
 
-// construct a scalar function
-CExpression *
-CUtils::PexprScalarFunc
-	(
-	IMemoryPool *pmp,
-	IMDId *pmdidFunc,
-	IMDId *pmdidRetType,
-	const CWStringConst *pstrFuncName, 
-	DrgPexpr *pdrgpexpr
-	)
-{
-	GPOS_ASSERT(NULL != pstrFuncName);
-
-	// construct function
-	CScalarFunc *popScFunc = GPOS_NEW(pmp) CScalarFunc(pmp, pmdidFunc, pmdidRetType, pstrFuncName);
-
-	return GPOS_NEW(pmp) CExpression(pmp, popScFunc, pdrgpexpr);
-}
 
 // generate a count(*) expression
 CExpression *

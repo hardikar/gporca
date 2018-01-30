@@ -160,6 +160,13 @@ CDatumBoolGPDB::Pmdid() const
 }
 
 
+INT
+CDatumBoolGPDB::ITypeModifier() const
+{
+	return -1;
+}
+
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CDatumBoolGPDB::UlHash

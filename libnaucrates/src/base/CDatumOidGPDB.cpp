@@ -157,6 +157,12 @@ CDatumOidGPDB::Pmdid() const
 	return m_pmdid;
 }
 
+INT
+CDatumOidGPDB::ITypeModifier() const
+{
+	return -1;
+}
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CDatumOidGPDB::UlHash

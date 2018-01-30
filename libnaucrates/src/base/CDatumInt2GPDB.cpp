@@ -161,6 +161,13 @@ CDatumInt2GPDB::Pmdid() const
 }
 
 
+INT
+CDatumInt2GPDB::ITypeModifier() const
+{
+	return -1;
+}
+
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CDatumInt2GPDB::UlHash

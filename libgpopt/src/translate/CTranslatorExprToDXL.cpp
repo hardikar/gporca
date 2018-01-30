@@ -6042,7 +6042,7 @@ CTranslatorExprToDXL::PdxlnScFuncExpr
 	CDXLNode *pdxlnFuncExpr = GPOS_NEW(m_pmp) CDXLNode
 											(
 											m_pmp,
-											GPOS_NEW(m_pmp) CDXLScalarFuncExpr(m_pmp, pmdidFunc, pmdidRetType, pmdfunc->FReturnsSet())
+											GPOS_NEW(m_pmp) CDXLScalarFuncExpr(m_pmp, pmdidFunc, pmdidRetType, popScFunc->ITypeModifier(), pmdfunc->FReturnsSet())
 											);
 
 	// translate children

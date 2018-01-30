@@ -2930,6 +2930,7 @@ CTranslatorDXLToExpr::PexprScalarFunc
 				m_pmp,
 				pmdidFunc,
 				pmdidRetType,
+				pdxlopFuncExpr->ITypeModifier(),
 				GPOS_NEW(m_pmp) CWStringConst(m_pmp, (pmdfunc->Mdname().Pstr())->Wsz())
 				);
 	}
