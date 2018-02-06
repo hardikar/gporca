@@ -994,11 +994,11 @@ CDXLOperatorFactory::PdxlopCoerceViaIO
 
 	// parse type id and function id
 	IMDId *pmdidType = PmdidFromAttrs(pmm, attrs, EdxltokenTypeId, EdxltokenScalarCoerceViaIO);
-	INT iMod = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCoerceViaIO);
+	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCoerceViaIO, true, -1 /* iDefaultValue */);
 	ULONG ulCoercionForm = UlValueFromAttrs(pmm, attrs, EdxltokenCoercionForm, EdxltokenScalarCoerceViaIO);
 	INT iLoc = IValueFromAttrs(pmm, attrs, EdxltokenLocation, EdxltokenScalarCoerceViaIO);
 
-	return GPOS_NEW(pmp) CDXLScalarCoerceViaIO(pmp, pmdidType, iMod, (EdxlCoercionForm) ulCoercionForm, iLoc);
+	return GPOS_NEW(pmp) CDXLScalarCoerceViaIO(pmp, pmdidType, iTypeModifier, (EdxlCoercionForm) ulCoercionForm, iLoc);
 }
 
 //---------------------------------------------------------------------------

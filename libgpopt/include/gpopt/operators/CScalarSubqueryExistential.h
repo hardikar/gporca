@@ -86,9 +86,9 @@ namespace gpopt
 				)
 			{
 				GPOS_ASSERT(NULL != pop);
-				GPOS_ASSERT(EopScalarSubqueryExists == pop->Eopid());
+				GPOS_ASSERT(EopScalarSubqueryExists == pop->Eopid() || EopScalarSubqueryNotExists == pop->Eopid());
 
-				return reinterpret_cast<CScalarSubqueryExistential*>(pop);
+				return dynamic_cast<CScalarSubqueryExistential*>(pop);
 			}
 
 	}; // class CScalarSubqueryExistential
