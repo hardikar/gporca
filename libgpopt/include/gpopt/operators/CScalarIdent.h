@@ -123,6 +123,7 @@ namespace gpopt
 			virtual 
 			IMDId *PmdidType() const;
 
+			// the type modifier of the scalar expression
 			virtual
 			INT ITypeModifier() const;
 

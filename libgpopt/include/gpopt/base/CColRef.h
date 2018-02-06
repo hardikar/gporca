@@ -55,6 +55,7 @@ namespace gpopt
 			// type information
 			const IMDType *m_pmdtype;
 
+			// type modifier
 			const INT m_iTypeModifier;
 
 			// name: SQL alias or artificial name
@@ -86,6 +87,7 @@ namespace gpopt
 				return m_pmdtype;
 			}
 
+			// type modifier
 			INT ITypeModifier() const
 			{
 				return m_iTypeModifier;

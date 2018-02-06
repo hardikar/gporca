@@ -40,6 +40,7 @@ namespace gpopt
 			// type information
 			const IMDType *m_pmdtype;
 
+			// type modifier
 			const INT m_iTypeModifier;
 
 			// name of column -- owned
@@ -84,6 +85,7 @@ namespace gpopt
 				return m_pmdtype;
 			}
 
+			// type modifier
 			INT ITypeModifier() const
 			{
 				return m_iTypeModifier;

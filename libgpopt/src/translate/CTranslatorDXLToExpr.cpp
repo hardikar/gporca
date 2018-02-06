@@ -816,8 +816,6 @@ CTranslatorDXLToExpr::BuildSetOpChild
 			GPOS_RAISE(gpopt::ExmaGPOPT, gpopt::ExmiUnsupportedOp, GPOS_WSZ_LIT("Casting of columns of unknown data type"));
 		}
 
-		// TODO: We should probably need to use typmod for looking up cast info
-
 		const IMDType *pmdtype = m_pmda->Pmdtype(pmdidDest);
 		INT iTypeModifier = pdxlcdOutput->ITypeModifier();
 

@@ -220,10 +220,11 @@ namespace gpopt
 			virtual 
 			IMDId *PmdidType() const = 0;
 
+			// the type modifier of the scalar expression
 			virtual
 			INT ITypeModifier() const
 			{
-				return -1; /* iTypeModifier */
+				return -1;
 			}
 			
 	}; // class CScalar

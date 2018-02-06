@@ -63,7 +63,7 @@ namespace gpopt
 			CColumnFactory(const CColumnFactory &);
 
 			// implementation of factory methods
-			CColRef *PcrCreate(const IMDType *, INT, ULONG, const CName &);
+			CColRef *PcrCreate(const IMDType *pmdtype, INT iTypeModifier, ULONG ulId, const CName &name);
 			CColRef *PcrCreate
 					(
 					const CColumnDescriptor *pcoldesc,
@@ -83,10 +83,10 @@ namespace gpopt
 			// initialize the hash map between computed column and used columns
 			void Initialize();
 
-			// create a column reference given only its type, used for computed columns
+			// create a column reference given only its type and type modifier, used for computed columns
 			CColRef *PcrCreate(const IMDType *pmdtype, INT iTypeModifier);
 
-			// create column reference given its type and name
+			// create column reference given its type, type modifier, and name
 			CColRef *PcrCreate(const IMDType *pmdtype, INT iTypeModifier, const CName &name);
 
 			// create a column reference given its descriptor and name
