@@ -117,22 +117,15 @@ CParseHandlerMetadataColumn::StartElement
 								);
 
 	// parse optional type modifier
-	const XMLCh *xmlszTypeModifier = attrs.getValue(CDXLTokens::XmlstrToken(EdxltokenTypeMod));
-
-	if (NULL != xmlszTypeModifier)
-	{
-		m_iTypeModifier = CDXLOperatorFactory::IValueFromXmlstr
-						(
-						m_pphm->Pmm(),
-						xmlszTypeModifier,
-						EdxltokenColWidth,
-						EdxltokenColDescr
-						);
-	}
-	else
-	{
-		m_iTypeModifier = -1;
-	}
+	m_iTypeModifier = CDXLOperatorFactory::IValueFromAttrs
+								(
+								m_pphm->Pmm(),
+								attrs,
+								EdxltokenTypeMod,
+								EdxltokenColDescr,
+								true,
+								-1 /* iDefaultValue */
+								);
 
 	// parse attribute number
 	m_fNullable = CDXLOperatorFactory::FValueFromAttrs

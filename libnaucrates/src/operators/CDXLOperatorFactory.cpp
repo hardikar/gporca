@@ -1122,7 +1122,15 @@ CDXLOperatorFactory::PdxlopFuncExpr
 							EdxltokenScalarFuncExpr
 							);
 
-	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCast, -1 /* default value */);
+	INT iTypeModifier = IValueFromAttrs
+						(
+						pmm,
+						attrs,
+						EdxltokenTypeMod,
+						EdxltokenScalarCast,
+						true,
+						-1 /* default value */
+						);
 
 	return GPOS_NEW(pmp) CDXLScalarFuncExpr(pmp, pmdidFunc, pmdidRetType, iTypeModifier, fRetset);
 }
@@ -1767,18 +1775,15 @@ CDXLOperatorFactory::Pdxlcd
 							);
 
 	// parse optional type modifier from attributes
-	const XMLCh *xmlszTypeModifier = XmlstrFromAttrs
-										(
-										attrs,
-										EdxltokenTypeMod,
-										EdxltokenColDescr
-										);
-	INT iTypeModifier = -1;
-
-	if ( NULL != xmlszTypeModifier)
-	{
-		iTypeModifier = IValueFromXmlstr(pmm, xmlszTypeModifier, EdxltokenTypeMod, EdxltokenColDescr);
-	}
+	INT iTypeModifier = IValueFromAttrs
+						(
+						pmm,
+						attrs,
+						EdxltokenTypeMod,
+						EdxltokenColDescr,
+						true,
+						-1 /* iDefaultValue */
+						);
 
 	BOOL fColDropped = false;
 	
@@ -1881,16 +1886,15 @@ CDXLOperatorFactory::Pdxlcr
 						);
 
 	// parse optional type modifier
-	INT iTypeModifier;
-	const XMLCh *xmlszTypeModifier = attrs.getValue(CDXLTokens::XmlstrToken(EdxltokenTypeMod));
-	if (NULL == xmlszTypeModifier)
-	{
-		iTypeModifier = -1;
-	}
-	else
-	{
-		iTypeModifier = XMLString::parseInt(xmlszTypeModifier);
-	}
+	INT iTypeModifier = IValueFromAttrs
+						(
+						pmm,
+						attrs,
+						EdxltokenTypeMod,
+						edxltokenElement,
+						true,
+						-1 /* iDefaultValue */
+						);
 	
 	return GPOS_NEW(pmp) CDXLColRef(pmp, pmdname, ulId, pmdidType, iTypeModifier);
 }
@@ -3170,7 +3174,15 @@ CDXLOperatorFactory::PdxldatumGeneric
 		}
 	}
 
-	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCast, -1 /* default value */ );
+	INT iTypeModifier = IValueFromAttrs
+						(
+						pmm,
+						attrs,
+						EdxltokenTypeMod,
+						EdxltokenScalarCast,
+						true,
+						-1 /* iDefaultValue */
+						);
 
 	return GPOS_NEW(pmp) CDXLDatumGeneric(pmp, pmdid, iTypeModifier, fConstByVal, fConstNull, pba, ulPbaLength);
 }
@@ -3208,7 +3220,15 @@ CDXLOperatorFactory::PdxldatumStatsLintMappable
 		lValue = LValue(pmm, attrs, edxltokenElement, pba);
 	}
 
-	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCast, -1 /* default value */ );
+	INT iTypeModifier = IValueFromAttrs
+						(
+						pmm,
+						attrs,
+						EdxltokenTypeMod,
+						EdxltokenScalarCast,
+						true,
+						-1 /* default value */
+						);
 
 	return GPOS_NEW(pmp) CDXLDatumStatsLintMappable(pmp, pmdid, iTypeModifier, fConstByVal, fConstNull, pba, ulPbaLength, lValue);
 }
@@ -3300,7 +3320,15 @@ CDXLOperatorFactory::PdxldatumStatsDoubleMappable
 
 		dValue = DValueFromAttrs(pmm, attrs, EdxltokenDoubleValue, edxltokenElement);
 	}
-	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCast, -1 /* default value */ );
+	INT iTypeModifier = IValueFromAttrs
+						(
+						pmm,
+						attrs,
+						EdxltokenTypeMod,
+						EdxltokenScalarCast,
+						true,
+						-1 /* default value */
+						);
 	return GPOS_NEW(pmp) CDXLDatumStatsDoubleMappable(pmp, pmdid, iTypeModifier, fConstByVal, fConstNull, pba, ulPbaLength, dValue);
 }
 

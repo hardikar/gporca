@@ -178,8 +178,12 @@ CDXLColDescr::SerializeToDXL
 	pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenAttno), m_iAttno);
 	pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenColName), m_pmdname->Pstr());
 	m_pmdidType->Serialize(pxmlser, CDXLTokens::PstrToken(EdxltokenTypeId));
-	pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenTypeMod), m_iTypeModifier);
-		
+
+	if (-1 != ITypeModifier())
+	{
+		pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenTypeMod), ITypeModifier());
+	}
+
 	if (m_fDropped)
 	{
 		pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenColDropped), m_fDropped);

@@ -161,8 +161,13 @@ CMDColumn::Serialize
 	
 	pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenName), m_pmdname->Pstr());
 	pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenAttno), m_iAttNo);
+
 	m_pmdidType->Serialize(pxmlser, CDXLTokens::PstrToken(EdxltokenMdid));
-	pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenTypeMod), m_iTypeModifier);
+	if (-1 != ITypeModifier())
+	{
+		pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenTypeMod), ITypeModifier());
+	}
+
 	pxmlser->AddAttribute(CDXLTokens::PstrToken(EdxltokenColumnNullable), m_fNullable);
 	if (ULONG_MAX != m_ulLength)
 	{
