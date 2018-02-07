@@ -2539,7 +2539,8 @@ CTestUtils::PexprLogicalSequenceProject
 							false /*fSimpleAgg*/
 							)
 				);
-	CColRef *pcrComputed = pcf->PcrCreate(pmda->Pmdtype(pmdfunc->PmdidTypeResult()), -1 /* TODO: extract type modifier */);
+	// window function call is not a cast and so does not need a type modifier
+	CColRef *pcrComputed = pcf->PcrCreate(pmda->Pmdtype(pmdfunc->PmdidTypeResult()), -1 /* iTypeModifier */);
 
 	CExpression *pexprPrjList =
 		GPOS_NEW(pmp) CExpression
