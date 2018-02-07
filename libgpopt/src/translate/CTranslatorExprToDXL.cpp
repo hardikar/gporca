@@ -6924,6 +6924,7 @@ CTranslatorExprToDXL::PdxlnArrayRef
 									(
 									m_pmp,
 									pmdidElem,
+									pop->ITypeModifier(),
 									pmdidArray,
 									pmdidReturn
 									)
