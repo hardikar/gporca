@@ -865,7 +865,7 @@ CTranslatorExprToDXLUtils::PdxlnListFilterPartKey
 									pmp,
 									pmdidArrayCastFunc,
 									pmdidDestArray,
-									-1, /* iMod */
+									-1, /* iTypeModifier */
 									true, /* fIsExplicit */
 									EdxlcfDontCare,
 									-1 /* iLoc */

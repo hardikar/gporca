@@ -6536,9 +6536,9 @@ CTranslatorExprToDXL::PdxlnScCoerceToDomain
 	)
 {
 	GPOS_ASSERT(NULL != pexprCoerce);
-	CScalarCoerceToDomain *popScCerce = CScalarCoerceToDomain::PopConvert(pexprCoerce->Pop());
+	CScalarCoerceToDomain *popScCoerce = CScalarCoerceToDomain::PopConvert(pexprCoerce->Pop());
 
-	IMDId *pmdid = popScCerce->PmdidType();
+	IMDId *pmdid = popScCoerce->PmdidType();
 	pmdid->AddRef();
 
 
@@ -6550,9 +6550,9 @@ CTranslatorExprToDXL::PdxlnScCoerceToDomain
 					(
 					m_pmp,
 					pmdid,
-					popScCerce->IMod(),
-					(EdxlCoercionForm) popScCerce->Ecf(), // map Coercion Form directly based on position in enum
-					popScCerce->ILoc()
+					popScCoerce->ITypeModifier(),
+					(EdxlCoercionForm) popScCoerce->Ecf(), // map Coercion Form directly based on position in enum
+					popScCoerce->ILoc()
 					)
 			);
 
@@ -6595,7 +6595,7 @@ CTranslatorExprToDXL::PdxlnScCoerceViaIO
 					(
 					m_pmp,
 					pmdid,
-					popScCerce->IMod(),
+					popScCerce->ITypeModifier(),
 					(EdxlCoercionForm) popScCerce->Ecf(), // map Coercion Form directly based on position in enum
 					popScCerce->ILoc()
 					)
@@ -6641,7 +6641,7 @@ CTranslatorExprToDXL::PdxlnScArrayCoerceExpr
 					m_pmp,
 					pmdidElemFunc,
 					pmdid,
-					popScArrayCoerceExpr->IMod(),
+					popScArrayCoerceExpr->ITypeModifier(),
 					popScArrayCoerceExpr->FIsExplicit(),
 					(EdxlCoercionForm) popScArrayCoerceExpr->Ecf(), // map Coercion Form directly based on position in enum
 					popScArrayCoerceExpr->ILoc()

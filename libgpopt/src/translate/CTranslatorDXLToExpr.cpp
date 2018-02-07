@@ -735,7 +735,16 @@ CTranslatorDXLToExpr::PexprCastPrjElem
 		GPOS_NEW(m_pmp) CExpression
 		(
 			m_pmp,
-			GPOS_NEW(m_pmp) CScalarArrayCoerceExpr(m_pmp, parrayCoerceCast->PmdidCastFunc(), pmdidDest, parrayCoerceCast->IMod(), parrayCoerceCast->FIsExplicit(), (COperator::ECoercionForm) parrayCoerceCast->Ecf(), parrayCoerceCast->ILoc()),
+			GPOS_NEW(m_pmp) CScalarArrayCoerceExpr
+							(
+							m_pmp,
+							parrayCoerceCast->PmdidCastFunc(),
+							pmdidDest,
+							parrayCoerceCast->ITypeModifier(),
+							parrayCoerceCast->FIsExplicit(),
+							(COperator::ECoercionForm) parrayCoerceCast->Ecf(),
+							parrayCoerceCast->ILoc()
+							),
 			GPOS_NEW(m_pmp) CExpression(m_pmp, GPOS_NEW(m_pmp) CScalarIdent(m_pmp, pcrToCast))
 		);
 	}
@@ -2904,7 +2913,7 @@ CTranslatorDXLToExpr::PexprScalarFunc
 					m_pmp,
 					parrayCoerceCast->PmdidCastFunc(),
 					pmdidRetType,
-					parrayCoerceCast->IMod(),
+					parrayCoerceCast->ITypeModifier(),
 					parrayCoerceCast->FIsExplicit(),
 					(COperator::ECoercionForm) parrayCoerceCast->Ecf(),
 					parrayCoerceCast->ILoc()
@@ -3596,7 +3605,7 @@ CTranslatorDXLToExpr::PexprScalarCast
 														m_pmp,
 														parrayCoerceCast->PmdidCastFunc(),
 														pmdidType,
-														parrayCoerceCast->IMod(),
+														parrayCoerceCast->ITypeModifier(),
 														parrayCoerceCast->FIsExplicit(),
 														(COperator::ECoercionForm) parrayCoerceCast->Ecf(),
 														parrayCoerceCast->ILoc()
@@ -3654,7 +3663,7 @@ CTranslatorDXLToExpr::PexprScalarCoerceToDomain
 						(
 						m_pmp,
 						pmdidType,
-						pdxlop->IMod(),
+						pdxlop->ITypeModifier(),
 						(COperator::ECoercionForm) edxlcf, // map Coercion Form directly based on position in enum
 						pdxlop->ILoc()
 						),
@@ -3698,7 +3707,7 @@ CTranslatorDXLToExpr::PexprScalarCoerceViaIO
 						(
 						m_pmp,
 						pmdidType,
-						pdxlop->IMod(),
+						pdxlop->ITypeModifier(),
 						(COperator::ECoercionForm) edxlcf, // map Coercion Form directly based on position in enum
 						pdxlop->ILoc()
 						),
@@ -3744,7 +3753,7 @@ CTranslatorDXLToExpr::PexprScalarArrayCoerceExpr
 						m_pmp,
 						pmdidElementFunc,
 						pmdidResultType,
-						pdxlop->IMod(),
+						pdxlop->ITypeModifier(),
 						pdxlop->FIsExplicit(),
 						(COperator::ECoercionForm) edxlcf, // map Coercion Form directly based on position in enum
 						pdxlop->ILoc()

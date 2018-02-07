@@ -4184,7 +4184,7 @@ CUtils::PexprCast
 		  pmp,
 		  parrayCoerceCast->PmdidCastFunc(),
 		  pmdidDest,
-		  parrayCoerceCast->IMod(),
+		  parrayCoerceCast->ITypeModifier(),
 		  parrayCoerceCast->FIsExplicit(),
 		  (COperator::ECoercionForm) parrayCoerceCast->Ecf(),
 		  parrayCoerceCast->ILoc()

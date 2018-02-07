@@ -967,11 +967,11 @@ CDXLOperatorFactory::PdxlopCoerceToDomain
 
 	// parse type id and function id
 	IMDId *pmdidType = PmdidFromAttrs(pmm, attrs, EdxltokenTypeId, EdxltokenScalarCoerceToDomain);
-	INT iMod = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCoerceToDomain);
+	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarCoerceToDomain, true, -1 /* iDefaultValue */);
 	ULONG ulCoercionForm = UlValueFromAttrs(pmm, attrs, EdxltokenCoercionForm, EdxltokenScalarCoerceToDomain);
 	INT iLoc = IValueFromAttrs(pmm, attrs, EdxltokenLocation, EdxltokenScalarCoerceToDomain);
 
-	return GPOS_NEW(pmp) CDXLScalarCoerceToDomain(pmp, pmdidType, iMod, (EdxlCoercionForm) ulCoercionForm, iLoc);
+	return GPOS_NEW(pmp) CDXLScalarCoerceToDomain(pmp, pmdidType, iTypeModifier, (EdxlCoercionForm) ulCoercionForm, iLoc);
 }
 
 //---------------------------------------------------------------------------
@@ -1020,12 +1020,12 @@ CDXLOperatorFactory::PdxlopArrayCoerceExpr
 
 	IMDId *pmdidElementFunc = PmdidFromAttrs(pmm, attrs, EdxltokenElementFunc, EdxltokenScalarArrayCoerceExpr);
 	IMDId *pmdidType = PmdidFromAttrs(pmm, attrs, EdxltokenTypeId, EdxltokenScalarArrayCoerceExpr);
-	INT iMod = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarArrayCoerceExpr);
+	INT iTypeModifier = IValueFromAttrs(pmm, attrs, EdxltokenTypeMod, EdxltokenScalarArrayCoerceExpr, true, -1 /* iDefaultValue */);
 	BOOL fIsExplicit = FValueFromAttrs(pmm, attrs, EdxltokenIsExplicit, EdxltokenScalarArrayCoerceExpr);
 	ULONG ulCoercionForm = UlValueFromAttrs(pmm, attrs, EdxltokenCoercionForm, EdxltokenScalarArrayCoerceExpr);
 	INT iLoc = IValueFromAttrs(pmm, attrs, EdxltokenLocation, EdxltokenScalarArrayCoerceExpr);
 
-	return GPOS_NEW(pmp) CDXLScalarArrayCoerceExpr(pmp, pmdidElementFunc, pmdidType, iMod, fIsExplicit, (EdxlCoercionForm) ulCoercionForm, iLoc);
+	return GPOS_NEW(pmp) CDXLScalarArrayCoerceExpr(pmp, pmdidElementFunc, pmdidType, iTypeModifier, fIsExplicit, (EdxlCoercionForm) ulCoercionForm, iLoc);
 }
 
 //---------------------------------------------------------------------------
@@ -1129,7 +1129,7 @@ CDXLOperatorFactory::PdxlopFuncExpr
 						EdxltokenTypeMod,
 						EdxltokenScalarCast,
 						true,
-						-1 /* default value */
+						-1 /* iDefaultValue */
 						);
 
 	return GPOS_NEW(pmp) CDXLScalarFuncExpr(pmp, pmdidFunc, pmdidRetType, iTypeModifier, fRetset);
