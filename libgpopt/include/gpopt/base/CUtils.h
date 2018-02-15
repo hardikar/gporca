@@ -1081,6 +1081,12 @@ namespace gpopt
 			// only one scalar ident in the tree
 			const static
 			CColRef *PcrExtractFromScExpression(CExpression *pexpr);
+
+			// search the given array of predicates for an equality predicate that has
+			// one side equal to given expression
+			static
+			CExpression *PexprMatchEqualitySide(CExpression *pexprToMatch, DrgPexpr *pdrgpexpr);
+
 	}; // class CUtils
 
 	// hash set from expressions
