@@ -362,6 +362,16 @@ namespace gpopt
 				return gexprLeft == gexprRight;
 			}
 
+			static
+			BOOL FEqual
+				(
+				const CGroupExpression *gexprLeft,
+				const CGroupExpression *gexprRight
+				)
+			{
+				return gexprLeft == gexprRight;
+			}
+
 			// match group expression against given operator and its children
 			BOOL FMatch(const CGroupExpression *) const;
 			
@@ -381,6 +391,9 @@ namespace gpopt
 			// static hash function for group expression
 			static
 			ULONG UlHash(const CGroupExpression&);
+
+			static
+			ULONG UlHash(const CGroupExpression *);
 
 			// transform group expression
 			void Transform

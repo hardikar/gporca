@@ -1029,6 +1029,16 @@ CGroupExpression::UlHash
 }
 
 
+ULONG
+CGroupExpression::UlHash
+(
+	const CGroupExpression *gexpr
+	)
+{
+	return gexpr->UlHash();
+}
+
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CGroupExpression::PstatsRecursiveDerive

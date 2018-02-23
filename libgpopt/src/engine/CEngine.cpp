@@ -90,6 +90,7 @@ CEngine::CEngine
 	m_pxfs = GPOS_NEW(pmp) CXformSet(pmp);
 	m_pdrgpulpXformCalls = GPOS_NEW(pmp) DrgPulp(pmp);
 	m_pdrgpulpXformTimes = GPOS_NEW(pmp) DrgPulp(pmp);
+	m_phmSOptCallsInfo = GPOS_NEW(pmp) HMSOptCallsInfo(pmp);
 }
 
 
@@ -111,6 +112,7 @@ CEngine::~CEngine()
 	CRefCount::SafeRelease(m_pxfs);
 	m_pdrgpulpXformCalls->Release();
 	m_pdrgpulpXformTimes->Release();
+	m_phmSOptCallsInfo->Release();
 	m_pexprEnforcerPattern->Release();
 	CRefCount::SafeRelease(m_pdrgpss);
 #endif // GPOS_DEBUG
@@ -1656,6 +1658,41 @@ CEngine::ProcessTraceFlags()
 
 		PrintActivatedXforms(at.Os());
 
+		at.Os() << std::endl << "[OPT]: <Begin OptCalls - stage " << m_ulCurrSearchStage << ">" << std::endl;
+		ULONG ulTotalOptRequests = 0;
+		HMIterSOptCallsInfo hmit(m_phmSOptCallsInfo);
+		while (hmit.FAdvance())
+		{
+			const SOptCallsInfo *pSOptCallsInfo = hmit.Pt();
+			CGroupExpression *pgexpr = pSOptCallsInfo->m_pgexpr;
+			ulTotalOptRequests += pSOptCallsInfo->m_ulOptCalls;
+
+			at.Os() << pSOptCallsInfo->m_ulOptCalls  << " opt req by "
+			<< "Group " << pgexpr->Pgroup()->UlId()
+			<< " Expr " << pgexpr->UlId()
+			<< " (" << pgexpr->Pop()->SzId() << ") "
+			<< std::endl;
+
+//			CGroupExpression *pgexprOrigin = pSOptCallsInfo->m_pgexprOrigin;
+//			<< " [origin: ";
+//
+//			if (pgexprOrigin == NULL)
+//			{
+//				at.Os() << "NULL";
+//			}
+//			else
+//			{
+//				at.Os() << " Group " << pgexprOrigin->Pgroup()->UlId()
+//				<< " Expr " << pgexprOrigin->UlId()
+//				<< " (" << pgexprOrigin->Pop()->SzId() << ")";
+//			}
+//
+//			at.Os() << "]" << std::endl;
+		}
+		at.Os() << "------------" << std::endl;
+		at.Os() << ulTotalOptRequests << " total" << std::endl;
+		at.Os() << "[OPT]: <End OptCalls - stage " << m_ulCurrSearchStage << ">" << std::endl;
+
 		(void) OsPrintMemoryConsumption(at.Os(), "Memory consumption after optimization ");
 	}
 }
@@ -2506,6 +2543,44 @@ CEngine::OsPrint
 	const
 {
 	return m_pmemo->OsPrint(os);
+}
+
+CEngine::SOptCallsInfo::SOptCallsInfo
+	(
+	CGroupExpression *pgexpr,
+ 	CGroupExpression * pgexprOrigin
+	)
+:
+	m_pgexpr(pgexpr),
+	m_pgexprOrigin(pgexprOrigin)
+{
+	m_pgexpr->AddRef();
+	if (NULL != m_pgexprOrigin)
+		m_pgexprOrigin->AddRef();
+	m_ulOptCalls = 0;
+}
+
+CEngine::SOptCallsInfo::~SOptCallsInfo()
+{
+	m_pgexpr->Release();
+	SafeRelease(m_pgexprOrigin);
+}
+
+void
+CEngine::AddOptCallCounter
+(CGroupExpression *pgexpr, CGroupExpression *pgexprOrigin)
+{
+	// SOptCallsInfo pSOpCallsInfo = GPOS_NEW(pmp) (pgexpr, NULL);
+	SOptCallsInfo *pSOptCallsInfo = m_phmSOptCallsInfo->PtLookup(pgexpr);
+
+	if (NULL == pSOptCallsInfo)
+	{
+		pSOptCallsInfo = GPOS_NEW(m_pmp) SOptCallsInfo(pgexpr, pgexprOrigin);
+		m_phmSOptCallsInfo->FInsert(pgexpr, pSOptCallsInfo);
+	}
+
+	const ULONG ulOptRequests = CPhysical::PopConvert(pgexpr->Pop())->UlOptRequests();
+	pSOptCallsInfo->m_ulOptCalls += ulOptRequests;
 }
 
 // EOF

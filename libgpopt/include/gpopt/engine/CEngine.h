@@ -13,6 +13,7 @@
 
 #include "gpos/base.h"
 #include "gpos/sync/CMutex.h"
+#include "gpos/common/CDynamicPtrArray.h"
 
 #include "gpopt/xforms/CXform.h"
 #include "gpopt/search/CMemo.h"
@@ -80,6 +81,22 @@ namespace gpopt
 			// mutex for locking shared data structures when updating optimization statistics
 			CMutex m_mutexOptStats;
 
+			struct SOptCallsInfo : public CRefCount
+			{
+				CGroupExpression *m_pgexpr;
+				CGroupExpression *m_pgexprOrigin;
+				ULONG m_ulOptCalls;
+
+				SOptCallsInfo(CGroupExpression *pgexpr, CGroupExpression * pgexprOrigin);
+				~SOptCallsInfo();
+			};
+
+		typedef CHashMap<CGroupExpression, SOptCallsInfo, CGroupExpression::UlHash,
+			CGroupExpression::FEqual, CleanupNULL<CGroupExpression>, CleanupRelease<SOptCallsInfo> > HMSOptCallsInfo;
+		typedef CHashMapIter<CGroupExpression, SOptCallsInfo, CGroupExpression::UlHash,
+			CGroupExpression::FEqual, CleanupNULL<CGroupExpression>, CleanupRelease<SOptCallsInfo> > HMIterSOptCallsInfo;
+
+			HMSOptCallsInfo *m_phmSOptCallsInfo;
 #ifdef GPOS_DEBUG
 
 			// a set of internal debugging function used for recursive
@@ -440,6 +457,8 @@ namespace gpopt
 			// return the first group expression in a given group
 			static
 			CGroupExpression *PgexprFirst(CGroup *pgroup);
+
+			void AddOptCallCounter(CGroupExpression *pgexpr, CGroupExpression *pgexprOrigin);
 
 	}; // class CEngine
 

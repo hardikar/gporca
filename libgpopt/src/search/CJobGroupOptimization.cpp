@@ -168,6 +168,11 @@ CJobGroupOptimization::FScheduleGroupExpressions
 				// schedule an optimization job for each request
 				CJobGroupExpressionOptimization::ScheduleJob(psc, pgexpr, m_poc, ul, this);
 			}
+
+			if (GPOS_FTRACE(EopttracePrintOptimizationStatistics))
+			{
+				psc->Peng()->AddOptCallCounter(pgexpr, m_pgexprOrigin);
+			}
 		}
 		pgexprLast = pgexpr;
 
