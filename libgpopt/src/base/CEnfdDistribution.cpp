@@ -152,15 +152,6 @@ CEnfdDistribution::Epet
 	{
 		CDistributionSpec *pds = CDrvdPropPlan::Pdpplan(exprhdl.Pdp())->Pds();
 
-		if (CDistributionSpec::EdtReplicated == pds->Edt() &&
-			CDistributionSpec::EdtHashed == PdsRequired()->Edt() &&
-			EdmSatisfy == m_edm)
-		{
-			// child delivers a replicated distribution, no need to enforce hashed distribution
-			// if only satisfiability is needed
-			return EpetUnnecessary;
-		}
-
 		// if operator is a propagator/consumer of any partition index id, prohibit
 		// enforcing any distribution not compatible with what operator delivers
 		// if the derived partition consumers are a subset of the ones in the given

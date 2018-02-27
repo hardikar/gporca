@@ -48,6 +48,13 @@ CDistributionSpecReplicated::FSatisfies
 		return CDistributionSpecNonSingleton::PdsConvert(const_cast<CDistributionSpec *>(pdss))->FAllowReplicated();
 	}
 
+	if (EdtHashed == pdss->Edt())
+	{
+		// child delivers a replicated distribution, no need to enforce hashed distribution
+		// if only satisfiability is needed
+		return true;
+	}
+
 	// a replicated distribution satisfies any non-singleton one,
 	// as well as singleton distributions that are not master-only
 	return !(EdtSingleton == pdss->Edt() &&
