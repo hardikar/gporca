@@ -501,11 +501,6 @@ CPhysicalComputeScalar::EpetDistribution
 		 return CEnfdProp::EpetUnnecessary;
 	}
 
-	if (exprhdl.FHasOuterRefs())
-	{
-		return CEnfdProp::EpetProhibited;
-	}
-
 	return CEnfdProp::EpetRequired;
 }
 
