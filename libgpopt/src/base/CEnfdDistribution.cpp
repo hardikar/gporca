@@ -172,8 +172,17 @@ CEnfdDistribution::Epet
 		{
 			return CEnfdProp::EpetProhibited;
 		}
-	 	
-		return popPhysical->EpetDistribution(exprhdl, this);
+
+		EPropEnforcingType epet = popPhysical->EpetDistribution(exprhdl, this);
+		if (FEnforce(epet) && exprhdl.FHasOuterRefs())
+		{
+			// disallow plans with outer references below motion operator
+			return EpetProhibited;
+		}
+		else
+		{
+			return epet;
+		}
 	}
 
 	return EpetUnnecessary;

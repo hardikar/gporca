@@ -397,11 +397,6 @@ CPhysicalTVF::EpetDistribution
 	 	return CEnfdProp::EpetUnnecessary;
 	}
 
-	if (exprhdl.FHasOuterRefs())
-	{
-		return CEnfdProp::EpetProhibited;
-	}
-
 	// required distribution will be enforced on TVF's output
 	return CEnfdProp::EpetRequired;
 }
