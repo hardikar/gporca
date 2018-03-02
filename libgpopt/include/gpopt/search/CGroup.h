@@ -275,6 +275,7 @@ namespace gpopt
 			// increment number of optimization contexts
 			ULONG_PTR UlpIncOptCtxts()
 			{
+				COptimizationContext::UlOptContexts++;
 				return UlpExchangeAdd(&m_ulpOptCtxts, 1);
 			}
 

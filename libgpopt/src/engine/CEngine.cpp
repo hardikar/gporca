@@ -1534,6 +1534,9 @@ CEngine::FinalizeSearchStage()
 {
 	ProcessTraceFlags();
 
+	CAutoTrace at(m_pmp);
+	at.Os() << "TOTAL OPT CTXTs created : " << COptimizationContext::UlOptContexts;
+
 	m_pxfs->Release();
 	m_pxfs = NULL;
 	m_pxfs = GPOS_NEW(m_pmp) CXformSet(m_pmp);

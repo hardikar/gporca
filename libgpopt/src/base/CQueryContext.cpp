@@ -52,6 +52,8 @@ CQueryContext::CQueryContext
 	GPOS_ASSERT(NULL != pdrgpmdname);
 	GPOS_ASSERT(pdrgpcr->UlLength() == pdrgpmdname->UlLength());
 
+	COptimizationContext::UlOptContexts = 0;
+
 #ifdef GPOS_DEBUG
 	const ULONG ulReqdColumns = m_pdrgpcr->UlLength();
 #endif //GPOS_DEBUG

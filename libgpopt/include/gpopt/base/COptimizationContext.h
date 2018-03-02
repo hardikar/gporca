@@ -137,6 +137,8 @@ namespace gpopt
 
 		public:
 
+			static ULONG UlOptContexts;
+
 			// ctor
 			COptimizationContext
 				(

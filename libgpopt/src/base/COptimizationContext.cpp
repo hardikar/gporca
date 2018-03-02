@@ -32,6 +32,8 @@ const COptimizationContext COptimizationContext::m_ocInvalid;
 // invalid optimization context pointer
 const OPTCTXT_PTR COptimizationContext::m_pocInvalid = NULL;
 
+ULONG COptimizationContext::UlOptContexts;
+
 
 
 //---------------------------------------------------------------------------
