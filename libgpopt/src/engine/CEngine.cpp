@@ -2239,7 +2239,19 @@ CEngine::FCheckEnfdProps
 		binding.PexprExtract(m_pmp, exprhdl.Pgexpr(), m_pexprEnforcerPattern, NULL /* pexprLast */);
 	GPOS_ASSERT(NULL != pexpr);
 	GPOS_ASSERT(pexpr->Pgexpr()->Pgroup() == pgexpr->Pgroup());
-		
+
+#ifdef GPOS_DEBUG
+	ULONG ulExpectedEnforcers = 0;
+	if (CEnfdProp::FEnforce(epetOrder))
+		ulExpectedEnforcers +=1;
+	if (CEnfdProp::FEnforce(epetDistribution))
+		ulExpectedEnforcers +=1;
+	if (CEnfdProp::FEnforce(epetRewindability))
+		ulExpectedEnforcers +=1;
+	if (CEnfdProp::FEnforce(epetPartitionPropagation))
+		ulExpectedEnforcers +=1;
+#endif // GPOS_DEBUG
+
 	prpp->Peo()->AppendEnforcers(pmp, prpp, pdrgpexprEnforcers, pexpr, epetOrder, exprhdl);
 	prpp->Ped()->AppendEnforcers(pmp, prpp, pdrgpexprEnforcers, pexpr, epetDistribution, exprhdl);
 	prpp->Per()->AppendEnforcers(pmp, prpp, pdrgpexprEnforcers, pexpr, epetRewindability, exprhdl);
@@ -2251,6 +2263,8 @@ CEngine::FCheckEnfdProps
 	}
 	pdrgpexprEnforcers->Release();
 	pexpr->Release();
+
+	GPOS_ASSERT(ulExpectedEnforcers == pdrgpexprEnforcers->UlLength());
 	
 	return FOptimize(epetOrder, epetDistribution, epetRewindability, epetPartitionPropagation);
 }
