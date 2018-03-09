@@ -2257,6 +2257,11 @@ CEngine::FCheckEnfdProps
 	prpp->Per()->AppendEnforcers(pmp, prpp, pdrgpexprEnforcers, pexpr, epetRewindability, exprhdl);
 	prpp->Pepp()->AppendEnforcers(pmp, prpp, pdrgpexprEnforcers, pexpr, epetPartitionPropagation, exprhdl);
 
+	// Each call to AppendEnforcers may add more than 1 enforcers if necessary
+	// E.g pepp = consumer<1>(0), consumer<2>(0); then one PartitionSelector is added for each one!
+	// That is even if there is only a single DTS<2> in the group.
+	GPOS_ASSERT(ulExpectedEnforcers >= pdrgpexprEnforcers->UlLength());
+
 	if (0 < pdrgpexprEnforcers->UlLength())
 	{
 		AddEnforcers(exprhdl.Pgexpr(), pdrgpexprEnforcers);
@@ -2264,8 +2269,6 @@ CEngine::FCheckEnfdProps
 	pdrgpexprEnforcers->Release();
 	pexpr->Release();
 
-	GPOS_ASSERT(ulExpectedEnforcers == pdrgpexprEnforcers->UlLength());
-	
 	return FOptimize(epetOrder, epetDistribution, epetRewindability, epetPartitionPropagation);
 }
 

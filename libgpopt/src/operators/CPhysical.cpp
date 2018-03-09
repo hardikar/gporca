@@ -1181,6 +1181,7 @@ CPhysical::EpetPartitionPropagation
 		return CEnfdProp::EpetUnnecessary;
 	}
 
+	// XXX Some partition selectors are not resolved
 	if (!fInScope)
 	{
 		// some partition consumers are not in scope of the operator: need to enforce these on top

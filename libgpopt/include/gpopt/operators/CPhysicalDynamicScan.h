@@ -143,6 +143,23 @@ namespace gpopt
 			virtual
 			CPartIndexMap *PpimDerive(IMemoryPool *pmp, CExpressionHandle &exprhdl, CDrvdPropCtxt *pdpctxt) const;
 
+			// return partition propagation property enforcing type for this operator
+			virtual 
+			CEnfdProp::EPropEnforcingType EpetPartitionPropagation
+				(
+				CExpressionHandle &, // exprhdl,
+				const CEnfdPartitionPropagation *pepp
+				) 
+				const
+			{
+				CPartIndexMap *ppim = pepp->PppsRequired()->Ppim();
+				if (ppim->FContainsUnresolvedZeroPropagator(m_ulScanId))
+				{
+					return CEnfdProp::EpetRequired;
+				}
+				return CEnfdProp::EpetUnnecessary;
+			}
+
 			// return true if operator is dynamic scan
 			virtual
 			BOOL FDynamicScan() const

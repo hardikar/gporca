@@ -287,6 +287,8 @@ namespace gpopt
 			// does map contain unresolved entries with zero propagators?
 			BOOL FContainsUnresolvedZeroPropagators() const;
 
+			BOOL FContainsUnresolvedZeroPropagator(ULONG ulScanId) const;
+
 			// extract scan ids in the given memory pool
 			DrgPul *PdrgpulScanIds(IMemoryPool *pmp, BOOL fConsumersOnly = false) const;
 

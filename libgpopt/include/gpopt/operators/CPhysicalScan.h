@@ -331,7 +331,8 @@ namespace gpopt
 				) 
 				const
 			{
-				if (!pepp->PppsRequired()->Ppim()->FContainsUnresolvedZeroPropagators())
+				CPartIndexMap *ppim = pepp->PppsRequired()->Ppim();
+				if (!ppim->FContainsUnresolvedZeroPropagators())
 				{
 					return CEnfdProp::EpetUnnecessary;
 				}

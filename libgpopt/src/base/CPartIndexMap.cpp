@@ -689,6 +689,17 @@ CPartIndexMap::FContainsUnresolvedZeroPropagators() const
 	return (0 != m_ulUnresolvedZeroPropagators);
 }
 
+BOOL
+CPartIndexMap::FContainsUnresolvedZeroPropagator(ULONG ulScanId) const
+{
+	CPartTableInfo *ppti = m_pim->PtLookup(&ulScanId);
+
+	if (NULL == ppti)
+		return false;
+
+	return EpimConsumer == ppti->Epim() && 0 == ppti->UlExpectedPropagators();
+}
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CPartIndexMap::PdrgpulScanIds
