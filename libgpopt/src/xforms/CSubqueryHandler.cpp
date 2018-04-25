@@ -1746,8 +1746,11 @@ CSubqueryHandler::FRecursiveHandler
 		// set subquery context to null test
 		esqctxt = EsqctxtNullTest;
 	}
-	else
+	else if (COperator::EopScalarBoolOp != popScalar->Eopid() && esqctxt == EsqctxtFilter)
 	{
+		// OR/NOT is considered separately using DisjunctionOrNegation
+		// ANDs are implicit
+		// Filter because is Nested is like Filter but more
 		esqctxt = EsqctxtNested;
 	}
 
