@@ -1203,7 +1203,7 @@ CSubqueryHandler::FRemoveAnySubquery
 
 
 	BOOL fSuccess = true;
-	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt || EsqctxtNested == esqctxt)
 	{
 		pexprInner->AddRef();
 		CExpression *pexprSelect = CUtils::PexprLogicalSelect(pmp, pexprResult, pexprPredicate);
@@ -1222,21 +1222,13 @@ CSubqueryHandler::FRemoveAnySubquery
 			fSuccess = FCreateCorrelatedApplyForExistOrQuant(pmp, pexprOuter, pexprSubquery, fDisjunctionOrNegation, esqctxt, ppexprNewOuter, ppexprResidualScalar);
 		}
 	}
-	else if (EsqctxtFilter == esqctxt)
+	else
 	{
 		pexprInner->AddRef();
 		CExpression *pexprSelect = CUtils::PexprLogicalSelect(pmp, pexprResult, pexprPredicate);
 
 		*ppexprNewOuter = CUtils::PexprLogicalApply<CLogicalLeftSemiApplyIn>(pmp, pexprOuter, pexprSelect, pcr, eopidSubq);
 		*ppexprResidualScalar = CUtils::PexprScalarConstBool(pmp, true /*fVal*/);
-	}
-	else
-	{
-		GPOS_ASSERT(EsqctxtNested == esqctxt);
-
-		pexprResult->AddRef();
-		*ppexprNewOuter = CUtils::PexprLogicalApply<CLogicalLeftSemiApplyIn>(pmp, pexprOuter, pexprResult, pcr, eopidSubq);
-		*ppexprResidualScalar = pexprPredicate;
 	}
 
 	return fSuccess;
@@ -1363,7 +1355,7 @@ CSubqueryHandler::FRemoveAllSubquery
 	pexprPredicate = pexprInversePred;
 	pexprInnerSelect = CUtils::PexprLogicalSelect(pmp, pexprInner, pexprPredicate);
 
-	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt || EsqctxtNested == esqctxt)
 	{
 		const CColRef *pcr = CScalarSubqueryAll::PopConvert(pexprSubquery->Pop())->Pcr();
 		if (!CDrvdPropRelational::Pdprel(pexprInner->PdpDerive())->PcrsNotNull()->FMember(pcr))
@@ -1586,7 +1578,7 @@ CSubqueryHandler::FRemoveExistentialSubquery
 	pexprInner->AddRef();
 
 	BOOL fSuccess = true;
-	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt || EsqctxtNested == esqctxt)
 	{
 		fSuccess = FCreateOuterApply(pmp, pexprOuter, pexprInner, pexprSubquery, fOuterRefsUnderInner, ppexprNewOuter, ppexprResidualScalar);
 		if (!fSuccess)
