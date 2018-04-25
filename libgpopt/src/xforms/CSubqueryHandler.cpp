@@ -461,7 +461,7 @@ CSubqueryHandler::FGenerateCorrelatedApplyForScalarSubquery
 		return true;
 	}
 
-	GPOS_ASSERT(EsqctxtFilter == esqctxt);
+	GPOS_ASSERT(EsqctxtFilter == esqctxt || EsqctxtNested == esqctxt);
 
 	if (fUseMaxOneRow)
 	{
@@ -542,7 +542,7 @@ CSubqueryHandler::FRemoveScalarSubqueryInternal
 		return fSuccess;
 	}
 
-	GPOS_ASSERT(EsqctxtFilter == esqctxt);
+	GPOS_ASSERT(EsqctxtFilter == esqctxt || EsqctxtNested == esqctxt);
 
 	*ppexprNewOuter = CUtils::PexprLogicalApply<CLogicalInnerApply>(pmp, pexprOuter, pexprInner, pcr, pexprSubquery->Pop()->Eopid());
 	*ppexprResidualScalar = CUtils::PexprScalarIdent(pmp, pcr);
@@ -1200,12 +1200,13 @@ CSubqueryHandler::FRemoveAnySubquery
 	CExpression *pexprPredicate = popSubquery->PexprSubqueryPred(sh, pexprInner, pexprSubquery, &pexprResult);
 
 	// generate a select for the quantified predicate
-	pexprInner->AddRef();
-	CExpression *pexprSelect = CUtils::PexprLogicalSelect(pmp, pexprResult, pexprPredicate);
+
 
 	BOOL fSuccess = true;
 	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
 	{
+		pexprInner->AddRef();
+		CExpression *pexprSelect = CUtils::PexprLogicalSelect(pmp, pexprResult, pexprPredicate);
 		if (!CDrvdPropRelational::Pdprel(pexprResult->PdpDerive())->PcrsNotNull()->FMember(pcr))
 		{
 			// if inner column is nullable, we create a disjunction to handle null values
@@ -1221,12 +1222,21 @@ CSubqueryHandler::FRemoveAnySubquery
 			fSuccess = FCreateCorrelatedApplyForExistOrQuant(pmp, pexprOuter, pexprSubquery, fDisjunctionOrNegation, esqctxt, ppexprNewOuter, ppexprResidualScalar);
 		}
 	}
-	else
+	else if (EsqctxtFilter == esqctxt)
 	{
-		GPOS_ASSERT(EsqctxtFilter == esqctxt);
+		pexprInner->AddRef();
+		CExpression *pexprSelect = CUtils::PexprLogicalSelect(pmp, pexprResult, pexprPredicate);
 
 		*ppexprNewOuter = CUtils::PexprLogicalApply<CLogicalLeftSemiApplyIn>(pmp, pexprOuter, pexprSelect, pcr, eopidSubq);
 		*ppexprResidualScalar = CUtils::PexprScalarConstBool(pmp, true /*fVal*/);
+	}
+	else
+	{
+		GPOS_ASSERT(EsqctxtNested == esqctxt);
+
+		pexprResult->AddRef();
+		*ppexprNewOuter = CUtils::PexprLogicalApply<CLogicalLeftSemiApplyIn>(pmp, pexprOuter, pexprResult, pcr, eopidSubq);
+		*ppexprResidualScalar = pexprPredicate;
 	}
 
 	return fSuccess;
@@ -1739,11 +1749,14 @@ CSubqueryHandler::FRecursiveHandler
 		// set subquery context to Value
 		esqctxt = EsqctxtValue;
 	}
-
-	if (COperator::EopScalarNullTest == popScalar->Eopid())
+	else if (COperator::EopScalarNullTest == popScalar->Eopid())
 	{
 		// set subquery context to null test
 		esqctxt = EsqctxtNullTest;
+	}
+	else
+	{
+		esqctxt = EsqctxtNested;
 	}
 
 	// save the current logical expression
