@@ -84,10 +84,6 @@ CXformSubqueryUnnest::PexprSubqueryUnnest
 	CExpression *pexprResidualScalar = NULL;
 
 	CSubqueryHandler::ESubqueryCtxt esqctxt = CSubqueryHandler::EsqctxtFilter;
-	if (COperator::EopScalarProjectList == pexprScalar->Pop()->Eopid())
-	{
-		esqctxt = CSubqueryHandler::EsqctxtValue;
-	}
 
 	// calling the handler removes subqueries and sets new logical and scalar expressions
 	CSubqueryHandler sh(pmp, fEnforceCorrelatedApply);
@@ -111,14 +107,9 @@ CXformSubqueryUnnest::PexprSubqueryUnnest
 
 	// create a new alternative using the new logical and scalar expressions
 	CExpression *pexprResult = NULL;
-	if (CSubqueryHandler::EsqctxtFilter == esqctxt)
-	{
-		pexprResult = CUtils::PexprLogicalSelect(pmp, pexprNewOuter, pexprResidualScalar);
-	}
-	else
-	{
-		GPOS_ASSERT(CSubqueryHandler::EsqctxtValue == esqctxt);
 
+	if (COperator::EopScalarProjectList == pexprScalar->Pop()->Eopid())
+	{
 		CLogicalSequenceProject *popSeqPrj = NULL;
 		CLogicalGbAgg *popGbAgg = NULL;
 		COperator::EOperatorId eopid = pexpr->Pop()->Eopid();
@@ -148,6 +139,10 @@ CXformSubqueryUnnest::PexprSubqueryUnnest
 				GPOS_ASSERT(!"Unnesting subqueries for an invalid operator");
 				break;
 		}
+	}
+	else
+	{
+		pexprResult = CUtils::PexprLogicalSelect(pmp, pexprNewOuter, pexprResidualScalar);
 	}
 
 	// normalize resulting expression

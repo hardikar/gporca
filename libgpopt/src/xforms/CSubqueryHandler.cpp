@@ -461,7 +461,7 @@ CSubqueryHandler::FGenerateCorrelatedApplyForScalarSubquery
 		return true;
 	}
 
-	GPOS_ASSERT(EsqctxtFilter == esqctxt);
+	GPOS_ASSERT(EsqctxtFilter == esqctxt || EsqctxtNested == esqctxt );
 
 	if (fUseMaxOneRow)
 	{
@@ -542,7 +542,7 @@ CSubqueryHandler::FRemoveScalarSubqueryInternal
 		return fSuccess;
 	}
 
-	GPOS_ASSERT(EsqctxtFilter == esqctxt);
+	GPOS_ASSERT(EsqctxtFilter == esqctxt || EsqctxtNested == esqctxt);
 
 	*ppexprNewOuter = CUtils::PexprLogicalApply<CLogicalInnerApply>(pmp, pexprOuter, pexprInner, pcr, pexprSubquery->Pop()->Eopid());
 	*ppexprResidualScalar = CUtils::PexprScalarIdent(pmp, pcr);
@@ -1204,7 +1204,7 @@ CSubqueryHandler::FRemoveAnySubquery
 	CExpression *pexprSelect = CUtils::PexprLogicalSelect(pmp, pexprResult, pexprPredicate);
 
 	BOOL fSuccess = true;
-	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt || EsqctxtNested == esqctxt)
 	{
 		if (!CDrvdPropRelational::Pdprel(pexprResult->PdpDerive())->PcrsNotNull()->FMember(pcr))
 		{
@@ -1353,7 +1353,7 @@ CSubqueryHandler::FRemoveAllSubquery
 	pexprPredicate = pexprInversePred;
 	pexprInnerSelect = CUtils::PexprLogicalSelect(pmp, pexprInner, pexprPredicate);
 
-	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt || EsqctxtNested == esqctxt)
 	{
 		const CColRef *pcr = CScalarSubqueryAll::PopConvert(pexprSubquery->Pop())->Pcr();
 		if (!CDrvdPropRelational::Pdprel(pexprInner->PdpDerive())->PcrsNotNull()->FMember(pcr))
@@ -1576,7 +1576,7 @@ CSubqueryHandler::FRemoveExistentialSubquery
 	pexprInner->AddRef();
 
 	BOOL fSuccess = true;
-	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (fDisjunctionOrNegation || EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt || EsqctxtNested == esqctxt)
 	{
 		fSuccess = FCreateOuterApply(pmp, pexprOuter, pexprInner, pexprSubquery, fOuterRefsUnderInner, ppexprNewOuter, ppexprResidualScalar);
 		if (!fSuccess)
@@ -1729,21 +1729,24 @@ CSubqueryHandler::FRecursiveHandler
 #endif // GPOS_DEBUG
 
 	COperator *popScalar = pexprScalar->Pop();
-	if (CPredicateUtils::FOr(pexprScalar) || CPredicateUtils::FNot(pexprScalar))
-	{
-		fDisjunctionOrNegation = true;
-	}
 
 	if (COperator::EopScalarProjectElement == popScalar->Eopid())
 	{
 		// set subquery context to Value
 		esqctxt = EsqctxtValue;
 	}
-
-	if (COperator::EopScalarNullTest == popScalar->Eopid())
+	else if (COperator::EopScalarNullTest == popScalar->Eopid())
 	{
 		// set subquery context to null test
 		esqctxt = EsqctxtNullTest;
+	}
+	else if (CPredicateUtils::FOr(pexprScalar) || CPredicateUtils::FNot(pexprScalar))
+	{
+		esqctxt = EsqctxtValue;
+	}
+	else if (!CPredicateUtils::FAnd(pexprScalar) && esqctxt == EsqctxtFilter)
+	{
+		esqctxt = EsqctxtNested;
 	}
 
 	// save the current logical expression
