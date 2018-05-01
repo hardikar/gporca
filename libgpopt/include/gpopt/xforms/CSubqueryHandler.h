@@ -380,6 +380,15 @@ namespace gpopt
 				m_fEnforceCorrelatedApply(fEnforceCorrelatedApply)
 			{}
 
+
+			// build an expression for the quantified comparison of the subquery
+			CExpression *PexprSubqueryPred
+				(
+				CExpression *pexprOuter,
+				CExpression *pexprSubquery,
+				CExpression **ppexprResult
+				);
+
 			// main driver
 			BOOL FProcess
 				(

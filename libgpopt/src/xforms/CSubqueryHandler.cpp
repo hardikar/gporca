@@ -113,6 +113,103 @@ CSubqueryHandler::PexprReplace
 }
 
 
+
+//---------------------------------------------------------------------------
+//	@function:
+//		CSubqueryHandler::PexprSubqueryPred
+//
+//	@doc:
+//		Build a predicate expression for the quantified comparison of the
+//		subquery.
+//
+//		This method first attempts to un-nest any subquery that may be present in
+//		the Scalar part of the quantified subquery. Then, it proceeds to create a
+//		scalar predicate comparison between the new Scalar and Logical children of
+//		the Subquery. It returns the new Logical child via ppexprResult.
+//
+//		For example, for the query :
+//		select * from foo where
+//		    (select a from foo limit 1) in (select b from bar);
+//
+//		+--CLogicalSelect
+//		   |--CLogicalGet "foo"
+//		   +--CScalarSubqueryAny(=)["b" (10)]
+//		      |--CLogicalGet "bar"
+//		      +--CScalarSubquery["a" (18)]
+//		         +--CLogicalLimit <empty> global
+//		            |--CLogicalGet "foo"
+//		            |--CScalarConst (0)
+//		            +--CScalarCast
+//		               +--CScalarConst (1)
+//
+//		will return ..
+//		+--CScalarCmp (=)
+//		   |--CScalarIdent "a" (18)
+//		   +--CScalarIdent "b" (10)
+//
+//		with pexprResult as ..
+//		+--CLogicalInnerApply
+//		   |--CLogicalGet "bar"
+//		   |--CLogicalMaxOneRow
+//		   |  +--CLogicalLimit
+//		   |     |--CLogicalGet "foo"
+//		   |     |--CScalarConst (0)   origin: [Grp:3, GrpExpr:0]
+//		   |     +--CScalarCast   origin: [Grp:5, GrpExpr:0]
+//		   |        +--CScalarConst (1)   origin: [Grp:4, GrpExpr:0]
+//		   +--CScalarConst (1)
+//
+//		If there is no such subquery, it returns a comparison expression using
+//		the original Scalar expression and sets ppexprResult to the passed in
+//		pexprOuter.
+//
+//---------------------------------------------------------------------------
+CExpression *
+CSubqueryHandler::PexprSubqueryPred
+	(
+	CExpression *pexprOuter,
+	CExpression *pexprSubquery,
+	CExpression **ppexprResult
+	)
+{
+	GPOS_ASSERT(CUtils::FQuantifiedSubquery(pexprSubquery->Pop()));
+
+	CExpression *pexprNewScalar = NULL;
+	CExpression *pexprNewLogical = NULL;
+
+	CExpression *pexprScalarChild = (*pexprSubquery)[1];
+	CSubqueryHandler::ESubqueryCtxt esqctxt = CSubqueryHandler::EsqctxtFilter;
+
+	if (!FProcess(pexprOuter, pexprScalarChild, esqctxt, &pexprNewLogical, &pexprNewScalar))
+	{
+		// subquery unnesting failed; attempt to create a predicate directly
+		*ppexprResult = pexprOuter;
+		pexprNewScalar = pexprScalarChild;
+	}
+
+	if (NULL != pexprNewLogical)
+	{
+		*ppexprResult = pexprNewLogical;
+	}
+	else
+	{
+		*ppexprResult = pexprOuter;
+	}
+
+	GPOS_ASSERT(NULL != pexprNewScalar);
+
+	CScalarSubqueryQuantified *popSqQuantified = CScalarSubqueryQuantified::PopConvert(pexprSubquery->Pop());
+
+	const CColRef *pcr = popSqQuantified->Pcr();
+	IMDId *pmdidOp = popSqQuantified->PmdidOp();
+	const CWStringConst *pstr = popSqQuantified->PstrOp();
+
+	pmdidOp->AddRef();
+	CExpression *pexprPredicate = CUtils::PexprScalarCmp(m_pmp, pexprNewScalar, pcr, *pstr, pmdidOp);
+
+	return pexprPredicate;
+}
+
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CSubqueryHandler::FProjectCountSubquery
@@ -912,7 +1009,7 @@ CSubqueryHandler::FCreateCorrelatedApplyForQuantifiedSubquery
 	// build subquery quantified comparison
 	CExpression *pexprResult = NULL;
 	CSubqueryHandler sh(pmp, true /* fEnforceCorrelatedApply */);
-	CExpression *pexprPredicate = popSubquery->PexprSubqueryPred(sh, pexprInner, pexprSubquery, &pexprResult);
+	CExpression *pexprPredicate = sh.PexprSubqueryPred(pexprInner, pexprSubquery, &pexprResult);
 
 	pexprInner->AddRef();
 	if (EsqctxtFilter == esqctxt)
@@ -1124,10 +1221,8 @@ CSubqueryHandler::FRemoveAnySubquery
 	COperator::EOperatorId eopidSubq = pexprSubquery->Pop()->Eopid();
 
 	// build subquery quantified comparison
-	CScalarSubqueryQuantified *popSubquery = CScalarSubqueryQuantified::PopConvert(pexprSubquery->Pop());
 	CExpression *pexprResult = NULL;
-	// TODO : come back and fix this.
-	CExpression *pexprPredicate = popSubquery->PexprSubqueryPred(*this, pexprInner, pexprSubquery, &pexprResult);
+	CExpression *pexprPredicate = PexprSubqueryPred(pexprInner, pexprSubquery, &pexprResult);
 
 	// generate a select for the quantified predicate
 	pexprInner->AddRef();
@@ -1266,10 +1361,8 @@ CSubqueryHandler::FRemoveAllSubquery
 		// outer references in SubqueryAll necessitate correlated execution for correctness
 
 		// build subquery quantified comparison
-		CScalarSubqueryQuantified *popSubquery = CScalarSubqueryQuantified::PopConvert(pexprSubquery->Pop());
 		CExpression *pexprResult = NULL;
-		// TODO
-		CExpression *pexprPredicate = popSubquery->PexprSubqueryPred(*this, pexprInner, pexprSubquery, &pexprResult);
+		CExpression *pexprPredicate = PexprSubqueryPred(pexprInner, pexprSubquery, &pexprResult);
 
 		*ppexprResidualScalar = CUtils::PexprScalarConstBool(pmp, true /*fVal*/);
 		*ppexprNewOuter = CUtils::PexprLogicalApply<CLogicalLeftAntiSemiCorrelatedApplyNotIn>(pmp, pexprOuter, pexprResult, pcr, eopidSubq, pexprPredicate);
