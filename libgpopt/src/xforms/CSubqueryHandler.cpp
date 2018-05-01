@@ -335,7 +335,7 @@ CSubqueryHandler::Psd
 	}
 
 	// set flag for using subquery in a value context
-	psd->m_fValueSubquery = EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt || (psd->m_fHasCountAgg && psd->m_fHasOuterRefs);
+	psd->m_fValueSubquery = EsqctxtValue == esqctxt || (psd->m_fHasCountAgg && psd->m_fHasOuterRefs);
 
 	// set flag of correlated execution
 	psd->SetCorrelatedExecution();
@@ -1229,7 +1229,7 @@ CSubqueryHandler::FRemoveAnySubquery
 	CExpression *pexprSelect = CUtils::PexprLogicalSelect(pmp, pexprResult, pexprPredicate);
 
 	BOOL fSuccess = true;
-	if (EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (EsqctxtValue == esqctxt)
 	{
 		if (!CDrvdPropRelational::Pdprel(pexprResult->PdpDerive())->PcrsNotNull()->FMember(pcr))
 		{
@@ -1375,7 +1375,7 @@ CSubqueryHandler::FRemoveAllSubquery
 	pexprPredicate = pexprInversePred;
 	pexprInnerSelect = CUtils::PexprLogicalSelect(pmp, pexprInner, pexprPredicate);
 
-	if (EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (EsqctxtValue == esqctxt)
 	{
 		const CColRef *pcr = CScalarSubqueryAll::PopConvert(pexprSubquery->Pop())->Pcr();
 		if (!CDrvdPropRelational::Pdprel(pexprInner->PdpDerive())->PcrsNotNull()->FMember(pcr))
@@ -1597,7 +1597,7 @@ CSubqueryHandler::FRemoveExistentialSubquery
 	pexprInner->AddRef();
 
 	BOOL fSuccess = true;
-	if (EsqctxtValue == esqctxt || EsqctxtNullTest == esqctxt)
+	if (EsqctxtValue == esqctxt)
 	{
 		fSuccess = FCreateOuterApply(pmp, pexprOuter, pexprInner, pexprSubquery, fOuterRefsUnderInner, ppexprNewOuter, ppexprResidualScalar);
 		if (!fSuccess)
@@ -1745,15 +1745,11 @@ CSubqueryHandler::FRecursiveHandler
 
 	if (CPredicateUtils::FOr(pexprScalar) ||
 		CPredicateUtils::FNot(pexprScalar) ||
-		COperator::EopScalarProjectElement == popScalar->Eopid())
+		COperator::EopScalarProjectElement == popScalar->Eopid() ||
+		COperator::EopScalarNullTest == popScalar->Eopid())
 	{
 		// set subquery context to Value
 		esqctxt = EsqctxtValue;
-	}
-	else if (COperator::EopScalarNullTest == popScalar->Eopid())
-	{
-		// set subquery context to null test
-		esqctxt = EsqctxtNullTest;
 	}
 
 	// save the current logical expression
