@@ -244,10 +244,8 @@ namespace gpopt
 				);
 
 			// remove a scalar subquery node from scalar tree
-			static
 			BOOL FRemoveScalarSubquery
 				(
-				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
 				ESubqueryCtxt esqctxt,
@@ -284,10 +282,8 @@ namespace gpopt
 				);
 
 			// remove a subquery ANY node from scalar tree
-			static
 			BOOL FRemoveAnySubquery
 				(
-				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
 				ESubqueryCtxt esqctxt,
@@ -296,10 +292,8 @@ namespace gpopt
 				);
 
 			// remove a subquery ALL node from scalar tree
-			static
 			BOOL FRemoveAllSubquery
 				(
-				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
 				ESubqueryCtxt esqctxt,
@@ -321,10 +315,8 @@ namespace gpopt
 				);
 
 			// remove a subquery EXISTS from scalar tree
-			static
 			BOOL FRemoveExistsSubquery
 				(
-				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
 				ESubqueryCtxt esqctxt,
@@ -333,10 +325,8 @@ namespace gpopt
 				);
 
 			// remove a subquery NOT EXISTS from scalar tree
-			static
 			BOOL FRemoveNotExistsSubquery
 				(
-				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
 				ESubqueryCtxt esqctxt,
@@ -345,10 +335,8 @@ namespace gpopt
 				);
 
 			// handle subqueries in scalar tree recursively
-			static
 			BOOL FRecursiveHandler
 				(
-				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprScalar,
 				ESubqueryCtxt esqctxt,
@@ -357,10 +345,8 @@ namespace gpopt
 				);
 
 			// handle subqueries on a case-by-case basis
-			static
 			BOOL FProcessScalarOperator
 				(
-				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprScalar,
 				ESubqueryCtxt esqctxt,
@@ -395,10 +381,8 @@ namespace gpopt
 			{}
 
 			// main driver
-			static
 			BOOL FProcess
 				(
-				CSubqueryHandler &sh,
 				CExpression *pexprOuter, // logical child of a SELECT node
 				CExpression *pexprScalar, // scalar child of a SELECT node
 				ESubqueryCtxt esqctxt,	// context in which subquery occurs

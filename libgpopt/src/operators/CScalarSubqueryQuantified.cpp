@@ -279,9 +279,8 @@ CScalarSubqueryQuantified::PexprSubqueryPred
 
 	CExpression *pexprScalarChild = (*pexprSubquery)[1];
 
-	if (!CSubqueryHandler::FProcess
+	if (!sh.CSubqueryHandler::FProcess
 			(
-			sh,
 			pexprOuter,
 			pexprScalarChild,
 			CSubqueryHandler::EsqctxtFilter,

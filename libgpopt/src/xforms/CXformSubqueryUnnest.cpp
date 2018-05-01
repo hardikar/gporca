@@ -87,16 +87,7 @@ CXformSubqueryUnnest::PexprSubqueryUnnest
 
 	// calling the handler removes subqueries and sets new logical and scalar expressions
 	CSubqueryHandler sh(pmp, fEnforceCorrelatedApply);
-	if (!CSubqueryHandler::FProcess
-			(
-			sh,
-			pexprOuter,
-			pexprScalar,
-			esqctxt,
-			&pexprNewOuter,
-			&pexprResidualScalar
-			)
-		)
+	if (!sh.FProcess(pexprOuter, pexprScalar, esqctxt, &pexprNewOuter, &pexprResidualScalar))
 	{
 		CRefCount::SafeRelease(pexprNewOuter);
 		CRefCount::SafeRelease(pexprResidualScalar);
