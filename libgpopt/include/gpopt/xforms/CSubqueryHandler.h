@@ -195,7 +195,6 @@ namespace gpopt
 				IMemoryPool *pmp,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fDisjunction,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -208,7 +207,6 @@ namespace gpopt
 				IMemoryPool *pmp,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fDisjunction,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -221,7 +219,6 @@ namespace gpopt
 				IMemoryPool *pmp,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -253,7 +250,6 @@ namespace gpopt
 				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -266,7 +262,6 @@ namespace gpopt
 				IMemoryPool *pmp,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CSubqueryHandler::SSubqueryDesc *psd,
 				BOOL fEnforceCorrelatedApply,
@@ -281,7 +276,6 @@ namespace gpopt
 				IMemoryPool *pmp,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				SSubqueryDesc *psd,
 				BOOL fEnforceCorrelatedApply,
@@ -296,7 +290,6 @@ namespace gpopt
 				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -309,7 +302,6 @@ namespace gpopt
 				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -323,7 +315,6 @@ namespace gpopt
 				COperator::EOperatorId eopid,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -336,7 +327,6 @@ namespace gpopt
 				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -349,7 +339,6 @@ namespace gpopt
 				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprSubquery,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprResidualScalar
@@ -362,7 +351,6 @@ namespace gpopt
 				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprScalar,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprNewScalar
@@ -375,7 +363,6 @@ namespace gpopt
 				CSubqueryHandler &sh,
 				CExpression *pexprOuter,
 				CExpression *pexprScalar,
-				BOOL fNested,
 				ESubqueryCtxt esqctxt,
 				CExpression **ppexprNewOuter,
 				CExpression **ppexprNewScalar
@@ -414,7 +401,6 @@ namespace gpopt
 				CSubqueryHandler &sh,
 				CExpression *pexprOuter, // logical child of a SELECT node
 				CExpression *pexprScalar, // scalar child of a SELECT node
-				BOOL fNested, // TODO ??
 				ESubqueryCtxt esqctxt,	// context in which subquery occurs
 				CExpression **ppexprNewOuter, // an Apply logical expression produced as output
 				CExpression **ppexprResidualScalar // residual scalar expression produced as output

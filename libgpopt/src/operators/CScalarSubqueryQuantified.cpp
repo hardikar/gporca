@@ -284,7 +284,6 @@ CScalarSubqueryQuantified::PexprSubqueryPred
 			sh,
 			pexprOuter,
 			pexprScalarChild,
-			false, /* fNested */
 			CSubqueryHandler::EsqctxtFilter,
 			&pexprNewLogical,
 			&pexprNewScalar
