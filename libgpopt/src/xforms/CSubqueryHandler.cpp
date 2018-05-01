@@ -1683,10 +1683,6 @@ CSubqueryHandler::FRecursiveHandler
 		esqctxt = EsqctxtNullTest;
 	}
 
-	// From now on, we're in a nested context always, unless its an AND
-	if (!CPredicateUtils::FAnd(pexprScalar))
-		fNested = true;
-
 	// save the current logical expression
 	CExpression *pexprCurrentOuter = pexprOuter;
 	DrgPexpr *pdrgpexpr = GPOS_NEW(pmp) DrgPexpr(pmp);
@@ -1696,6 +1692,14 @@ CSubqueryHandler::FRecursiveHandler
 		CExpression *pexprScalarChild = (*pexprScalar)[ul];
 		CExpression *pexprNewLogical = NULL;
 		CExpression *pexprNewScalar = NULL;
+
+		COperator *popScalar = pexprScalarChild->Pop();
+
+		if (!CPredicateUtils::FAnd(pexprScalar) &&
+			(CUtils::FExistentialSubquery(popScalar) || CUtils::FQuantifiedSubquery(popScalar)))
+		{
+			esqctxt = EsqctxtValue;
+		}
 
 		if (!FProcess(sh, pexprCurrentOuter, pexprScalarChild, fNested, esqctxt, &pexprNewLogical, &pexprNewScalar))
 		{
