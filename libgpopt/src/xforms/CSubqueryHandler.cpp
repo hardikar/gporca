@@ -1745,8 +1745,7 @@ CSubqueryHandler::FRecursiveHandler
 
 	if (CPredicateUtils::FOr(pexprScalar) ||
 		CPredicateUtils::FNot(pexprScalar) ||
-		COperator::EopScalarProjectElement == popScalar->Eopid() ||
-		COperator::EopScalarNullTest == popScalar->Eopid())
+		COperator::EopScalarProjectElement == popScalar->Eopid())
 	{
 		// set subquery context to Value
 		esqctxt = EsqctxtValue;
