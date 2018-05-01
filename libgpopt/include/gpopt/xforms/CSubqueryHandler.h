@@ -37,8 +37,7 @@ namespace gpopt
 			{
 				EsqctxtValue,		// subquery appears in a project list
 				EsqctxtNullTest,	// subquery appears in a null check
-				EsqctxtFilter,		// subquery appears in a comparison predicate
-				EsqctxtNested		// Acts like Filter for ScalarSubquery; Value otherwise
+				EsqctxtFilter		// subquery appears in a comparison predicate
 			};
 
 		private:

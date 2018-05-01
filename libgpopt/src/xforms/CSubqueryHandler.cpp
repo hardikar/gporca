@@ -495,7 +495,7 @@ CSubqueryHandler::FGenerateCorrelatedApplyForScalarSubquery
 		return true;
 	}
 
-	GPOS_ASSERT(EsqctxtFilter == esqctxt || EsqctxtNested == esqctxt );
+	GPOS_ASSERT(EsqctxtFilter == esqctxt);
 
 	if (fUseMaxOneRow)
 	{
@@ -575,7 +575,7 @@ CSubqueryHandler::FRemoveScalarSubqueryInternal
 		return fSuccess;
 	}
 
-	GPOS_ASSERT(EsqctxtFilter == esqctxt || EsqctxtNested == esqctxt);
+	GPOS_ASSERT(EsqctxtFilter == esqctxt);
 
 	*ppexprNewOuter = CUtils::PexprLogicalApply<CLogicalInnerApply>(pmp, pexprOuter, pexprInner, pcr, pexprSubquery->Pop()->Eopid());
 	*ppexprResidualScalar = CUtils::PexprScalarIdent(pmp, pcr);
