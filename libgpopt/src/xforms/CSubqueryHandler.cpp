@@ -1764,7 +1764,7 @@ CSubqueryHandler::FRecursiveHandler
 		COperator *popScalar = pexprScalarChild->Pop();
 
 		if (!CPredicateUtils::FAnd(pexprScalar) &&
-			(CUtils::FExistentialSubquery(popScalar) || CUtils::FQuantifiedSubquery(popScalar)))
+			(CPredicateUtils::FAnd(pexprScalarChild) || CUtils::FExistentialSubquery(popScalar) || CUtils::FQuantifiedSubquery(popScalar)))
 		{
 			esqctxt = EsqctxtValue;
 		}
