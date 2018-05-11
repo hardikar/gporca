@@ -46,7 +46,7 @@ namespace gpdxl
 
 			// flag to indicate whether operator is an index nested loops,
 			// i.e., inner side is an index scan that uses values from outer side
-			BOOL m_fIndexNLJ;
+			BOOL m_is_index_nlj;
 
 			// array holding nest params col references used for creating nestparam
 			// node during translation
@@ -61,19 +61,19 @@ namespace gpdxl
 			CDXLPhysicalNLJoin(const CDXLPhysicalNLJoin&);
 
 		public:
-			// ctor
-			CDXLPhysicalNLJoin(IMemoryPool *pmp, EdxlJoinType edxljt, BOOL fIndexNLJ, BOOL nest_params_exists);
-		
+			// ctor/dtor
+			CDXLPhysicalNLJoin(IMemoryPool *memory_pool, EdxlJoinType join_type, BOOL is_index_nlj, BOOL nest_params_exists);
+
 			~CDXLPhysicalNLJoin();
-			
+
 			// accessors
-			Edxlopid Edxlop() const;
-			const CWStringConst *PstrOpName() const;
+			Edxlopid GetDXLOperator() const;
+			const CWStringConst *GetOpNameStr() const;
 			
 			// is operator an index nested loops?
-			BOOL FIndexNLJ() const
+			BOOL IsIndexNLJ() const
 			{
-				return m_fIndexNLJ;
+				return m_is_index_nlj;
 			}
 
 			// nest params exists for parsing
@@ -81,7 +81,7 @@ namespace gpdxl
 
 			// serialize operator in DXL format
 			virtual
-			void SerializeToDXL(CXMLSerializer *pxmlser, const CDXLNode *pdxln) const;
+			void SerializeToDXL(CXMLSerializer *xml_serializer, const CDXLNode *dxlnode) const;
 
 			void SetNestLoopParamsColRefs(DrgPdxlcr *nest_params_col_refs);
 
@@ -91,19 +91,19 @@ namespace gpdxl
 			static
 			CDXLPhysicalNLJoin *PdxlConvert
 				(
-				CDXLOperator *pdxlop
+				CDXLOperator *dxl_op
 				)
 			{
-				GPOS_ASSERT(NULL != pdxlop);
-				GPOS_ASSERT(EdxlopPhysicalNLJoin == pdxlop->Edxlop());
+				GPOS_ASSERT(NULL != dxl_op);
+				GPOS_ASSERT(EdxlopPhysicalNLJoin == dxl_op->GetDXLOperator());
 
-				return dynamic_cast<CDXLPhysicalNLJoin*>(pdxlop);
+				return dynamic_cast<CDXLPhysicalNLJoin*>(dxl_op);
 			}
 
 #ifdef GPOS_DEBUG
 			// checks whether the operator has valid structure, i.e. number and
 			// types of child nodes
-			void AssertValid(const CDXLNode *, BOOL fValidateChildren) const;
+			void AssertValid(const CDXLNode *, BOOL validate_children) const;
 #endif // GPOS_DEBUG
 			
 	};
