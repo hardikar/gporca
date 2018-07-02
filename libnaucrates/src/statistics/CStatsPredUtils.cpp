@@ -106,7 +106,7 @@ CStatsPredUtils::StatsCmpType
 	)
 {
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDScalarOp *md_scalar_op = md_accessor->Pmdscop(mdid);
+	const IMDScalarOp *md_scalar_op = md_accessor->RetrieveScOp(mdid);
 
 	// Simply go by operator name.
 	// If the name of the operator is "<", then it is a LessThan etc.
@@ -294,7 +294,7 @@ CStatsPredUtils::GetPredStats
 	GPOS_ASSERT(NULL != scalar_const_op);
 
 	IDatum *datum = scalar_const_op->GetDatum();
-	if (!CHistogram::SupportsFilter(stats_cmp_type) || !IMDType::StatsAreComparable(col_ref->Pmdtype(), datum))
+	if (!CHistogram::SupportsFilter(stats_cmp_type) || !IMDType::StatsAreComparable(col_ref->RetrieveType(), datum))
 	{
 		// case 1: unsupported predicate for stats calculations
 		// example: SELECT 1 FROM pg_catalog.pg_class c WHERE c.relname ~ '^(t36)$';
@@ -453,7 +453,7 @@ CStatsPredUtils::CreateStatsPredConj
 	)
 {
 	GPOS_ASSERT(NULL != scalar_expr);
-	DrgPexpr *pred_expr_conjuncts = CPredicateUtils::PdrgpexprConjuncts(memory_pool, scalar_expr);
+	ExpressionArray *pred_expr_conjuncts = CPredicateUtils::PdrgpexprConjuncts(memory_pool, scalar_expr);
 	const ULONG size = pred_expr_conjuncts->Size();
 
 	StatsPredPtrArry *pred_stats_array = GPOS_NEW(memory_pool) StatsPredPtrArry(memory_pool);
@@ -519,7 +519,7 @@ CStatsPredUtils::CreateStatsPredDisj
 	CExpression *expr_copy = CExpressionUtils::PexprDedupChildren(memory_pool, predicate_expr);
 
 	// extract the components of the OR tree
-	DrgPexpr *disjunct_expr = CPredicateUtils::PdrgpexprDisjuncts(memory_pool, expr_copy);
+	ExpressionArray *disjunct_expr = CPredicateUtils::PdrgpexprDisjuncts(memory_pool, expr_copy);
 	const ULONG size = disjunct_expr->Size();
 	for (ULONG ul = 0; ul < size; ul++)
 	{
@@ -698,7 +698,7 @@ CStatsPredUtils::IsConjunction
 	)
 {
 	GPOS_ASSERT(NULL != predicate_expr);
-	DrgPexpr *expr_conjuncts = CPredicateUtils::PdrgpexprConjuncts(memory_pool, predicate_expr);
+	ExpressionArray *expr_conjuncts = CPredicateUtils::PdrgpexprConjuncts(memory_pool, predicate_expr);
 	const ULONG size = expr_conjuncts->Size();
 	expr_conjuncts->Release();
 
@@ -883,7 +883,7 @@ CStatsPredUtils::GetStatsPredLike
 	IDatum  *datum_literal = scalar_const_op->GetDatum();
 
 	const CColRef *col_ref = scalar_ident_op->Pcr();
-	if (!IMDType::StatsAreComparable(col_ref->Pmdtype(), datum_literal))
+	if (!IMDType::StatsAreComparable(col_ref->RetrieveType(), datum_literal))
 	{
 		// unsupported stats comparison between the column and datum
 		return GPOS_NEW(memory_pool) CStatsPredUnsupported(col_ref->Id(), CStatsPred::EstatscmptLike);
@@ -1064,9 +1064,9 @@ CStatsPredUtils::ExtractJoinStatsFromJoinPred
 	(
 	IMemoryPool *memory_pool,
 	CExpression *join_pred_expr,
-	DrgPcrs *output_col_refsets, // array of output columns of join's relational inputs
+	ColRefSetArray *output_col_refsets,  // array of output columns of join's relational inputs
 	CColRefSet *outer_refs,
-	DrgPexpr *unsupported_expr_array
+	ExpressionArray *unsupported_expr_array
 	)
 {
 	GPOS_ASSERT(NULL != join_pred_expr);
@@ -1087,7 +1087,7 @@ CStatsPredUtils::ExtractJoinStatsFromJoinPred
 	BOOL fSupportedScIdentComparison = IsPredCmpColsOrIgnoreCast(join_pred_expr, &col_ref_left, &stats_cmp_type, &col_ref_right);
 	if (fSupportedScIdentComparison && CStatsPred::EstatscmptOther != stats_cmp_type)
 	{
-		if (!IMDType::StatsAreComparable(col_ref_left->Pmdtype(), col_ref_right->Pmdtype()))
+		if (!IMDType::StatsAreComparable(col_ref_left->RetrieveType(), col_ref_right->RetrieveType()))
 		{
 			// unsupported statistics comparison between the histogram boundaries of the columns
 			join_pred_expr->AddRef();
@@ -1135,7 +1135,7 @@ CStatsPredUtils::ExtractJoinStatsFromJoinPredArray
 	(
 	IMemoryPool *memory_pool,
 	CExpression *scalar_expr,
-	DrgPcrs *output_col_refsets, // array of output columns of join's relational inputs
+	ColRefSetArray *output_col_refsets,  // array of output columns of join's relational inputs
 	CColRefSet *outer_refs,
 	CStatsPred **unsupported_stats_pred_array
 	)
@@ -1145,10 +1145,10 @@ CStatsPredUtils::ExtractJoinStatsFromJoinPredArray
 
 	StatsPredJoinArray *join_preds_stats = GPOS_NEW(memory_pool) StatsPredJoinArray(memory_pool);
 
-	DrgPexpr *unsupported_expr_array = GPOS_NEW(memory_pool) DrgPexpr(memory_pool);
+	ExpressionArray *unsupported_expr_array = GPOS_NEW(memory_pool) ExpressionArray(memory_pool);
 
 	// extract all the conjuncts
-	DrgPexpr *expr_conjuncts = CPredicateUtils::PdrgpexprConjuncts(memory_pool, scalar_expr);
+	ExpressionArray *expr_conjuncts = CPredicateUtils::PdrgpexprConjuncts(memory_pool, scalar_expr);
 	const ULONG size = expr_conjuncts->Size();
 	for (ULONG ul = 0; ul < size; ul++)
 	{
@@ -1202,7 +1202,7 @@ CStatsPredUtils::ExtractJoinStatsFromExpr
 	IMemoryPool *memory_pool,
 	CExpressionHandle &expr_handle,
 	CExpression *pexprScalarInput,
-	DrgPcrs *output_col_refsets, // array of output columns of join's relational inputs
+	ColRefSetArray *output_col_refsets, // array of output columns of join's relational inputs
 	CColRefSet *outer_refs
 	)
 {
@@ -1252,7 +1252,7 @@ CStatsPredUtils::ExtractJoinStatsFromExprHandle
 		return GPOS_NEW(memory_pool) StatsPredJoinArray(memory_pool);
 	}
 
-	DrgPcrs *output_col_refsets = GPOS_NEW(memory_pool) DrgPcrs(memory_pool);
+	ColRefSetArray *output_col_refsets = GPOS_NEW(memory_pool) ColRefSetArray(memory_pool);
 	const ULONG size = expr_handle.Arity();
 	for (ULONG ul = 0; ul < size - 1; ul++)
 	{

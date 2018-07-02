@@ -61,10 +61,10 @@ CTableDescriptor::CTableDescriptor
 	GPOS_ASSERT(NULL != memory_pool);
 	GPOS_ASSERT(mdid->IsValid());
 	
-	m_pdrgpcoldesc = GPOS_NEW(m_memory_pool) DrgPcoldesc(m_memory_pool);
-	m_pdrgpcoldescDist = GPOS_NEW(m_memory_pool) DrgPcoldesc(m_memory_pool);
+	m_pdrgpcoldesc = GPOS_NEW(m_memory_pool) ColumnDescrArray(m_memory_pool);
+	m_pdrgpcoldescDist = GPOS_NEW(m_memory_pool) ColumnDescrArray(m_memory_pool);
 	m_pdrgpulPart = GPOS_NEW(m_memory_pool) ULongPtrArray(m_memory_pool);
-	m_pdrgpbsKeys = GPOS_NEW(m_memory_pool) DrgPbs(m_memory_pool);
+	m_pdrgpbsKeys = GPOS_NEW(m_memory_pool) BitSetArray(m_memory_pool);
 }
 
 
@@ -117,7 +117,7 @@ ULONG
 CTableDescriptor::UlPos
 	(
 	const CColumnDescriptor *pcoldesc,
-	const DrgPcoldesc *pdrgpcoldesc
+	const ColumnDescrArray *pdrgpcoldesc
 	)
 	const
 {
@@ -138,14 +138,14 @@ CTableDescriptor::UlPos
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CTableDescriptor::UlPosition
+//		CTableDescriptor::GetAttributePosition
 //
 //	@doc:
 //		Find the position of the attribute in the array of column descriptors
 //
 //---------------------------------------------------------------------------
 ULONG
-CTableDescriptor::UlPosition
+CTableDescriptor::GetAttributePosition
 	(
 	INT attno
 	)
@@ -319,7 +319,7 @@ CTableDescriptor::IndexCount()
 	GPOS_ASSERT(NULL != m_mdid);
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDRelation *pmdrel = md_accessor->Pmdrel(m_mdid);
+	const IMDRelation *pmdrel = md_accessor->RetrieveRel(m_mdid);
 	const ULONG ulIndices = pmdrel->IndexCount();
 
 	return ulIndices;
@@ -341,7 +341,7 @@ CTableDescriptor::PartitionCount()
 	GPOS_ASSERT(NULL != m_mdid);
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDRelation *pmdrel = md_accessor->Pmdrel(m_mdid);
+	const IMDRelation *pmdrel = md_accessor->RetrieveRel(m_mdid);
 	const ULONG ulPartitions = pmdrel->PartitionCount();
 
 	return ulPartitions;
@@ -365,7 +365,7 @@ CTableDescriptor::FDescriptorWithPartialIndexes()
 	}
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDRelation *pmdrel = md_accessor->Pmdrel(m_mdid);
+	const IMDRelation *pmdrel = md_accessor->RetrieveRel(m_mdid);
 	for (ULONG ul = 0; ul < ulIndices; ul++)
 	{
 		if (pmdrel->IsPartialIndex(pmdrel->IndexMDidAt(ul)))

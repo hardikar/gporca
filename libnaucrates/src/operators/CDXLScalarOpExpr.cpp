@@ -147,9 +147,9 @@ CDXLScalarOpExpr::HasBoolResult
 	)
 	const
 {
-	const IMDScalarOp *md_scalar_op = md_accessor->Pmdscop(m_mdid);
-	IMDId *mdid = md_accessor->Pmdfunc(md_scalar_op->FuncMdId())->GetResultTypeMdid();
-	return (IMDType::EtiBool == md_accessor->Pmdtype(mdid)->GetDatumType());
+	const IMDScalarOp *md_scalar_op = md_accessor->RetrieveScOp(m_mdid);
+	IMDId *mdid = md_accessor->RetrieveFunc(md_scalar_op->FuncMdId())->GetResultTypeMdid();
+	return (IMDType::EtiBool == md_accessor->RetrieveType(mdid)->GetDatumType());
 }
 
 //---------------------------------------------------------------------------

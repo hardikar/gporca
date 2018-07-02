@@ -33,7 +33,7 @@ namespace gpdxl
 		private:
 
 			// list of column descriptors		
-			ColumnDescrDXLArray *m_col_descr_array;
+		DXLColumnDescrArray *m_col_descr_array;
 
 			// array of datum arrays (const tuples)
 			DXLDatumArrays *m_const_tuples_datum_array;
@@ -46,7 +46,7 @@ namespace gpdxl
 			CDXLLogicalConstTable
 				(
 				IMemoryPool *memory_pool,
-				ColumnDescrDXLArray *col_descr_dxl_array,
+				DXLColumnDescrArray *dxl_col_descr_array,
 				DXLDatumArrays *pdrgpdrgpdxldatum
 				);
 
@@ -63,7 +63,7 @@ namespace gpdxl
 			const CWStringConst *GetOpNameStr() const;
 
 			// column descriptors
-			const ColumnDescrDXLArray *GetColumnDescrDXLArray() const
+			const DXLColumnDescrArray *GetDXLColumnDescrArray() const
 			{
 				return m_col_descr_array;
 			}

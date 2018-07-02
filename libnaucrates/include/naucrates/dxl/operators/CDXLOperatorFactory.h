@@ -29,7 +29,7 @@
 #include "gpos/common/CDouble.h"
 
 // dynamic array of XML strings
-typedef CDynamicPtrArray<XMLCh, CleanupNULL> DrgPxmlsz;
+typedef CDynamicPtrArray<XMLCh, CleanupNULL> XMLChArray;
 
 // fwd decl
 namespace gpmd
@@ -292,7 +292,7 @@ namespace gpdxl
 				(
 				CDXLMemoryManager *memory_manager_dxl,
 				IMDId *mdid,
-				DrgPdxlcr *dxl_colref_array,
+										  DXLColRefArray *dxl_colref_array,
 				EdxlSubPlanType dxl_subplan_type,
 				CDXLNode *dxlnode_test_expr
 				);
@@ -657,7 +657,7 @@ namespace gpdxl
 			CMDIdGPDB *GetGPDBMdId
 				(
 				CDXLMemoryManager *memory_manager_dxl,
-				DrgPxmlsz *remaining_tokens,
+				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
 				);
@@ -667,7 +667,7 @@ namespace gpdxl
 			CMDIdGPDB *GetGPDBCTASMdId
 				(
 				CDXLMemoryManager *memory_manager_dxl,
-				DrgPxmlsz *remaining_tokens,
+				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
 				);
@@ -677,7 +677,7 @@ namespace gpdxl
 			CMDIdColStats *GetColStatsMdId
 				(
 				CDXLMemoryManager *memory_manager_dxl,
-				DrgPxmlsz *remaining_tokens,
+				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
 				);
@@ -687,7 +687,7 @@ namespace gpdxl
 			CMDIdRelStats *GetRelStatsMdId
 				(
 				CDXLMemoryManager *memory_manager_dxl,
-				DrgPxmlsz *remaining_tokens,
+				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
 				);
@@ -697,7 +697,7 @@ namespace gpdxl
 			CMDIdCast *GetCastFuncMdId
 				(
 				CDXLMemoryManager *memory_manager_dxl,
-				DrgPxmlsz *remaining_tokens,
+				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
 				); 
@@ -707,7 +707,7 @@ namespace gpdxl
 			CMDIdScCmp *GetScCmpMdId
 				(
 				CDXLMemoryManager *memory_manager_dxl,
-				DrgPxmlsz *remaining_tokens,
+				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
 				);

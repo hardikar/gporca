@@ -195,8 +195,8 @@ CParseHandlerLogicalSetOp::EndElement
 
 	// get the columns descriptors
 	CParseHandlerColDescr *col_descr_parse_handler = dynamic_cast<CParseHandlerColDescr *>((*this)[0]);
-	GPOS_ASSERT(NULL != col_descr_parse_handler->GetColumnDescrDXLArray());
-	ColumnDescrDXLArray *cold_descr_dxl_array = col_descr_parse_handler->GetColumnDescrDXLArray();
+	GPOS_ASSERT(NULL != col_descr_parse_handler->GetDXLColumnDescrArray());
+	DXLColumnDescrArray *cold_descr_dxl_array = col_descr_parse_handler->GetDXLColumnDescrArray();
 
 	cold_descr_dxl_array->AddRef();
 	CDXLLogicalSetOp *dxl_op = GPOS_NEW(m_memory_pool) CDXLLogicalSetOp(m_memory_pool, setop_type, cold_descr_dxl_array, m_input_colids_arrays, m_cast_across_input_req);

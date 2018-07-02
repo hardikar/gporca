@@ -70,7 +70,7 @@ CProjectStatsProcessor::CalcProjStats
 			CColRef *colref = col_factory->LookupColRef(col_id);
 			GPOS_ASSERT(NULL != colref);
 
-			if (0 == proj_col_bucket->Size() && IMDType::EtiBool == colref->Pmdtype()->GetDatumType())
+			if (0 == proj_col_bucket->Size() && IMDType::EtiBool == colref->RetrieveType()->GetDatumType())
 			{
 				proj_col_bucket->Release();
 				proj_col_histogram = CHistogram::MakeDefaultBoolHistogram(memory_pool);
@@ -101,7 +101,7 @@ CProjectStatsProcessor::CalcProjStats
 			CColRef *colref = col_factory->LookupColRef(col_id);
 			GPOS_ASSERT(NULL != colref);
 
-			CDouble width = CStatisticsUtils::DefaultColumnWidth(colref->Pmdtype());
+			CDouble width = CStatisticsUtils::DefaultColumnWidth(colref->RetrieveType());
 			col_id_width_mapping->Insert(GPOS_NEW(memory_pool) ULONG(col_id), GPOS_NEW(memory_pool) CDouble(width));
 		}
 		else

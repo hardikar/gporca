@@ -91,7 +91,7 @@ CColumnFactory::~CColumnFactory()
 void
 CColumnFactory::Initialize()
 {
-	m_phmcrcrs = GPOS_NEW(m_memory_pool) HMCrCrs(m_memory_pool);
+	m_phmcrcrs = GPOS_NEW(m_memory_pool) ColRefToColRefSetMap(m_memory_pool);
 }
 
 //---------------------------------------------------------------------------
@@ -287,7 +287,7 @@ CColumnFactory::PcrCopy
 	CName name(colref->Name());
 	if (CColRef::EcrtComputed == colref->Ecrt())
 	{
-		return PcrCreate(colref->Pmdtype(), colref->TypeModifier(), name);
+		return PcrCreate(colref->RetrieveType(), colref->TypeModifier(), name);
 	}
 
 	GPOS_ASSERT(CColRef::EcrtTable == colref->Ecrt());
@@ -296,7 +296,7 @@ CColumnFactory::PcrCopy
 
 	return PcrCreate
 			(
-			colref->Pmdtype(),
+			colref->RetrieveType(),
 			colref->TypeModifier(),
 			pcrTable->AttrNum(),
 			pcrTable->IsNullable(),

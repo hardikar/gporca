@@ -728,7 +728,7 @@ CDXLUtils::ParseDXLToBucketsArray
 {
 	BucketArray *stats_buckets_array = GPOS_NEW(memory_pool) BucketArray(memory_pool);
 	
-	const DXLBucketPtrArray *buckets_dxl_array = dxl_derived_col_stats->GetDXLBucketArray();
+	const DXLBucketPtrArray *buckets_dxl_array = dxl_derived_col_stats->TransformHistogramToDXLBucketArray();
 	const ULONG num_of_buckets = buckets_dxl_array->Size();
 	for (ULONG ul = 0; ul < num_of_buckets; ul++)
 	{
@@ -774,7 +774,7 @@ CDXLUtils::GetDatum
 	 )
 {
 	IMDId *mdid = dxl_datum->MDId();
-	return md_accessor->Pmdtype(mdid)->GetDatumForDXLDatum(memory_pool, dxl_datum);
+	return md_accessor->RetrieveType(mdid)->GetDatumForDXLDatum(memory_pool, dxl_datum);
 }
 
 //---------------------------------------------------------------------------
@@ -1945,7 +1945,7 @@ CDXLUtils::SerializeBound
 				);
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDType *md_type = md_accessor->Pmdtype(new_length->MDId());
+	const IMDType *md_type = md_accessor->RetrieveType(new_length->MDId());
 	CDXLScalarConstValue *scalar_const_value_dxl_operator = md_type->GetDXLOpScConst(xml_serializer->Pmp(), new_length);
 	scalar_const_value_dxl_operator->SerializeToDXL(xml_serializer, NULL);
 

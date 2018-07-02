@@ -33,7 +33,7 @@ CParseHandlerNLJIndexParamList::CParseHandlerNLJIndexParamList
 	:
 	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root)
 {
-	m_nest_params_colrefs_array = GPOS_NEW(mp) DrgPdxlcr(mp);
+	m_nest_params_colrefs_array = GPOS_NEW(mp) DXLColRefArray(mp);
 	m_is_param_list = false;
 }
 

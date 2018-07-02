@@ -35,7 +35,7 @@ namespace gpdxl
 		private:
 
 			// search stages
-			DrgPss *m_search_stage_array;
+		SearchStageArray *m_search_stage_array;
 
 			// private ctor
 			CParseHandlerSearchStrategy(const CParseHandlerSearchStrategy&);
@@ -70,7 +70,7 @@ namespace gpdxl
 			~CParseHandlerSearchStrategy();
 
 			// returns the dxl representation of search stages
-			DrgPss *GetSearchStageArray()
+			SearchStageArray *GetSearchStageArray()
 			{
 				return m_search_stage_array;
 			}

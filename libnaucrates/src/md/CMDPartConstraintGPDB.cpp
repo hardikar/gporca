@@ -72,7 +72,7 @@ CMDPartConstraintGPDB::GetPartConstraintExpr
 	(
 	IMemoryPool *memory_pool,
 	CMDAccessor *md_accessor,
-	DrgPcr *colref_array
+	ColRefArray *colref_array
 	)
 	const
 {

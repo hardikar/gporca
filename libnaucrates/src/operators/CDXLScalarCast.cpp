@@ -156,7 +156,7 @@ CDXLScalarCast::HasBoolResult
 	)
 	const
 {
-	return (IMDType::EtiBool == md_accessor->Pmdtype(m_mdid_type)->GetDatumType());
+	return (IMDType::EtiBool == md_accessor->RetrieveType(m_mdid_type)->GetDatumType());
 }
 
 #ifdef GPOS_DEBUG

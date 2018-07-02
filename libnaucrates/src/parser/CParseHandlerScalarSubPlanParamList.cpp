@@ -41,7 +41,7 @@ CParseHandlerScalarSubPlanParamList::CParseHandlerScalarSubPlanParamList
 	:
 	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
 {
-	m_dxl_colref_array = GPOS_NEW(memory_pool) DrgPdxlcr(memory_pool);
+	m_dxl_colref_array = GPOS_NEW(memory_pool) DXLColRefArray(memory_pool);
 	m_has_param_list = false;
 }
 

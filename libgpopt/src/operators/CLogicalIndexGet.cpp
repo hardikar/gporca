@@ -68,7 +68,7 @@ CLogicalIndexGet::CLogicalIndexGet
 	CTableDescriptor *ptabdesc,
 	ULONG ulOriginOpId,
 	const CName *pnameAlias,
-	DrgPcr *pdrgpcrOutput
+	ColRefArray *pdrgpcrOutput
 	)
 	:
 	CLogical(memory_pool),
@@ -170,9 +170,9 @@ CLogicalIndexGet::PopCopyWithRemappedColumns
 	)
 {
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDIndex *pmdindex = md_accessor->Pmdindex(m_pindexdesc->MDId());
+	const IMDIndex *pmdindex = md_accessor->RetrieveIndex(m_pindexdesc->MDId());
 
-	DrgPcr *pdrgpcrOutput = NULL;
+	ColRefArray *pdrgpcrOutput = NULL;
 	if (must_exist)
 	{
 		pdrgpcrOutput = CUtils::PdrgpcrRemapAndCreate(memory_pool, m_pdrgpcrOutput, colref_mapping);

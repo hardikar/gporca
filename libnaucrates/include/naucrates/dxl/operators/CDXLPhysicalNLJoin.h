@@ -50,7 +50,7 @@ namespace gpdxl
 
 			// array holding nest params col references used for creating nestparam
 			// node during translation
-			DrgPdxlcr *m_nest_params_col_refs;
+			DXLColRefArray *m_nest_params_col_refs;
 
 			// if nest params are required to be parsed
 			BOOL m_nest_params_exists;
@@ -83,9 +83,9 @@ namespace gpdxl
 			virtual
 			void SerializeToDXL(CXMLSerializer *xml_serializer, const CDXLNode *dxlnode) const;
 
-			void SetNestLoopParamsColRefs(DrgPdxlcr *nest_params_col_refs);
+			void SetNestLoopParamsColRefs(DXLColRefArray *nest_params_col_refs);
 
-			DrgPdxlcr *GetNestLoopParamsColRefs() const;
+			DXLColRefArray *GetNestLoopParamsColRefs() const;
 
 			// conversion function
 			static

@@ -62,7 +62,7 @@ CGroupByStatsProcessor::CalcGroupByStats
 
 		const CStatisticsConfig *stats_config = input_stats->GetStatsConfig();
 
-		DrgPdouble *NDVs = CStatisticsUtils::ExtractNDVForGrpCols(memory_pool, stats_config, input_stats, groupby_cols_for_stats, keys);
+		CDoubleArray *NDVs = CStatisticsUtils::ExtractNDVForGrpCols(memory_pool, stats_config, input_stats, groupby_cols_for_stats, keys);
 		CDouble groups = CStatisticsUtils::GetCumulativeNDVs(stats_config, NDVs);
 
 		// clean up

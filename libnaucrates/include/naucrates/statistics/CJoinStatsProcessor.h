@@ -33,7 +33,7 @@ namespace gpnaucrates
 				 CStatisticsConfig *stats_config,
 				 CDouble left_num_rows,
 				 CDouble right_num_rows,
-				 DrgPdouble *join_conds_scale_factors,
+				 CDoubleArray *join_conds_scale_factors,
 				 IStatistics::EStatsJoinType join_type
 				);
 

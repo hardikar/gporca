@@ -47,7 +47,7 @@ CDouble
 CScaleFactorUtils::CumulativeJoinScaleFactor
 	(
 	const CStatisticsConfig *stats_config,
-	DrgPdouble *join_conds_scale_factors
+	CDoubleArray *join_conds_scale_factors
 	)
 {
 	GPOS_ASSERT(NULL != stats_config);
@@ -164,7 +164,7 @@ CScaleFactorUtils::DampedGroupByScaleFactor
 void
 CScaleFactorUtils::SortScalingFactor
 	(
-	DrgPdouble *scale_factors,
+	CDoubleArray *scale_factors,
 	BOOL is_descending
 	)
 {
@@ -282,7 +282,7 @@ CDouble
 CScaleFactorUtils::CalcScaleFactorCumulativeConj
 	(
 	const CStatisticsConfig *stats_config,
-	DrgPdouble *scale_factors
+	CDoubleArray *scale_factors
 	)
 {
 	GPOS_ASSERT(NULL != stats_config);
@@ -324,7 +324,7 @@ CDouble
 CScaleFactorUtils::CalcScaleFactorCumulativeDisj
 	(
 	const CStatisticsConfig *stats_config,
-	DrgPdouble *scale_factors,
+	CDoubleArray *scale_factors,
 	CDouble total_rows
 	)
 {

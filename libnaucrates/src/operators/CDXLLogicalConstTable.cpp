@@ -31,7 +31,7 @@ using namespace gpdxl;
 CDXLLogicalConstTable::CDXLLogicalConstTable
 	(
 	IMemoryPool *memory_pool,		
-	ColumnDescrDXLArray *col_descr_array,
+	DXLColumnDescrArray *col_descr_array,
 	DXLDatumArrays *const_tuples_datum_array
 	)
 	:

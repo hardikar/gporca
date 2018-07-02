@@ -90,7 +90,7 @@ namespace gpdxl
 			DXLStatsDerivedRelArray *m_stats_derived_rel_dxl_array;
 
 			// search strategy
-			DrgPss *m_search_stage_array;
+		SearchStageArray *m_search_stage_array;
 
 			// plan Id
 			ULLONG m_plan_id;
@@ -203,7 +203,7 @@ namespace gpdxl
 			DXLStatsDerivedRelArray *GetStatsDerivedRelDXLArray() const;
 
 			// return search strategy
-			DrgPss *GetSearchStageArray() const;
+		SearchStageArray *GetSearchStageArray() const;
 
 			// return plan id
 			ULLONG GetPlanId() const;

@@ -196,8 +196,8 @@ namespace gpnaucrates
 	}
 
 	// array of idatums
-	typedef CDynamicPtrArray<IDatum, CleanupRelease> DrgPdatum;
-}
+	typedef CDynamicPtrArray<IDatum, CleanupRelease> IDatumArray;
+}  // namespace gpnaucrates
 
 
 #endif // !GPNAUCRATES_IDatum_H

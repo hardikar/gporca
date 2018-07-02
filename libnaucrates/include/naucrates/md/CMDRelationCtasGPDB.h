@@ -97,7 +97,7 @@ namespace gpmd
 			IntPtrArray *m_vartypemod_array;
 
 			// array of column widths
-			DrgPdouble *m_col_width_array;
+		CDoubleArray *m_col_width_array;
 
 			// private copy ctor
 			CMDRelationCtasGPDB(const CMDRelationCtasGPDB &);
@@ -164,8 +164,8 @@ namespace gpmd
 			}
 			
 			// storage type
-			virtual 
-			Erelstoragetype GetRelStorageType() const
+			virtual
+			Erelstoragetype RetrieveRelStorageType() const
 			{
 				return m_rel_storage_type;
 			}

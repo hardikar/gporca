@@ -34,7 +34,7 @@ namespace gpmd
 
 			// storage type
 			virtual
-			Erelstoragetype GetRelStorageType() const
+			Erelstoragetype RetrieveRelStorageType() const
 			{
 				return ErelstorageExternal;
 			}

@@ -203,7 +203,7 @@ CDXLPhysicalNLJoin::AssertValid
 #endif // GPOS_DEBUG
 
 void
-CDXLPhysicalNLJoin::SetNestLoopParamsColRefs(DrgPdxlcr *nest_params_col_refs)
+CDXLPhysicalNLJoin::SetNestLoopParamsColRefs(DXLColRefArray *nest_params_col_refs)
 {
 	m_nest_params_col_refs = nest_params_col_refs;
 }
@@ -214,7 +214,7 @@ CDXLPhysicalNLJoin::NestParamsExists() const
 	return m_nest_params_exists;
 }
 
-DrgPdxlcr *
+DXLColRefArray *
 CDXLPhysicalNLJoin::GetNestLoopParamsColRefs() const
 {
 	return m_nest_params_col_refs;

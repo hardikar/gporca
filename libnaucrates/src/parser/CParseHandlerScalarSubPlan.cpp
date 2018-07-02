@@ -171,7 +171,7 @@ CParseHandlerScalarSubPlan::EndElement
 	CParseHandlerScalarSubPlanParamList *parse_handler_subplan_param_list = dynamic_cast<CParseHandlerScalarSubPlanParamList *>((*this)[1]);
 	CParseHandlerPhysicalOp *child_parse_handler = dynamic_cast<CParseHandlerPhysicalOp *>((*this)[2]);
 
-	DrgPdxlcr *dxl_colref_array = parse_handler_subplan_param_list->GetDXLColRefArray();
+	DXLColRefArray *dxl_colref_array = parse_handler_subplan_param_list->GetDXLColRefArray();
 	dxl_colref_array->AddRef();
 
 	CDXLNode *dxl_subplan_test_expr = parse_handler_subplan_test_expr->GetDXLTestExpr();

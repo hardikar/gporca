@@ -159,9 +159,9 @@ namespace gpopt
 								(
 								IMemoryPool *memory_pool,
 								CExpression *join_predicate_expr,
-								DrgPcrs *join_output_col_refset, // array of output columns of join's relational inputs
+			ColRefSetArray *join_output_col_refset,  // array of output columns of join's relational inputs
 								CColRefSet *outer_refs,
-								DrgPexpr *unsupported_predicates_expr
+								ExpressionArray *unsupported_predicates_expr
 								);
 
 			// is the expression a comparison of scalar idents (or casted scalar idents).
@@ -187,7 +187,7 @@ namespace gpopt
 								(
 								IMemoryPool *memory_pool,
 								CExpression *scalar_expr,
-								DrgPcrs *output_col_refset, // array of output columns of join's relational inputs
+			ColRefSetArray *output_col_refset,  // array of output columns of join's relational inputs
 								CColRefSet *outer_refs,
 								CStatsPred **unsupported_pred_stats
 								);
@@ -203,7 +203,7 @@ namespace gpopt
 								IMemoryPool *memory_pool,
 								CExpressionHandle &expr_handle,
 								CExpression *scalar_expression,
-								DrgPcrs *output_col_refset,
+								ColRefSetArray *output_col_refset,
 								CColRefSet *outer_refs
 								);
 

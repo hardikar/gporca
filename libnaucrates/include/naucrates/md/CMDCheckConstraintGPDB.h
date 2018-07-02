@@ -105,7 +105,7 @@ namespace gpmd
 
 			// the scalar expression of the check constraint
 			virtual
-			CExpression *GetCheckConstraintExpr(IMemoryPool *memory_pool, CMDAccessor *md_accessor, DrgPcr *colref_array) const;
+			CExpression *GetCheckConstraintExpr(IMemoryPool *memory_pool, CMDAccessor *md_accessor, ColRefArray *colref_array) const;
 
 			// serialize MD check constraint in DXL format given a serializer object
 			virtual

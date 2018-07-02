@@ -56,8 +56,8 @@ CLogicalRowTrigger::CLogicalRowTrigger
 	IMemoryPool *memory_pool,
 	IMDId *rel_mdid,
 	INT type,
-	DrgPcr *pdrgpcrOld,
-	DrgPcr *pdrgpcrNew
+	ColRefArray *pdrgpcrOld,
+	ColRefArray *pdrgpcrNew
 	)
 	:
 	CLogical(memory_pool),
@@ -103,12 +103,12 @@ void
 CLogicalRowTrigger::InitFunctionProperties()
 {
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDRelation *pmdrel = md_accessor->Pmdrel(m_rel_mdid);
+	const IMDRelation *pmdrel = md_accessor->RetrieveRel(m_rel_mdid);
 	const ULONG ulTriggers = pmdrel->TriggerCount();
 
 	for (ULONG ul = 0; ul < ulTriggers; ul++)
 	{
-		const IMDTrigger *pmdtrigger = md_accessor->Pmdtrigger(pmdrel->TriggerMDidAt(ul));
+		const IMDTrigger *pmdtrigger = md_accessor->RetrieveTrigger(pmdrel->TriggerMDidAt(ul));
 		if (!pmdtrigger->IsEnabled() ||
 			!pmdtrigger->ExecutesOnRowLevel() ||
 			(ITriggerType(pmdtrigger) & m_type) != m_type)
@@ -116,7 +116,7 @@ CLogicalRowTrigger::InitFunctionProperties()
 			continue;
 		}
 
-		const IMDFunction *pmdfunc = md_accessor->Pmdfunc(pmdtrigger->FuncMdId());
+		const IMDFunction *pmdfunc = md_accessor->RetrieveFunc(pmdtrigger->FuncMdId());
 		IMDFunction::EFuncStbl efs = pmdfunc->GetFuncStability();
 		IMDFunction::EFuncDataAcc efda = pmdfunc->GetFuncDataAccess();
 
@@ -242,13 +242,13 @@ CLogicalRowTrigger::PopCopyWithRemappedColumns
 	BOOL must_exist
 	)
 {
-	DrgPcr *pdrgpcrOld = NULL;
+	ColRefArray *pdrgpcrOld = NULL;
 	if (NULL != m_pdrgpcrOld)
 	{
 		pdrgpcrOld = CUtils::PdrgpcrRemap(memory_pool, m_pdrgpcrOld, colref_mapping, must_exist);
 	}
 
-	DrgPcr *pdrgpcrNew = NULL;
+	ColRefArray *pdrgpcrNew = NULL;
 	if (NULL != m_pdrgpcrNew)
 	{
 		pdrgpcrNew = CUtils::PdrgpcrRemap(memory_pool, m_pdrgpcrNew, colref_mapping, must_exist);

@@ -34,7 +34,7 @@ namespace gpnaucrates
 
 			// calculate the cumulative join scaling factor
 			static
-			CDouble CumulativeJoinScaleFactor(const CStatisticsConfig *stats_config, DrgPdouble *join_conds_scale_factors);
+			CDouble CumulativeJoinScaleFactor(const CStatisticsConfig *stats_config, CDoubleArray *join_conds_scale_factors);
 
 			// return scaling factor of the join predicate after apply damping
 			static
@@ -50,15 +50,15 @@ namespace gpnaucrates
 
 			// sort the array of scaling factor
 			static
-			void SortScalingFactor(DrgPdouble *scale_factors, BOOL is_descending);
+			void SortScalingFactor(CDoubleArray *scale_factors, BOOL is_descending);
 
 			// calculate the cumulative scaling factor for conjunction after applying damping multiplier
 			static
-			CDouble CalcScaleFactorCumulativeConj(const CStatisticsConfig *stats_config, DrgPdouble *scale_factors);
+			CDouble CalcScaleFactorCumulativeConj(const CStatisticsConfig *stats_config, CDoubleArray *scale_factors);
 
 			// calculate the cumulative scaling factor for disjunction after applying damping multiplier
 			static
-			CDouble CalcScaleFactorCumulativeDisj(const CStatisticsConfig *stats_config, DrgPdouble *scale_factors, CDouble tota_rows);
+			CDouble CalcScaleFactorCumulativeDisj(const CStatisticsConfig *stats_config, CDoubleArray *scale_factors, CDouble tota_rows);
 
 			// comparison function in descending order
 			static

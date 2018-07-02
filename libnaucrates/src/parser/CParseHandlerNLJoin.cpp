@@ -158,7 +158,7 @@ CParseHandlerNLJoin::EndElement
 	{
 		CParseHandlerNLJIndexParamList *nest_params_parse_handler = dynamic_cast<CParseHandlerNLJIndexParamList*>((*this)[EdxlParseHandlerNLJIndexNestLoopParams]);
 		GPOS_ASSERT(nest_params_parse_handler);
-		DrgPdxlcr *nest_params_colrefs = nest_params_parse_handler->GetNLParamsColRefs();
+		DXLColRefArray *nest_params_colrefs = nest_params_parse_handler->GetNLParamsColRefs();
 		nest_params_colrefs->AddRef();
 		m_dxl_op->SetNestLoopParamsColRefs(nest_params_colrefs);
 	}

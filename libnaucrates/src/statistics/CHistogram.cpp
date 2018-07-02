@@ -1635,7 +1635,7 @@ CHistogram::MakeUnionHistogramNormalize
 	BucketArray *histogram_buckets = GPOS_NEW(memory_pool) BucketArray(memory_pool);
 
 	// number of tuples in each bucket of the resulting histogram
-	DrgPdouble *num_tuples_per_bucket = GPOS_NEW(memory_pool) DrgPdouble(memory_pool);
+	CDoubleArray *num_tuples_per_bucket = GPOS_NEW(memory_pool) CDoubleArray(memory_pool);
 
 	CDouble cumulative_num_rows(0.0);
 	while (NULL != bucket1 && NULL != bucket2)
@@ -1739,7 +1739,7 @@ CHistogram::MakeHistogramUpdateFreq
 	(
 	IMemoryPool *memory_pool,
 	BucketArray *histogram_buckets,
-	DrgPdouble *dest_bucket_freqs,
+									CDoubleArray *dest_bucket_freqs,
 	CDouble *result_num_rows_output,
 	CDouble num_null_rows,
 	CDouble num_NDV_remain,
@@ -1811,7 +1811,7 @@ CHistogram::AddResidualUnionBucket
 	CDouble rows,
 	BOOL bucket_is_residual,
 	ULONG index,
-	DrgPdouble *dest_bucket_freqs
+	CDoubleArray *dest_bucket_freqs
 	)
 	const
 {
@@ -1838,7 +1838,7 @@ CHistogram::AddBuckets
 	BucketArray *src_buckets,
 	BucketArray *dest_buckets,
 	CDouble rows,
-	DrgPdouble *dest_bucket_freqs,
+					   CDoubleArray *dest_bucket_freqs,
 	ULONG begin,
 	ULONG end
 	)
@@ -2008,7 +2008,7 @@ CHistogram::MakeDefaultHistogram
 {
 	GPOS_ASSERT(NULL != col_ref);
 
-	if (IMDType::EtiBool == col_ref->Pmdtype()->GetDatumType() && !is_empty)
+	if (IMDType::EtiBool == col_ref->RetrieveType()->GetDatumType() && !is_empty)
 	{
 		return CHistogram::MakeDefaultBoolHistogram(memory_pool);
 	}
@@ -2132,7 +2132,7 @@ CHistogram::AddDummyHistogramAndWidthInfo
 		CHistogram *histogram = CHistogram::MakeDefaultHistogram(memory_pool, col_ref, is_empty);
 		output_histograms->Insert(GPOS_NEW(memory_pool) ULONG(col_id), histogram);
 
-		CDouble width = CStatisticsUtils::DefaultColumnWidth(col_ref->Pmdtype());
+		CDouble width = CStatisticsUtils::DefaultColumnWidth(col_ref->RetrieveType());
 		output_col_widths->Insert(GPOS_NEW(memory_pool) ULONG(col_id), GPOS_NEW(memory_pool) CDouble(width));
 	}
 }

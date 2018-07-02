@@ -164,8 +164,8 @@ namespace gpmd
 	};
 
 	// array of dxl column stats
-	typedef CDynamicPtrArray<CDXLColStats, CleanupRelease> DrgPcolstats;
-}
+	typedef CDynamicPtrArray<CDXLColStats, CleanupRelease> DXLColStatsArray;
+}  // namespace gpmd
 
 
 

@@ -157,7 +157,7 @@ namespace gpnaucrates
 					IMemoryPool *memory_pool,
 					const CStatistics *input_stats,
 					const ULongPtrArray *grouping_columns,
-					DrgPdouble *output_ndvs // output array of NDV
+										CDoubleArray *output_ndvs  // output array of NDV
 					);
 
 			// compute max number of groups when grouping on columns from the given source
@@ -195,8 +195,8 @@ namespace gpnaucrates
 				(
 				IMemoryPool *memory_pool,
 				const IMDType *mdtype,
-				DrgPdatum *mcv_datums,
-				DrgPdouble *freq_array,
+				IDatumArray *mcv_datums,
+				CDoubleArray *freq_array,
 				ULONG num_mcv_values
 				);
 
@@ -327,7 +327,7 @@ namespace gpnaucrates
 			// compute the cumulative number of distinct values (NDV) of the group by operator
 			// from the array of NDV of the individual grouping columns
 			static
-			CDouble GetCumulativeNDVs(const CStatisticsConfig *stats_config, DrgPdouble *ndv_array);
+			CDouble GetCumulativeNDVs(const CStatisticsConfig *stats_config, CDoubleArray *ndv_array);
 
 			// return the mapping between the table column used for grouping to the logical operator id where it was defined.
 			// If the grouping column is not a table column then the logical op id is initialized to gpos::ulong_max
@@ -342,7 +342,7 @@ namespace gpnaucrates
 
 			// extract NDVs for the given array of grouping columns
 			static
-			DrgPdouble *ExtractNDVForGrpCols
+			CDoubleArray *ExtractNDVForGrpCols
 				(
 				IMemoryPool *memory_pool,
 				const CStatisticsConfig *stats_config,
