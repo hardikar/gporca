@@ -62,7 +62,7 @@ CLogicalTVF::CLogicalTVF
 	IMDId *mdid_func,
 	IMDId *mdid_return_type,
 	CWStringConst *str,
-	DrgPcoldesc *pdrgpcoldesc
+	ColumnDescrArray *pdrgpcoldesc
 	)
 	:
 	CLogical(memory_pool),
@@ -81,7 +81,7 @@ CLogicalTVF::CLogicalTVF
 	m_pdrgpcrOutput = PdrgpcrCreateMapping(memory_pool, pdrgpcoldesc, UlOpId());
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDFunction *pmdfunc = md_accessor->Pmdfunc(m_func_mdid);
+	const IMDFunction *pmdfunc = md_accessor->RetrieveFunc(m_func_mdid);
 
 	m_efs = pmdfunc->GetFuncStability();
 	m_efda = pmdfunc->GetFuncDataAccess();
@@ -102,8 +102,8 @@ CLogicalTVF::CLogicalTVF
 	IMDId *mdid_func,
 	IMDId *mdid_return_type,
 	CWStringConst *str,
-	DrgPcoldesc *pdrgpcoldesc,
-	DrgPcr *pdrgpcrOutput
+	ColumnDescrArray *pdrgpcoldesc,
+	ColRefArray *pdrgpcrOutput
 	)
 	:
 	CLogical(memory_pool),
@@ -120,7 +120,7 @@ CLogicalTVF::CLogicalTVF
 	GPOS_ASSERT(NULL != pdrgpcrOutput);
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-	const IMDFunction *pmdfunc = md_accessor->Pmdfunc(m_func_mdid);
+	const IMDFunction *pmdfunc = md_accessor->RetrieveFunc(m_func_mdid);
 
 	m_efs = pmdfunc->GetFuncStability();
 	m_efda = pmdfunc->GetFuncDataAccess();
@@ -161,7 +161,7 @@ CLogicalTVF::HashValue() const
 										m_func_mdid->HashValue(),
 										gpos::CombineHashes(
 												m_return_type_mdid->HashValue(),
-												gpos::HashPtr<DrgPcoldesc>(m_pdrgpcoldesc))));
+												gpos::HashPtr<ColumnDescrArray>(m_pdrgpcoldesc))));
 	ulHash = gpos::CombineHashes(ulHash, CUtils::UlHashColArray(m_pdrgpcrOutput));
 	return ulHash;
 }
@@ -210,7 +210,7 @@ CLogicalTVF::PopCopyWithRemappedColumns
 	BOOL must_exist
 	)
 {
-	DrgPcr *pdrgpcrOutput = NULL;
+	ColRefArray *pdrgpcrOutput = NULL;
 	if (must_exist)
 	{
 		pdrgpcrOutput = CUtils::PdrgpcrRemapAndCreate(memory_pool, m_pdrgpcrOutput, colref_mapping);

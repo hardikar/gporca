@@ -35,11 +35,11 @@ using namespace gpopt;
 CPhysicalStreamAgg::CPhysicalStreamAgg
 	(
 	IMemoryPool *memory_pool,
-	DrgPcr *colref_array,
-	DrgPcr *pdrgpcrMinimal,
+	ColRefArray *colref_array,
+	ColRefArray *pdrgpcrMinimal,
 	COperator::EGbAggType egbaggtype,
 	BOOL fGeneratesDuplicates,
-	DrgPcr *pdrgpcrArgDQA,
+	ColRefArray *pdrgpcrArgDQA,
 	BOOL fMultiStage
 	)
 	:
@@ -63,7 +63,7 @@ void
 CPhysicalStreamAgg::InitOrderSpec
 	(
 	IMemoryPool *memory_pool,
-	DrgPcr *pdrgpcrOrder
+	ColRefArray *pdrgpcrOrder
 	)
 {
 	GPOS_ASSERT(NULL != pdrgpcrOrder);
@@ -77,7 +77,7 @@ CPhysicalStreamAgg::InitOrderSpec
 
 		// TODO: 12/21/2011 - ; this seems broken: a colref must not embed
 		// a pointer to a cached object
-		gpmd::IMDId *mdid = colref->Pmdtype()->GetMdidForCmpType(IMDType::EcmptL);
+		gpmd::IMDId *mdid = colref->RetrieveType()->GetMdidForCmpType(IMDType::EcmptL);
 		mdid->AddRef();
 
 		m_pos->Append(mdid, colref, COrderSpec::EntLast);
@@ -115,7 +115,7 @@ CPhysicalStreamAgg::PosCovering
 	(
 	IMemoryPool *memory_pool,
 	COrderSpec *posRequired,
-	DrgPcr *pdrgpcrGrp
+	ColRefArray *pdrgpcrGrp
 	)
 	const
 {
@@ -157,7 +157,7 @@ CPhysicalStreamAgg::PosCovering
 			CColRef *colref = (*pdrgpcrGrp)[ul];
 			if (!pcrsReqd->FMember(colref))
 			{
-				IMDId *mdid = colref->Pmdtype()->GetMdidForCmpType(IMDType::EcmptL);
+				IMDId *mdid = colref->RetrieveType()->GetMdidForCmpType(IMDType::EcmptL);
 				mdid->AddRef();
 				pos->Append(mdid, colref, COrderSpec::EntLast);
 			}
@@ -188,7 +188,7 @@ CPhysicalStreamAgg::PosRequiredStreamAgg
 	child_index
 #endif // GPOS_DEBUG
 	,
-	DrgPcr *pdrgpcrGrp
+	ColRefArray *pdrgpcrGrp
 	)
 	const
 {

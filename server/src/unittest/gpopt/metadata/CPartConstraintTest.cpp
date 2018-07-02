@@ -184,7 +184,7 @@ CPartConstraintTest::PcnstrInterval
 	CExpression *pexprConstRight = CUtils::PexprScalarConstInt4(memory_pool, ulRight);
 
 	// AND
-	DrgPexpr *pdrgpexpr = GPOS_NEW(memory_pool) DrgPexpr(memory_pool);
+	ExpressionArray *pdrgpexpr = GPOS_NEW(memory_pool) ExpressionArray(memory_pool);
 	pdrgpexpr->Append(CUtils::PexprScalarCmp(memory_pool, colref, pexprConstLeft, IMDType::EcmptGEq));
 	pdrgpexpr->Append(CUtils::PexprScalarCmp(memory_pool, colref, pexprConstRight, IMDType::EcmptL));
 
@@ -218,7 +218,7 @@ CPartConstraintTest::EresUnittest_DateIntervals()
 	pmdp->AddRef();
 	CMDAccessor mda(memory_pool, CMDCache::Pcache(), CTestUtils::m_sysidDefault, pmdp);
 
-	const IMDType *pmdtype = mda.Pmdtype(&CMDIdGPDB::m_mdid_date);
+	const IMDType *pmdtype = mda.RetrieveType(&CMDIdGPDB::m_mdid_date);
 	CWStringConst str(GPOS_WSZ_LIT("date_col"));
 	CName name(memory_pool, &str);
 	CAutoP<CColRef> colref(COptCtxt::PoctxtFromTLS()->Pcf()->PcrCreate(pmdtype, default_type_modifier, name));

@@ -53,7 +53,7 @@ namespace gpopt
 			IMemoryPool *m_memory_pool;
 
 			// mapping between column id of computed column and a set of used column references
-			HMCrCrs *m_phmcrcrs;
+			ColRefToColRefSetMap *m_phmcrcrs;
 
 			// id counter
 			CAtomicULONG m_aul;
@@ -121,7 +121,7 @@ namespace gpopt
 				const CColRef *colref
 				)
 			{
-				return PcrCreate(colref->Pmdtype(), colref->TypeModifier());
+				return PcrCreate(colref->RetrieveType(), colref->TypeModifier());
 			}
 
 			// add mapping between computed column to its used columns

@@ -65,7 +65,7 @@ CTranslatorDXLToExprUtils::GetDatum
 	)
 {
 	IMDId *mdid = dxl_op->GetDatumVal()->MDId();
-	IDatum *datum = md_accessor->Pmdtype(mdid)->GetDatumForDXLConstVal(dxl_op);
+	IDatum *datum = md_accessor->RetrieveType(mdid)->GetDatumForDXLConstVal(dxl_op);
 
 	return datum;
 }
@@ -78,7 +78,7 @@ CTranslatorDXLToExprUtils::GetDatum
 // 		Construct a datum array from a DXL datum array
 //
 //---------------------------------------------------------------------------
-DrgPdatum *
+IDatumArray *
 CTranslatorDXLToExprUtils::Pdrgpdatum
 	(
 	IMemoryPool *memory_pool,
@@ -88,13 +88,13 @@ CTranslatorDXLToExprUtils::Pdrgpdatum
 {
 	GPOS_ASSERT(NULL != pdrgpdxldatum);
 
-	DrgPdatum *pdrgdatum = GPOS_NEW(memory_pool) DrgPdatum(memory_pool);
+	IDatumArray *pdrgdatum = GPOS_NEW(memory_pool) IDatumArray(memory_pool);
 	const ULONG length = pdrgpdxldatum->Size();
 	for (ULONG ul = 0; ul < length; ul++)
 	{
 		CDXLDatum *datum_dxl = (*pdrgpdxldatum)[ul];
 		IMDId *mdid = datum_dxl->MDId();
-		IDatum *datum = md_accessor->Pmdtype(mdid)->GetDatumForDXLDatum(memory_pool, datum_dxl);
+		IDatum *datum = md_accessor->RetrieveType(mdid)->GetDatumForDXLDatum(memory_pool, datum_dxl);
 		pdrgdatum->Append(datum);
 	}
 
@@ -243,7 +243,7 @@ CTranslatorDXLToExprUtils::EBoolOperator
 //		given col ids
 //
 //---------------------------------------------------------------------------
-DrgPcr *
+ColRefArray *
 CTranslatorDXLToExprUtils::Pdrgpcr
 	(
 	IMemoryPool *memory_pool,
@@ -253,7 +253,7 @@ CTranslatorDXLToExprUtils::Pdrgpcr
 {
 	GPOS_ASSERT(NULL != col_ids);
 
-	DrgPcr *colref_array = GPOS_NEW(memory_pool) DrgPcr(memory_pool);
+	ColRefArray *colref_array = GPOS_NEW(memory_pool) ColRefArray(memory_pool);
 
 	for (ULONG ul = 0; ul < col_ids->Size(); ul++)
 	{
