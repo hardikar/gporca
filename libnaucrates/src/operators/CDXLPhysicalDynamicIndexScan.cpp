@@ -31,17 +31,17 @@ CDXLPhysicalDynamicIndexScan::CDXLPhysicalDynamicIndexScan(
 	CDXLTableDescr *table_descr,
 	ULONG part_idx_id,
 	ULONG part_idx_id_printable,
-	CDXLIndexDescr *index_descr_dxl,
+	CDXLIndexDescr *dxl_index_descr,
 	EdxlIndexScanDirection idx_scan_direction)
 	: CDXLPhysical(mp),
-	  m_table_descr_dxl(table_descr),
+	  m_dxl_table_descr(table_descr),
 	  m_part_index_id(part_idx_id),
 	  m_part_index_id_printable(part_idx_id_printable),
-	  m_index_descr_dxl(index_descr_dxl),
+	  m_dxl_index_descr(dxl_index_descr),
 	  m_index_scan_dir(idx_scan_direction)
 {
-	GPOS_ASSERT(NULL != m_table_descr_dxl);
-	GPOS_ASSERT(NULL != m_index_descr_dxl);
+	GPOS_ASSERT(NULL != m_dxl_table_descr);
+	GPOS_ASSERT(NULL != m_dxl_index_descr);
 }
 
 //---------------------------------------------------------------------------
@@ -54,8 +54,8 @@ CDXLPhysicalDynamicIndexScan::CDXLPhysicalDynamicIndexScan(
 //---------------------------------------------------------------------------
 CDXLPhysicalDynamicIndexScan::~CDXLPhysicalDynamicIndexScan()
 {
-	m_index_descr_dxl->Release();
-	m_table_descr_dxl->Release();
+	m_dxl_index_descr->Release();
+	m_dxl_table_descr->Release();
 }
 
 //---------------------------------------------------------------------------
@@ -97,7 +97,7 @@ CDXLPhysicalDynamicIndexScan::GetOpNameStr() const
 const CDXLIndexDescr *
 CDXLPhysicalDynamicIndexScan::GetDXLIndexDescr() const
 {
-	return m_index_descr_dxl;
+	return m_dxl_index_descr;
 }
 
 //---------------------------------------------------------------------------
@@ -125,7 +125,7 @@ CDXLPhysicalDynamicIndexScan::GetIndexScanDir() const
 const CDXLTableDescr *
 CDXLPhysicalDynamicIndexScan::GetDXLTableDescr() const
 {
-	return m_table_descr_dxl;
+	return m_dxl_table_descr;
 }
 
 //---------------------------------------------------------------------------
@@ -188,10 +188,10 @@ CDXLPhysicalDynamicIndexScan::SerializeToDXL(CXMLSerializer *xml_serializer,
 	node->SerializeChildrenToDXL(xml_serializer);
 
 	// serialize index descriptor
-	m_index_descr_dxl->SerializeToDXL(xml_serializer);
+	m_dxl_index_descr->SerializeToDXL(xml_serializer);
 
 	// serialize table descriptor
-	m_table_descr_dxl->SerializeToDXL(xml_serializer);
+	m_dxl_table_descr->SerializeToDXL(xml_serializer);
 
 	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix),
 								 element_name);
@@ -216,14 +216,14 @@ CDXLPhysicalDynamicIndexScan::AssertValid(const CDXLNode *node, BOOL validate_ch
 	GPOS_ASSERT(3 == node->Arity());
 
 	// assert validity of the index descriptor
-	GPOS_ASSERT(NULL != m_index_descr_dxl);
-	GPOS_ASSERT(NULL != m_index_descr_dxl->MdName());
-	GPOS_ASSERT(m_index_descr_dxl->MdName()->GetMDName()->IsValid());
+	GPOS_ASSERT(NULL != m_dxl_index_descr);
+	GPOS_ASSERT(NULL != m_dxl_index_descr->MdName());
+	GPOS_ASSERT(m_dxl_index_descr->MdName()->GetMDName()->IsValid());
 
 	// assert validity of the table descriptor
-	GPOS_ASSERT(NULL != m_table_descr_dxl);
-	GPOS_ASSERT(NULL != m_table_descr_dxl->MdName());
-	GPOS_ASSERT(m_table_descr_dxl->MdName()->GetMDName()->IsValid());
+	GPOS_ASSERT(NULL != m_dxl_table_descr);
+	GPOS_ASSERT(NULL != m_dxl_table_descr->MdName());
+	GPOS_ASSERT(m_dxl_table_descr->MdName()->GetMDName()->IsValid());
 
 	CDXLNode *index_filter_dxlnode = (*node)[EdxldisIndexFilter];
 	CDXLNode *index_cond_dxlnode = (*node)[EdxldisIndexCondition];

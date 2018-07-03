@@ -790,7 +790,7 @@ CFilterCardinalityTest::EresUnittest_CStatisticsBasicsFromDXLNumeric()
 
 		SStatsCmpValElem statsCmpValElem = rgStatsCmpValElem[ul];
 
-		StatsPredPtrArry *pdrgpstatspred = PdrgppredfilterNumeric(mp, 1 /*col_id*/, statsCmpValElem);
+		StatsPredPtrArry *pdrgpstatspred = PdrgppredfilterNumeric(mp, 1 /*colid*/, statsCmpValElem);
 		CStatsPredConj *pred_stats = GPOS_NEW(mp) CStatsPredConj(pdrgpstatspred);
 		GPOS_RESULT eres = EresUnittest_CStatisticsCompare
 							(
@@ -823,7 +823,7 @@ StatsPredPtrArry *
 CFilterCardinalityTest::PdrgpstatspredInteger
 	(
 	IMemoryPool *mp,
-	ULONG col_id,
+	ULONG colid,
 	CStatsPred::EStatsCmpType stats_cmp_type,
 	INT *piVals,
 	ULONG ulVals
@@ -834,7 +834,7 @@ CFilterCardinalityTest::PdrgpstatspredInteger
 	StatsPredPtrArry *pdrgpstatspred = GPOS_NEW(mp) StatsPredPtrArry(mp);
 	for (ULONG ul = 0; ul < ulVals; ul++)
 	{
-		pdrgpstatspred->Append(GPOS_NEW(mp) CStatsPredPoint(col_id, stats_cmp_type, CTestUtils::PpointInt4(mp, piVals[ul])));
+		pdrgpstatspred->Append(GPOS_NEW(mp) CStatsPredPoint(colid, stats_cmp_type, CTestUtils::PpointInt4(mp, piVals[ul])));
 	}
 
 	return pdrgpstatspred;
@@ -845,7 +845,7 @@ StatsPredPtrArry *
 CFilterCardinalityTest::PdrgppredfilterNumeric
 	(
 	IMemoryPool *mp,
-	ULONG col_id,
+	ULONG colid,
 	SStatsCmpValElem statsCmpValElem
 	)
 {
@@ -854,7 +854,7 @@ CFilterCardinalityTest::PdrgppredfilterNumeric
 	CWStringDynamic *pstrNumeric = GPOS_NEW(mp) CWStringDynamic(mp, statsCmpValElem.m_wsz);
 	CStatsPredPoint *pred_stats = GPOS_NEW(mp) CStatsPredPoint
 													(
-													col_id,
+													colid,
 													statsCmpValElem.m_stats_cmp_type,
 													CCardinalityTestUtils::PpointNumeric(mp, pstrNumeric, statsCmpValElem.m_value)
 													);
@@ -1032,7 +1032,7 @@ CFilterCardinalityTest::EresUnittest_CStatisticsAccumulateCard()
 	UlongHistogramHashMap *col_histogram_mapping = GPOS_NEW(mp) UlongHistogramHashMap(mp);
 
 	// array capturing columns for which width information is available
-	UlongDoubleHashMap *col_id_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
+	UlongDoubleHashMap *colid_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
 
 	const ULONG num_cols = 3;
 	for (ULONG ul = 0; ul < num_cols; ul ++)
@@ -1041,14 +1041,14 @@ CFilterCardinalityTest::EresUnittest_CStatisticsAccumulateCard()
 		col_histogram_mapping->Insert(GPOS_NEW(mp) ULONG(ul), CCardinalityTestUtils::PhistExampleInt4(mp));
 
 		// width for int
-		col_id_width_mapping->Insert(GPOS_NEW(mp) ULONG(ul), GPOS_NEW(mp) CDouble(4.0));
+		colid_width_mapping->Insert(GPOS_NEW(mp) ULONG(ul), GPOS_NEW(mp) CDouble(4.0));
 	}
 
 	CStatistics *stats = GPOS_NEW(mp) CStatistics
 									(
 									mp,
 									col_histogram_mapping,
-									col_id_width_mapping,
+									colid_width_mapping,
 									CDouble(1000.0) /* rows */,
 									false /* is_empty() */
 									);

@@ -92,9 +92,9 @@ CTranslatorDXLToExprUtils::Pdrgpdatum
 	const ULONG length = pdrgpdxldatum->Size();
 	for (ULONG ul = 0; ul < length; ul++)
 	{
-		CDXLDatum *datum_dxl = (*pdrgpdxldatum)[ul];
-		IMDId *mdid = datum_dxl->MDId();
-		IDatum *datum = md_accessor->RetrieveType(mdid)->GetDatumForDXLDatum(mp, datum_dxl);
+		CDXLDatum *dxl_datum = (*pdrgpdxldatum)[ul];
+		IMDId *mdid = dxl_datum->MDId();
+		IDatum *datum = md_accessor->RetrieveType(mdid)->GetDatumForDXLDatum(mp, dxl_datum);
 		pdrgdatum->Append(datum);
 	}
 
@@ -248,16 +248,16 @@ CTranslatorDXLToExprUtils::Pdrgpcr
 	(
 	IMemoryPool *mp,
 	UlongColRefHashMap *colref_mapping,
-	const ULongPtrArray *col_ids
+	const ULongPtrArray *colids
 	)
 {
-	GPOS_ASSERT(NULL != col_ids);
+	GPOS_ASSERT(NULL != colids);
 
 	ColRefArray *colref_array = GPOS_NEW(mp) ColRefArray(mp);
 
-	for (ULONG ul = 0; ul < col_ids->Size(); ul++)
+	for (ULONG ul = 0; ul < colids->Size(); ul++)
 	{
-		ULONG *pulColId = (*col_ids)[ul];
+		ULONG *pulColId = (*colids)[ul];
 		const CColRef *colref = colref_mapping->Find(pulColId);
 		GPOS_ASSERT(NULL != colref);
 

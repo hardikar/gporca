@@ -51,10 +51,10 @@ namespace gpdxl
 		CDouble m_distinct;
 
 		// lower bound m_bytearray_value for the bucket
-		CDXLDatum *m_lower_bound_datum_dxl;
+		CDXLDatum *m_lower_bound_dxl_datum;
 
 		// upper bound m_bytearray_value for the bucket
-		CDXLDatum *m_upper_bound_datum_dxl;
+		CDXLDatum *m_upper_bound_dxl_datum;
 
 		// is lower bound closed
 		BOOL m_is_lower_closed;
@@ -63,7 +63,7 @@ namespace gpdxl
 		BOOL m_is_upper_closed;
 
 		// dxl bucket object
-		CDXLBucket *m_bucket_dxl;
+		CDXLBucket *m_dxl_bucket;
 
 		// private copy ctor
 		CParseHandlerColStatsBucket(const CParseHandlerColStatsBucket &);

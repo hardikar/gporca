@@ -29,34 +29,34 @@ namespace gpnaucrates
 		// create a new histogram after applying the filter that is not an AND/OR predicate
 		static CHistogram *MakeHistSimpleFilter(IMemoryPool *mp,
 												CStatsPred *pred_stats,
-												CBitSet *filter_col_ids,
+												CBitSet *filter_colids,
 												CHistogram *hist_before,
 												CDouble *last_scale_factor,
-												ULONG *target_last_col_id);
+												ULONG *target_last_colid);
 
 		// create a new histogram after applying a point filter
 		static CHistogram *MakeHistPointFilter(IMemoryPool *mp,
 											   CStatsPredPoint *pred_stats,
-											   CBitSet *filter_col_ids,
+											   CBitSet *filter_colids,
 											   CHistogram *hist_before,
 											   CDouble *last_scale_factor,
-											   ULONG *target_last_col_id);
+											   ULONG *target_last_colid);
 
 		// create a new histogram after applying a LIKE filter
 		static CHistogram *MakeHistLikeFilter(IMemoryPool *mp,
 											  CStatsPredLike *pred_stats,
-											  CBitSet *filter_col_ids,
+											  CBitSet *filter_colids,
 											  CHistogram *hist_before,
 											  CDouble *last_scale_factor,
-											  ULONG *target_last_col_id);
+											  ULONG *target_last_colid);
 
 		// create a new histogram for an unsupported predicate
 		static CHistogram *MakeHistUnsupportedPred(IMemoryPool *mp,
 												   CStatsPredUnsupported *pred_stats,
-												   CBitSet *filter_col_ids,
+												   CBitSet *filter_colids,
 												   CHistogram *hist_before,
 												   CDouble *last_scale_factor,
-												   ULONG *target_last_col_id);
+												   ULONG *target_last_colid);
 
 		// create a new hash map of histograms after applying a conjunctive or disjunctive filter
 		static UlongHistogramHashMap *MakeHistHashMapConjOrDisjFilter(
@@ -86,7 +86,7 @@ namespace gpnaucrates
 			CDouble *scale_factor);
 
 		// check if the column is a new column for statistic calculation
-		static BOOL IsNewStatsColumn(ULONG col_id, ULONG last_col_id);
+		static BOOL IsNewStatsColumn(ULONG colid, ULONG last_colid);
 
 	public:
 		// filter

@@ -563,8 +563,8 @@ CStatisticsUtils::PrintColStats(IMemoryPool *mp,
 								BOOL is_filter_applied_before)
 {
 	GPOS_ASSERT(NULL != pred_stats);
-	ULONG col_id = pred_stats->GetColId();
-	if (col_id == cond_colid && NULL != histogram)
+	ULONG colid = pred_stats->GetColId();
+	if (colid == cond_colid && NULL != histogram)
 	{
 		{
 			CAutoTrace at(mp);
@@ -594,20 +594,20 @@ CStatisticsUtils::PrintColStats(IMemoryPool *mp,
 //---------------------------------------------------------------------------
 void
 CStatisticsUtils::ExtractUsedColIds(IMemoryPool *mp,
-									CBitSet *col_ids_bitset,
+									CBitSet *colids_bitset,
 									CStatsPred *pred_stats,
-									ULongPtrArray *col_ids)
+									ULongPtrArray *colids)
 {
-	GPOS_ASSERT(NULL != col_ids_bitset);
+	GPOS_ASSERT(NULL != colids_bitset);
 	GPOS_ASSERT(NULL != pred_stats);
-	GPOS_ASSERT(NULL != col_ids);
+	GPOS_ASSERT(NULL != colids);
 
 	if (gpos::ulong_max != pred_stats->GetColId())
 	{
 		// the predicate is on a single column
 
-		(void) col_ids_bitset->ExchangeSet(pred_stats->GetColId());
-		col_ids->Append(GPOS_NEW(mp) ULONG(pred_stats->GetColId()));
+		(void) colids_bitset->ExchangeSet(pred_stats->GetColId());
+		colids->Append(GPOS_NEW(mp) ULONG(pred_stats->GetColId()));
 
 		return;
 	}
@@ -635,21 +635,21 @@ CStatisticsUtils::ExtractUsedColIds(IMemoryPool *mp,
 	for (ULONG i = 0; i < arity; i++)
 	{
 		CStatsPred *curr_stats_pred = (*stats_pred_array)[i];
-		ULONG col_id = curr_stats_pred->GetColId();
+		ULONG colid = curr_stats_pred->GetColId();
 
-		if (gpos::ulong_max != col_id)
+		if (gpos::ulong_max != colid)
 		{
-			if (!col_ids_bitset->Get(col_id))
+			if (!colids_bitset->Get(colid))
 			{
-				(void) col_ids_bitset->ExchangeSet(col_id);
-				col_ids->Append(GPOS_NEW(mp) ULONG(col_id));
+				(void) colids_bitset->ExchangeSet(colid);
+				colids->Append(GPOS_NEW(mp) ULONG(colid));
 			}
 		}
 		else if (CStatsPred::EsptUnsupported != curr_stats_pred->GetPredStatsType())
 		{
 			GPOS_ASSERT(CStatsPred::EsptConj == curr_stats_pred->GetPredStatsType() ||
 						CStatsPred::EsptDisj == curr_stats_pred->GetPredStatsType());
-			ExtractUsedColIds(mp, col_ids_bitset, curr_stats_pred, col_ids);
+			ExtractUsedColIds(mp, colids_bitset, curr_stats_pred, colids);
 		}
 	}
 }
@@ -671,17 +671,17 @@ CStatisticsUtils::UpdateDisjStatistics(IMemoryPool *mp,
 									   CDouble local_rows,
 									   CHistogram *previous_histogram,
 									   UlongHistogramHashMap *disjunctive_result_histograms,
-									   ULONG col_id)
+									   ULONG colid)
 {
 	GPOS_ASSERT(NULL != dont_update_stats_bitset);
 	GPOS_ASSERT(NULL != disjunctive_result_histograms);
 
-	if (NULL != previous_histogram && gpos::ulong_max != col_id &&
-		!dont_update_stats_bitset->Get(col_id))
+	if (NULL != previous_histogram && gpos::ulong_max != colid &&
+		!dont_update_stats_bitset->Get(colid))
 	{
-		// 1. the filter is on the same column because gpos::ulong_max != col_id
+		// 1. the filter is on the same column because gpos::ulong_max != colid
 		// 2. the histogram of the column can be updated
-		CHistogram *result_histogram = disjunctive_result_histograms->Find(&col_id);
+		CHistogram *result_histogram = disjunctive_result_histograms->Find(&colid);
 		if (NULL != result_histogram)
 		{
 			// since there is already a histogram for this column,
@@ -696,7 +696,7 @@ CStatisticsUtils::UpdateDisjStatistics(IMemoryPool *mp,
 		}
 
 		AddHistogram(mp,
-					 col_id,
+					 colid,
 					 previous_histogram,
 					 disjunctive_result_histograms,
 					 true /*fReplaceOldEntries*/
@@ -753,27 +753,27 @@ CStatisticsUtils::GetColsNonUpdatableHistForDisj(IMemoryPool *mp,
 	{
 		CStatsPred *child_pred_stats = pred_stats->GetPredStats(child_index);
 		CBitSet *child_bitset = GPOS_NEW(mp) CBitSet(mp);
-		ULongPtrArray *child_col_ids = GPOS_NEW(mp) ULongPtrArray(mp);
-		ExtractUsedColIds(mp, child_bitset, child_pred_stats, child_col_ids);
+		ULongPtrArray *child_colids = GPOS_NEW(mp) ULongPtrArray(mp);
+		ExtractUsedColIds(mp, child_bitset, child_pred_stats, child_colids);
 
-		const ULONG length = child_col_ids->Size();
+		const ULONG length = child_colids->Size();
 		GPOS_ASSERT(length <= num_disj_used_col);
 		if (length < num_disj_used_col)
 		{
 			// the child predicate only operates on a subset of all the columns
 			// used in the disjunction
-			for (ULONG used_col_idx = 0; used_col_idx < num_disj_used_col; used_col_idx++)
+			for (ULONG used_colidx = 0; used_colidx < num_disj_used_col; used_colidx++)
 			{
-				ULONG col_id = *(*disjuncts)[used_col_idx];
-				if (!child_bitset->Get(col_id))
+				ULONG colid = *(*disjuncts)[used_colidx];
+				if (!child_bitset->Get(colid))
 				{
-					(void) non_updateable_bitset->ExchangeSet(col_id);
+					(void) non_updateable_bitset->ExchangeSet(colid);
 				}
 			}
 		}
 
 		// clean up
-		child_col_ids->Release();
+		child_colids->Release();
 		child_bitset->Release();
 	}
 
@@ -795,19 +795,19 @@ CStatisticsUtils::GetColsNonUpdatableHistForDisj(IMemoryPool *mp,
 //---------------------------------------------------------------------------
 void
 CStatisticsUtils::AddHistogram(IMemoryPool *mp,
-							   ULONG col_id,
+							   ULONG colid,
 							   const CHistogram *histogram,
 							   UlongHistogramHashMap *col_histogram_mapping,
 							   BOOL replace_old)
 {
 	GPOS_ASSERT(NULL != histogram);
 
-	if (NULL == col_histogram_mapping->Find(&col_id))
+	if (NULL == col_histogram_mapping->Find(&colid))
 	{
 #ifdef GPOS_DEBUG
 		BOOL result =
 #endif
-			col_histogram_mapping->Insert(GPOS_NEW(mp) ULONG(col_id),
+			col_histogram_mapping->Insert(GPOS_NEW(mp) ULONG(colid),
 										  histogram->CopyHistogram(mp));
 		GPOS_ASSERT(result);
 	}
@@ -816,7 +816,7 @@ CStatisticsUtils::AddHistogram(IMemoryPool *mp,
 #ifdef GPOS_DEBUG
 		BOOL result =
 #endif
-			col_histogram_mapping->Replace(&col_id, histogram->CopyHistogram(mp));
+			col_histogram_mapping->Replace(&colid, histogram->CopyHistogram(mp));
 		GPOS_ASSERT(result);
 	}
 }
@@ -907,21 +907,21 @@ CStatisticsUtils::CreateHistHashMapAfterMergingDisjPreds(
 	UlongHistogramHashMapIter col_hist_mapping_iter(col_histogram_mapping);
 	while (col_hist_mapping_iter.Advance())
 	{
-		ULONG col_id = *(col_hist_mapping_iter.Key());
+		ULONG colid = *(col_hist_mapping_iter.Key());
 		const CHistogram *histogram = col_hist_mapping_iter.Value();
-		if (NULL != histogram && !non_updatable_cols->Get(col_id))
+		if (NULL != histogram && !non_updatable_cols->Get(colid))
 		{
 			if (is_empty)
 			{
 				// since the estimated output of the disjunction child is "0" tuples
 				// no point merging histograms.
 				AddHistogram(
-					mp, col_id, histogram, merged_histogram, true /* replace_old */
+					mp, colid, histogram, merged_histogram, true /* replace_old */
 				);
 			}
 			else
 			{
-				const CHistogram *disj_child_histogram = disj_preds_histogram_map->Find(&col_id);
+				const CHistogram *disj_child_histogram = disj_preds_histogram_map->Find(&colid);
 				CHistogram *normalized_union_histogram =
 					histogram->MakeUnionHistogramNormalize(mp,
 														   cumulative_rows,
@@ -930,7 +930,7 @@ CStatisticsUtils::CreateHistHashMapAfterMergingDisjPreds(
 														   &output_rows);
 
 				AddHistogram(mp,
-							 col_id,
+							 colid,
 							 normalized_union_histogram,
 							 merged_histogram,
 							 true /* fReplaceOld */
@@ -967,9 +967,9 @@ CStatisticsUtils::CopyHistHashMap(IMemoryPool *mp,
 	UlongHistogramHashMapIter col_hist_mapping_iter(col_histogram_mapping);
 	while (col_hist_mapping_iter.Advance())
 	{
-		ULONG col_id = *(col_hist_mapping_iter.Key());
+		ULONG colid = *(col_hist_mapping_iter.Key());
 		const CHistogram *histogram = col_hist_mapping_iter.Value();
-		AddHistogram(mp, col_id, histogram, histograms_copy);
+		AddHistogram(mp, colid, histogram, histograms_copy);
 		GPOS_CHECK_ABORT;
 	}
 
@@ -998,12 +998,12 @@ CStatisticsUtils::GetColId(const StatsPredPtrArry *pred_stats_array)
 	for (ULONG i = 0; i < length && is_same_col; i++)
 	{
 		CStatsPred *pred_stats = (*pred_stats_array)[i];
-		ULONG col_id = pred_stats->GetColId();
+		ULONG colid = pred_stats->GetColId();
 		if (gpos::ulong_max == result_colid)
 		{
-			result_colid = col_id;
+			result_colid = colid;
 		}
-		is_same_col = (result_colid == col_id);
+		is_same_col = (result_colid == colid);
 	}
 
 	if (is_same_col)
@@ -1247,30 +1247,30 @@ CStatisticsUtils::GetGrpColIdToUpperBoundNDVIdxMap(
 	while (col_refset_iter.Advance())
 	{
 		CColRef *grouping_colref = col_refset_iter.Pcr();
-		ULONG col_id = grouping_colref->Id();
-		if (NULL == keys || keys->Get(col_id))
+		ULONG colid = grouping_colref->Id();
+		if (NULL == keys || keys->Get(colid))
 		{
 			// if keys are available then only consider grouping columns defined as
 			// key columns else consider all grouping columns
-			const CColRef *grouping_colref = col_factory->LookupColRef(col_id);
+			const CColRef *grouping_colref = col_factory->LookupColRef(colid);
 			const ULONG upper_bound_ndv_idx = stats->GetIndexUpperBoundNDVs(grouping_colref);
-			const ULongPtrArray *ndv_col_id =
+			const ULongPtrArray *ndv_colid =
 				grp_colid_upper_bound_ndv_idx_map->Find(&upper_bound_ndv_idx);
-			if (NULL == ndv_col_id)
+			if (NULL == ndv_colid)
 			{
-				ULongPtrArray *col_ids_new = GPOS_NEW(mp) ULongPtrArray(mp);
-				col_ids_new->Append(GPOS_NEW(mp) ULONG(col_id));
+				ULongPtrArray *colids_new = GPOS_NEW(mp) ULongPtrArray(mp);
+				colids_new->Append(GPOS_NEW(mp) ULONG(colid));
 #ifdef GPOS_DEBUG
 				BOOL fres =
 #endif  // GPOS_DEBUG
 					grp_colid_upper_bound_ndv_idx_map->Insert(
-						GPOS_NEW(mp) ULONG(upper_bound_ndv_idx), col_ids_new);
+						GPOS_NEW(mp) ULONG(upper_bound_ndv_idx), colids_new);
 				GPOS_ASSERT(fres);
 			}
 			else
 			{
-				(const_cast<ULongPtrArray *>(ndv_col_id))
-					->Append(GPOS_NEW(mp) ULONG(col_id));
+				(const_cast<ULongPtrArray *>(ndv_colid))
+					->Append(GPOS_NEW(mp) ULONG(colid));
 			}
 		}
 	}
@@ -1302,10 +1302,10 @@ CStatisticsUtils::AddNdvForAllGrpCols(
 	// iterate over grouping columns
 	for (ULONG i = 0; i < num_cols; i++)
 	{
-		ULONG col_id = (*(*grouping_columns)[i]);
+		ULONG colid = (*(*grouping_columns)[i]);
 
 		CDouble distinct_vals = CStatisticsUtils::DefaultDistinctVals(input_stats->Rows());
-		const CHistogram *histogram = input_stats->GetHistogram(col_id);
+		const CHistogram *histogram = input_stats->GetHistogram(colid);
 		if (NULL != histogram)
 		{
 			distinct_vals = histogram->GetNumDistinct();
@@ -1392,8 +1392,8 @@ CStatisticsUtils::CappedGrpColExists(const CStatistics *stats,
 	const ULONG num_cols = grouping_columns->Size();
 	for (ULONG i = 0; i < num_cols; i++)
 	{
-		ULONG col_id = (*(*grouping_columns)[i]);
-		const CHistogram *histogram = stats->GetHistogram(col_id);
+		ULONG colid = (*(*grouping_columns)[i]);
+		const CHistogram *histogram = stats->GetHistogram(colid);
 
 		if (NULL != histogram && histogram->WereNDVsScaled())
 		{
@@ -1425,8 +1425,8 @@ CStatisticsUtils::MaxNdv(const CStatistics *stats, const ULongPtrArray *grouping
 	{
 		CDouble ndv = CStatisticsUtils::DefaultDistinctVals(stats->Rows());
 
-		ULONG col_id = (*(*grouping_columns)[i]);
-		const CHistogram *histogram = stats->GetHistogram(col_id);
+		ULONG colid = (*(*grouping_columns)[i]);
+		const CHistogram *histogram = stats->GetHistogram(colid);
 		if (NULL != histogram)
 		{
 			ndv = histogram->GetNumDistinct();
@@ -1587,10 +1587,10 @@ CStatisticsUtils::AddGrpColStats(IMemoryPool *mp,
 	while (grp_col_refset_iter.Advance())
 	{
 		CColRef *colref = grp_col_refset_iter.Pcr();
-		ULONG grp_col_id = colref->Id();
+		ULONG grp_colid = colref->Id();
 
 		CDouble num_distinct_vals(CHistogram::MinDistinct);
-		const CHistogram *histogram = input_stats->GetHistogram(grp_col_id);
+		const CHistogram *histogram = input_stats->GetHistogram(grp_colid);
 		if (NULL != histogram)
 		{
 			CHistogram *result_histogram = histogram->MakeGroupByHistogramNormalize(
@@ -1599,14 +1599,14 @@ CStatisticsUtils::AddGrpColStats(IMemoryPool *mp,
 			{
 				result_histogram->SetNDVScaled();
 			}
-			AddHistogram(mp, grp_col_id, result_histogram, output_histograms);
+			AddHistogram(mp, grp_colid, result_histogram, output_histograms);
 			GPOS_DELETE(result_histogram);
 		}
 
-		const CDouble *width = input_stats->GetWidth(grp_col_id);
+		const CDouble *width = input_stats->GetWidth(grp_colid);
 		if (NULL != width)
 		{
-			output_col_widths->Insert(GPOS_NEW(mp) ULONG(grp_col_id),
+			output_col_widths->Insert(GPOS_NEW(mp) ULONG(grp_colid),
 									  GPOS_NEW(mp) CDouble(*width));
 		}
 	}
@@ -1639,8 +1639,8 @@ CStatisticsUtils::MakeGroupByColsForStats(IMemoryPool *mp,
 	// iterate over grouping columns
 	for (ULONG i = 0; i < ulGrpCols; i++)
 	{
-		ULONG col_id = *(*grouping_columns)[i];
-		CColRef *grp_col_ref = col_factory->LookupColRef(col_id);
+		ULONG colid = *(*grouping_columns)[i];
+		CColRef *grp_col_ref = col_factory->LookupColRef(colid);
 		GPOS_ASSERT(NULL != grp_col_ref);
 
 		// check to see if the grouping column is a computed attribute
@@ -1779,13 +1779,13 @@ CStatisticsUtils::AddWidthInfo(IMemoryPool *mp,
 	UlongDoubleHashMapIter col_width_map_iterator(src_width);
 	while (col_width_map_iterator.Advance())
 	{
-		ULONG col_id = *(col_width_map_iterator.Key());
-		BOOL is_present = (NULL != dest_width->Find(&col_id));
+		ULONG colid = *(col_width_map_iterator.Key());
+		BOOL is_present = (NULL != dest_width->Find(&colid));
 		if (!is_present)
 		{
 			const CDouble *width = col_width_map_iterator.Value();
 			CDouble *width_copy = GPOS_NEW(mp) CDouble(*width);
-			dest_width->Insert(GPOS_NEW(mp) ULONG(col_id), width_copy);
+			dest_width->Insert(GPOS_NEW(mp) ULONG(colid), width_copy);
 		}
 
 		GPOS_CHECK_ABORT;

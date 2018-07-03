@@ -159,16 +159,16 @@ namespace gpnaucrates
 		// utility function to print column stats before/after applying filter
 		static void PrintColStats(IMemoryPool *mp,
 								  CStatsPred *pred_stats,
-								  ULONG cond_col_id,
+								  ULONG cond_colid,
 								  CHistogram *histogram,
 								  CDouble last_scale_factor,
 								  BOOL is_filter_applied_before);
 
 		// extract all the column identifiers used in the statistics filter
 		static void ExtractUsedColIds(IMemoryPool *mp,
-									  CBitSet *col_ids_bitset,
+									  CBitSet *colids_bitset,
 									  CStatsPred *pred_stats,
-									  ULongPtrArray *col_ids);
+									  ULongPtrArray *colids);
 
 		// given the previously generated histogram, update the intermediate
 		// result of the disjunction
@@ -178,7 +178,7 @@ namespace gpnaucrates
 										 CDouble local_rows,
 										 CHistogram *previous_histogram,
 										 UlongHistogramHashMap *disjunctive_result_histograms,
-										 ULONG last_col_id);
+										 ULONG last_colid);
 
 		// given a disjunction filter, generate a bit set of columns whose
 		// histogram buckets cannot be changed by applying the predicates in the
@@ -188,7 +188,7 @@ namespace gpnaucrates
 
 		// helper method to add a histogram to a map
 		static void AddHistogram(IMemoryPool *mp,
-								 ULONG col_id,
+								 ULONG colid,
 								 const CHistogram *histogram,
 								 UlongHistogramHashMap *col_histogram_mapping,
 								 BOOL replace_old = false);

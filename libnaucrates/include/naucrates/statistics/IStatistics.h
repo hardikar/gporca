@@ -140,13 +140,13 @@ namespace gpnaucrates
 		virtual CDouble NumRebinds() const = 0;
 
 		// skew estimate for given column
-		virtual CDouble GetSkew(ULONG col_id) const = 0;
+		virtual CDouble GetSkew(ULONG colid) const = 0;
 
 		// what is the width in bytes
 		virtual CDouble Width() const = 0;
 
 		// what is the width in bytes of set of column id's
-		virtual CDouble Width(ULongPtrArray *col_ids) const = 0;
+		virtual CDouble Width(ULongPtrArray *colids) const = 0;
 
 		// what is the width in bytes of set of column references
 		virtual CDouble Width(IMemoryPool *mp, CColRefSet *colrefs) const = 0;

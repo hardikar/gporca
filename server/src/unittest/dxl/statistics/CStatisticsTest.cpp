@@ -407,15 +407,15 @@ CStatisticsTest::EresUnittest_CStatisticsBasic()
 	col_histogram_mapping->Insert(GPOS_NEW(mp) ULONG(2), CCardinalityTestUtils::PhistExampleInt4(mp));
 
 	// array capturing columns for which width information is available
-	UlongDoubleHashMap *col_id_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
+	UlongDoubleHashMap *colid_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
 
 	// width for boolean
-	col_id_width_mapping->Insert(GPOS_NEW(mp) ULONG(1), GPOS_NEW(mp) CDouble(1.0));
+	colid_width_mapping->Insert(GPOS_NEW(mp) ULONG(1), GPOS_NEW(mp) CDouble(1.0));
 
 	// width for int
-	col_id_width_mapping->Insert(GPOS_NEW(mp) ULONG(2), GPOS_NEW(mp) CDouble(4.0));
+	colid_width_mapping->Insert(GPOS_NEW(mp) ULONG(2), GPOS_NEW(mp) CDouble(4.0));
 
-	CStatistics *stats = GPOS_NEW(mp) CStatistics(mp, col_histogram_mapping, col_id_width_mapping, 1000.0 /* rows */, false /* is_empty */);
+	CStatistics *stats = GPOS_NEW(mp) CStatistics(mp, col_histogram_mapping, colid_width_mapping, 1000.0 /* rows */, false /* is_empty */);
 	stats->Rows();
 
 	GPOS_TRACE(GPOS_WSZ_LIT("stats"));
@@ -475,14 +475,14 @@ CStatisticsTest::EresUnittest_CStatisticsBasic()
 	CCardinalityTestUtils::PrintStats(mp, pstats5);
 
 	// union all
-	ULongPtrArray *col_ids = GPOS_NEW(mp) ULongPtrArray(mp);
-	col_ids->Append(GPOS_NEW(mp) ULONG(1));
-	col_ids->Append(GPOS_NEW(mp) ULONG(2));
-	col_ids->AddRef();
-	col_ids->AddRef();
-	col_ids->AddRef();
+	ULongPtrArray *colids = GPOS_NEW(mp) ULongPtrArray(mp);
+	colids->Append(GPOS_NEW(mp) ULONG(1));
+	colids->Append(GPOS_NEW(mp) ULONG(2));
+	colids->AddRef();
+	colids->AddRef();
+	colids->AddRef();
 
-	CStatistics *pstats6 = CUnionAllStatsProcessor::CreateStatsForUnionAll(mp, stats, stats, col_ids, col_ids, col_ids);
+	CStatistics *pstats6 = CUnionAllStatsProcessor::CreateStatsForUnionAll(mp, stats, stats, colids, colids, colids);
 
 	GPOS_TRACE(GPOS_WSZ_LIT("pstats6 = pstats1 union all pstats1"));
 	CCardinalityTestUtils::PrintStats(mp, pstats6);
@@ -504,7 +504,7 @@ CStatisticsTest::EresUnittest_CStatisticsBasic()
 	join_preds_stats->Release();
 	GCs->Release();
 	aggs->Release();
-	col_ids->Release();
+	colids->Release();
 	pexprGet->Release();
 
 	return GPOS_OK;
@@ -579,7 +579,7 @@ void
 CStatisticsTest::StatsFilterInt4
 	(
 	IMemoryPool *mp,
-	ULONG col_id,
+	ULONG colid,
 	INT iLower,
 	INT iUpper,
 	StatsPredPtrArry *pdrgpstatspred
@@ -587,14 +587,14 @@ CStatisticsTest::StatsFilterInt4
 {
 	CStatsPredPoint *pstatspred1 = GPOS_NEW(mp) CStatsPredPoint
 												(
-												col_id,
+												colid,
 												CStatsPred::EstatscmptGEq,
 												CTestUtils::PpointInt4(mp, iLower)
 												);
 
 	CStatsPredPoint *pstatspred2 = GPOS_NEW(mp) CStatsPredPoint
 												(
-												col_id,
+												colid,
 												CStatsPred::EstatscmptL,
 												CTestUtils::PpointInt4(mp, iUpper)
 												);
@@ -608,14 +608,14 @@ void
 CStatisticsTest::StatsFilterBool
 	(
 	IMemoryPool *mp,
-	ULONG col_id,
+	ULONG colid,
 	BOOL fValue,
 	StatsPredPtrArry *pdrgpstatspred
 	)
 {
 	CStatsPredPoint *pstatspred1 = GPOS_NEW(mp) CStatsPredPoint
 												(
-												col_id,
+												colid,
 												CStatsPred::EstatscmptEq,
 												CTestUtils::PpointBool(mp, fValue)
 												);
@@ -628,7 +628,7 @@ void
 CStatisticsTest::StatsFilterNumeric
 	(
 	IMemoryPool *mp,
-	ULONG col_id,
+	ULONG colid,
 	CWStringDynamic *pstrLowerEncoded,
 	CWStringDynamic *pstrUpperEncoded,
 	CDouble dValLower,
@@ -638,14 +638,14 @@ CStatisticsTest::StatsFilterNumeric
 {
 	CStatsPredPoint *pstatspred1 = GPOS_NEW(mp) CStatsPredPoint
 												(
-												col_id,
+												colid,
 												CStatsPred::EstatscmptGEq,
 												CCardinalityTestUtils::PpointNumeric(mp, pstrLowerEncoded, dValLower)
 												);
 
 	CStatsPredPoint *pstatspred2 = GPOS_NEW(mp) CStatsPredPoint
 												(
-												col_id,
+												colid,
 												CStatsPred::EstatscmptL,
 												CCardinalityTestUtils::PpointNumeric(mp, pstrUpperEncoded, dValUpper)
 												);
@@ -659,7 +659,7 @@ void
 CStatisticsTest::StatsFilterGeneric
 	(
 	IMemoryPool *mp,
-	ULONG col_id,
+	ULONG colid,
 	OID oid,
 	CWStringDynamic *pstrLowerEncoded,
 	CWStringDynamic *pstrUpperEncoded,
@@ -670,14 +670,14 @@ CStatisticsTest::StatsFilterGeneric
 {
 	CStatsPredPoint *pstatspred1 = GPOS_NEW(mp) CStatsPredPoint
 												(
-												col_id,
+												colid,
 												CStatsPred::EstatscmptGEq,
 												CCardinalityTestUtils::PpointGeneric(mp, oid, pstrLowerEncoded, lValueLower)
 												);
 
 	CStatsPredPoint *pstatspred2 = GPOS_NEW(mp) CStatsPredPoint
 												(
-												col_id,
+												colid,
 												CStatsPred::EstatscmptL,
 												CCardinalityTestUtils::PpointGeneric(mp, oid, pstrUpperEncoded, lValueUpper)
 												);

@@ -32,7 +32,7 @@ namespace gpdxl
 	{
 	private:
 		// table descriptor for the scanned table
-		CDXLTableDescr *m_table_descr_dxl;
+		CDXLTableDescr *m_dxl_table_descr;
 
 		// private copy ctor
 		CDXLLogicalGet(CDXLLogicalGet &);
@@ -53,7 +53,7 @@ namespace gpdxl
 		virtual void SerializeToDXL(CXMLSerializer *xml_serializer, const CDXLNode *dxlnode) const;
 
 		// check if given column is defined by operator
-		virtual BOOL IsColDefined(ULONG col_id) const;
+		virtual BOOL IsColDefined(ULONG colid) const;
 
 		// conversion function
 		static CDXLLogicalGet *
