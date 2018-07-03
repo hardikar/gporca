@@ -41,7 +41,7 @@ CMDIndexGPDB::CMDIndexGPDB
 	IMDId *mdid_item_type,
 	ULongPtrArray *index_key_cols_array,
 	ULongPtrArray *included_cols_array,
-	MdidPtrArray *mdid_op_classes_array,
+	IMdIdArray *mdid_op_classes_array,
 	IMDPartConstraint *mdpart_constraint
 	)
 	:

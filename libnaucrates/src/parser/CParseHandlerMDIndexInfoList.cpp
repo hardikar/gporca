@@ -43,7 +43,7 @@ CParseHandlerMDIndexInfoList::~CParseHandlerMDIndexInfoList()
 }
 
 // returns array of indexinfo
-MDIndexInfoPtrArray *
+CMDIndexInfoArray *
 CParseHandlerMDIndexInfoList::GetMdIndexInfoArray()
 {
 	return m_mdindex_info_array;
@@ -61,7 +61,7 @@ CParseHandlerMDIndexInfoList::StartElement
 {
 	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndexInfoList), element_local_name))
 	{
-		m_mdindex_info_array = GPOS_NEW(m_mp) MDIndexInfoPtrArray(m_mp);
+		m_mdindex_info_array = GPOS_NEW(m_mp) CMDIndexInfoArray(m_mp);
 	}
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndexInfo), element_local_name))
 	{

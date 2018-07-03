@@ -41,13 +41,13 @@ namespace gpmd
 			// hash map of serialized MD objects indexed by their MD id 
 			typedef CHashMap<IMDId, CWStringDynamic, 
 							IMDId::MDIdHash, IMDId::MDIdCompare,
-							CleanupRelease, CleanupDelete> MDMap;
+							CleanupRelease, CleanupDelete> MDIdToSerializedMDIdMap;
 			
 			// metadata objects indexed by their metadata id
-			MDMap *m_mdmap;
+		MDIdToSerializedMDIdMap *m_mdmap;
 			
 			// load MD objects in the hash map
-			void LoadMetadataObjectsFromArray(IMemoryPool *mp, IMDCachePtrArray *mdcache_obj_array);
+      void LoadMetadataObjectsFromArray(IMemoryPool *mp, IMDCacheObjectArray *mdcache_obj_array);
 			
 			// private copy ctor
 			CMDProviderMemory(const CMDProviderMemory&);
@@ -55,7 +55,7 @@ namespace gpmd
 		public:
 			
 			// ctor
-			CMDProviderMemory(IMemoryPool *mp, IMDCachePtrArray *mdcache_obj_array);
+		CMDProviderMemory(IMemoryPool *mp, IMDCacheObjectArray *mdcache_obj_array);
 			
 			// ctor
 			CMDProviderMemory(IMemoryPool *mp, const CHAR *file_name);

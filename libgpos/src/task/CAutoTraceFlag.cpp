@@ -49,7 +49,7 @@ CAutoTraceFlag::~CAutoTraceFlag()
 {
 	GPOS_ASSERT(NULL != ITask::Self());
 		
-	// reset original m_bytearray_value
+	// reset original value
 	ITask::Self()->SetTrace(m_trace, m_orig);
 }
 

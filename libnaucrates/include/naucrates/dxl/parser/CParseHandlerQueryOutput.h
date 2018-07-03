@@ -36,7 +36,7 @@ namespace gpdxl
 		private:
 
 			// list of scalar ident nodes representing the query output
-			DXLNodeArray *m_dxl_array;
+		CDXLNodeArray *m_dxl_array;
 
 			// private copy ctor
 			CParseHandlerQueryOutput(const CParseHandlerQueryOutput&);
@@ -72,7 +72,7 @@ namespace gpdxl
 
 
 			// return the list of output scalar ident nodes
-			DXLNodeArray *GetOutputColumnsDXLArray();
+		CDXLNodeArray *GetOutputColumnsDXLArray();
 	};
 }
 

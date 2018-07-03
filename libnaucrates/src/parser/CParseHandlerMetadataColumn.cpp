@@ -202,7 +202,7 @@ CParseHandlerMetadataColumn::EndElement
 	
 	GPOS_ASSERT(1 == this->Length());
 	
-	// get node for default m_bytearray_value expression from child parse handler
+	// get node for default value expression from child parse handler
 	CParseHandlerScalarOp *op_parse_handler = dynamic_cast<CParseHandlerScalarOp *>((*this)[0]);
 	
 	m_dxl_default_val = op_parse_handler->CreateDXLNode();

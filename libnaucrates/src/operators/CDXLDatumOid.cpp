@@ -47,7 +47,7 @@ CDXLDatumOid::CDXLDatumOid
 //		CDXLDatumOid::OidValue
 //
 //	@doc:
-//		Return the oid m_bytearray_value
+//		Return the oid value
 //
 //---------------------------------------------------------------------------
 OID

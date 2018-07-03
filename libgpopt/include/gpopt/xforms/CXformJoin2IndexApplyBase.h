@@ -61,7 +61,7 @@ namespace gpopt
 				{
 					CColRefSet *pcrsEquivPredInner = GPOS_NEW(mp) CColRefSet(mp);
 					// extract array of join predicates from join condition expression
-					ExpressionArray *pdrgpexpr = CPredicateUtils::PdrgpexprConjuncts(mp, pexprScalar);
+					CExpressionArray *pdrgpexpr = CPredicateUtils::PdrgpexprConjuncts(mp, pexprScalar);
 					for (ULONG ul = 0; ul < pdrgpexpr->Size(); ul++)
 					{
 						CExpression *pexprPred = (*pdrgpexpr)[ul];
@@ -108,7 +108,7 @@ namespace gpopt
 			CLogicalApply *PopLogicalApply
 				(
 				IMemoryPool *mp,
-				ColRefArray *colref_array
+				CColRefArray *colref_array
 				) const
 			{
 				return GPOS_NEW(mp) TApply(mp, colref_array, m_fOuterJoin);
@@ -127,7 +127,7 @@ namespace gpopt
 				(
 				mp,
 				GPOS_NEW(mp) TJoin(mp),
-				is_partial // only when fPartial is true, CTE producer is created and is preprocessed,
+				is_partial // only when is_partial is true, CTE producer is created and is preprocessed,
 					     // where it needs the entire tree for deriving relational properties.
 				?
 				GPOS_NEW(mp) CExpression(mp, GPOS_NEW(mp) CPatternTree(mp)) // outer child
@@ -230,7 +230,7 @@ namespace gpopt
 			}
 
 			// return true if xform should be applied only once
-			// only when fPartial is true, CTE producer is created and is preprocessed,
+			// only when is_partial is true, CTE producer is created and is preprocessed,
 			// where it needs the entire tree for deriving relational properties.
 			virtual
 			BOOL IsApplyOnce()

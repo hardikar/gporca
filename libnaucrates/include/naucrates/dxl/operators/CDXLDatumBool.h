@@ -39,7 +39,7 @@ namespace gpdxl
 	class CDXLDatumBool : public CDXLDatum
 	{
 		private:
-			// boolean m_bytearray_value
+		// boolean value
 			BOOL m_value;
 
 			// private copy ctor
@@ -63,7 +63,7 @@ namespace gpdxl
 			virtual
 			void Serialize(CXMLSerializer *xml_serializer);
 
-			// is type passed by m_bytearray_value
+			// is type passed by value
 			virtual BOOL IsPassedByValue() const
 			{
 				return true;
@@ -76,7 +76,7 @@ namespace gpdxl
 				return CDXLDatum::EdxldatumBool;
 			}
 
-			// accessor of boolean m_bytearray_value
+			// accessor of boolean value
 			BOOL GetValue() const
 			{
 				return m_value;

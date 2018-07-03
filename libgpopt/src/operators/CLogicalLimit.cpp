@@ -157,7 +157,7 @@ COperator *
 CLogicalLimit::PopCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {
@@ -346,7 +346,7 @@ CLogicalLimit::PstatsDerive
 	(
 	IMemoryPool *mp,
 	CExpressionHandle &exprhdl,
-	StatsArray * // not used
+	IStatisticsArray * // not used
 	)
 	const
 {

@@ -46,7 +46,7 @@ namespace gpmd
 			BOOL m_empty;
 
 			// array of derived column statistics
-			DXLStatsDerivedColArray *m_dxl_stats_derived_col_array;
+		CDXLStatsDerivedColumnArray *m_dxl_stats_derived_col_array;
 
 			// private copy ctor
 			CDXLStatsDerivedRelation(const CDXLStatsDerivedRelation &);
@@ -58,7 +58,7 @@ namespace gpmd
 				(
 				CDouble rows,
 				BOOL is_empty,
-				DXLStatsDerivedColArray *dxl_stats_derived_col_array
+				CDXLStatsDerivedColumnArray *dxl_stats_derived_col_array
 				);
 
 			// dtor
@@ -79,7 +79,7 @@ namespace gpmd
 			}
 
 			// derived column statistics
-			const DXLStatsDerivedColArray *GetDXLStatsDerivedColArray() const;
+		const CDXLStatsDerivedColumnArray *GetDXLStatsDerivedColArray() const;
 
 			// serialize bucket in DXL format
 			void Serialize(gpdxl::CXMLSerializer *) const;
@@ -92,7 +92,7 @@ namespace gpmd
 	};
 
 	// array of dxl buckets
-	typedef CDynamicPtrArray<CDXLStatsDerivedRelation, CleanupRelease> DXLStatsDerivedRelArray;
+	typedef CDynamicPtrArray<CDXLStatsDerivedRelation, CleanupRelease> CDXLStatsDerivedRelationArray;
 }
 
 #endif // !GPMD_CDXLStatsDerivedRelation_H

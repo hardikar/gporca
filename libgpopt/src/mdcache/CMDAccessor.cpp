@@ -327,8 +327,8 @@ CMDAccessor::CMDAccessor
 	(
 	IMemoryPool *mp,
 	MDCache *pcache,
-	const SysidPtrArray *pdrgpsysid,
-	const MDProviderPtrArray *pdrgpmdp
+	const CSystemIdArray *pdrgpsysid,
+	const CMDProviderArray *pdrgpmdp
 	)
 	:
 	m_mp(mp),
@@ -489,8 +489,8 @@ CMDAccessor::RegisterProvider
 void
 CMDAccessor::RegisterProviders
 	(
-	const SysidPtrArray *pdrgpsysid,
-	const MDProviderPtrArray *pdrgpmdp
+	const CSystemIdArray *pdrgpsysid,
+	const CMDProviderArray *pdrgpmdp
 	)
 {
 	GPOS_ASSERT(NULL != pdrgpmdp);
@@ -1108,8 +1108,8 @@ CMDAccessor::RecordColumnStats
 	ULONG ulPos,
 	BOOL fSystemCol,
 	BOOL fEmptyTable,
-	UlongHistogramHashMap *col_histogram_mapping,
-	UlongDoubleHashMap *colid_width_mapping,
+	UlongToHistogramMap *col_histogram_mapping,
+	UlongToDoubleMap *colid_width_mapping,
 	CStatisticsConfig *stats_config
 	)
 {
@@ -1198,8 +1198,8 @@ CMDAccessor::Pstats
 	BOOL fEmptyTable = pmdRelStats->IsEmpty();
 	const IMDRelation *pmdrel = RetrieveRel(rel_mdid);
 
-	UlongHistogramHashMap *col_histogram_mapping = GPOS_NEW(mp) UlongHistogramHashMap(mp);
-	UlongDoubleHashMap *colid_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
+	UlongToHistogramMap *col_histogram_mapping = GPOS_NEW(mp) UlongToHistogramMap(mp);
+	UlongToDoubleMap *colid_width_mapping = GPOS_NEW(mp) UlongToDoubleMap(mp);
 
 	CColRefSetIter crsiHist(*pcrsHist);
 	while (crsiHist.Advance())
@@ -1289,7 +1289,7 @@ CMDAccessor::GetHistogram
 		return CHistogram::MakeDefaultBoolHistogram(mp);
 	}
 
-	BucketArray *buckets = GPOS_NEW(mp) BucketArray(mp);
+	CBucketArray *buckets = GPOS_NEW(mp) CBucketArray(mp);
 	for (ULONG ul = 0; ul < num_of_buckets; ul++)
 	{
 		const CDXLBucket *dxl_bucket = pmdcolstats->GetDXLBucketAt(ul);

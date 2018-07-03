@@ -42,7 +42,7 @@ CLogicalInnerCorrelatedApply::CLogicalInnerCorrelatedApply
 CLogicalInnerCorrelatedApply::CLogicalInnerCorrelatedApply
 	(
 	IMemoryPool *mp,
-	ColRefArray *pdrgpcrInner,
+	CColRefArray *pdrgpcrInner,
 	EOperatorId eopidOriginSubq
 	)
 	:
@@ -105,11 +105,11 @@ COperator *
 CLogicalInnerCorrelatedApply::PopCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {
-	ColRefArray *pdrgpcrInner = CUtils::PdrgpcrRemap(mp, m_pdrgpcrInner, colref_mapping, must_exist);
+	CColRefArray *pdrgpcrInner = CUtils::PdrgpcrRemap(mp, m_pdrgpcrInner, colref_mapping, must_exist);
 
 	return GPOS_NEW(mp) CLogicalInnerCorrelatedApply(mp, pdrgpcrInner, m_eopidOriginSubq);
 }

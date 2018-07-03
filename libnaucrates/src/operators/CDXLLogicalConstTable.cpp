@@ -31,7 +31,7 @@ using namespace gpdxl;
 CDXLLogicalConstTable::CDXLLogicalConstTable
 	(
 	IMemoryPool *mp,		
-	DXLColumnDescrArray *col_descr_array,
+	CDXLColDescrArray *col_descr_array,
 	DXLDatumArrays *const_tuples_datum_array
 	)
 	:
@@ -46,7 +46,7 @@ CDXLLogicalConstTable::CDXLLogicalConstTable
 	const ULONG length = const_tuples_datum_array->Size();
 	for (ULONG idx = 0; idx < length; idx++)
 	{
-		DXLDatumArray *pdrgpdxldatum = (*const_tuples_datum_array)[idx];
+		CDXLDatumArray *pdrgpdxldatum = (*const_tuples_datum_array)[idx];
 		GPOS_ASSERT(pdrgpdxldatum->Size() == col_descr_array->Size());
 	}
 #endif
@@ -167,7 +167,7 @@ CDXLLogicalConstTable::SerializeToDXL
 	{
 		// serialize a const tuple
 		xml_serializer->OpenElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), pstrElemNameConstTuple);
-		DXLDatumArray *pdrgpdxldatum = (*m_const_tuples_datum_array)[tuple_idx];
+		CDXLDatumArray *pdrgpdxldatum = (*m_const_tuples_datum_array)[tuple_idx];
 
 		const ULONG num_of_cols = pdrgpdxldatum->Size();
 		for (ULONG idx = 0; idx < num_of_cols; idx++)

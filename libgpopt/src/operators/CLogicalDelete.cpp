@@ -55,7 +55,7 @@ CLogicalDelete::CLogicalDelete
 	(
 	IMemoryPool *mp,
 	CTableDescriptor *ptabdesc,
-	ColRefArray *colref_array,
+	CColRefArray *colref_array,
 	CColRef *pcrCtid,
 	CColRef *pcrSegmentId
 	)
@@ -150,11 +150,11 @@ COperator *
 CLogicalDelete::PopCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {
-	ColRefArray *colref_array = CUtils::PdrgpcrRemap(mp, m_pdrgpcr, colref_mapping, must_exist);
+	CColRefArray *colref_array = CUtils::PdrgpcrRemap(mp, m_pdrgpcr, colref_mapping, must_exist);
 	CColRef *pcrCtid = CUtils::PcrRemap(m_pcrCtid, colref_mapping, must_exist);
 	CColRef *pcrSegmentId = CUtils::PcrRemap(m_pcrSegmentId, colref_mapping, must_exist);
 	m_ptabdesc->AddRef();
@@ -254,7 +254,7 @@ CLogicalDelete::PstatsDerive
 	(
 	IMemoryPool *, // mp,
 	CExpressionHandle &exprhdl,
-	StatsArray * // not used
+	IStatisticsArray * // not used
 	)
 	const
 {

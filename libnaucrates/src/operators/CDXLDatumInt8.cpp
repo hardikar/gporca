@@ -53,7 +53,7 @@ CDXLDatumInt8::CDXLDatumInt8
 //		CDXLDatumInt8::Value
 //
 //	@doc:
-//		Return the long int m_bytearray_value
+//		Return the long int value
 //
 //---------------------------------------------------------------------------
 LINT

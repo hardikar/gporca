@@ -7,7 +7,7 @@
 //
 //	@doc:
 //
-//		Implementation of the SAX parse handler class for parsing m_bytearray_value scan
+//		Implementation of the SAX parse handler class for parsing value scan
 //		operator
 //---------------------------------------------------------------------------
 
@@ -109,7 +109,7 @@ CParseHandlerValuesScan::EndElement
 	CParseHandlerProjList *proj_list_parse_handler = dynamic_cast<CParseHandlerProjList*>((*this)[1]);
 	AddChildFromParseHandler(proj_list_parse_handler);
 
-	// valuesscan child m_bytearray_value list begins with third child
+	// valuesscan child value list begins with third child
 	for (ULONG idx = 2; idx < arity; idx++)
 	{
 		CParseHandlerScalarValuesList *scalar_values_list_parse_handler = dynamic_cast<CParseHandlerScalarValuesList *>((*this)[idx]);

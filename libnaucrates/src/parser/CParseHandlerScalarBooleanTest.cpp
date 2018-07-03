@@ -142,7 +142,7 @@ CParseHandlerScalarBooleanTest::EndElement
 //		CParseHandlerScalarBooleanTest::GetDxlBooleanTestType
 //
 //	@doc:
-//		Parse the boolean test type from the attribute m_bytearray_value
+//		Parse the boolean test type from the attribute value
 //
 //---------------------------------------------------------------------------
 EdxlBooleanTestType

@@ -22,7 +22,7 @@ CProjectStatsProcessor::CalcProjStats
 	IMemoryPool *mp,
 	const CStatistics *input_stats,
 	ULongPtrArray *projection_colids,
-	HMUlDatum *datum_map
+	UlongToIDatumMap *datum_map
 	)
 {
 	GPOS_ASSERT(NULL != projection_colids);
@@ -30,10 +30,10 @@ CProjectStatsProcessor::CalcProjStats
 	CColumnFactory *col_factory = COptCtxt::PoctxtFromTLS()->Pcf();
 
 	// create hash map from colid -> histogram for resultant structure
-	UlongHistogramHashMap *histograms_new = GPOS_NEW(mp) UlongHistogramHashMap(mp);
+	UlongToHistogramMap *histograms_new = GPOS_NEW(mp) UlongToHistogramMap(mp);
 
 	// column ids on which widths are to be computed
-	UlongDoubleHashMap *colid_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
+	UlongToDoubleMap *colid_width_mapping = GPOS_NEW(mp) UlongToDoubleMap(mp);
 
 	const ULONG length = projection_colids->Size();
 	for (ULONG ul = 0; ul < length; ul++)
@@ -45,7 +45,7 @@ CProjectStatsProcessor::CalcProjStats
 		{
 
 			// create histogram for the new project column
-			BucketArray *proj_col_bucket = GPOS_NEW(mp) BucketArray(mp);
+			CBucketArray *proj_col_bucket = GPOS_NEW(mp) CBucketArray(mp);
 			CDouble null_freq = 0.0;
 
 			BOOL is_well_defined = false;

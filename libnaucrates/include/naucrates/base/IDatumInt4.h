@@ -49,7 +49,7 @@ namespace gpnaucrates
 				return IMDType::EtiInt4;
 			}
 
-			// accessor of integer m_bytearray_value
+			// accessor of integer value
 			virtual
 			INT Value() const = 0;
 

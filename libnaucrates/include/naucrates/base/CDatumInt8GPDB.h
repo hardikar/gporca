@@ -36,7 +36,7 @@ namespace gpnaucrates
 			// type information
 			IMDId *m_mdid;
 		
-			// integer m_bytearray_value
+		// integer value
 			LINT m_val;
 
 			// is null
@@ -64,7 +64,7 @@ namespace gpnaucrates
 			virtual
 			ULONG Size() const;
 
-			// accessor of integer m_bytearray_value
+			// accessor of integer value
 			virtual
 			LINT Value() const;
 

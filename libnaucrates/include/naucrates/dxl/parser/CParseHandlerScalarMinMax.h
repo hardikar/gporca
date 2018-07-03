@@ -61,7 +61,7 @@ namespace gpdxl
 					const XMLCh* const element_qname
 					);
 
-			// parse the min/max type from the attribute m_bytearray_value
+			// parse the min/max type from the attribute value
 			static
 			CDXLScalarMinMax::EdxlMinMaxType GetMinMaxType(const XMLCh *element_local_name);
 

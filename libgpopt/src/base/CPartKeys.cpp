@@ -26,7 +26,7 @@ using namespace gpopt;
 //---------------------------------------------------------------------------
 CPartKeys::CPartKeys
 	(
-	ColRefArrays *pdrgpdrgpcr
+	CColRefArrays *pdrgpdrgpcr
 	)
 	:
 	m_pdrgpdrgpcr(pdrgpdrgpcr)
@@ -64,7 +64,7 @@ CPartKeys::PcrKey
 	const
 {
 	GPOS_ASSERT(ulLevel < m_num_of_part_levels);
-	ColRefArray *colref_array = (*m_pdrgpdrgpcr)[ulLevel];
+	CColRefArray *colref_array = (*m_pdrgpdrgpcr)[ulLevel];
 	return (*colref_array)[0];
 }
 
@@ -109,13 +109,13 @@ CPartKeys::PpartkeysCopy
 	IMemoryPool *mp
 	)
 {
-	ColRefArrays *pdrgpdrgpcrCopy = GPOS_NEW(mp) ColRefArrays(mp);
+	CColRefArrays *pdrgpdrgpcrCopy = GPOS_NEW(mp) CColRefArrays(mp);
 
 	const ULONG length = m_pdrgpdrgpcr->Size();
 	for (ULONG ul = 0; ul < length; ul++)
 	{
-		ColRefArray *colref_array = (*m_pdrgpdrgpcr)[ul];
-		ColRefArray *pdrgpcrCopy = GPOS_NEW(mp) ColRefArray(mp);
+		CColRefArray *colref_array = (*m_pdrgpdrgpcr)[ul];
+		CColRefArray *pdrgpcrCopy = GPOS_NEW(mp) CColRefArray(mp);
 		const ULONG num_cols = colref_array->Size();
 		for (ULONG ulCol = 0; ulCol < num_cols; ulCol++)
 		{
@@ -135,16 +135,16 @@ CPartKeys::PpartkeysCopy
 //		Copy array of part keys into given memory pool
 //
 //---------------------------------------------------------------------------
-PartKeysArray *
+CPartKeysArray *
 CPartKeys::PdrgppartkeysCopy
 	(
 	IMemoryPool *mp,
-	const PartKeysArray *pdrgppartkeys
+	const CPartKeysArray *pdrgppartkeys
 	)
 {
 	GPOS_ASSERT(NULL != pdrgppartkeys);
 
-	PartKeysArray *pdrgppartkeysCopy = GPOS_NEW(mp) PartKeysArray(mp);
+	CPartKeysArray *pdrgppartkeysCopy = GPOS_NEW(mp) CPartKeysArray(mp);
 	const ULONG length = pdrgppartkeys->Size();
 	for (ULONG ul = 0; ul < length; ul++)
 	{
@@ -167,18 +167,18 @@ CPartKeys *
 CPartKeys::PpartkeysRemap
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping
+	UlongToColRefMap *colref_mapping
 	)
 	const
 {
 	GPOS_ASSERT(NULL != colref_mapping);
-	ColRefArrays *pdrgpdrgpcr = GPOS_NEW(mp) ColRefArrays(mp);
+	CColRefArrays *pdrgpdrgpcr = GPOS_NEW(mp) CColRefArrays(mp);
 
 	for (ULONG ul = 0; ul < m_num_of_part_levels; ul++)
 	{
 		CColRef *colref = CUtils::PcrRemap(PcrKey(ul), colref_mapping, false /*must_exist*/);
 
-		ColRefArray *colref_array = GPOS_NEW(mp) ColRefArray(mp);
+		CColRefArray *colref_array = GPOS_NEW(mp) CColRefArray(mp);
 		colref_array->Append(colref);
 
 		pdrgpdrgpcr->Append(colref_array);

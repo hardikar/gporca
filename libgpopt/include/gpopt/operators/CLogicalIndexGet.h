@@ -50,7 +50,7 @@ namespace gpopt
 			const CName *m_pnameAlias;
 
 			// output columns
-			ColRefArray *m_pdrgpcrOutput;
+			CColRefArray *m_pdrgpcrOutput;
 
 			// set representation of output columns
 			CColRefSet *m_pcrsOutput;
@@ -77,7 +77,7 @@ namespace gpopt
 				CTableDescriptor *ptabdesc,
 				ULONG ulOriginOpId,
 				const CName *pnameAlias,
-				ColRefArray *pdrgpcrOutput
+				CColRefArray *pdrgpcrOutput
 				);
 
 			// dtor
@@ -106,7 +106,7 @@ namespace gpopt
 			}
 
 			// array of output columns
-			ColRefArray *PdrgpcrOutput() const
+			CColRefArray *PdrgpcrOutput() const
 			{
 				return m_pdrgpcrOutput;
 			}
@@ -159,7 +159,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -234,7 +234,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CExpressionHandle &exprhdl,
-				StatsArray *stats_ctxt
+				IStatisticsArray *stats_ctxt
 				)
 				const;
 

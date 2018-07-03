@@ -35,7 +35,7 @@ namespace gpopt
 		private:
 
 			// array of constraints
-			ConstraintArray *m_pdrgpcnstr;
+			CConstraintArray *m_pdrgpcnstr;
 
 			// mapping colref -> array of child constraints
 			ColRefToConstraintArrayMap *m_phmcolconstr;
@@ -46,7 +46,7 @@ namespace gpopt
 		public:
 
 			// ctor
-			CConstraintDisjunction(IMemoryPool *mp, ConstraintArray *pdrgpcnstr);
+			CConstraintDisjunction(IMemoryPool *mp, CConstraintArray *pdrgpcnstr);
 
 			// dtor
 			virtual
@@ -60,7 +60,7 @@ namespace gpopt
 			}
 
 			// all constraints in disjunction
-			ConstraintArray *Pdrgpcnstr() const
+			CConstraintArray *Pdrgpcnstr() const
 			{
 				return m_pdrgpcnstr;
 			}
@@ -71,7 +71,7 @@ namespace gpopt
 
 			// return a copy of the constraint with remapped columns
 			virtual
-			CConstraint *PcnstrCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			CConstraint *PcnstrCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			// scalar expression
 			virtual

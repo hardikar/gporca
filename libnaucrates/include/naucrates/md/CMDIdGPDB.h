@@ -110,7 +110,7 @@ namespace gpmd
 			virtual
 			BOOL Equals(const IMDId *mdid) const;
 			
-			// computes the hash m_bytearray_value for the metadata id
+			// computes the hash value for the metadata id
 			virtual
 			ULONG HashValue() const
 			{
@@ -123,7 +123,7 @@ namespace gpmd
 			virtual
 			BOOL IsValid() const;
 
-			// serialize mdid in DXL as the m_bytearray_value of the specified attribute
+			// serialize mdid in DXL as the value of the specified attribute
 			virtual
 			void Serialize(CXMLSerializer *xml_serializer, const CWStringConst *pstrAttribute) const;
 						

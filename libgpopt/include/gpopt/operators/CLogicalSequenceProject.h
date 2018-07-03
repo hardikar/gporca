@@ -38,10 +38,10 @@ namespace gpopt
 			CDistributionSpec *m_pds;
 
 			// order specs of child window functions
-			OrderSpecArray *m_pdrgpos;
+			COrderSpecArray *m_pdrgpos;
 
 			// frames of child window functions
-			WindowFrameArray *m_pdrgpwf;
+			CWindowFrameArray *m_pdrgpwf;
 
 			// flag indicating if current operator has any non-empty order specs
 			BOOL m_fHasOrderSpecs;
@@ -65,8 +65,8 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CDistributionSpec *pds,
-				OrderSpecArray *pdrgpos,
-				WindowFrameArray *pdrgpwf
+				COrderSpecArray *pdrgpos,
+				CWindowFrameArray *pdrgpwf
 				);
 
 			// ctor for pattern
@@ -98,13 +98,13 @@ namespace gpopt
 			}
 
 			// order by keys
-			OrderSpecArray *Pdrgpos() const
+			COrderSpecArray *Pdrgpos() const
 			{
 				return m_pdrgpos;
 			}
 
 			// frame specifications
-			WindowFrameArray *Pdrgpwf() const
+			CWindowFrameArray *Pdrgpwf() const
 			{
 				return m_pdrgpwf;
 			}
@@ -123,7 +123,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			// return true if we can pull projections up past this operator from its given child
 			virtual
@@ -185,7 +185,7 @@ namespace gpopt
 						(
 						IMemoryPool *mp,
 						CExpressionHandle &exprhdl,
-						StatsArray *stats_ctxt
+						IStatisticsArray *stats_ctxt
 						)
 						const;
 

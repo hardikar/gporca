@@ -162,7 +162,7 @@ namespace gpdxl
 				);
 
 			static 
-			IMDCachePtrArray *ParseDXLToIMDObjectArray
+			IMDCacheObjectArray *ParseDXLToIMDObjectArray
 				(
 				IMemoryPool *,
 				const CHAR *dxl_string,
@@ -170,7 +170,7 @@ namespace gpdxl
 				);
 			
 			static 
-			IMDCachePtrArray *ParseDXLToIMDObjectArray
+			IMDCacheObjectArray *ParseDXLToIMDObjectArray
 				(
 				IMemoryPool *,
 				const CWStringBase *dxl_string,
@@ -196,7 +196,7 @@ namespace gpdxl
 
 			// parse statistics object from the statistics document
 			static 
-			DXLStatsDerivedRelArray *ParseDXLToStatsDerivedRelArray
+			CDXLStatsDerivedRelationArray *ParseDXLToStatsDerivedRelArray
 				(
 				IMemoryPool *,
 				const CHAR *dxl_string,
@@ -205,7 +205,7 @@ namespace gpdxl
 
 			// parse statistics object from the statistics document
 			static 
-			DXLStatsDerivedRelArray *ParseDXLToStatsDerivedRelArray
+			CDXLStatsDerivedRelationArray *ParseDXLToStatsDerivedRelArray
 				(
 				IMemoryPool *,
 				const CWStringBase *dxl_string,
@@ -218,13 +218,13 @@ namespace gpdxl
 				(
 				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
-				DXLStatsDerivedRelArray *dxl_derived_rel_stats_array
+				CDXLStatsDerivedRelationArray *dxl_derived_rel_stats_array
 				);
 
 			// extract the array of optimizer buckets from the dxl representation of
 			// dxl buckets in the dxl derived column statistics object
 			static
-			BucketArray *ParseDXLToBucketsArray
+			CBucketArray *ParseDXLToBucketsArray
 				(
 				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
@@ -238,13 +238,13 @@ namespace gpdxl
 				IMemoryPool *mp,
 				IOstream& os,
 				const CDXLNode *dxl_query_node,
-				const DXLNodeArray *query_output_dxlnode_array,
-				const DXLNodeArray *cte_producers,
+								   const CDXLNodeArray *query_output_dxlnode_array,
+								   const CDXLNodeArray *cte_producers,
 				BOOL serialize_document_header_footer,
 				BOOL indentation
 				);
 			
-			// serialize a ULLONG m_bytearray_value
+			// serialize a ULLONG value
 			static
 			CWStringDynamic *SerializeULLONG
 				(
@@ -292,7 +292,7 @@ namespace gpdxl
 			void SerializeMetadata
 				(
 				IMemoryPool *mp,
-				const IMDCachePtrArray *imd_obj_array,
+				const IMDCacheObjectArray *imd_obj_array,
 				IOstream &os,
 				BOOL serialize_document_header_footer,
 				BOOL indentation
@@ -325,7 +325,7 @@ namespace gpdxl
 			CWStringDynamic *SerializeMetadata
 				(
 				IMemoryPool *,
-				const IMDCachePtrArray *,
+				const IMDCacheObjectArray *,
 				BOOL serialize_document_header_footer,
 				BOOL indentation
 				);
@@ -461,7 +461,7 @@ namespace gpdxl
 			static 
 			CHAR *CreateMultiByteCharStringFromWCString(IMemoryPool *mp, const WCHAR *wc_string);
 			
-			// serialize a double m_bytearray_value in a string
+			// serialize a double value in a string
 			static 
 			CWStringDynamic *SerializeDouble
 				(
@@ -490,7 +490,7 @@ namespace gpdxl
 #ifdef GPOS_DEBUG
 			// debug print of the metadata relation
 			static
-			void DebugPrintMDIdArray(IOstream &os, MdidPtrArray *mdid_array);
+			void DebugPrintMDIdArray(IOstream &os, IMdIdArray *mdid_array);
 #endif
 	};
 

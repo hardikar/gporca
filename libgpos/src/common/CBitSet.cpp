@@ -293,7 +293,7 @@ CBitSet::Get
 //		CBitSet::ExchangeSet
 //
 //	@doc:
-//		Set given bit; return previous m_bytearray_value; allocate new link if necessary
+//		Set given bit; return previous value; allocate new link if necessary
 //
 //---------------------------------------------------------------------------
 BOOL 
@@ -338,7 +338,7 @@ CBitSet::ExchangeSet
 //		CBitSet::ExchangeClear
 //
 //	@doc:
-//		Clear given bit; return previous m_bytearray_value
+//		Clear given bit; return previous value
 //
 //---------------------------------------------------------------------------
 BOOL 
@@ -397,10 +397,10 @@ CBitSet::Union
 	CBitSetLink *bsl_other = NULL;
 
 	// dynamic array of CBitSetLink
-	typedef CDynamicPtrArray<CBitSetLink, CleanupNULL> BitSetLinkArray;
+	typedef CDynamicPtrArray<CBitSetLink, CleanupNULL> CBitSetLinkArray;
 
-	CAutoRef<BitSetLinkArray> a_drgpbsl;
-	a_drgpbsl = GPOS_NEW(m_mp) BitSetLinkArray(m_mp);
+	CAutoRef<CBitSetLinkArray> a_drgpbsl;
+	a_drgpbsl = GPOS_NEW(m_mp) CBitSetLinkArray(m_mp);
 	
 	// iterate through other's links and copy missing links to array
 	for (
@@ -664,7 +664,7 @@ CBitSet::IsDisjoint
 //		CBitSet::HashValue
 //
 //	@doc:
-//		Compute hash m_bytearray_value for set
+//		Compute hash value for set
 //
 //---------------------------------------------------------------------------
 ULONG

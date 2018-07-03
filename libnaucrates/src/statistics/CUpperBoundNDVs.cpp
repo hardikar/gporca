@@ -30,7 +30,7 @@ CUpperBoundNDVs *
 CUpperBoundNDVs::CopyUpperBoundNDVWithRemap
         (
         IMemoryPool *mp,
-        UlongColRefHashMap *colid_to_colref_map
+        UlongToColRefMap *colid_to_colref_map
         )
         const
 {

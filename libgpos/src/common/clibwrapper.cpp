@@ -103,7 +103,7 @@ gpos::clib::USleep
 {
 	GPOS_ASSERT(1000000 >= usecs);
 
-	// ignore return m_bytearray_value
+	// ignore return value
 	(void) usleep(usecs);
 }
 
@@ -337,7 +337,7 @@ gpos::clib::Strchr
 //		clib::Memset
 //
 //	@doc:
-//		Set the bytes of a given memory block to a specific m_bytearray_value
+//		Set the bytes of a given memory block to a specific value
 //
 //---------------------------------------------------------------------------
 void*

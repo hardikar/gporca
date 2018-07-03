@@ -99,7 +99,7 @@ namespace gpmd
 			virtual 
 			BOOL IsCompatible(const IMDScalarOp *md_scalar_op, ULONG key_pos) const = 0;
 			
-			// index type as a string m_bytearray_value
+			// index type as a string value
 			static
 			const CWStringConst *GetDXLStr(EmdindexType index_type);
 	};

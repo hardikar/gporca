@@ -81,7 +81,7 @@ CMissingStatsTest::EresUnittest_RunTests()
 	for (ULONG ul = m_ulMissingStatsTestCounter; ((ul < ulTests) && (GPOS_OK == eres)); ul++)
 	{
 		ICostModel *pcm = CTestUtils::GetCostModel(mp);
-		CAutoTraceFlag atf1(EopttracePrintColsWithMissingStats, true /*m_bytearray_value*/);
+		CAutoTraceFlag atf1(EopttracePrintColsWithMissingStats, true /*value*/);
 
 		COptimizerConfig *optimizer_config = GPOS_NEW(mp) COptimizerConfig
 												(
@@ -107,7 +107,7 @@ CMissingStatsTest::EresUnittest_RunTests()
 
 		CStatisticsConfig *stats_config = optimizer_config->GetStatsConf();
 
-		MdidPtrArray *pdrgmdidCol = GPOS_NEW(mp) MdidPtrArray(mp);
+		IMdIdArray *pdrgmdidCol = GPOS_NEW(mp) IMdIdArray(mp);
 		stats_config->CollectMissingStatsColumns(pdrgmdidCol);
 		ULONG ulMissingStats = pdrgmdidCol->Size();
 

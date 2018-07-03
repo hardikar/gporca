@@ -9,7 +9,7 @@
 //		Hash map
 //		* stores deep objects, i.e., pointers
 //		* equality == on key uses template function argument
-//		* does not allow insertion of duplicates (no equality on m_bytearray_value class req'd)
+//		* does not allow insertion of duplicates (no equality on value class req'd)
 //		* destroys objects based on client-side provided destroy functions
 //---------------------------------------------------------------------------
 #ifndef GPOS_CHashMap_H
@@ -54,14 +54,13 @@ namespace gpos
 			//		CHashMapElem
 			//
 			//	@doc:
-			//		Anchor for key/m_bytearray_value pair
+		//		Anchor for key/value pair
 			//
 			//---------------------------------------------------------------------------		
 			class CHashMapElem
 			{
 				private:
-				
-					// key/m_bytearray_value pair
+					// key/value pair
 					K *m_key;
 					T *m_value;
 					
@@ -101,13 +100,13 @@ namespace gpos
 						return m_key;
 					}
 
-					// m_bytearray_value accessor
+					// value accessor
 					T *Value() const
 					{
 						return m_value;
 					}
 					
-					// replace m_bytearray_value
+					// replace value
 					void ReplaceValue(T *new_value)
                     {
                         if (m_owns_objects)
@@ -134,8 +133,8 @@ namespace gpos
 			ULONG m_size;
 
 			// each hash chain is an array of hashmap elements
-			typedef CDynamicPtrArray<CHashMapElem, CleanupDelete> HashElemChain;
-			HashElemChain **const m_chains;
+		typedef CDynamicPtrArray<CHashMapElem, CleanupDelete> HashSetElemArray;
+		HashSetElemArray **const m_chains;
 
 			// array for keys
 			// We use CleanupNULL because the keys are owned by the hash table
@@ -149,7 +148,7 @@ namespace gpos
 			
 			// lookup appropriate hash chain in static table, may be NULL if
 			// no elements have been inserted yet
-			HashElemChain **GetChain(const K *key) const
+      HashSetElemArray **GetChain(const K *key) const
 			{
 				GPOS_ASSERT(NULL != m_chains);
 				return &m_chains[HashFn(key) % m_num_chains];
@@ -172,7 +171,7 @@ namespace gpos
             {
                 CHashMapElem hme(const_cast<K*>(key), NULL /*T*/, false /*fOwn*/);
                 CHashMapElem *found_hme = NULL;
-                HashElemChain **chain = GetChain(key);
+			HashSetElemArray **chain = GetChain(key);
                 if (NULL != *chain)
                 {
                     found_hme = (*chain)->Find(&hme);
@@ -190,12 +189,12 @@ namespace gpos
             m_mp(mp),
             m_num_chains(num_chains),
             m_size(0),
-            m_chains(GPOS_NEW_ARRAY(m_mp, HashElemChain*, m_num_chains)),
+            m_chains(GPOS_NEW_ARRAY(m_mp, HashSetElemArray*, m_num_chains)),
             m_keys(GPOS_NEW(m_mp) Keys(m_mp)),
             m_filled_chains(GPOS_NEW(mp) IntPtrArray(mp))
             {
                 GPOS_ASSERT(m_num_chains > 0);
-                (void) clib::Memset(m_chains, 0, m_num_chains * sizeof(HashElemChain*));
+                (void) clib::Memset(m_chains, 0, m_num_chains * sizeof(HashSetElemArray*));
             }
 
 			// dtor
@@ -217,10 +216,10 @@ namespace gpos
                     return false;
                 }
 
-                HashElemChain **chain = GetChain(key);
+			HashSetElemArray **chain = GetChain(key);
                 if (NULL == *chain)
                 {
-                    *chain = GPOS_NEW(m_mp) HashElemChain(m_mp);
+				*chain = GPOS_NEW(m_mp) HashSetElemArray(m_mp);
                     INT chain_idx = HashFn(key) % m_num_chains;
                     m_filled_chains->Append(GPOS_NEW(m_mp) INT(chain_idx));
                 }
@@ -234,7 +233,7 @@ namespace gpos
                 return true;
             }
 			
-			// lookup a m_bytearray_value by its key
+			// lookup a value by its key
 			T *Find(const K *key) const
             {
                 CHashMapElem *elem = Lookup(key);
@@ -246,7 +245,7 @@ namespace gpos
                 return NULL;
             }
 
-			// replace the m_bytearray_value in a map entry with a new given m_bytearray_value
+			// replace the value in a map entry with a new given value
 			BOOL Replace(const K *key, T *ptNew)
             {
                 GPOS_ASSERT(NULL != key);

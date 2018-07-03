@@ -45,8 +45,8 @@ namespace gpdxl
 			// CTAS storage options
 			CDXLCtasStorageOptions *m_dxl_ctas_storage_option;
 			
-			// parsed array of key-m_bytearray_value pairs of options
-			CDXLCtasStorageOptions::DXLCtasOptionArray *m_ctas_storage_option_array;
+		// parsed array of key-value pairs of options
+		CDXLCtasStorageOptions::CDXLCtasOptionArray *m_ctas_storage_option_array;
 			
 			// private copy ctor
 			CParseHandlerCtasStorageOptions(const CParseHandlerCtasStorageOptions &);

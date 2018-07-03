@@ -64,7 +64,7 @@ namespace gpos
 				return CBitSet::Get(bit_index);
 			}
 			
-			// set given bit; return previous m_bytearray_value
+			// set given bit; return previous value
 			BOOL ExchangeSet(T t)
 			{
 				GPOS_ASSERT(t >= 0);
@@ -75,7 +75,7 @@ namespace gpos
 				return CBitSet::ExchangeSet(bit_index);
 			}
 		
-			// clear given bit; return previous m_bytearray_value
+			// clear given bit; return previous value
 			BOOL ExchangeClear(T t)
 			{
 				GPOS_ASSERT(t >= 0);

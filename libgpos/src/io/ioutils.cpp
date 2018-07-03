@@ -607,7 +607,7 @@ FSimulateIOErrorInternal
 //
 //	@doc:
 //		Inject I/O exception for functions
-//		whose returned m_bytearray_value type is INT
+//		whose returned value type is INT
 //
 //---------------------------------------------------------------------------
 BOOL
@@ -633,7 +633,7 @@ gpos::ioutils::SimulateIOError
 //
 //	@doc:
 //		Inject I/O exception for functions
-//		whose returned m_bytearray_value type is CHAR*
+//		whose returned value type is CHAR*
 //
 //---------------------------------------------------------------------------
 BOOL

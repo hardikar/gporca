@@ -247,10 +247,10 @@ CParseHandlerMDRelation::EndElement
 	GPOS_ASSERT(NULL != pphMdidlCheckConstraints->GetMdIdArray());
 
 	// refcount child objects
-	MDColumnPtrArray *md_col_array = md_cols_parse_handler->GetMdColArray();
-	MDIndexInfoPtrArray *md_index_info_array = pphMdlIndexInfo->GetMdIndexInfoArray();
-	MdidPtrArray *mdid_triggers_array = pphMdidlTriggers->GetMdIdArray();
-	MdidPtrArray *mdid_check_constraint_array = pphMdidlCheckConstraints->GetMdIdArray();
+	CMDColumnArray *md_col_array = md_cols_parse_handler->GetMdColArray();
+	CMDIndexInfoArray *md_index_info_array = pphMdlIndexInfo->GetMdIndexInfoArray();
+	IMdIdArray *mdid_triggers_array = pphMdidlTriggers->GetMdIdArray();
+	IMdIdArray *mdid_check_constraint_array = pphMdidlCheckConstraints->GetMdIdArray();
  
 	md_col_array->AddRef();
 	md_index_info_array->AddRef();
@@ -332,7 +332,7 @@ CParseHandlerMDRelation::ParseRelationAttributes
 	}
 
 	m_num_of_partitions = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenNumLeafPartitions, dxl_token_element,
-															true /* optional */, 0 /* default m_bytearray_value */);
+															true /* optional */, 0 /* default value */);
 }
 
 //---------------------------------------------------------------------------

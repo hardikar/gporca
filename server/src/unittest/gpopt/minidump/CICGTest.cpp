@@ -161,7 +161,7 @@ CICGTest::EresUnittest_RunUnsupportedMinidumpTests()
 {
 
 	// enable (Redistribute, Broadcast) hash join plans
-	CAutoTraceFlag atf1(EopttraceEnableRedistributeBroadcastHashJoin, true /*m_bytearray_value*/);
+	CAutoTraceFlag atf1(EopttraceEnableRedistributeBroadcastHashJoin, true /*value*/);
 
 	CAutoTraceFlag atf2(EopttraceDisableXformBase + CXform::ExfDynamicGet2DynamicTableScan, true);
 	
@@ -257,7 +257,7 @@ GPOS_RESULT
 CICGTest::EresUnittest_NegativeIndexApplyTests()
 {
 	// enable (Redistribute, Broadcast) hash join plans
-	CAutoTraceFlag atf(EopttraceEnableRedistributeBroadcastHashJoin, true /*m_bytearray_value*/);
+	CAutoTraceFlag atf(EopttraceEnableRedistributeBroadcastHashJoin, true /*value*/);
 
 	// disable physical scans and NLJ to force using index-apply
 	CAutoTraceFlag atfDTS(EopttraceDisableXformBase + CXform::ExfDynamicGet2DynamicTableScan, true);
@@ -419,10 +419,10 @@ CICGTest::EresUnittest_PreferHashJoinVersusIndexJoinWhenRiskIsHigh()
 	IMemoryPool *mp = amp.Pmp();
 
 	// enable (Redistribute, Broadcast) hash join plans
-	CAutoTraceFlag atf(EopttraceEnableRedistributeBroadcastHashJoin, true /*m_bytearray_value*/);
+	CAutoTraceFlag atf(EopttraceEnableRedistributeBroadcastHashJoin, true /*value*/);
 
 	// When the risk threshold is infinite, we should pick index join
-	CostModelParamsArray *pdrgpcpUnlimited = GPOS_NEW(mp) CostModelParamsArray(mp);
+	ICostModelParamsArray *pdrgpcpUnlimited = GPOS_NEW(mp) ICostModelParamsArray(mp);
 	ICostModelParams::SCostParam *pcpUnlimited =
 		GPOS_NEW(mp) ICostModelParams::SCostParam(
 			CCostModelParamsGPDB::EcpIndexJoinAllowedRiskThreshold,
@@ -449,7 +449,7 @@ CICGTest::EresUnittest_PreferHashJoinVersusIndexJoinWhenRiskIsHigh()
 	}
 
 	// When the risk threshold is zero, we should not pick index join
-	CostModelParamsArray *pdrgpcpNoIndexJoin = GPOS_NEW(mp) CostModelParamsArray(mp);
+	ICostModelParamsArray *pdrgpcpNoIndexJoin = GPOS_NEW(mp) ICostModelParamsArray(mp);
 	ICostModelParams::SCostParam *pcpNoIndexJoin = GPOS_NEW(mp) ICostModelParams::SCostParam
 								(
 								CCostModelParamsGPDB::EcpIndexJoinAllowedRiskThreshold,

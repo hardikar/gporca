@@ -80,7 +80,7 @@ namespace gpos
 				ULONG depth = GPOS_STACK_TRACE_DEPTH
 				) const;
 
-			// get hash m_bytearray_value for stored stack
+		// get hash value for stored stack
 			ULONG HashValue() const;
 
 	}; // class CStackTrace

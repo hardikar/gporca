@@ -44,8 +44,8 @@ namespace gpmd
 			
 			// extract the scalar expression of the constraint with the given
 			// column mappings
-			virtual
-			CExpression *GetPartConstraintExpr(IMemoryPool *mp, CMDAccessor *md_accessor, ColRefArray *colref_array) const = 0;
+      virtual
+      CExpression *GetPartConstraintExpr(IMemoryPool *mp, CMDAccessor *md_accessor, CColRefArray *colref_array) const = 0;
 			
 			// included default partitions
 			virtual

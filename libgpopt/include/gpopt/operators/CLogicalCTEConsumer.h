@@ -34,13 +34,13 @@ namespace gpopt
 			ULONG m_id;
 
 			// mapped cte columns
-			ColRefArray *m_pdrgpcr;
+			CColRefArray *m_pdrgpcr;
 
 			// inlined expression
 			CExpression *m_pexprInlined;
 
 			// map of CTE producer's output column ids to consumer's output columns
-			UlongColRefHashMap *m_phmulcr;
+			UlongToColRefMap *m_phmulcr;
 
 			// output columns
 			CColRefSet *m_pcrsOutput;
@@ -58,7 +58,7 @@ namespace gpopt
 			CLogicalCTEConsumer(IMemoryPool *mp);
 
 			// ctor
-			CLogicalCTEConsumer(IMemoryPool *mp, ULONG id, ColRefArray *colref_array);
+			CLogicalCTEConsumer(IMemoryPool *mp, ULONG id, CColRefArray *colref_array);
 
 			// dtor
 			virtual
@@ -84,13 +84,13 @@ namespace gpopt
 			}
 
 			// cte columns
-			ColRefArray *Pdrgpcr() const
+			CColRefArray *Pdrgpcr() const
 			{
 				return m_pdrgpcr;
 			}
 
 			// column mapping
-			UlongColRefHashMap *Phmulcr() const
+			UlongToColRefMap *Phmulcr() const
 			{
 				return m_phmulcr;
 			}
@@ -114,7 +114,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -176,7 +176,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CExpressionHandle &exprhdl,
-				StatsArray *stats_ctxt
+				IStatisticsArray *stats_ctxt
 				)
 				const;
 

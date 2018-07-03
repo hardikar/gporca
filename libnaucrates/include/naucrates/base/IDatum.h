@@ -28,7 +28,7 @@ namespace gpnaucrates
 
 	// hash map mapping ULONG -> Datum
 	typedef CHashMap<ULONG, IDatum, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupRelease<IDatum> > HMUlDatum;
+					CleanupDelete<ULONG>, CleanupRelease<IDatum> > UlongToIDatumMap;
 
 	//---------------------------------------------------------------------------
 	//	@class:

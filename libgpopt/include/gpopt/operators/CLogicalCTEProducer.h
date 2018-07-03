@@ -34,7 +34,7 @@ namespace gpopt
 			ULONG m_id;
 
 			// cte columns
-			ColRefArray *m_pdrgpcr;
+			CColRefArray *m_pdrgpcr;
 
 			// output columns, same as cte columns but in CColRefSet
 			CColRefSet *m_pcrsOutput;
@@ -49,7 +49,7 @@ namespace gpopt
 			CLogicalCTEProducer(IMemoryPool *mp);
 
 			// ctor
-			CLogicalCTEProducer(IMemoryPool *mp, ULONG id, ColRefArray *colref_array);
+			CLogicalCTEProducer(IMemoryPool *mp, ULONG id, CColRefArray *colref_array);
 
 			// dtor
 			virtual
@@ -75,7 +75,7 @@ namespace gpopt
 			}
 
 			// cte columns
-			ColRefArray *Pdrgpcr() const
+			CColRefArray *Pdrgpcr() const
 			{
 				return m_pdrgpcr;
 			}
@@ -103,7 +103,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -169,7 +169,7 @@ namespace gpopt
 						(
 						IMemoryPool *, //mp,
 						CExpressionHandle &exprhdl,
-						StatsArray * //stats_ctxt
+						IStatisticsArray * //stats_ctxt
 						)
 						const
 			{

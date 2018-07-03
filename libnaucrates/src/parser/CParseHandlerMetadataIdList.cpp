@@ -79,7 +79,7 @@ CParseHandlerMetadataIdList::StartElement
 		// start of an index or partition metadata id list
 		GPOS_ASSERT(NULL == m_mdid_array);
 		
-		m_mdid_array = GPOS_NEW(m_mp) MdidPtrArray(m_mp);
+		m_mdid_array = GPOS_NEW(m_mp) IMdIdArray(m_mp);
 	}
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenIndex), element_local_name))
 	{
@@ -211,7 +211,7 @@ CParseHandlerMetadataIdList::FSupportedListType
 //		Return the constructed list of metadata ids
 //
 //---------------------------------------------------------------------------
-MdidPtrArray *
+IMdIdArray *
 CParseHandlerMetadataIdList::GetMdIdArray()
 {
 	return m_mdid_array;

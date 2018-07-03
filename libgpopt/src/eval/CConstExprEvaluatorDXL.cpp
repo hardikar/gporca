@@ -137,7 +137,7 @@ CConstExprEvaluatorDXL::PexprEval
 		GPOS_RAISE(gpopt::ExmaGPOPT, gpopt::ExmiEvalUnsupportedScalarExpr, szErrorMsg);
 	}
 	CDXLNode *pdxlnExpr = m_trexpr2dxl.PdxlnScalar(pexpr);
-	CDXLNode *pdxlnResult = m_pconstdxleval->PdxlnEvaluateExpr(pdxlnExpr);
+	CDXLNode *pdxlnResult = m_pconstdxleval->EvaluateExpr(pdxlnExpr);
 
 	GPOS_ASSERT(EdxloptypeScalar == pdxlnResult->GetOperator()->GetDXLOperatorType());
 

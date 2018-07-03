@@ -36,7 +36,7 @@ namespace gpopt
 			IMDId *m_mdid;
 
 			// filter expressions corresponding to various levels
-			ExpressionArray *m_pdrgpexprFilters;
+			CExpressionArray *m_pdrgpexprFilters;
 
 			// oid column - holds the OIDs for leaf parts
 			CColRef *m_pcrOid;
@@ -54,7 +54,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				IMDId *mdid,
-				ExpressionArray *pdrgpexprFilters,
+				CExpressionArray *pdrgpexprFilters,
 				CColRef *pcrOid
 				);
 
@@ -118,7 +118,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -197,7 +197,7 @@ namespace gpopt
 				(
 				IMemoryPool *, //mp,
 				CExpressionHandle &exprhdl,
-				StatsArray * //stats_ctxt
+				IStatisticsArray * //stats_ctxt
 				)
 				const
 			{

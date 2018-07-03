@@ -54,7 +54,7 @@ CMDProviderMemory::CMDProviderMemory
 	CAutoRg<CHAR> dxl_file;
 	dxl_file = CDXLUtils::Read(mp, file_name);
 
-	CAutoRef<IMDCachePtrArray> mdcache_obj_array;
+	CAutoRef<IMDCacheObjectArray> mdcache_obj_array;
 	mdcache_obj_array = CDXLUtils::ParseDXLToIMDObjectArray(mp, dxl_file.Rgt(), NULL /*xsd_file_path*/);
 	
 #ifdef GPOS_DEBUG
@@ -76,7 +76,7 @@ CMDProviderMemory::CMDProviderMemory
 CMDProviderMemory::CMDProviderMemory
 	(
 	IMemoryPool *mp,
-	IMDCachePtrArray *mdcache_obj_array
+	IMDCacheObjectArray *mdcache_obj_array
 	)
 	:
 	m_mdmap(NULL)
@@ -96,14 +96,14 @@ void
 CMDProviderMemory::LoadMetadataObjectsFromArray
 	(
 	IMemoryPool *mp,
-	IMDCachePtrArray *mdcache_obj_array
+	IMDCacheObjectArray *mdcache_obj_array
 	)
 {
 	GPOS_ASSERT(NULL != mdcache_obj_array);
 
 	// load metadata objects from the file
-	CAutoRef<MDMap> md_map;
-	m_mdmap = GPOS_NEW(mp) MDMap(mp);
+	CAutoRef<MDIdToSerializedMDIdMap> md_map;
+	m_mdmap = GPOS_NEW(mp) MDIdToSerializedMDIdMap(mp);
 	md_map = m_mdmap;
 
 	const ULONG size = mdcache_obj_array->Size();

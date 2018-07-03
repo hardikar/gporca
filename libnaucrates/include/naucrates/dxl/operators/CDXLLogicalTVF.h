@@ -42,7 +42,7 @@ namespace gpdxl
 			CMDName *m_mdname;
 
 			// list of column descriptors		
-		DXLColumnDescrArray *m_dxl_col_descr_array;
+		CDXLColDescrArray *m_dxl_col_descr_array;
 			
 			// private copy ctor
 			CDXLLogicalTVF(const CDXLLogicalTVF &);
@@ -55,7 +55,7 @@ namespace gpdxl
 				IMDId *mdid_func,
 				IMDId *mdid_return_type,
 				CMDName *mdname,
-				DXLColumnDescrArray *pdrgdxlcd
+				CDXLColDescrArray *pdrgdxlcd
 				);
 						
 			virtual
@@ -89,7 +89,7 @@ namespace gpdxl
 			ULONG Arity() const;
 			
 			// return the array of column descriptors
-			const DXLColumnDescrArray *GetDXLColumnDescrArray() const
+			const CDXLColDescrArray *GetDXLColumnDescrArray() const
 			{
 			return m_dxl_col_descr_array;
 			}

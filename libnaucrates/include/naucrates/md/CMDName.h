@@ -55,7 +55,7 @@ namespace gpmd
 	};
 
 	// array of names
-	typedef CDynamicPtrArray<CMDName, CleanupDelete> MDNameArray;
+	typedef CDynamicPtrArray<CMDName, CleanupDelete> CMDNameArray;
 }  // namespace gpmd
 
 #endif // !GPMD_CMDName_H

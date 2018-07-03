@@ -167,10 +167,10 @@ CEngineTest::EresOptimize
 					);
 
 		// generate cross product expressions
-		DrgPexprJoins *pdrgpexprCrossProducts = CTestUtils::PdrgpexprJoins(mp, str, pul, ulRels, true /*fCrossProduct*/);
+		CExpressionJoinsArray *pdrgpexprCrossProducts = CTestUtils::PdrgpexprJoins(mp, str, pul, ulRels, true /*fCrossProduct*/);
 
 		// generate join expressions
-		DrgPexprJoins *pdrgpexpr = CTestUtils::PdrgpexprJoins(mp, str, pul, ulRels, false  /*fCrossProduct*/);
+		CExpressionJoinsArray *pdrgpexpr = CTestUtils::PdrgpexprJoins(mp, str, pul, ulRels, false  /*fCrossProduct*/);
 
 		// build memo for each expression
 		for (ULONG ul = m_ulTestCounter; ul < ulRels; ul++)
@@ -403,7 +403,7 @@ CEngineTest::BuildMemoRecursive
 	(
 	IMemoryPool *mp,
 	CExpression *pexprInput,
-	SearchStageArray *search_stage_array
+	CSearchStageArray *search_stage_array
 	)
 {
 	CQueryContext *pqc = CTestUtils::PqcGenerate(mp, pexprInput);
@@ -416,7 +416,7 @@ CEngineTest::BuildMemoRecursive
 	(void) pqc->OsPrint(os);
 
 	// enable space pruning
-	CAutoTraceFlag atf(EopttraceEnableSpacePruning, true /*m_bytearray_value*/);
+	CAutoTraceFlag atf(EopttraceEnableSpacePruning, true /*value*/);
 
 	CEngine eng(mp);
 	eng.Init(pqc, search_stage_array);

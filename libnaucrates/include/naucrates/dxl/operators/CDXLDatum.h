@@ -111,7 +111,7 @@ namespace gpdxl
 			virtual
 			void Serialize(CXMLSerializer *xml_serializer, const CWStringConst *datum_string);
 
-			// is type passed by m_bytearray_value
+			// is type passed by value
 			virtual
 			BOOL IsPassedByValue() const = 0;
 
@@ -125,10 +125,10 @@ namespace gpdxl
 	};
 
 	// array of datums
-	typedef CDynamicPtrArray<CDXLDatum, CleanupRelease> DXLDatumArray;
+	typedef CDynamicPtrArray<CDXLDatum, CleanupRelease> CDXLDatumArray;
 
 	// dynamic array of datum arrays -- array owns elements
-	typedef CDynamicPtrArray<DXLDatumArray, CleanupRelease> DXLDatumArrays;
+	typedef CDynamicPtrArray<CDXLDatumArray, CleanupRelease> DXLDatumArrays;
 }
 
 #endif // !GPDXL_CDXLDatum_H

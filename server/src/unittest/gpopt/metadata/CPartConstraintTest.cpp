@@ -184,7 +184,7 @@ CPartConstraintTest::PcnstrInterval
 	CExpression *pexprConstRight = CUtils::PexprScalarConstInt4(mp, ulRight);
 
 	// AND
-	ExpressionArray *pdrgpexpr = GPOS_NEW(mp) ExpressionArray(mp);
+	CExpressionArray *pdrgpexpr = GPOS_NEW(mp) CExpressionArray(mp);
 	pdrgpexpr->Append(CUtils::PexprScalarCmp(mp, colref, pexprConstLeft, IMDType::EcmptGEq));
 	pdrgpexpr->Append(CUtils::PexprScalarCmp(mp, colref, pexprConstRight, IMDType::EcmptL));
 
@@ -208,7 +208,7 @@ CPartConstraintTest::PcnstrInterval
 GPOS_RESULT
 CPartConstraintTest::EresUnittest_DateIntervals()
 {
-	CAutoTraceFlag atf(EopttraceEnableConstantExpressionEvaluation, true /*m_bytearray_value*/);
+	CAutoTraceFlag atf(EopttraceEnableConstantExpressionEvaluation, true /*value*/);
 
 	CAutoMemoryPool amp;
 	IMemoryPool *mp = amp.Pmp();

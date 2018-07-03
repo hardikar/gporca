@@ -40,12 +40,12 @@ namespace gpnaucrates
 
 		private:
 
-			// triplet consisting of comparison type, double m_bytearray_value and its byte array representation
+			// triplet consisting of comparison type, double value and its byte array representation
 			struct SStatsCmpValElem
 			{
 				CStatsPred::EStatsCmpType m_stats_cmp_type; // comparison operator
 				const WCHAR *m_wsz; // byte array representation
-				CDouble m_value; // double m_bytearray_value
+				CDouble m_value; // double value
 			}; // SStatsCmpValElem
 
 			// test case for disjunctive filter evaluation
@@ -146,7 +146,7 @@ namespace gpnaucrates
 
 			// generate an array of filter given a column identifier, comparison type, and array of integer point
 			static
-			StatsPredPtrArry *PdrgpstatspredInteger
+			CStatsPredPtrArry *PdrgpstatspredInteger
 			(
 					IMemoryPool *mp,
 					ULONG colid,
@@ -157,7 +157,7 @@ namespace gpnaucrates
 
 			// create a numeric predicate on a particular column
 			static
-			StatsPredPtrArry *PdrgppredfilterNumeric(IMemoryPool *mp, ULONG colid, SStatsCmpValElem statsCmpValElem);
+			CStatsPredPtrArry *PdrgppredfilterNumeric(IMemoryPool *mp, ULONG colid, SStatsCmpValElem statsCmpValElem);
 
 			// create a filter on a column with null values
 			static

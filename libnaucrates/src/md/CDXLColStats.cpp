@@ -41,7 +41,7 @@ CDXLColStats::CDXLColStats
 	CDouble null_freq,
 	CDouble distinct_remaining,
 	CDouble freq_remaining,
-	DXLBucketPtrArray *dxl_stats_bucket_array,
+	CDXLBucketArray *dxl_stats_bucket_array,
 	BOOL is_col_stats_missing
 	)
 	:
@@ -244,8 +244,8 @@ CDXLColStats::CreateDXLDummyColStats
 {
 	CMDIdColStats *mdid_col_stats = CMDIdColStats::CastMdid(mdid);
 
-	CAutoRef<DXLBucketPtrArray> dxl_bucket_array;
-	dxl_bucket_array = GPOS_NEW(mp) DXLBucketPtrArray(mp);
+	CAutoRef<CDXLBucketArray> dxl_bucket_array;
+	dxl_bucket_array = GPOS_NEW(mp) CDXLBucketArray(mp);
 	CAutoRef<CDXLColStats> dxl_col_stats;
 	dxl_col_stats = GPOS_NEW(mp) CDXLColStats
 					(

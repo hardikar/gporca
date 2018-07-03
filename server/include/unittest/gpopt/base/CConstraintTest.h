@@ -37,9 +37,9 @@ namespace gpopt
 		struct SRangeInfo
 		{
 			CRange::ERangeInclusion eriLeft;	// inclusion for left end
-			INT iLeft;							// left end m_bytearray_value
+			INT iLeft;							// left end value
 			CRange::ERangeInclusion eriRight;	// inclusion for right end
-			INT iRight;							// right end m_bytearray_value
+			INT iRight;							// right end value
 		};
 
 		private:
@@ -81,7 +81,7 @@ namespace gpopt
 
 			// construct an array of ranges to be used to create an interval
 			static
-			RangeArray *Pdrgprng
+			CRangeArray *Pdrgprng
 						(
 						IMemoryPool *mp,
 						IMDId *mdid,
@@ -180,7 +180,7 @@ namespace gpopt
 			GPOS_RESULT EresUnittest_ConstraintsOnDates();
 
 			// print equivalence classes
-			static void PrintEquivClasses(IMemoryPool *mp, ColRefSetArray *pdrgpcrs, BOOL fExpected = false);
+			static void PrintEquivClasses(IMemoryPool *mp, CColRefSetArray *pdrgpcrs, BOOL fExpected = false);
 	}; // class CConstraintTest
 }
 

@@ -219,7 +219,7 @@ namespace gpmd
 			virtual
 			IMDPartConstraint *MDPartConstraint() const = 0;
 			
-			// relation distribution policy as a string m_bytearray_value
+			// relation distribution policy as a string value
 			static
 			const CWStringConst *GetDistrPolicyStr(Ereldistrpolicy rel_distr_policy);
 			
@@ -229,7 +229,7 @@ namespace gpmd
 	};
 
 	// common structure over relation and external relation metadata for index info
-	typedef CDynamicPtrArray<CMDIndexInfo, CleanupRelease> MDIndexInfoPtrArray;
+	typedef CDynamicPtrArray<CMDIndexInfo, CleanupRelease> CMDIndexInfoArray;
 	
 }
 

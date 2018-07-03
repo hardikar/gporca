@@ -32,19 +32,19 @@ namespace gpopt
 
 		private:
 			// array of column descriptors: the schema of the const table
-			ColumnDescrArray *m_pdrgpcoldesc;
+			CColumnDescriptorArray *m_pdrgpcoldesc;
 		
 			// array of datum arrays
 			IDatumArrays *m_pdrgpdrgpdatum;
 			
 			// output columns
-			ColRefArray *m_pdrgpcrOutput;
+			CColRefArray *m_pdrgpcrOutput;
 			
 			// private copy ctor
 			CLogicalConstTableGet(const CLogicalConstTableGet &);
 			
 			// construct column descriptors from column references
-			ColumnDescrArray *PdrgpcoldescMapping(IMemoryPool *mp, ColRefArray *colref_array)	const;
+			CColumnDescriptorArray *PdrgpcoldescMapping(IMemoryPool *mp, CColRefArray *colref_array)	const;
 
 		public:
 		
@@ -55,14 +55,14 @@ namespace gpopt
 			CLogicalConstTableGet
 				(
 				IMemoryPool *mp,
-				ColumnDescrArray *pdrgpcoldesc,
+				CColumnDescriptorArray *pdrgpcoldesc,
 				IDatumArrays *pdrgpdrgpdatum
 				);
 
 			CLogicalConstTableGet
 				(
 				IMemoryPool *mp,
-				ColRefArray *pdrgpcrOutput,
+				CColRefArray *pdrgpcrOutput,
 				IDatumArrays *pdrgpdrgpdatum
 				);
 
@@ -85,7 +85,7 @@ namespace gpopt
 			}
 			
 			// col descr accessor
-			ColumnDescrArray *Pdrgpcoldesc() const
+			CColumnDescriptorArray *Pdrgpcoldesc() const
 			{
 				return m_pdrgpcoldesc;
 			}
@@ -97,7 +97,7 @@ namespace gpopt
 			}
 			
 			// accessors
-			ColRefArray *PdrgpcrOutput() const
+			CColRefArray *PdrgpcrOutput() const
 			{
 				return m_pdrgpcrOutput;
 			}
@@ -115,7 +115,7 @@ namespace gpopt
 			
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -152,7 +152,7 @@ namespace gpopt
 			{
 				// TODO:  - Jan 11, 2013; compute constraints based on the
 				// datum values in this CTG
-				return GPOS_NEW(mp) CPropConstraint(mp, GPOS_NEW(mp) ColRefSetArray(mp), NULL /*pcnstr*/);
+				return GPOS_NEW(mp) CPropConstraint(mp, GPOS_NEW(mp) CColRefSetArray(mp), NULL /*pcnstr*/);
 			}
 
 			//-------------------------------------------------------------------------------------
@@ -180,7 +180,7 @@ namespace gpopt
 						(
 						IMemoryPool *mp,
 						CExpressionHandle &exprhdl,
-						StatsArray *stats_ctxt
+						IStatisticsArray *stats_ctxt
 						)
 						const;
 

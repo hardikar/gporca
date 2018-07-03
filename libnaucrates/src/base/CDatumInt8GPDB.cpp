@@ -104,7 +104,7 @@ CDatumInt8GPDB::~CDatumInt8GPDB()
 //		CDatumInt8GPDB::Value
 //
 //	@doc:
-//		Accessor of integer m_bytearray_value
+//		Accessor of integer value
 //
 //---------------------------------------------------------------------------
 LINT

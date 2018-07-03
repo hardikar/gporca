@@ -49,11 +49,11 @@ namespace gpopt
 
 	// type definitions
 	// array of groups
-	typedef CDynamicPtrArray<CGroup, CleanupNULL> GroupArray;
+	typedef CDynamicPtrArray<CGroup, CleanupNULL> CGroupArray;
 	
 	// map required plan props to cost lower bound of corresponding plan
 	typedef CHashMap<CReqdPropPlan, CCost, CReqdPropPlan::UlHashForCostBounding, CReqdPropPlan::FEqualForCostBounding,
-					CleanupRelease<CReqdPropPlan>, CleanupDelete<CCost> > CostMap;
+					CleanupRelease<CReqdPropPlan>, CleanupDelete<CCost> > ReqdPropPlanToCostMap;
 
 	// optimization levels in ascending order,
 	// under a given optimization context, group expressions in higher levels
@@ -181,7 +181,7 @@ namespace gpopt
 
 			// map of computed stats objects during costing
 			typedef CHashMap<COptimizationContext, IStatistics, COptimizationContext::UlHashForStats, COptimizationContext::FEqualForStats,
-							CleanupRelease<COptimizationContext>, CleanupRelease<IStatistics> > StatsMap;
+							CleanupRelease<COptimizationContext>, CleanupRelease<IStatistics> > OptCtxtToIStatisticsMap;
 
 			// memory pool
 			IMemoryPool *m_mp;
@@ -193,10 +193,10 @@ namespace gpopt
 			BOOL m_fScalar;
 
 			// hash join keys for outer child (only for scalar groups)
-			ExpressionArray *m_pdrgpexprHashJoinKeysOuter;
+			CExpressionArray *m_pdrgpexprHashJoinKeysOuter;
 
 			// hash join keys for inner child (only for scalar groups)
-			ExpressionArray *m_pdrgpexprHashJoinKeysInner;
+			CExpressionArray *m_pdrgpexprHashJoinKeysInner;
 
 			// list of group expressions
 			CList<CGroupExpression> m_listGExprs;
@@ -224,7 +224,7 @@ namespace gpopt
 			LinkMap *m_plinkmap;
 
 			// map of computed stats during costing
-			StatsMap *m_pstatsmap;
+			OptCtxtToIStatisticsMap *m_pstatsmap;
 
 			// mutex for locking stats map when adding a new entry
 			CMutex m_mutexStats;
@@ -240,7 +240,7 @@ namespace gpopt
 			ULONG m_ulGExprs;
 
 			// map of cost lower bounds
-			CostMap *m_pcostmap;
+			ReqdPropPlanToCostMap *m_pcostmap;
 
 			// number of optimization contexts
 			volatile ULONG_PTR m_ulpOptCtxts;
@@ -287,7 +287,7 @@ namespace gpopt
 			void SetState(EState estNewState);
 
 			// set hash join keys
-			void SetHashJoinKeys(ExpressionArray *pdrgpexprOuter, ExpressionArray *pdrgpexprInner);
+			void SetHashJoinKeys(CExpressionArray *pdrgpexprOuter, CExpressionArray *pdrgpexprInner);
 
 			// insert new group expression
 			void Insert(CGroupExpression *pgexpr);
@@ -325,7 +325,7 @@ namespace gpopt
 				IMemoryPool *pmpGlobal,
 				CGroupExpression *pgexpr,
 				CReqdPropRelational *prprel,
-				StatsArray *stats_ctxt,
+				IStatisticsArray *stats_ctxt,
 				BOOL fDeriveChildStats
 				);
 
@@ -361,7 +361,7 @@ namespace gpopt
 				IMemoryPool *pmpLocal,
 				IMemoryPool *pmpGlobal,
 				CReqdPropRelational *prprelInput,
-				StatsArray *stats_ctxt
+				IStatisticsArray *stats_ctxt
 				);
 
 		public:
@@ -406,13 +406,13 @@ namespace gpopt
 			}
 
 			// hash join keys of outer child
-			ExpressionArray *PdrgpexprHashJoinKeysOuter() const
+			CExpressionArray *PdrgpexprHashJoinKeysOuter() const
 			{
 				return m_pdrgpexprHashJoinKeysOuter;
 			}
 
 			// hash join keys of inner child
-			ExpressionArray *PdrgpexprHashJoinKeysInner() const
+			CExpressionArray *PdrgpexprHashJoinKeysInner() const
 			{
 				return m_pdrgpexprHashJoinKeysInner;
 			}
@@ -567,7 +567,7 @@ namespace gpopt
 				IMemoryPool *pmpLocal,
 				IMemoryPool *pmpGlobal,
 				CReqdPropRelational *prprel,
-				StatsArray *stats_ctxt
+				IStatisticsArray *stats_ctxt
 				);
 
 			// find group expression with best stats promise and the same given children
@@ -599,16 +599,16 @@ namespace gpopt
 			static
 			BOOL FMatchGroups
 				(
-				GroupArray *pdrgpgroupFst,
-				GroupArray *pdrgpgroupSnd
+				CGroupArray *pdrgpgroupFst,
+				CGroupArray *pdrgpgroupSnd
 				);
 
 			// matching of pairs of arrays of groups while skipping scalar groups
 			static
 			BOOL FMatchNonScalarGroups
 				(
-				GroupArray *pdrgpgroupFst,
-				GroupArray *pdrgpgroupSnd
+				CGroupArray *pdrgpgroupFst,
+				CGroupArray *pdrgpgroupSnd
 				);
 
 			// determine if a pair of groups are duplicates

@@ -61,7 +61,7 @@ CScalarSubquery::~CScalarSubquery()
 //		CScalarSubquery::MDIdType
 //
 //	@doc:
-//		Type of scalar's m_bytearray_value
+//		Type of scalar's value
 //
 //---------------------------------------------------------------------------
 IMDId *
@@ -127,7 +127,7 @@ COperator *
 CScalarSubquery::PopCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {

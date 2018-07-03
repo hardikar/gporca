@@ -116,7 +116,7 @@ CTreeMapTest::CNode::CNode
 	(
 	IMemoryPool *, // mp
 	ULONG *pulData,
-	NodeArray *pdrgpnd
+	CNodeArray *pdrgpnd
 	)
 	:
 	m_ulData(gpos::ulong_max),
@@ -156,7 +156,7 @@ CTreeMapTest::Pnd
 	(
 	IMemoryPool *mp,
 	ULONG *pul,
-	NodeArray *pdrgpnd,
+	CNodeArray *pdrgpnd,
 	BOOL *fTestTrue
 	)
 {
@@ -474,7 +474,7 @@ CTreeMapTest::EresUnittest_FailedPlanEnumerationTests()
 	CAutoTraceFlag atf1(EopttraceEnumeratePlans, fMatchPlans);
 
 	// enable stats derivation for DPE
-	CAutoTraceFlag atf2(EopttraceDeriveStatsForDPE, true /*m_bytearray_value*/);
+	CAutoTraceFlag atf2(EopttraceDeriveStatsForDPE, true /*value*/);
 
 	const ULONG ulTests = GPOS_ARRAY_SIZE(rgszFailedPlanEnumerationTests);
 	GPOS_RESULT eres = GPOS_OK;

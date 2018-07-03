@@ -84,7 +84,7 @@ namespace gpnaucrates
 			virtual
 			CDouble GetStatsDistanceFrom(const IDatum *datum) const;
 
-			// return double representation of mapping m_bytearray_value
+		// return double representation of mapping value
 			CDouble GetValAsDouble() const;
 
 	}; // class IDatumStatisticsMappable

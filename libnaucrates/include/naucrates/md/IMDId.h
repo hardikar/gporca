@@ -104,7 +104,7 @@ namespace gpmd
 			virtual 
 			BOOL Equals(const IMDId *mdid) const = 0;
 					
-			// computes the hash m_bytearray_value for the metadata id
+			// computes the hash value for the metadata id
 			virtual
 			ULONG HashValue() const = 0;
 			
@@ -201,7 +201,7 @@ namespace gpmd
 			virtual
 			BOOL IsValid() const = 0;
 			
-			// serialize mdid in DXL as the m_bytearray_value for the specified attribute
+			// serialize mdid in DXL as the value for the specified attribute
 			virtual
 			void Serialize(CXMLSerializer *xml_serializer, const CWStringConst *pstrAttribute) const = 0;
 
@@ -218,7 +218,7 @@ namespace gpmd
 	};
 	
 	// common structures over metadata id elements
-	typedef CDynamicPtrArray<IMDId, CleanupRelease> MdidPtrArray;
+	typedef CDynamicPtrArray<IMDId, CleanupRelease> IMdIdArray;
 
     // hash set for mdid
     typedef CHashSet<IMDId, IMDId::MDIdHash, IMDId::MDIdCompare, CleanupRelease<IMDId> > MdidHashSet;

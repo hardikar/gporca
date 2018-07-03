@@ -223,7 +223,7 @@ CParseHandlerPhysicalDML::EndElement
 //		CParseHandlerPhysicalDML::GetDmlOpType
 //
 //	@doc:
-//		Parse the dml type from the attribute m_bytearray_value
+//		Parse the dml type from the attribute value
 //
 //---------------------------------------------------------------------------
 EdxlDmlType

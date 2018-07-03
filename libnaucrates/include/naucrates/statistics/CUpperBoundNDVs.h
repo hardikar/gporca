@@ -24,7 +24,7 @@ namespace gpnaucrates
         class CUpperBoundNDVs;
 
         // dynamic array of upper bound ndvs
-        typedef CDynamicPtrArray<CUpperBoundNDVs, CleanupDelete> UpperBoundNDVPtrArray;
+	typedef CDynamicPtrArray<CUpperBoundNDVs, CleanupDelete> CUpperBoundNDVPtrArray;
 
         //---------------------------------------------------------------------------
         //      @class:
@@ -87,7 +87,7 @@ namespace gpnaucrates
 
                         // copy upper bound ndvs with remapped column id; function will
                         // return null if there is no mapping found for any of the columns
-                        CUpperBoundNDVs *CopyUpperBoundNDVWithRemap(IMemoryPool *mp, UlongColRefHashMap *colid_to_colref_map) const;
+                        CUpperBoundNDVs *CopyUpperBoundNDVWithRemap(IMemoryPool *mp, UlongToColRefMap *colid_to_colref_map) const;
 
                         // print function
                         IOstream &OsPrint(IOstream &os) const;

@@ -88,8 +88,8 @@ namespace gpnaucrates
 	}; // class CStatsPredJoin
 
 	// array of filters
-	typedef CDynamicPtrArray<CStatsPredJoin, CleanupRelease> StatsPredJoinArray;
-}
+	typedef CDynamicPtrArray<CStatsPredJoin, CleanupRelease> CStatsPredJoinArray;
+}  // namespace gpnaucrates
 
 #endif // !GPNAUCRATES_CStatsPredJoin_H
 

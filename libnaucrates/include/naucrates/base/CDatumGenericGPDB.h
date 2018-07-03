@@ -40,7 +40,7 @@ class CDatumGenericGPDB : public IDatumGeneric
 		// size in bytes
 		ULONG m_size;
 
-		// a pointer to datum m_bytearray_value
+		// a pointer to datum value
 		BYTE *m_bytearray_value;
 
 		// is null
@@ -51,10 +51,10 @@ class CDatumGenericGPDB : public IDatumGeneric
 
 		INT m_type_modifier;
 
-		// long int m_bytearray_value used for statistic computation
+		// long int value used for statistic computation
 		LINT m_stats_comp_val_int;
 
-		// double m_bytearray_value used for statistic computation
+		// double value used for statistic computation
 		CDouble m_stats_comp_val_double;
 
 		// private copy ctor

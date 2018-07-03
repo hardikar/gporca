@@ -77,7 +77,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CReqdPropPlan *prppInput,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt
+				CDrvdPropArrays *pdrgpdpCtxt
 				);
 
 		public:
@@ -134,7 +134,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CReqdProp *prpInput,
 					ULONG child_index,
-					DrgPdp *pdrgpdpCtxt,
+					CDrvdPropArrays *pdrgpdpCtxt,
 					ULONG ulOptReq
 					);
 
@@ -145,7 +145,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CReqdProp *prpInput,
 					ULONG child_index,
-					DrgPdp *pdrgpdpCtxt
+					CDrvdPropArrays *pdrgpdpCtxt
 					);
 
 			// required ctes computation function
@@ -155,7 +155,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CReqdProp *prpInput,
 					ULONG child_index,
-					DrgPdp *pdrgpdpCtxt
+					CDrvdPropArrays *pdrgpdpCtxt
 					);
 
 			// required columns accessor
@@ -245,7 +245,7 @@ namespace gpopt
 
 			// map input required and derived plan properties into new required plan properties
 			static
-			CReqdPropPlan *PrppRemap(IMemoryPool *mp, CReqdPropPlan *prppInput, CDrvdPropPlan *pdpplanInput, UlongColRefHashMap *colref_mapping);
+			CReqdPropPlan *PrppRemap(IMemoryPool *mp, CReqdPropPlan *prppInput, CDrvdPropPlan *pdpplanInput, UlongToColRefMap *colref_mapping);
 
 			// print function
 			virtual

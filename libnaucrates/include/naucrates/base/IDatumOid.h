@@ -49,7 +49,7 @@ namespace gpnaucrates
 				return IMDType::EtiOid;
 			}
 
-			// accessor of oid m_bytearray_value
+			// accessor of oid value
 			virtual
 			OID OidValue() const = 0;
 

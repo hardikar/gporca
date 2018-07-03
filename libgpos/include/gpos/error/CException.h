@@ -84,7 +84,7 @@ namespace gpos
 	//		CException
 	//
 	//	@doc:
-	//		Basic exception class -- used for "throw by m_bytearray_value/catch by reference"
+	//		Basic exception class -- used for "throw by value/catch by reference"
 	//		Contains only a category (= major) and a error (= minor).
 	//
 	//---------------------------------------------------------------------------

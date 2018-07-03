@@ -54,7 +54,7 @@ CLogicalConstTableGet::CLogicalConstTableGet
 CLogicalConstTableGet::CLogicalConstTableGet
 	(
 	IMemoryPool *mp,
-	ColumnDescrArray *pdrgpcoldesc,
+	CColumnDescriptorArray *pdrgpcoldesc,
 	IDatumArrays *pdrgpdrgpdatum
 	)
 	:
@@ -89,7 +89,7 @@ CLogicalConstTableGet::CLogicalConstTableGet
 CLogicalConstTableGet::CLogicalConstTableGet
 	(
 	IMemoryPool *mp,
-	ColRefArray *pdrgpcrOutput,
+	CColRefArray *pdrgpcrOutput,
 	IDatumArrays *pdrgpdrgpdatum
 	)
 	:
@@ -141,7 +141,7 @@ CLogicalConstTableGet::HashValue() const
 {
 	ULONG ulHash = gpos::CombineHashes(COperator::HashValue(),
 								gpos::CombineHashes(
-										gpos::HashPtr<ColumnDescrArray>(m_pdrgpcoldesc),
+										gpos::HashPtr<CColumnDescriptorArray>(m_pdrgpcoldesc),
 										gpos::HashPtr<IDatumArrays>(m_pdrgpdrgpdatum)));
 	ulHash = gpos::CombineHashes(ulHash, CUtils::UlHashColArray(m_pdrgpcrOutput));
 
@@ -188,11 +188,11 @@ COperator *
 CLogicalConstTableGet::PopCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {
-	ColRefArray *colref_array = NULL;
+	CColRefArray *colref_array = NULL;
 	if (must_exist)
 	{
 		colref_array = CUtils::PdrgpcrRemapAndCreate(mp, m_pdrgpcrOutput, colref_mapping);
@@ -292,16 +292,16 @@ CLogicalConstTableGet::PxfsCandidates
 //		Construct column descriptors from column references
 //
 //---------------------------------------------------------------------------
-ColumnDescrArray *
+CColumnDescriptorArray *
 CLogicalConstTableGet::PdrgpcoldescMapping
 	(
 	IMemoryPool *mp,
-	ColRefArray *colref_array
+	CColRefArray *colref_array
 	)
 	const
 {
 	GPOS_ASSERT(NULL != colref_array);
-	ColumnDescrArray *pdrgpcoldesc = GPOS_NEW(mp) ColumnDescrArray(mp);
+	CColumnDescriptorArray *pdrgpcoldesc = GPOS_NEW(mp) CColumnDescriptorArray(mp);
 
 	const ULONG length = colref_array->Size();
 	for (ULONG ul = 0; ul < length; ul++)
@@ -344,7 +344,7 @@ CLogicalConstTableGet::PstatsDerive
 	(
 	IMemoryPool *mp,
 	CExpressionHandle &exprhdl,
-	StatsArray * // not used
+	IStatisticsArray * // not used
 	)
 	const
 {

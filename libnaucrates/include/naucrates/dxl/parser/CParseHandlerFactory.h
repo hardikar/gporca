@@ -359,7 +359,7 @@ namespace gpdxl
 				CParseHandlerBase *parse_handler_root
 				);
 			
-			// construct a column default m_bytearray_value expression parse handler
+			// construct a column default value expression parse handler
 			static
 			CParseHandlerBase *CreateColDefaultValExprParseHandler
 				(

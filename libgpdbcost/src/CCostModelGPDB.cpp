@@ -1251,7 +1251,7 @@ CCostModelGPDB::CostSequenceProject
 	const DOUBLE dWidthOuter = pci->GetWidth()[0];
 
 	ULONG ulSortCols = 0;
-	OrderSpecArray *pdrgpos = CPhysicalSequenceProject::PopConvert(exprhdl.Pop())->Pdrgpos();
+	COrderSpecArray *pdrgpos = CPhysicalSequenceProject::PopConvert(exprhdl.Pop())->Pdrgpos();
 	const ULONG ulOrderSpecs = pdrgpos->Size();
 	for (ULONG ul = 0; ul < ulOrderSpecs; ul++)
 	{
@@ -1374,14 +1374,14 @@ CCostModelGPDB::CostBitmapTableScan
 		// the dominant factor in costing Index Scan so we are using it in our model. Also we are giving
 		// Bitmap Scan a start up cost similar to Sequential Scan.
 
-		// TODO: ; 2017-11-14; use proper start up cost m_bytearray_value.
+		// TODO: ; 2017-11-14; use proper start up cost value.
 		// Conceptually the cost of evaluating index qual is also linear in the
 		// number of index columns, but we're only accounting for the dominant cost
 		return CCost(pci->NumRebinds() * (pci->Rows() * pci->Width() * dIndexFilterCostUnit +  dInitScan));
 	}
 
 	// if the expression is const table get, the pcrsUsed is empty
-	// so we use minimum m_bytearray_value MinDistinct for dNDV in that case.
+	// so we use minimum value MinDistinct for dNDV in that case.
 	CDouble dNDV = CHistogram::MinDistinct;
 	if (1 == pcrsUsed->Size())
 	{

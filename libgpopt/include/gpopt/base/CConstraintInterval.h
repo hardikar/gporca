@@ -27,7 +27,7 @@ namespace gpopt
 {
 
 	// range array
-	typedef CDynamicPtrArray<CRange, CleanupRelease> RangeArray;
+	typedef CDynamicPtrArray<CRange, CleanupRelease> CRangeArray;
 
 	using namespace gpos;
 	using namespace gpmd;
@@ -51,9 +51,9 @@ namespace gpopt
 			const CColRef *m_pcr;
 
 			// array of ranges
-			RangeArray *m_pdrgprng;
+			CRangeArray *m_pdrgprng;
 
-			// does the interval include the null m_bytearray_value
+			// does the interval include the null value
 			BOOL m_fIncludesNull;
 
 			// hidden copy ctor
@@ -64,16 +64,16 @@ namespace gpopt
 			void AddRemainingRanges
 					(
 					IMemoryPool *mp,
-					RangeArray *pdrgprngSrc,
+					CRangeArray *pdrgprngSrc,
 					ULONG ulStart,
-					RangeArray *pdrgprngDest
+					CRangeArray *pdrgprngDest
 					);
 
 			// append the given range to the array or extend the last element
 			void AppendOrExtend
 					(
 					IMemoryPool *mp,
-					RangeArray *pdrgprng,
+					CRangeArray *pdrgprng,
 					CRange *prange
 					);
 
@@ -85,7 +85,7 @@ namespace gpopt
 					CRange *prangeFirst,
 					CRange *prangeSecond,
 					CRange **pprangeResidual,
-					RangeArray *pdrgprngResidual
+					CRangeArray *pdrgprngResidual
 					);
 
 			// type of this interval
@@ -153,7 +153,7 @@ namespace gpopt
 
 			// creates a range like [x,x] where x is a constant
 			static
-			RangeArray *PciRangeFromColConstCmp(IMemoryPool *mp,
+			CRangeArray *PciRangeFromColConstCmp(IMemoryPool *mp,
 											 IMDType::ECmpType cmp_type,
 											 const CScalarConst *popScConst);
 
@@ -163,7 +163,7 @@ namespace gpopt
 		public:
 
 			// ctor
-			CConstraintInterval(IMemoryPool *mp, const CColRef *colref, RangeArray *pdrgprng, BOOL is_null);
+			CConstraintInterval(IMemoryPool *mp, const CColRef *colref, CRangeArray *pdrgprng, BOOL is_null);
 
 			// dtor
 			virtual
@@ -183,12 +183,12 @@ namespace gpopt
 			}
 
 			// all ranges in interval
-			RangeArray *Pdrgprng() const
+			CRangeArray *Pdrgprng() const
 			{
 				return m_pdrgprng;
 			}
 
-			// does the interval include the null m_bytearray_value
+			// does the interval include the null value
 			BOOL FIncludesNull() const
 			{
 				return m_fIncludesNull;
@@ -215,7 +215,7 @@ namespace gpopt
 
 			// return a copy of the constraint with remapped columns
 			virtual
-			CConstraint *PcnstrCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			CConstraint *PcnstrCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			// interval intersection
 			CConstraintInterval *PciIntersect(IMemoryPool *mp, CConstraintInterval *pci);

@@ -41,7 +41,7 @@ namespace gpopt
 			CLogicalInnerApply(IMemoryPool *mp);
 
 			// ctor
-			CLogicalInnerApply(IMemoryPool *mp, ColRefArray *pdrgpcrInner, EOperatorId eopidOriginSubq);
+			CLogicalInnerApply(IMemoryPool *mp, CColRefArray *pdrgpcrInner, EOperatorId eopidOriginSubq);
 
 			// dtor
 			virtual
@@ -63,7 +63,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties

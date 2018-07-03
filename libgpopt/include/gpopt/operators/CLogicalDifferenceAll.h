@@ -44,8 +44,8 @@ namespace gpopt
 			CLogicalDifferenceAll
 				(
 				IMemoryPool *mp,
-				ColRefArray *pdrgpcrOutput,
-				ColRefArrays *pdrgpdrgpcrInput
+				CColRefArray *pdrgpcrOutput,
+				CColRefArrays *pdrgpdrgpcrInput
 				);
 
 			// dtor
@@ -74,7 +74,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -124,7 +124,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CExpressionHandle &exprhdl,
-				StatsArray *stats_ctxt
+				IStatisticsArray *stats_ctxt
 				)
 				const;
 

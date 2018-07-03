@@ -35,7 +35,7 @@ class CDatumBoolGPDB : public IDatumBool
 		// type information
 		IMDId *m_mdid;
 	
-		// boolean m_bytearray_value
+		// boolean value
 		BOOL m_value;
 
 		// is null
@@ -58,7 +58,7 @@ class CDatumBoolGPDB : public IDatumBool
 		virtual
 		IMDId *MDId() const;
 
-		// accessor of boolean m_bytearray_value
+		// accessor of boolean value
 		virtual
 		BOOL GetValue() const;
 

@@ -212,8 +212,8 @@ COptimizationContext::FOptimize
 BOOL
 COptimizationContext::FEqualContextIds
 	(
-	OptimizationContextArray *pdrgpocFst,
-	OptimizationContextArray *pdrgpocSnd
+	COptimizationContextArray *pdrgpocFst,
+	COptimizationContextArray *pdrgpocSnd
 	)
 {
 	if (NULL == pdrgpocFst || NULL == pdrgpocSnd)
@@ -445,7 +445,7 @@ COptimizationContext::PrppCTEProducer
 
 	CColRefSet *pcrsInnerOutput = CDrvdPropRelational::GetRelationalProperties((*pgexpr)[1]->Pdp())->PcrsOutput();
 	CPhysicalCTEProducer *popProducer = CPhysicalCTEProducer::PopConvert(pccProducer->Pgexpr()->Pop());
-	UlongColRefHashMap *colref_mapping = COptCtxt::PoctxtFromTLS()->Pcteinfo()->PhmulcrConsumerToProducer(mp, popProducer->UlCTEId(), pcrsInnerOutput, popProducer->Pdrgpcr());
+	UlongToColRefMap *colref_mapping = COptCtxt::PoctxtFromTLS()->Pcteinfo()->PhmulcrConsumerToProducer(mp, popProducer->UlCTEId(), pcrsInnerOutput, popProducer->Pdrgpcr());
 	CReqdPropPlan *prppProducer = CReqdPropPlan::PrppRemap(mp, pocProducer->Prpp(), pccConsumer->Pdpplan(), colref_mapping);
 	colref_mapping->Release();
 

@@ -95,7 +95,7 @@ CDistributionSpec *
 CDistributionSpecRouted::PdsCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {
@@ -142,7 +142,7 @@ CDistributionSpecRouted::AppendEnforcers
 	prpp
 #endif // GPOS_DEBUG
 	,
-	ExpressionArray *pdrgpexpr,
+	CExpressionArray *pdrgpexpr,
 	CExpression *pexpr
 	)
 {

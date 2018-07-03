@@ -66,7 +66,7 @@ CMDTypeInt2GPDB::CMDTypeInt2GPDB
 
 	GPOS_ASSERT(GPDB_INT2_OID == CMDIdGPDB::CastMdid(m_mdid)->Oid());
 	m_mdid->AddRef();
-	m_datum_null = GPOS_NEW(mp) CDatumInt2GPDB(m_mdid, 1 /* m_bytearray_value */, true /* is_null */);
+	m_datum_null = GPOS_NEW(mp) CDatumInt2GPDB(m_mdid, 1 /* value */, true /* is_null */);
 }
 
 //---------------------------------------------------------------------------
@@ -341,7 +341,7 @@ CMDTypeInt2GPDB::GetDXLDatumNull
 {
 	m_mdid->AddRef();
 
-	return GPOS_NEW(mp) CDXLDatumInt2(mp, m_mdid, true /*is_null*/, 1 /* a dummy m_bytearray_value */);
+	return GPOS_NEW(mp) CDXLDatumInt2(mp, m_mdid, true /*is_null*/, 1 /* a dummy value */);
 }
 
 #ifdef GPOS_DEBUG

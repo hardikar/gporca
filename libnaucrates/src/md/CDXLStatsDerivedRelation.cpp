@@ -29,7 +29,7 @@ CDXLStatsDerivedRelation::CDXLStatsDerivedRelation
 	(
 	CDouble rows,
 	BOOL is_empty,
-	DXLStatsDerivedColArray *dxl_stats_derived_col_array
+	CDXLStatsDerivedColumnArray *dxl_stats_derived_col_array
 	)
 	:
 	m_rows(rows),
@@ -60,7 +60,7 @@ CDXLStatsDerivedRelation::~CDXLStatsDerivedRelation()
 //		Returns the array of derived columns stats
 //
 //---------------------------------------------------------------------------
-const DXLStatsDerivedColArray *
+const CDXLStatsDerivedColumnArray *
 CDXLStatsDerivedRelation::GetDXLStatsDerivedColArray() const
 {
 	return m_dxl_stats_derived_col_array;

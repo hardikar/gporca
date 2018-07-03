@@ -20,7 +20,7 @@ namespace gpopt
 {
 
 	typedef CHashMap<CExpression, CExpression, CExpression::HashValue, CUtils::Equals,
-		CleanupRelease<CExpression>, CleanupRelease<CExpression> > HMPexprPartPred;
+		CleanupRelease<CExpression>, CleanupRelease<CExpression> > ExprPredToExprPredPartMap;
 
 	//---------------------------------------------------------------------------
 	//	@class:
@@ -37,7 +37,7 @@ namespace gpopt
 			// private copy ctor
 			CLogicalSelect(const CLogicalSelect &);
 
-			HMPexprPartPred *m_phmPexprPartPred;
+			ExprPredToExprPredPartMap *m_phmPexprPartPred;
 
 		public:
 
@@ -139,7 +139,7 @@ namespace gpopt
 						(
 						IMemoryPool *mp,
 						CExpressionHandle &exprhdl,
-						StatsArray *stats_ctxt
+						IStatisticsArray *stats_ctxt
 						)
 						const;
 

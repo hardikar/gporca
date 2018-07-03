@@ -34,7 +34,7 @@ using namespace gpopt;
 //		CTranslatorDXLToExprUtils::PopConst
 //
 //	@doc:
-// 		Construct const operator from a DXL const m_bytearray_value operator
+// 		Construct const operator from a DXL const value operator
 //
 //---------------------------------------------------------------------------
 CScalarConst *
@@ -54,7 +54,7 @@ CTranslatorDXLToExprUtils::PopConst
 //		CTranslatorDXLToExprUtils::GetDatum
 //
 //	@doc:
-// 		Construct a datum from a DXL const m_bytearray_value operator
+// 		Construct a datum from a DXL const value operator
 //
 //---------------------------------------------------------------------------
 IDatum *
@@ -83,7 +83,7 @@ CTranslatorDXLToExprUtils::Pdrgpdatum
 	(
 	IMemoryPool *mp,
 	CMDAccessor *md_accessor,
-	const DXLDatumArray *pdrgpdxldatum
+	const CDXLDatumArray *pdrgpdxldatum
 	)
 {
 	GPOS_ASSERT(NULL != pdrgpdxldatum);
@@ -106,7 +106,7 @@ CTranslatorDXLToExprUtils::Pdrgpdatum
 //		CTranslatorDXLToExprUtils::PexprConstInt8
 //
 //	@doc:
-// 		Construct an expression representing the given m_bytearray_value in INT8 format
+// 		Construct an expression representing the given value in INT8 format
 //
 //---------------------------------------------------------------------------
 CExpression *
@@ -139,7 +139,7 @@ CTranslatorDXLToExprUtils::AddKeySets
 	IMemoryPool *mp,
 	CTableDescriptor *ptabdesc,
 	const IMDRelation *pmdrel,
-	UlongUlongHashMap *phmululColMapping
+	UlongToUlongMap *phmululColMapping
 	)
 {
 	GPOS_ASSERT(NULL != ptabdesc);
@@ -243,17 +243,17 @@ CTranslatorDXLToExprUtils::EBoolOperator
 //		given col ids
 //
 //---------------------------------------------------------------------------
-ColRefArray *
+CColRefArray *
 CTranslatorDXLToExprUtils::Pdrgpcr
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	const ULongPtrArray *colids
 	)
 {
 	GPOS_ASSERT(NULL != colids);
 
-	ColRefArray *colref_array = GPOS_NEW(mp) ColRefArray(mp);
+	CColRefArray *colref_array = GPOS_NEW(mp) CColRefArray(mp);
 
 	for (ULONG ul = 0; ul < colids->Size(); ul++)
 	{

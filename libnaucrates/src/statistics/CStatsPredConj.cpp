@@ -25,7 +25,7 @@ using namespace gpopt;
 //---------------------------------------------------------------------------
 CStatsPredConj::CStatsPredConj
 	(
-	StatsPredPtrArry *conj_pred_stats_array
+	CStatsPredPtrArry *conj_pred_stats_array
 	)
 	:
 	CStatsPred(gpos::ulong_max),

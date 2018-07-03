@@ -42,10 +42,10 @@ namespace gpopt
 			CTableDescriptor *m_ptabdesc;
 			
 			// output columns
-			ColRefArray *m_pdrgpcrOutput;
+			CColRefArray *m_pdrgpcrOutput;
 			
 			// partition keys
-			ColRefArrays *m_pdrgpdrgpcrPart;
+			CColRefArrays *m_pdrgpdrgpcrPart;
 
 			// distribution columns (empty for master only tables)
 			CColRefSet *m_pcrsDist;
@@ -74,7 +74,7 @@ namespace gpopt
 				IMemoryPool *mp,
 				const CName *pnameAlias,
 				CTableDescriptor *ptabdesc,
-				ColRefArray *pdrgpcrOutput
+				CColRefArray *pdrgpcrOutput
 				);
 
 			// dtor
@@ -103,7 +103,7 @@ namespace gpopt
 			}
 
 			// accessors
-			ColRefArray *PdrgpcrOutput() const
+			CColRefArray *PdrgpcrOutput() const
 			{
 				return m_pdrgpcrOutput;
 			}
@@ -121,7 +121,7 @@ namespace gpopt
 			}
 			
 			// partition columns
-			ColRefArrays *
+			CColRefArrays *
 			PdrgpdrgpcrPartColumns() const
 			{
 				return m_pdrgpdrgpcrPart;
@@ -139,7 +139,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -226,7 +226,7 @@ namespace gpopt
 						(
 						IMemoryPool *mp,
 						CExpressionHandle &exprhdl,
-						StatsArray *stats_ctxt
+						IStatisticsArray *stats_ctxt
 						)
 						const;
 

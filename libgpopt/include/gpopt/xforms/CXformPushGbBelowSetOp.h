@@ -104,12 +104,12 @@ namespace gpopt
                 CLogicalGbAgg *popGbAgg = CLogicalGbAgg::PopConvert(pexpr->Pop());
                 CLogicalSetOp *popSetOp = CLogicalSetOp::PopConvert(pexprSetOp->Pop());
 
-                ColRefArray *pdrgpcrGb = popGbAgg->Pdrgpcr();
-                ColRefArray *pdrgpcrOutput = popSetOp->PdrgpcrOutput();
+                CColRefArray *pdrgpcrGb = popGbAgg->Pdrgpcr();
+                CColRefArray *pdrgpcrOutput = popSetOp->PdrgpcrOutput();
                 CColRefSet *pcrsOutput = GPOS_NEW(mp) CColRefSet(mp, pdrgpcrOutput);
-                ColRefArrays *pdrgpdrgpcrInput = popSetOp->PdrgpdrgpcrInput();
-                ExpressionArray *pdrgpexprNewChildren = GPOS_NEW(mp) ExpressionArray(mp);
-                ColRefArrays *pdrgpdrgpcrNewInput = GPOS_NEW(mp) ColRefArrays(mp);
+                CColRefArrays *pdrgpdrgpcrInput = popSetOp->PdrgpdrgpcrInput();
+                CExpressionArray *pdrgpexprNewChildren = GPOS_NEW(mp) CExpressionArray(mp);
+                CColRefArrays *pdrgpdrgpcrNewInput = GPOS_NEW(mp) CColRefArrays(mp);
                 const ULONG arity = pexprSetOp->Arity();
 
                 BOOL fNewChild = false;
@@ -117,14 +117,14 @@ namespace gpopt
                 for (ULONG ulChild = 0; ulChild < arity; ulChild++)
                 {
                     CExpression *pexprChild = (*pexprSetOp)[ulChild];
-                    ColRefArray *pdrgpcrChild = (*pdrgpdrgpcrInput)[ulChild];
+                    CColRefArray *pdrgpcrChild = (*pdrgpdrgpcrInput)[ulChild];
                     CColRefSet *pcrsChild =  GPOS_NEW(mp) CColRefSet(mp, pdrgpcrChild);
 
-                    ColRefArray *pdrgpcrChildGb = NULL;
+                    CColRefArray *pdrgpcrChildGb = NULL;
                     if (!pcrsChild->Equals(pcrsOutput))
                     {
                         // use column mapping in SetOp to set child grouping colums
-                        UlongColRefHashMap *colref_mapping = CUtils::PhmulcrMapping(mp, pdrgpcrOutput, pdrgpcrChild);
+                        UlongToColRefMap *colref_mapping = CUtils::PhmulcrMapping(mp, pdrgpcrOutput, pdrgpcrChild);
                         pdrgpcrChildGb = CUtils::PdrgpcrRemap(mp, pdrgpcrGb, colref_mapping, true /*must_exist*/);
                         colref_mapping->Release();
                     }

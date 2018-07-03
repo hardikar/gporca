@@ -62,9 +62,9 @@ CHashMapTest::EresUnittest_Basic()
 	const ULONG ulCnt = GPOS_ARRAY_SIZE(rgul);
 	
 	typedef CHashMap<ULONG_PTR, CHAR, HashPtr<ULONG_PTR>, gpos::Equals<ULONG_PTR>,
-		CleanupNULL<ULONG_PTR>, CleanupNULL<CHAR> > HMUlChar;
+		CleanupNULL<ULONG_PTR>, CleanupNULL<CHAR> > UlongPtrToCharMap;
 
-	HMUlChar *phm = GPOS_NEW(mp) HMUlChar(mp, 128);
+	UlongPtrToCharMap *phm = GPOS_NEW(mp) UlongPtrToCharMap(mp, 128);
 	for (ULONG i = 0; i < ulCnt; ++i)
 	{
 #ifdef GPOS_DEBUG
@@ -98,7 +98,7 @@ CHashMapTest::EresUnittest_Basic()
 	}
 	GPOS_ASSERT(ulCnt == phm->Size());
 
-	// test replacing entry m_bytearray_value of a non-existing key
+	// test replacing entry value of a non-existing key
 	ULONG_PTR ulp = 0;
 #ifdef GPOS_DEBUG
 	BOOL fSuccess =
@@ -110,8 +110,8 @@ CHashMapTest::EresUnittest_Basic()
 
 	// test replacing values and triggering their release
 	typedef CHashMap<ULONG, ULONG, HashValue<ULONG>, gpos::Equals<ULONG>,
-			CleanupDelete<ULONG>, CleanupDelete<ULONG> > UlongUlongHashMap;
-	UlongUlongHashMap *phm2 = GPOS_NEW(mp) UlongUlongHashMap(mp, 128);
+			CleanupDelete<ULONG>, CleanupDelete<ULONG> > UlongToUlongMap;
+	UlongToUlongMap *phm2 = GPOS_NEW(mp) UlongToUlongMap(mp, 128);
 
 	ULONG *pulKey = GPOS_NEW(mp) ULONG(1);
 	ULONG *pulVal1 = GPOS_NEW(mp) ULONG(2);
@@ -161,9 +161,9 @@ CHashMapTest::EresUnittest_Ownership()
 	ULONG ulCnt = 256;
 
 	typedef CHashMap<ULONG_PTR, CHAR, HashPtr<ULONG_PTR>, gpos::Equals<ULONG_PTR>,
-		CleanupDelete<ULONG_PTR>, CleanupDeleteArray<CHAR> > HMUlChar;
+		CleanupDelete<ULONG_PTR>, CleanupDeleteArray<CHAR> > UlongPtrToCharMap;
 	
-	HMUlChar *phm = GPOS_NEW(mp) HMUlChar(mp, 32);
+	UlongPtrToCharMap *phm = GPOS_NEW(mp) UlongPtrToCharMap(mp, 32);
 	for (ULONG i = 0; i < ulCnt; ++i)
 	{
 		ULONG_PTR *pulp = GPOS_NEW(mp) ULONG_PTR(i);

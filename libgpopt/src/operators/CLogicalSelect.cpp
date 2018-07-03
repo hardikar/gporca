@@ -41,7 +41,7 @@ CLogicalSelect::CLogicalSelect
 	:
 	CLogicalUnary(mp)
 {
-	m_phmPexprPartPred = GPOS_NEW(mp) HMPexprPartPred(mp);
+	m_phmPexprPartPred = GPOS_NEW(mp) ExprPredToExprPredPartMap(mp);
 }
 
 CLogicalSelect::~CLogicalSelect()
@@ -161,7 +161,7 @@ CLogicalSelect::PstatsDerive
 	(
 	IMemoryPool *mp,
 	CExpressionHandle &exprhdl,
-	StatsArray *stats_ctxt
+	IStatisticsArray *stats_ctxt
 	)
 	const
 {
@@ -262,7 +262,7 @@ CLogicalSelect::PexprPartPred
 		return pexprPredOnPartKey;
 	}
 
-	PartKeysArray *pdrgppartkeys = ppartinfo->Pdrgppartkeys(0 /*ulPos*/);
+	CPartKeysArray *pdrgppartkeys = ppartinfo->Pdrgppartkeys(0 /*ulPos*/);
 	const ULONG ulKeySets = pdrgppartkeys->Size();
 	for (ULONG ul = 0; NULL == pexprPredOnPartKey && ul < ulKeySets; ul++)
 	{

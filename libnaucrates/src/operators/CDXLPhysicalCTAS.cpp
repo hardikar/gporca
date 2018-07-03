@@ -36,7 +36,7 @@ CDXLPhysicalCTAS::CDXLPhysicalCTAS
 	IMemoryPool *mp,
 	CMDName *mdname_schema,
 	CMDName *mdname_rel,
-								   DXLColumnDescrArray *dxl_col_descr_array,
+								   CDXLColDescrArray *dxl_col_descr_array,
 	CDXLCtasStorageOptions *dxl_ctas_opt,
 	IMDRelation::Ereldistrpolicy rel_distr_policy,
 	ULongPtrArray *distr_column_pos_array,

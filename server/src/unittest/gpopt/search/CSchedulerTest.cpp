@@ -474,14 +474,14 @@ CSchedulerTest::BuildMemoMultiThreaded
 	(
 	IMemoryPool *mp,
 	CExpression *pexprInput,
-	 SearchStageArray *search_stage_array
+	 CSearchStageArray *search_stage_array
 	)
 {
 	CQueryContext *pqc = CTestUtils::PqcGenerate(mp, pexprInput);
 	GPOS_CHECK_ABORT;
 
 	// enable space pruning
-	CAutoTraceFlag atf(EopttraceEnableSpacePruning, true /*m_bytearray_value*/);
+	CAutoTraceFlag atf(EopttraceEnableSpacePruning, true /*value*/);
 
 	CWStringDynamic str(mp);
 	COstreamString oss(&str);

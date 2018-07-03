@@ -33,7 +33,7 @@ namespace gpnaucrates
 			// type information
 			IMDId *m_mdid;
 
-			// oid m_bytearray_value
+		// oid value
 			OID m_val;
 
 			// is null
@@ -60,7 +60,7 @@ namespace gpnaucrates
 			virtual
 			ULONG Size() const;
 
-			// accessor of oid m_bytearray_value
+			// accessor of oid value
 			virtual
 			OID OidValue() const;
 

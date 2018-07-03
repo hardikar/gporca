@@ -40,23 +40,23 @@ namespace gpnaucrates
 
 		// hash map from column id to a histogram
 		typedef CHashMap<ULONG, CHistogram, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-							CleanupDelete<ULONG>, CleanupDelete<CHistogram> > UlongHistogramHashMap;
+							CleanupDelete<ULONG>, CleanupDelete<CHistogram> > UlongToHistogramMap;
 
 		// iterator
 		typedef CHashMapIter<ULONG, CHistogram, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-							CleanupDelete<ULONG>, CleanupDelete<CHistogram> > UlongHistogramHashMapIter;
+							CleanupDelete<ULONG>, CleanupDelete<CHistogram> > UlongToHistogramMapIter;
 
 		// hash map from column ULONG to CDouble
 		typedef CHashMap<ULONG, CDouble, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-						CleanupDelete<ULONG>, CleanupDelete<CDouble> > UlongDoubleHashMap;
+						CleanupDelete<ULONG>, CleanupDelete<CDouble> > UlongToDoubleMap;
 
 		// iterator
 		typedef CHashMapIter<ULONG, CDouble, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-						CleanupDelete<ULONG>, CleanupDelete<CDouble> > UlongDoubleHashMapIter;
+						CleanupDelete<ULONG>, CleanupDelete<CDouble> > UlongToDoubleMapIter;
 
 		private:
 			// all the buckets in the histogram
-			BucketArray *m_histogram_buckets;
+		CBucketArray *m_histogram_buckets;
 
 			// well-defined histogram. if false, then bounds are unknown
 			BOOL m_is_well_defined;
@@ -89,10 +89,10 @@ namespace gpnaucrates
 			CHistogram& operator=(const CHistogram &);
 
 			// return an array buckets after applying equality filter on the histogram buckets
-			BucketArray *MakeBucketsWithEqualityFilter(IMemoryPool *mp, CPoint *point) const;
+		CBucketArray *MakeBucketsWithEqualityFilter(IMemoryPool *mp, CPoint *point) const;
 
 			// return an array buckets after applying non equality filter on the histogram buckets
-			BucketArray *MakeBucketsWithInequalityFilter(IMemoryPool *mp, CPoint *point) const;
+		CBucketArray *MakeBucketsWithInequalityFilter(IMemoryPool *mp, CPoint *point) const;
 
 			// less than or less than equal filter
 			CHistogram *MakeHistogramLessThanOrLessThanEqualFilter(IMemoryPool *mp, CStatsPred::EStatsCmpType stats_cmp_type, CPoint *point) const;
@@ -132,8 +132,8 @@ namespace gpnaucrates
 			void AddBuckets
 					(
 					IMemoryPool *mp,
-					BucketArray *src_buckets,
-					BucketArray *dest_buckets,
+					CBucketArray *src_buckets,
+					CBucketArray *dest_buckets,
 					CDouble rows_old,
 					CDouble rows_new,
 					ULONG begin,
@@ -144,8 +144,8 @@ namespace gpnaucrates
 			void AddBuckets
 					(
 					IMemoryPool *mp,
-					BucketArray *src_buckets,
-					BucketArray *dest_buckets,
+					CBucketArray *src_buckets,
+					CBucketArray *dest_buckets,
 					CDouble rows,
 							   CDoubleArray *dest_bucket_freqs,
 					ULONG begin,
@@ -163,7 +163,7 @@ namespace gpnaucrates
 					(
 					const CHistogram *histogram1,
 					const CHistogram *histogram2,
-					BucketArray *join_buckets, // join buckets
+					CBucketArray *join_buckets, // join buckets
 					CDouble hist1_buckets_freq, // frequency of the buckets in input1 that contributed to the join
 					CDouble hist2_buckets_freq, // frequency of the buckets in input2 that contributed to the join
 					CDouble *result_distinct_remain,
@@ -179,11 +179,11 @@ namespace gpnaucrates
 
 			// ctors
 			explicit
-			CHistogram(BucketArray *histogram_buckets, BOOL is_well_defined = true);
+			CHistogram(CBucketArray *histogram_buckets, BOOL is_well_defined = true);
 
 			CHistogram
 					(
-					BucketArray *histogram_buckets,
+					CBucketArray *histogram_buckets,
 					BOOL is_well_defined,
 					CDouble null_freq,
 					CDouble distinct_remaining,
@@ -326,8 +326,8 @@ namespace gpnaucrates
 			CHistogram *MakeHistogramUpdateFreq
 						(
 						IMemoryPool *mp,
-						BucketArray *histogram_buckets,
-											CDoubleArray *dest_bucket_freqs,
+						CBucketArray *histogram_buckets,
+            CDoubleArray *dest_bucket_freqs,
 						CDouble *num_output_rows,
 						CDouble num_null_rows,
 						CDouble num_NDV_remain,
@@ -339,7 +339,7 @@ namespace gpnaucrates
 			ULONG AddResidualUnionAllBucket
 				(
 				IMemoryPool *mp,
-				BucketArray *histogram_buckets,
+				CBucketArray *histogram_buckets,
 				CBucket *bucket,
 				CDouble rows_old,
 				CDouble rows_new,
@@ -352,7 +352,7 @@ namespace gpnaucrates
 			ULONG AddResidualUnionBucket
 				(
 				IMemoryPool *mp,
-				BucketArray *histogram_buckets,
+				CBucketArray *histogram_buckets,
 				CBucket *bucket,
 				CDouble rows,
 				BOOL bucket_is_residual,
@@ -368,7 +368,7 @@ namespace gpnaucrates
 			}
 
 			// buckets accessor
-			const BucketArray *ParseDXLToBucketsArray() const
+			const CBucketArray *ParseDXLToBucketsArray() const
 			{
 				return m_histogram_buckets;
 			}
@@ -480,7 +480,7 @@ namespace gpnaucrates
 
 			// helper method to append histograms from one map to the other
 			static
-			void AddHistograms(IMemoryPool *mp, UlongHistogramHashMap *src_histograms, UlongHistogramHashMap *dest_histograms);
+			void AddHistograms(IMemoryPool *mp, UlongToHistogramMap *src_histograms, UlongToHistogramMap *dest_histograms);
 
 			// add dummy histogram buckets and column width for the array of columns
 			static
@@ -488,15 +488,15 @@ namespace gpnaucrates
 				(
 				IMemoryPool *mp,
 				CColumnFactory *col_factory,
-				UlongHistogramHashMap *output_histograms,
-				UlongDoubleHashMap *output_col_widths,
+												  UlongToHistogramMap *output_histograms,
+												  UlongToDoubleMap *output_col_widths,
 				const ULongPtrArray *columns,
 				BOOL is_empty
 				);
 
 			// add dummy histogram buckets for the columns in the input histogram
-			static
-			void AddEmptyHistogram(IMemoryPool *mp, UlongHistogramHashMap *output_histograms, UlongHistogramHashMap *input_histograms);
+      static
+      void AddEmptyHistogram(IMemoryPool *mp, UlongToHistogramMap *output_histograms, UlongToHistogramMap *input_histograms);
 
 			// default histogram selectivity
 			static const CDouble DefaultSelectivity;

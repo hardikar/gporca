@@ -20,13 +20,13 @@ namespace gpnaucrates
 	private:
 		// create a new hash map of histograms from the results of the inner join and the histograms of the outer child
 		static
-		UlongHistogramHashMap *MakeLOJHistogram
+		UlongToHistogramMap *MakeLOJHistogram
 				(
 				IMemoryPool *mp,
 				const CStatistics *outer_stats,
 				const CStatistics *inner_side_stats,
 				CStatistics *inner_join_stats,
-				StatsPredJoinArray *join_preds_stats,
+													   CStatsPredJoinArray *join_preds_stats,
 				CDouble num_rows_inner_join,
 				CDouble *result_rows_LASJ
 				);
@@ -39,7 +39,7 @@ namespace gpnaucrates
 				ULongPtrArray *inner_colids_with_stats,
 				CDouble num_rows_LASJ,
 				CDouble num_rows_inner_join,
-				UlongHistogramHashMap *LOJ_histograms
+				UlongToHistogramMap *LOJ_histograms
 				);
 
 	public:
@@ -49,7 +49,7 @@ namespace gpnaucrates
 				IMemoryPool *mp,
 				const IStatistics *outer_stats,
 				const IStatistics *inner_side_stats,
-				StatsPredJoinArray *join_preds_stats
+				CStatsPredJoinArray *join_preds_stats
 				);
 	};
 }

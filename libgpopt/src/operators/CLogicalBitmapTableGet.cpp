@@ -41,7 +41,7 @@ CLogicalBitmapTableGet::CLogicalBitmapTableGet
 	CTableDescriptor *ptabdesc,
 	ULONG ulOriginOpId,
 	const CName *pnameTableAlias,
-	ColRefArray *pdrgpcrOutput
+	CColRefArray *pdrgpcrOutput
 	)
 	:
 	CLogical(mp),
@@ -202,7 +202,7 @@ CLogicalBitmapTableGet::PstatsDerive
 	(
 	IMemoryPool *mp,
 	CExpressionHandle &exprhdl,
-	StatsArray *stats_ctxt
+	IStatisticsArray *stats_ctxt
 	)
 	const
 {
@@ -247,11 +247,11 @@ COperator *
 CLogicalBitmapTableGet::PopCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {
-	ColRefArray *pdrgpcrOutput = NULL;
+	CColRefArray *pdrgpcrOutput = NULL;
 	if (must_exist)
 	{
 		pdrgpcrOutput = CUtils::PdrgpcrRemapAndCreate(mp, m_pdrgpcrOutput, colref_mapping);

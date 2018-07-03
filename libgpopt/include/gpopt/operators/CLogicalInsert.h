@@ -37,7 +37,7 @@ namespace gpopt
 			CTableDescriptor *m_ptabdesc;
 
 			// source columns
-			ColRefArray *m_pdrgpcrSource;
+			CColRefArray *m_pdrgpcrSource;
 
 			// private copy ctor
 			CLogicalInsert(const CLogicalInsert &);
@@ -49,7 +49,7 @@ namespace gpopt
 			CLogicalInsert(IMemoryPool *mp);
 
 			// ctor
-			CLogicalInsert(IMemoryPool *mp, CTableDescriptor *ptabdesc, ColRefArray *colref_array);
+			CLogicalInsert(IMemoryPool *mp, CTableDescriptor *ptabdesc, CColRefArray *colref_array);
 
 			// dtor
 			virtual
@@ -70,7 +70,7 @@ namespace gpopt
 			}
 
 			// source columns
-			ColRefArray *PdrgpcrSource() const
+			CColRefArray *PdrgpcrSource() const
 			{
 				return m_pdrgpcrSource;
 			}
@@ -98,7 +98,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -169,7 +169,7 @@ namespace gpopt
 						(
 						IMemoryPool *mp,
 						CExpressionHandle &exprhdl,
-						StatsArray *stats_ctxt
+						IStatisticsArray *stats_ctxt
 						)
 						const;
 

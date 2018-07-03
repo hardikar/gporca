@@ -156,7 +156,7 @@ CBitVector::Get
 //		CBitVector::ExchangeSet
 //
 //	@doc:
-//		Set given bit; return previous m_bytearray_value
+//		Set given bit; return previous value
 //
 //---------------------------------------------------------------------------
 BOOL 
@@ -186,7 +186,7 @@ CBitVector::ExchangeSet
 //		CBitVector::ExchangeClear
 //
 //	@doc:
-//		Clear given bit; return previous m_bytearray_value
+//		Clear given bit; return previous value
 //
 //---------------------------------------------------------------------------
 BOOL 
@@ -453,7 +453,7 @@ CBitVector::CountSetBits() const
 //		CBitVector::HashValue
 //
 //	@doc:
-//		Compute hash m_bytearray_value for bit vector
+//		Compute hash value for bit vector
 //
 //---------------------------------------------------------------------------
 ULONG

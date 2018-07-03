@@ -37,13 +37,13 @@ namespace gpnaucrates
 			CStatsPredConj& operator=(CStatsPredConj &);
 
 			// array of filters
-			StatsPredPtrArry *m_conj_pred_stats_array;
+		CStatsPredPtrArry *m_conj_pred_stats_array;
 
 		public:
 
 			// ctor
 			explicit
-			CStatsPredConj(StatsPredPtrArry *pdrgpstatspred);
+			CStatsPredConj(CStatsPredPtrArry *pdrgpstatspred);
 
 			// dtor
 			virtual
@@ -62,7 +62,7 @@ namespace gpnaucrates
 				return m_conj_pred_stats_array->Size();
 			}
 
-			StatsPredPtrArry *GetConjPredStatsArray() const
+			CStatsPredPtrArry *GetConjPredStatsArray() const
 			{
 				return m_conj_pred_stats_array;
 			}

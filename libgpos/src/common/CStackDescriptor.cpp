@@ -300,7 +300,7 @@ CStackDescriptor::AppendTrace
 //		CStackDescriptor::HashValue
 //
 //	@doc:
-//		Get hash m_bytearray_value for stored stack
+//		Get hash value for stored stack
 //
 //---------------------------------------------------------------------------
 ULONG

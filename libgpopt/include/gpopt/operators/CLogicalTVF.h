@@ -41,10 +41,10 @@ namespace gpopt
 			CWStringConst *m_pstr;
 			
 			// array of column descriptors: the schema of the function result
-			ColumnDescrArray *m_pdrgpcoldesc;
+			CColumnDescriptorArray *m_pdrgpcoldesc;
 				
 			// output columns
-			ColRefArray *m_pdrgpcrOutput;
+			CColRefArray *m_pdrgpcrOutput;
 			
 			// function stability
 			IMDFunction::EFuncStbl m_efs;
@@ -70,7 +70,7 @@ namespace gpopt
 				IMDId *mdid_func,
 				IMDId *mdid_return_type,
 				CWStringConst *str,
-				ColumnDescrArray *pdrgpcoldesc
+				CColumnDescriptorArray *pdrgpcoldesc
 				);
 
 			CLogicalTVF
@@ -79,8 +79,8 @@ namespace gpopt
 				IMDId *mdid_func,
 				IMDId *mdid_return_type,
 				CWStringConst *str,
-				ColumnDescrArray *pdrgpcoldesc,
-				ColRefArray *pdrgpcrOutput
+				CColumnDescriptorArray *pdrgpcoldesc,
+				CColRefArray *pdrgpcrOutput
 				);
 
 			// dtor
@@ -120,13 +120,13 @@ namespace gpopt
 			}
 
 			// col descr accessor
-			ColumnDescrArray *Pdrgpcoldesc() const
+			CColumnDescriptorArray *Pdrgpcoldesc() const
 			{
 				return m_pdrgpcoldesc;
 			}
 			
 			// accessors
-			ColRefArray *PdrgpcrOutput() const
+			CColRefArray *PdrgpcrOutput() const
 			{
 				return m_pdrgpcrOutput;
 			}
@@ -144,7 +144,7 @@ namespace gpopt
 			
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			//-------------------------------------------------------------------------------------
 			// Derived Relational Properties
@@ -175,7 +175,7 @@ namespace gpopt
 				)
 				const
 			{
-				return GPOS_NEW(mp) CPropConstraint(mp, GPOS_NEW(mp) ColRefSetArray(mp), NULL /*pcnstr*/);
+				return GPOS_NEW(mp) CPropConstraint(mp, GPOS_NEW(mp) CColRefSetArray(mp), NULL /*pcnstr*/);
 			}
 
 			// derive function properties
@@ -221,7 +221,7 @@ namespace gpopt
 
 			// derive statistics
 			virtual
-			IStatistics *PstatsDerive(IMemoryPool *mp, CExpressionHandle &exprhdl, StatsArray *stats_ctxt) const;
+			IStatistics *PstatsDerive(IMemoryPool *mp, CExpressionHandle &exprhdl, IStatisticsArray *stats_ctxt) const;
 
 			//-------------------------------------------------------------------------------------
 			//-------------------------------------------------------------------------------------

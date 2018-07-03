@@ -34,7 +34,7 @@ namespace gpdxl
 		private:
 
 			// CTE list
-			DXLNodeArray *m_dxl_array;
+		CDXLNodeArray *m_dxl_array;
 			
 			// private copy ctor
 			CParseHandlerCTEList(const CParseHandlerCTEList &);
@@ -70,7 +70,7 @@ namespace gpdxl
 			~CParseHandlerCTEList();
 			
 			// CTE list
-			DXLNodeArray *GetDxlCteArray() const
+			CDXLNodeArray *GetDxlCteArray() const
 			{
 				return m_dxl_array;
 			}

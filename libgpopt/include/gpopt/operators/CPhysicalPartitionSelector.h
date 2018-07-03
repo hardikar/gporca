@@ -38,21 +38,21 @@ namespace gpopt
 			IMDId *m_mdid;
 
 			// partition keys
-			ColRefArrays *m_pdrgpdrgpcr;
+			CColRefArrays *m_pdrgpdrgpcr;
 
 			// part constraint map
-			PartCnstrMap *m_ppartcnstrmap;
+			UlongToPartConstraintMap *m_ppartcnstrmap;
 
 			// relation part constraint
 			CPartConstraint *m_part_constraint;
 
 			// expressions used in equality filters; for a filter of the form
 			// pk1 = expr, we only store the expr
-			HMUlExpr *m_phmulexprEqPredicates;
+			UlongToExprMap *m_phmulexprEqPredicates;
 
 			// expressions used in general predicates; we store the whole predicate
 			// in this case (e.g. pk1 > 50)
-			HMUlExpr *m_phmulexprPredicates;
+			UlongToExprMap *m_phmulexprPredicates;
 
 			// residual partition selection expression that cannot be split to
 			// individual levels (e.g. pk1 < 5 OR pk2 = 6)
@@ -62,14 +62,14 @@ namespace gpopt
 			CExpression *m_pexprCombinedPredicate;
 
 			// ctor
-			CPhysicalPartitionSelector(IMemoryPool *mp, IMDId *mdid, HMUlExpr *phmulexprEqPredicates);
+			CPhysicalPartitionSelector(IMemoryPool *mp, IMDId *mdid, UlongToExprMap *phmulexprEqPredicates);
 
 			// return a single combined partition selection predicate
 			CExpression *PexprCombinedPartPred(IMemoryPool *mp) const;
 
 			// check whether two expression maps match
 			static
-			BOOL FMatchExprMaps(HMUlExpr *phmulexprFst, HMUlExpr *phmulexprSnd);
+			BOOL FMatchExprMaps(UlongToExprMap *phmulexprFst, UlongToExprMap *phmulexprSnd);
 
 		private:
 
@@ -77,14 +77,14 @@ namespace gpopt
 			CPhysicalPartitionSelector(const CPhysicalPartitionSelector &);
 
 			// check whether part constraint maps match
-			BOOL FMatchPartCnstr(PartCnstrMap *ppartcnstrmap) const;
+			BOOL FMatchPartCnstr(UlongToPartConstraintMap *ppartcnstrmap) const;
 
 			// check whether this operator has a partition selection filter
 			BOOL FHasFilter() const;
 
 			// check whether first part constraint map is contained in the second one
 			static
-			BOOL FSubsetPartCnstr(PartCnstrMap *ppartcnstrmapFst, PartCnstrMap *ppartcnstrmapSnd);
+			BOOL FSubsetPartCnstr(UlongToPartConstraintMap *ppartcnstrmapFst, UlongToPartConstraintMap *ppartcnstrmapSnd);
 
 		public:
 
@@ -94,11 +94,11 @@ namespace gpopt
 				IMemoryPool *mp,
 				ULONG scan_id,
 				IMDId *mdid,
-				ColRefArrays *pdrgpdrgpcr,
-				PartCnstrMap *ppartcnstrmap,
+				CColRefArrays *pdrgpdrgpcr,
+				UlongToPartConstraintMap *ppartcnstrmap,
 				CPartConstraint *ppartcnstr,
-				HMUlExpr *phmulexprEqPredicates,
-				HMUlExpr *phmulexprPredicates,
+				UlongToExprMap *phmulexprEqPredicates,
+				UlongToExprMap *phmulexprPredicates,
 				CExpression *pexprResidual
 				);
 
@@ -133,7 +133,7 @@ namespace gpopt
 			}
 
 			// partition keys
-			ColRefArrays *Pdrgpdrgpcr() const
+			CColRefArrays *Pdrgpdrgpcr() const
 			{
 				return m_pdrgpdrgpcr;
 			}
@@ -191,7 +191,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CColRefSet *pcrsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 
@@ -203,7 +203,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CCTEReq *pcter,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -216,7 +216,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				COrderSpec *posRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -229,7 +229,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CDistributionSpec *pdsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -242,7 +242,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CPartitionPropagationSpec *pppsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 
@@ -254,7 +254,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CRewindabilitySpec *prsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;

@@ -65,8 +65,8 @@ CLogicalDynamicIndexGet::CLogicalDynamicIndexGet
 	ULONG ulOriginOpId,
 	const CName *pnameAlias,
 	ULONG part_idx_id,
-	ColRefArray *pdrgpcrOutput,
-	ColRefArrays *pdrgpdrgpcrPart,
+	CColRefArray *pdrgpcrOutput,
+	CColRefArrays *pdrgpdrgpcrPart,
 	ULONG ulSecondaryPartIndexId,
 	CPartConstraint *ppartcnstr,
 	CPartConstraint *ppartcnstrRel
@@ -164,7 +164,7 @@ COperator *
 CLogicalDynamicIndexGet::PopCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {
@@ -172,7 +172,7 @@ CLogicalDynamicIndexGet::PopCopyWithRemappedColumns
 	const IMDIndex *pmdindex = md_accessor->RetrieveIndex(m_pindexdesc->MDId());
 	CName *pnameAlias = GPOS_NEW(mp) CName(mp, *m_pnameAlias);
 
-	ColRefArray *pdrgpcrOutput = NULL;
+	CColRefArray *pdrgpcrOutput = NULL;
 	if (must_exist)
 	{
 		pdrgpcrOutput = CUtils::PdrgpcrRemapAndCreate(mp, m_pdrgpcrOutput, colref_mapping);
@@ -182,7 +182,7 @@ CLogicalDynamicIndexGet::PopCopyWithRemappedColumns
 		pdrgpcrOutput = CUtils::PdrgpcrRemap(mp, m_pdrgpcrOutput, colref_mapping, must_exist);
 	}
 
-	ColRefArrays *pdrgpdrgpcrPart = CUtils::PdrgpdrgpcrRemap(mp, m_pdrgpdrgpcrPart, colref_mapping, must_exist);
+	CColRefArrays *pdrgpdrgpcrPart = CUtils::PdrgpdrgpcrRemap(mp, m_pdrgpdrgpcrPart, colref_mapping, must_exist);
 	CPartConstraint *ppartcnstr = m_part_constraint->PpartcnstrCopyWithRemappedColumns(mp, colref_mapping, must_exist);
 	CPartConstraint *ppartcnstrRel = m_ppartcnstrRel->PpartcnstrCopyWithRemappedColumns(mp, colref_mapping, must_exist);
 
@@ -266,7 +266,7 @@ CLogicalDynamicIndexGet::PstatsDerive
 	(
 	IMemoryPool *mp,
 	CExpressionHandle &exprhdl,
-	StatsArray *stats_ctxt
+	IStatisticsArray *stats_ctxt
 	)
 	const
 {

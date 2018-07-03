@@ -22,7 +22,7 @@ using namespace gpopt;
 //		CScalarProjectElement::HashValue
 //
 //	@doc:
-//		Hash m_bytearray_value built from colref and Eop
+//		Hash value built from colref and Eop
 //
 //---------------------------------------------------------------------------
 ULONG
@@ -85,7 +85,7 @@ COperator *
 CScalarProjectElement::PopCopyWithRemappedColumns
 	(
 	IMemoryPool *mp,
-	UlongColRefHashMap *colref_mapping,
+	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
 {

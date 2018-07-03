@@ -536,14 +536,14 @@ CParseHandlerTest::EresParseAndSerializeQuery
 
 	oss << "Serializing parsed tree" << std::endl;
 
-	CDXLNode *root_dxl_node = const_cast<CDXLNode *>(pq2dxlresult->CreateDXLNode());
-	DXLNodeArray* dxl_array = const_cast<DXLNodeArray* >(pq2dxlresult->GetOutputColumnsDXLArray());
-	DXLNodeArray* cte_producers = const_cast<DXLNodeArray* >(pq2dxlresult->GetCTEProducerDXLArray());
+	CDXLNode *root_dxlnode = const_cast<CDXLNode *>(pq2dxlresult->CreateDXLNode());
+	CDXLNodeArray* dxl_array = const_cast<CDXLNodeArray* >(pq2dxlresult->GetOutputColumnsDXLArray());
+	CDXLNodeArray* cte_producers = const_cast<CDXLNodeArray* >(pq2dxlresult->GetCTEProducerDXLArray());
 
 	CWStringDynamic wstrQuery(mp);
 	COstreamString osQuery(&wstrQuery);
 
-	CDXLUtils::SerializeQuery(mp, osQuery, root_dxl_node, dxl_array, cte_producers, true /*serialize_header_footer*/, true /*indentation*/);
+	CDXLUtils::SerializeQuery(mp, osQuery, root_dxlnode, dxl_array, cte_producers, true /*serialize_header_footer*/, true /*indentation*/);
 
 	CWStringDynamic dstrExpected(mp);
 	dstrExpected.AppendFormat(GPOS_WSZ_LIT("%s"), dxl_string);
@@ -593,7 +593,7 @@ CParseHandlerTest::EresParseAndSerializeMetadata
 	   szValidationPath = CTestUtils::m_szXSDPath;
 	}
 	
-	IMDCachePtrArray *mdcache_obj_array = CDXLUtils::ParseDXLToIMDObjectArray(mp, dxl_string, szValidationPath);
+	IMDCacheObjectArray *mdcache_obj_array = CDXLUtils::ParseDXLToIMDObjectArray(mp, dxl_string, szValidationPath);
 	
 	GPOS_ASSERT(NULL != mdcache_obj_array);
 	
@@ -721,7 +721,7 @@ CParseHandlerTest::EresParseAndSerializeStatistics
 	}
 
 	// parse the statistics objects
-	DXLStatsDerivedRelArray *dxl_derived_rel_stats_array = CDXLUtils::ParseDXLToStatsDerivedRelArray(mp, dxl_string, szValidationPath);
+	CDXLStatsDerivedRelationArray *dxl_derived_rel_stats_array = CDXLUtils::ParseDXLToStatsDerivedRelArray(mp, dxl_string, szValidationPath);
 	CStatisticsArray *statistics_array = CDXLUtils::ParseDXLToOptimizerStatisticObjArray
 								(
 								mp,

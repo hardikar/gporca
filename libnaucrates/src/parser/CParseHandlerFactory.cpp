@@ -683,7 +683,7 @@ CParseHandlerFactory::CreateMDColParseHandler
 	return GPOS_NEW(mp) CParseHandlerMetadataColumn(mp, parse_handler_mgr, parse_handler_root);
 }
 
-// creates a parse handler for parsing a a default m_bytearray_value for a column
+// creates a parse handler for parsing a a default value for a column
 CParseHandlerBase *
 CParseHandlerFactory::CreateColDefaultValExprParseHandler
 	(

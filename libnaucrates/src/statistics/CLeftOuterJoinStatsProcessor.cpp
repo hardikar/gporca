@@ -21,7 +21,7 @@ CLeftOuterJoinStatsProcessor::CalcLOJoinStatsStatic
 		IMemoryPool *mp,
 		const IStatistics *outer_side_stats,
 		const IStatistics *inner_side_stats,
-		StatsPredJoinArray *join_preds_stats
+		CStatsPredJoinArray *join_preds_stats
 		)
 {
 	GPOS_ASSERT(NULL != outer_side_stats);
@@ -37,7 +37,7 @@ CLeftOuterJoinStatsProcessor::CalcLOJoinStatsStatic
 
 	// create a new hash map of histograms, for each column from the outer child
 	// add the buckets that do not contribute to the inner join
-	UlongHistogramHashMap *LOJ_histograms = CLeftOuterJoinStatsProcessor::MakeLOJHistogram
+	UlongToHistogramMap *LOJ_histograms = CLeftOuterJoinStatsProcessor::MakeLOJHistogram
 			(
 			mp,
 			result_stats_outer_side,
@@ -79,14 +79,14 @@ CLeftOuterJoinStatsProcessor::CalcLOJoinStatsStatic
 
 // create a new hash map of histograms for LOJ from the histograms
 // of the outer child and the histograms of the inner join
-UlongHistogramHashMap *
+UlongToHistogramMap *
 CLeftOuterJoinStatsProcessor::MakeLOJHistogram
 		(
 		IMemoryPool *mp,
 		const CStatistics *outer_side_stats,
 		const CStatistics *inner_side_stats,
 		CStatistics *inner_join_stats,
-		StatsPredJoinArray *join_preds_stats,
+											   CStatsPredJoinArray *join_preds_stats,
 		CDouble num_rows_inner_join,
 		CDouble *result_rows_LASJ
 		)
@@ -118,7 +118,7 @@ CLeftOuterJoinStatsProcessor::MakeLOJHistogram
 		num_rows_LASJ = LASJ_stats->Rows();
 	}
 
-	UlongHistogramHashMap *LOJ_histograms = GPOS_NEW(mp) UlongHistogramHashMap(mp);
+	UlongToHistogramMap *LOJ_histograms = GPOS_NEW(mp) UlongToHistogramMap(mp);
 
 	ULongPtrArray *outer_colids_with_stats = outer_side_stats->GetColIdsWithStats(mp);
 	const ULONG num_outer_cols = outer_colids_with_stats->Size();
@@ -182,7 +182,7 @@ CLeftOuterJoinStatsProcessor::AddHistogramsLOJInner
 		ULongPtrArray *inner_colids_with_stats,
 		CDouble num_rows_LASJ,
 		CDouble num_rows_inner_join,
-		UlongHistogramHashMap *LOJ_histograms
+		UlongToHistogramMap *LOJ_histograms
 		)
 {
 	GPOS_ASSERT(NULL != inner_join_stats);
@@ -201,7 +201,7 @@ CLeftOuterJoinStatsProcessor::AddHistogramsLOJInner
 		// the number of nulls added to the inner side should be the number of rows of the LASJ on the outer side.
 		CHistogram *null_histogram = GPOS_NEW(mp) CHistogram
 				(
-				GPOS_NEW(mp) BucketArray(mp),
+				GPOS_NEW(mp) CBucketArray(mp),
 				true /*is_well_defined*/,
 				1.0 /*null_freq*/,
 				CHistogram::DefaultNDVRemain,

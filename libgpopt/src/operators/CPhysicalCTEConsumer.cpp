@@ -31,8 +31,8 @@ CPhysicalCTEConsumer::CPhysicalCTEConsumer
 	(
 	IMemoryPool *mp,
 	ULONG id,
-	ColRefArray *colref_array,
-	UlongColRefHashMap *colref_mapping
+	CColRefArray *colref_array,
+	UlongToColRefMap *colref_mapping
 	)
 	:
 	CPhysical(mp),
@@ -73,7 +73,7 @@ CPhysicalCTEConsumer::PcrsRequired
 	CExpressionHandle &, // exprhdl,
 	CColRefSet *, // pcrsRequired,
 	ULONG , // child_index,
-	DrgPdp *, // pdrgpdpCtxt
+	CDrvdPropArrays *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 {
@@ -96,7 +96,7 @@ CPhysicalCTEConsumer::PosRequired
 	CExpressionHandle &, // exprhdl,
 	COrderSpec *, // posRequired,
 	ULONG ,// child_index,
-	DrgPdp *, // pdrgpdpCtxt
+	CDrvdPropArrays *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -120,7 +120,7 @@ CPhysicalCTEConsumer::PdsRequired
 	CExpressionHandle &, // exprhdl,
 	CDistributionSpec *, // pdsRequired,
 	ULONG , //child_index
-	DrgPdp *, // pdrgpdpCtxt
+	CDrvdPropArrays *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -144,7 +144,7 @@ CPhysicalCTEConsumer::PrsRequired
 	CExpressionHandle &, // exprhdl,
 	CRewindabilitySpec *, // prsRequired,
 	ULONG , // child_index,
-	DrgPdp *, // pdrgpdpCtxt
+	CDrvdPropArrays *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -168,7 +168,7 @@ CPhysicalCTEConsumer::PppsRequired
 	CExpressionHandle &, //exprhdl,
 	CPartitionPropagationSpec *, //pppsRequired,
 	ULONG , //child_index,
-	DrgPdp *, //pdrgpdpCtxt,
+	CDrvdPropArrays *, //pdrgpdpCtxt,
 	ULONG //ulOptReq
 	)
 {
@@ -191,7 +191,7 @@ CPhysicalCTEConsumer::PcteRequired
 	CExpressionHandle &, //exprhdl,
 	CCTEReq *, //pcter,
 	ULONG , //child_index,
-	DrgPdp *, //pdrgpdpCtxt,
+	CDrvdPropArrays *, //pdrgpdpCtxt,
 	ULONG //ulOptReq
 	)
 	const

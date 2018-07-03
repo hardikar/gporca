@@ -27,13 +27,13 @@ namespace gpdxl
 	class CXMLSerializer;
 	class CDXLDirectDispatchInfo;
 	
-	typedef CDynamicPtrArray<CDXLNode, CleanupRelease> DXLNodeArray;
+	typedef CDynamicPtrArray<CDXLNode, CleanupRelease> CDXLNodeArray;
 
 	// arrays of OID
 	typedef CDynamicPtrArray<OID, CleanupDelete> OidArray;
 
 	typedef CHashMap<ULONG, CDXLNode, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-				CleanupDelete<ULONG>, CleanupRelease<CDXLNode> > IdToDXLNodeMap;
+				CleanupDelete<ULONG>, CleanupRelease<CDXLNode> > IdToCDXLNodeMap;
 
 	//---------------------------------------------------------------------------
 	//	@class:
@@ -58,7 +58,7 @@ namespace gpdxl
 			CDXLProperties *m_dxl_properties;
 			
 			// array of children
-			DXLNodeArray *m_dxl_array;
+		CDXLNodeArray *m_dxl_array;
 
 			// direct dispatch spec
 			CDXLDirectDispatchInfo *m_direct_dispatch_info;
@@ -76,7 +76,7 @@ namespace gpdxl
 			CDXLNode(IMemoryPool *mp, CDXLOperator *dxl_op, CDXLNode *child_dxlnode);
 			CDXLNode(IMemoryPool *mp, CDXLOperator *dxl_op, CDXLNode *first_child_dxlnode, CDXLNode *second_child_dxlnode);
 			CDXLNode(IMemoryPool *mp, CDXLOperator *dxl_op, CDXLNode *first_child_dxlnode, CDXLNode *second_child_dxlnode, CDXLNode *third_child_dxlnode);
-			CDXLNode(IMemoryPool *mp, CDXLOperator *dxl_op, DXLNodeArray *dxl_array);
+			CDXLNode(IMemoryPool *mp, CDXLOperator *dxl_op, CDXLNodeArray *dxl_array);
 			
 			// dtor
 			virtual
@@ -117,7 +117,7 @@ namespace gpdxl
 			}
 
 			// accessor for children nodes
-			const DXLNodeArray *GetChildDXLNodeArray() const
+			const CDXLNodeArray *GetChildDXLNodeArray() const
 			{
 				return m_dxl_array;
 			}

@@ -36,7 +36,7 @@ CMDRelationCtasGPDB::CMDRelationCtasGPDB
 	BOOL fHasOids,
 	Erelstoragetype rel_storage_type,
 	Ereldistrpolicy rel_distr_policy,
-	MDColumnPtrArray *mdcol_array,
+										 CMDColumnArray *mdcol_array,
 	ULongPtrArray *distr_col_array,
 	ULongPtrArray2D *keyset_array,
 	CDXLCtasStorageOptions *dxl_ctas_storage_options,
@@ -66,7 +66,7 @@ CMDRelationCtasGPDB::CMDRelationCtasGPDB
 	GPOS_ASSERT(0 == keyset_array->Size());
 	GPOS_ASSERT(NULL != vartypemod_array);
 	
-	m_attrno_nondrop_col_pos_map = GPOS_NEW(m_mp) IntUlongHashMap(m_mp);
+	m_attrno_nondrop_col_pos_map = GPOS_NEW(m_mp) IntToUlongMap(m_mp);
 	m_nondrop_col_pos_array = GPOS_NEW(m_mp) ULongPtrArray(m_mp);
 	m_col_width_array = GPOS_NEW(mp) CDoubleArray(mp);
 

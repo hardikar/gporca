@@ -32,7 +32,7 @@ CDXLLogicalTVF::CDXLLogicalTVF
 	IMDId *mdid_func,
 	IMDId *mdid_return_type,
 	CMDName *mdname,
-	DXLColumnDescrArray *pdrgdxlcd
+	CDXLColDescrArray *pdrgdxlcd
 	)
 	:CDXLLogical(mp),
 	m_func_mdid(mdid_func),

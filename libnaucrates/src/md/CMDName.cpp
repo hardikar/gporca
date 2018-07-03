@@ -43,7 +43,7 @@ CMDName::CMDName
 //
 //	@doc:
 //		ctor
-//		Depending on the m_bytearray_value of the the owns_memory argument, the string object
+//		Depending on the value of the the owns_memory argument, the string object
 //		can become property of the CMDName object
 //
 //---------------------------------------------------------------------------

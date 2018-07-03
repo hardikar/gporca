@@ -179,7 +179,7 @@ CMDColumn::Serialize
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenColDropped), m_is_dropped);
 	}
 	
-	// serialize default m_bytearray_value
+	// serialize default value
 	xml_serializer->OpenElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix),
 						CDXLTokens::GetDXLTokenStr(EdxltokenColumnDefaultValue));
 	

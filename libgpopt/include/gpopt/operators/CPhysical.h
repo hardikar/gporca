@@ -153,10 +153,10 @@ namespace gpopt
 
 			// map of incoming required columns request to computed column sets
 			typedef CHashMap<CReqdColsRequest, CColRefSet, CReqdColsRequest::HashValue, CReqdColsRequest::Equals,
-						CleanupRelease<CReqdColsRequest>, CleanupRelease<CColRefSet> > HMReqdColsRequest;
+						CleanupRelease<CReqdColsRequest>, CleanupRelease<CColRefSet> > ReqdColsReqToColRefSetMap;
 
 			// hash map of child columns requests
-			HMReqdColsRequest *m_phmrcr;
+			ReqdColsReqToColRefSetMap *m_phmrcr;
 
 			// mutex for locking map of child columns requests during lookup/insertion
 			CMutex m_mutex;
@@ -229,7 +229,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CCTEReq *pcter,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt
+				CDrvdPropArrays *pdrgpdpCtxt
 				)
 				const;
 
@@ -246,7 +246,7 @@ namespace gpopt
 
 			// compute distribution spec from the table descriptor
 			static
-			CDistributionSpec *PdsCompute(IMemoryPool *mp, const CTableDescriptor *ptabdesc, ColRefArray *pdrgpcrOutput);
+			CDistributionSpec *PdsCompute(IMemoryPool *mp, const CTableDescriptor *ptabdesc, CColRefArray *pdrgpcrOutput);
 
 			// helper for a simple case of computing child's required sort order
 			static
@@ -343,7 +343,7 @@ namespace gpopt
 			CCTEMap *PcmCombine
 				(
 				IMemoryPool *mp,
-				DrgPdp *pdrgpdpCtxt
+				CDrvdPropArrays *pdrgpdpCtxt
 				);
 
 			// helper for common case of sort order derivation
@@ -441,7 +441,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CColRefSet *pcrsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				) = 0;
 
@@ -453,7 +453,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CCTEReq *pcter,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const = 0;
@@ -466,7 +466,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				COrderSpec *posRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const = 0;
@@ -479,7 +479,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CDistributionSpec *pdsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const = 0;
@@ -492,7 +492,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CRewindabilitySpec *prsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const = 0;
@@ -505,7 +505,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CPartitionPropagationSpec *pppsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				) = 0;
 			
@@ -589,7 +589,7 @@ namespace gpopt
 				(
 				CReqdPropPlan *prppInput,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 
@@ -599,7 +599,7 @@ namespace gpopt
 				(
 				CReqdPropPlan *prppInput,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 			
@@ -609,7 +609,7 @@ namespace gpopt
 				(
 				CReqdPropPlan *prppInput,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 
@@ -619,7 +619,7 @@ namespace gpopt
 				(
 				IMemoryPool *, // mp
 				COptimizationContext *, // poc,
-				OptimizationContextArray * // pdrgpocChild
+				COptimizationContextArray * // pdrgpocChild
 				)
 				const
 			{
@@ -689,7 +689,7 @@ namespace gpopt
 
 			// return a copy of the operator with remapped columns
 			virtual
-			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			COperator *PopCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			// conversion function
 			static

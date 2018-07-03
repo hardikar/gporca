@@ -40,11 +40,11 @@ namespace gpnaucrates
 
 	// hash maps ULONG -> array of ULONGs
 	typedef CHashMap<ULONG, ULongPtrArray, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupRelease<ULongPtrArray> > UlongUlongArrayHashMap;
+					CleanupDelete<ULONG>, CleanupRelease<ULongPtrArray> > UlongToUlongPtrArrayMap;
 
 	// iterator
 	typedef CHashMapIter<ULONG, ULongPtrArray, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-		CleanupDelete<ULONG>, CleanupRelease<ULongPtrArray> > UlongUlongArrayHashMapIter;
+		CleanupDelete<ULONG>, CleanupRelease<ULongPtrArray> > UlongToUlongPtrArrayMapIter;
 
 	//---------------------------------------------------------------------------
 	//	@class:
@@ -67,8 +67,8 @@ namespace gpnaucrates
 					EcbmSentinel
 				};
 
-		// helper method to copy stats on columns that are not excluded by bitset
-		void AddNotExcludedHistograms(IMemoryPool *mp, CBitSet *excluded_cols, UlongHistogramHashMap *col_histogram_mapping) const;
+      // helper method to copy stats on columns that are not excluded by bitset
+      void AddNotExcludedHistograms(IMemoryPool *mp, CBitSet *excluded_cols, UlongToHistogramMap *col_histogram_mapping) const;
 
 		private:
 
@@ -78,11 +78,11 @@ namespace gpnaucrates
 			// private assignment operator
 			CStatistics& operator=(CStatistics &);
 
-			// hashmap from column ids to histograms
-			UlongHistogramHashMap *m_colid_histogram_mapping;
+        // hashmap from column ids to histograms
+      UlongToHistogramMap *m_colid_histogram_mapping;
 
-			// hashmap from column id to width
-			UlongDoubleHashMap *m_colid_width_mapping;
+        // hashmap from column id to width
+      UlongToDoubleMap *m_colid_width_mapping;
 
 			// number of rows
 			CDouble m_rows;
@@ -108,31 +108,31 @@ namespace gpnaucrates
 
 			// array of upper bound of ndv per source;
 			// source can be one of the following operators: like Get, Group By, and Project
-			UpperBoundNDVPtrArray *m_src_upper_bound_NDVs;
+      CUpperBoundNDVPtrArray *m_src_upper_bound_NDVs;
 
 			// mutex for locking entry when accessing hashmap from source id -> upper bound of source cardinality
 			CMutex m_src_upper_bound_mapping_mutex;
 
-			// the default m_bytearray_value for operators that have no cardinality estimation risk
-			static
-			const ULONG no_card_est_risk_default_val;
+      // the default value for operators that have no cardinality estimation risk
+      static
+      const ULONG no_card_est_risk_default_val;
 
-			// helper method to add histograms where the column ids have been remapped
-			static
-			void AddHistogramsWithRemap(IMemoryPool *mp, UlongHistogramHashMap *src_histograms, UlongHistogramHashMap *dest_histograms, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+      // helper method to add histograms where the column ids have been remapped
+      static
+      void AddHistogramsWithRemap(IMemoryPool *mp, UlongToHistogramMap *src_histograms, UlongToHistogramMap *dest_histograms, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
-			// helper method to add width information where the column ids have been remapped
-			static
-			void AddWidthInfoWithRemap(IMemoryPool *mp, UlongDoubleHashMap *src_width, UlongDoubleHashMap *dest_width, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+      // helper method to add width information where the column ids have been remapped
+      static
+      void AddWidthInfoWithRemap(IMemoryPool *mp, UlongToDoubleMap *src_width, UlongToDoubleMap *dest_width, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 		public:
 
 			// ctor
-			CStatistics
-				(
-				IMemoryPool *mp,
-				UlongHistogramHashMap *col_histogram_mapping,
-					UlongDoubleHashMap *colid_width_mapping,
+		CStatistics
+        (
+        IMemoryPool *mp,
+				UlongToHistogramMap *col_histogram_mapping,
+				UlongToDoubleMap *colid_width_mapping,
 				CDouble rows,
 				BOOL is_empty,
 				ULONG num_predicates = 0
@@ -142,14 +142,14 @@ namespace gpnaucrates
 			virtual
 			~CStatistics();
 
-			virtual
-			UlongDoubleHashMap *CopyWidths(IMemoryPool *mp) const;
+      virtual
+      UlongToDoubleMap *CopyWidths(IMemoryPool *mp) const;
 
-			virtual
-			void CopyWidthsInto(IMemoryPool *mp, UlongDoubleHashMap *colid_width_mapping) const;
+      virtual
+      void CopyWidthsInto(IMemoryPool *mp, UlongToDoubleMap *colid_width_mapping) const;
 
-			virtual
-			UlongHistogramHashMap *CopyHistograms(IMemoryPool *mp) const;
+      virtual
+      UlongToHistogramMap *CopyHistograms(IMemoryPool *mp) const;
 
 			// actual number of rows
 			virtual
@@ -222,12 +222,12 @@ namespace gpnaucrates
 			}
 
 			// inner join with another stats structure
-			virtual
-			CStatistics *CalcInnerJoinStats(IMemoryPool *mp, const IStatistics *other_stats, StatsPredJoinArray *join_preds_stats) const;
+		virtual
+    CStatistics *CalcInnerJoinStats(IMemoryPool *mp, const IStatistics *other_stats, CStatsPredJoinArray *join_preds_stats) const;
 
-			// LOJ with another stats structure
-			virtual
-			CStatistics *CalcLOJoinStats(IMemoryPool *mp, const IStatistics *other_stats, StatsPredJoinArray *join_preds_stats) const;
+		// LOJ with another stats structure
+		virtual
+    CStatistics *CalcLOJoinStats(IMemoryPool *mp, const IStatistics *other_stats, CStatsPredJoinArray *join_preds_stats) const;
 
 			// left anti semi join with another stats structure
 			virtual
@@ -235,14 +235,14 @@ namespace gpnaucrates
 							(
 							IMemoryPool *mp,
 							const IStatistics *other_stats,
-							StatsPredJoinArray *join_preds_stats,
+							CStatsPredJoinArray *join_preds_stats,
 							BOOL DoIgnoreLASJHistComputation // except for the case of LOJ cardinality estimation this flag is always
                                                             // "true" since LASJ stats computation is very aggressive
 							) const;
 
 			// semi join stats computation
 			virtual
-			CStatistics *CalcLSJoinStats(IMemoryPool *mp, const IStatistics *inner_side_stats, StatsPredJoinArray *join_preds_stats) const;
+			CStatistics *CalcLSJoinStats(IMemoryPool *mp, const IStatistics *inner_side_stats, CStatsPredJoinArray *join_preds_stats) const;
 
 			// return required props associated with stats object
 			virtual
@@ -273,8 +273,8 @@ namespace gpnaucrates
 			IStatistics *ScaleStats(IMemoryPool *mp, CDouble factor) const;
 
 			// copy stats with remapped column id
-			virtual
-			IStatistics *CopyStatsWithRemap(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist) const;
+      virtual
+      IStatistics *CopyStatsWithRemap(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist) const;
 
 			// return the set of column references we have stats for
 			virtual
@@ -316,7 +316,7 @@ namespace gpnaucrates
 				return	m_stats_conf;
 			}
 
-			UpperBoundNDVPtrArray *GetUpperBoundNDVs() const
+      CUpperBoundNDVPtrArray * GetUpperBoundNDVs() const
 			{
 				return m_src_upper_bound_NDVs;
 			}
@@ -390,8 +390,8 @@ namespace gpnaucrates
 			void CreateAndInsertUpperBoundNDVs(IMemoryPool *mp, CStatistics *stats, ULongPtrArray *colids, CDouble rows);
 
 			// cap the total number of distinct values (NDV) in buckets to the number of rows
-			static
-			void CapNDVs(CDouble rows, UlongHistogramHashMap *col_histogram_mapping);
+      static
+      void CapNDVs(CDouble rows, UlongToHistogramMap *col_histogram_mapping);
 	}; // class CStatistics
 
 }

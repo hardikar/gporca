@@ -147,7 +147,7 @@ CParseHandlerMDType::StartElement
 														EdxltokenMDType
 														);
 
-			// parse if type is passed by m_bytearray_value
+			// parse if type is passed by value
 			m_type_passed_by_value = CDXLOperatorFactory::ExtractConvertAttrValueToBool
 												(
 												m_parse_handler_mgr->GetDXLMemoryManager(),

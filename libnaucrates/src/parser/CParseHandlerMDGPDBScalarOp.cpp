@@ -238,7 +238,7 @@ CParseHandlerMDGPDBScalarOp::EndElement
 		
 		GPOS_ASSERT(0 == this->Length() || 1 == this->Length());
 		
-		MdidPtrArray *mdid_op_classes_array = NULL;
+		IMdIdArray *mdid_op_classes_array = NULL;
 		if (0 < this->Length())
 		{
 			CParseHandlerMetadataIdList *mdid_list_parse_handler = dynamic_cast<CParseHandlerMetadataIdList*>((*this)[0]);
@@ -247,7 +247,7 @@ CParseHandlerMDGPDBScalarOp::EndElement
 		}
 		else 
 		{
-			mdid_op_classes_array = GPOS_NEW(m_mp) MdidPtrArray(m_mp);
+			mdid_op_classes_array = GPOS_NEW(m_mp) IMdIdArray(m_mp);
 		}
 		m_imd_obj = GPOS_NEW(m_mp) CMDScalarOpGPDB
 				(

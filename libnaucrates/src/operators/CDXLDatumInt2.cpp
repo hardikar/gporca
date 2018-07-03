@@ -47,7 +47,7 @@ CDXLDatumInt2::CDXLDatumInt2
 //		CDXLDatumInt2::Value
 //
 //	@doc:
-//		Return the short integer m_bytearray_value
+//		Return the short integer value
 //
 //---------------------------------------------------------------------------
 SINT

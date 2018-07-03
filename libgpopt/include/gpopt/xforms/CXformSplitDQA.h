@@ -34,7 +34,7 @@ namespace gpopt
 
 			// hash map between expression and a column reference
 			typedef CHashMap<CExpression, CColRef, CExpression::HashValue, CUtils::Equals,
-						CleanupRelease<CExpression>, CleanupNULL<CColRef> > HMExprCr;
+						CleanupRelease<CExpression>, CleanupNULL<CColRef> > ExprToColRefMap;
 
 			// private copy ctor
 			CXformSplitDQA(const CXformSplitDQA &);
@@ -45,11 +45,11 @@ namespace gpopt
 							(
 							IMemoryPool *mp,
 							CExpression *pexprRelational,
-							ExpressionArray *pdrgpexprPrElFirstStage,
-							ExpressionArray *pdrgpexprPrElSecondStage,
-							ExpressionArray *pdrgpexprPrElThirdStage,
-							ColRefArray *pdrgpcrArgDQA,
-							ColRefArray *pdrgpcrLastStage,
+							CExpressionArray *pdrgpexprPrElFirstStage,
+							CExpressionArray *pdrgpexprPrElSecondStage,
+							CExpressionArray *pdrgpexprPrElThirdStage,
+							CColRefArray *pdrgpcrArgDQA,
+							CColRefArray *pdrgpcrLastStage,
 							BOOL fSplit2LevelsOnly,
 							BOOL fAddDistinctColToLocalGb
 							);
@@ -63,8 +63,8 @@ namespace gpopt
 							CMDAccessor *md_accessor,
 							CExpression *pexpr,
 							CExpression *pexprRelational,
-							HMExprCr *phmexprcr,
-							ColRefArray *pdrgpcrArgDQA
+							ExprToColRefMap *phmexprcr,
+							CColRefArray *pdrgpcrArgDQA
 							);
 
 			// helper function to split DQA
@@ -76,8 +76,8 @@ namespace gpopt
 				CMDAccessor *md_accessor,
 				CExpression *pexpr,
 				CExpression *pexprRelational,
-				HMExprCr *phmexprcr,
-				ColRefArray *pdrgpcrArgDQA,
+				ExprToColRefMap *phmexprcr,
+				CColRefArray *pdrgpcrArgDQA,
 				BOOL fScalarAggregate
 				);
 
@@ -92,9 +92,9 @@ namespace gpopt
 					CColumnFactory *col_factory,
 					CMDAccessor *md_accessor,
 					CExpression *pexprPrEl,
-					ExpressionArray *pdrgpexprPrElFirstStage,
-					ExpressionArray *pdrgpexprPrElSecondStage,
-					ExpressionArray *pdrgpexprPrElLastStage,
+					CExpressionArray *pdrgpexprPrElFirstStage,
+					CExpressionArray *pdrgpexprPrElSecondStage,
+					CExpressionArray *pdrgpexprPrElLastStage,
 					BOOL fSplit2LevelsOnly
 					);
 
@@ -117,9 +117,9 @@ namespace gpopt
 					CColumnFactory *col_factory,
 					CMDAccessor *md_accessor,
 					CExpression *pexpr,
-					ExpressionArray *pdrgpexprChildPrEl,
-					HMExprCr *phmexprcr,
-					ColRefArray **ppdrgpcrArgDQA
+					CExpressionArray *pdrgpexprChildPrEl,
+					ExprToColRefMap *phmexprcr,
+					CColRefArray **ppdrgpcrArgDQA
 					);
 
 			// return the column reference of the argument to the aggregate function
@@ -130,7 +130,7 @@ namespace gpopt
 						CMDAccessor *md_accessor,
 						CColumnFactory *col_factory,
 						CExpression *pexprArg,
-						ExpressionArray *pdrgpexprChildPrEl
+						CExpressionArray *pdrgpexprChildPrEl
 						);
 
 		public:

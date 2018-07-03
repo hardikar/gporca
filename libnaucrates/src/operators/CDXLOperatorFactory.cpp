@@ -874,7 +874,7 @@ CDXLOperatorFactory::MakeDXLSubPlan
 	(
 	CDXLMemoryManager *dxl_memory_manager,
 	IMDId *mdid,
-									DXLColRefArray *dxl_colref_array,
+									CDXLColRefArray *dxl_colref_array,
 	EdxlSubPlanType dxl_subplan_type,
 	CDXLNode *dxlnode_test_expr
 	)
@@ -1646,7 +1646,7 @@ CDXLOperatorFactory::MakeDXLTableDescr
 						EdxltokenTableDescr
 						);
 
-	// parse execute as user m_bytearray_value if the attribute is specified
+	// parse execute as user value if the attribute is specified
 	ULONG user_id = GPDXL_DEFAULT_USERID;
 	const XMLCh *execute_as_user_xml = attrs.getValue(CDXLTokens::XmlstrToken(EdxltokenExecuteAsUser));
 
@@ -1783,7 +1783,7 @@ CDXLOperatorFactory::MakeColumnDescr
 	
 	if (NULL != col_dropped_xml)
 	{
-		// attribute is present: get m_bytearray_value
+		// attribute is present: get value
 		col_dropped = ConvertAttrValueToBool
 						(
 						dxl_memory_manager,
@@ -1940,7 +1940,7 @@ CDXLOperatorFactory::ParseOutputSegId
 //		CDXLOperatorFactory::ExtractAttrValue
 //
 //	@doc:
-//    	Extracts the m_bytearray_value for the given attribute.
+//    	Extracts the value for the given attribute.
 // 		If there is no such attribute defined, and the given optional
 // 		flag is set to false then it will raise an exception
 //---------------------------------------------------------------------------
@@ -1974,7 +1974,7 @@ CDXLOperatorFactory::ExtractAttrValue
 //		CDXLOperatorFactory::ConvertAttrValueToUlong
 //
 //	@doc:
-//	  	Converts the attribute m_bytearray_value to ULONG
+//	  	Converts the attribute value to ULONG
 //
 //---------------------------------------------------------------------------
 ULONG
@@ -2012,7 +2012,7 @@ CDXLOperatorFactory::ConvertAttrValueToUlong
 //		CDXLOperatorFactory::ConvertAttrValueToUllong
 //
 //	@doc:
-//	  	Converts the attribute m_bytearray_value to ULLONG
+//	  	Converts the attribute value to ULLONG
 //
 //---------------------------------------------------------------------------
 ULLONG
@@ -2055,7 +2055,7 @@ CDXLOperatorFactory::ConvertAttrValueToUllong
 //		CDXLOperatorFactory::ConvertAttrValueToBool
 //
 //	@doc:
-//	  	Converts the attribute m_bytearray_value to BOOL
+//	  	Converts the attribute value to BOOL
 //
 //---------------------------------------------------------------------------
 BOOL
@@ -2094,7 +2094,7 @@ CDXLOperatorFactory::ConvertAttrValueToBool
 //		CDXLOperatorFactory::ConvertAttrValueToInt
 //
 //	@doc:
-//	  	Converts the attribute m_bytearray_value from xml string to INT
+//	  	Converts the attribute value from xml string to INT
 //
 //---------------------------------------------------------------------------
 INT
@@ -2131,7 +2131,7 @@ CDXLOperatorFactory::ConvertAttrValueToInt
 //		CDXLOperatorFactory::ExtractConvertAttrValueToInt
 //
 //	@doc:
-//	  	Extracts the m_bytearray_value for the given attribute and converts it into INT
+//	  	Extracts the value for the given attribute and converts it into INT
 //
 //---------------------------------------------------------------------------
 INT
@@ -2172,7 +2172,7 @@ CDXLOperatorFactory::ExtractConvertAttrValueToInt
 //		CDXLOperatorFactory::ConvertAttrValueToShortInt
 //
 //	@doc:
-//	  	Converts the attribute m_bytearray_value from xml string to short int
+//	  	Converts the attribute value from xml string to short int
 //
 //---------------------------------------------------------------------------
 SINT
@@ -2209,7 +2209,7 @@ CDXLOperatorFactory::ConvertAttrValueToShortInt
 //		CDXLOperatorFactory::ExtractConvertAttrValueToShortInt
 //
 //	@doc:
-//	  	Extracts the m_bytearray_value for the given attribute and converts it into short
+//	  	Extracts the value for the given attribute and converts it into short
 //		int
 //
 //---------------------------------------------------------------------------
@@ -2246,7 +2246,7 @@ CDXLOperatorFactory::ExtractConvertAttrValueToShortInt
 			);
 }
 
-// Converts the attribute m_bytearray_value from xml string to char
+// Converts the attribute value from xml string to char
 CHAR
 CDXLOperatorFactory::ConvertAttrValueToChar
 	(
@@ -2268,7 +2268,7 @@ CDXLOperatorFactory::ConvertAttrValueToChar
 //		CDXLOperatorFactory::ConvertAttrValueToOid
 //
 //	@doc:
-//	  	Converts the attribute m_bytearray_value to OID
+//	  	Converts the attribute value to OID
 //
 //---------------------------------------------------------------------------
 OID
@@ -2305,7 +2305,7 @@ CDXLOperatorFactory::ConvertAttrValueToOid
 //		CDXLOperatorFactory::ExtractConvertAttrValueToOid
 //
 //	@doc:
-//	  	Extracts the m_bytearray_value for the given attribute and converts it into OID
+//	  	Extracts the value for the given attribute and converts it into OID
 //
 //---------------------------------------------------------------------------
 OID
@@ -2340,7 +2340,7 @@ CDXLOperatorFactory::ExtractConvertAttrValueToOid
 //		CDXLOperatorFactory::ConvertAttrValueToSz
 //
 //	@doc:
-//	  	Converts the string attribute m_bytearray_value
+//	  	Converts the string attribute value
 //
 //---------------------------------------------------------------------------
 CHAR *
@@ -2361,7 +2361,7 @@ CDXLOperatorFactory::ConvertAttrValueToSz
 //		CDXLOperatorFactory::ExtractConvertAttrValueToSz
 //
 //	@doc:
-//	  	Extracts the m_bytearray_value for the given attribute and converts it into CHAR*
+//	  	Extracts the value for the given attribute and converts it into CHAR*
 //
 //---------------------------------------------------------------------------
 CHAR *
@@ -2402,7 +2402,7 @@ CDXLOperatorFactory::ExtractConvertAttrValueToSz
 //		CDXLOperatorFactory::ExtractConvertAttrValueToStr
 //
 //	@doc:
-//	  	Extracts the string m_bytearray_value for the given attribute
+//	  	Extracts the string value for the given attribute
 //
 //---------------------------------------------------------------------------
 CWStringDynamic *
@@ -2428,7 +2428,7 @@ CDXLOperatorFactory::ExtractConvertAttrValueToStr
 //		CDXLOperatorFactory::ExtractConvertAttrValueToBool
 //
 //	@doc:
-//	  	Extracts the m_bytearray_value for the given attribute and converts it into BOOL
+//	  	Extracts the value for the given attribute and converts it into BOOL
 //
 //---------------------------------------------------------------------------
 BOOL
@@ -2469,7 +2469,7 @@ CDXLOperatorFactory::ExtractConvertAttrValueToBool
 //		CDXLOperatorFactory::ExtractConvertAttrValueToUlong
 //
 //	@doc:
-//	  	Extracts the m_bytearray_value for the given attribute and converts it into ULONG
+//	  	Extracts the value for the given attribute and converts it into ULONG
 //
 //---------------------------------------------------------------------------
 ULONG
@@ -2510,7 +2510,7 @@ CDXLOperatorFactory::ExtractConvertAttrValueToUlong
 //		CDXLOperatorFactory::ExtractConvertAttrValueToUllong
 //
 //	@doc:
-//	  	Extracts the m_bytearray_value for the given attribute and converts it into ULLONG
+//	  	Extracts the value for the given attribute and converts it into ULLONG
 //
 //---------------------------------------------------------------------------
 ULLONG
@@ -2889,7 +2889,7 @@ CDXLOperatorFactory::GetDatumVal
 	Edxltoken target_elem
 	)
 {	
-	// get the type id and m_bytearray_value of the datum from attributes
+	// get the type id and value of the datum from attributes
 	IMDId *mdid = ExtractConvertAttrValueToMdId(dxl_memory_manager, attrs, EdxltokenTypeId, target_elem);
 	GPOS_ASSERT(IMDId::EmdidGPDB == mdid->MdidType());
 	CMDIdGPDB *gpdb_mdid = CMDIdGPDB::CastMdid(mdid);
@@ -3162,7 +3162,7 @@ CDXLOperatorFactory::GetDatumGeneric
 		data = GetByteArray(dxl_memory_manager, attrs, target_elem, &len);
 		if (NULL == data)
 		{
-			// unable to decode m_bytearray_value. probably not Base64 encoded.
+			// unable to decode value. probably not Base64 encoded.
 			GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLInvalidAttributeValue, CDXLTokens::XmlstrToken(EdxltokenValue), CDXLTokens::GetDXLTokenStr(target_elem));
 		}
 	}
@@ -3220,7 +3220,7 @@ CDXLOperatorFactory::GetDatumStatsLintMappable
 						EdxltokenTypeMod,
 						EdxltokenScalarCast,
 						true,
-						-1 /* default_val m_bytearray_value */
+													 -1 /* default_val value */
 						);
 
 	return GPOS_NEW(mp) CDXLDatumStatsLintMappable(mp, mdid, type_modifier, is_const_by_val, is_const_null, data, len, value);
@@ -3231,7 +3231,7 @@ CDXLOperatorFactory::GetDatumStatsLintMappable
 //		CDXLOperatorFactory::Value
 //
 //	@doc:
-//		Return the LINT m_bytearray_value of byte array
+//		Return the LINT value of byte array
 //
 //---------------------------------------------------------------------------
 LINT
@@ -3245,7 +3245,7 @@ CDXLOperatorFactory::Value
 {
 	if (NULL == data)
 	{
-		// unable to decode m_bytearray_value. probably not Base64 encoded.
+		// unable to decode value. probably not Base64 encoded.
 		GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLInvalidAttributeValue, CDXLTokens::XmlstrToken(EdxltokenValue), CDXLTokens::GetDXLTokenStr(target_elem));
 	}
 
@@ -3307,7 +3307,7 @@ CDXLOperatorFactory::GetDatumStatsDoubleMappable
 		
 		if (NULL == data)
 		{
-			// unable to decode m_bytearray_value. probably not Base64 encoded.
+			// unable to decode value. probably not Base64 encoded.
 			GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLInvalidAttributeValue, CDXLTokens::XmlstrToken(EdxltokenValue), CDXLTokens::GetDXLTokenStr(target_elem));
 		}
 
@@ -3320,7 +3320,7 @@ CDXLOperatorFactory::GetDatumStatsDoubleMappable
 						EdxltokenTypeMod,
 						EdxltokenScalarCast,
 						true,
-						-1 /* default_val m_bytearray_value */
+													 -1 /* default_val value */
 						);
 	return GPOS_NEW(mp) CDXLDatumStatsDoubleMappable(mp, mdid, type_modifier, is_const_by_val, is_const_null, data, len, value);
 }
@@ -3357,7 +3357,7 @@ CDXLOperatorFactory::ExtractConvertValuesToArray
 //		Will raise an exception if list is not well-formed
 //
 //---------------------------------------------------------------------------
-MdidPtrArray *
+IMdIdArray *
 CDXLOperatorFactory::ExtractConvertMdIdsToArray
 	(
 	CDXLMemoryManager *dxl_memory_manager,
@@ -3369,7 +3369,7 @@ CDXLOperatorFactory::ExtractConvertMdIdsToArray
 	// get the memory pool from the memory manager
 	IMemoryPool *mp = dxl_memory_manager->Pmp();
 
-	MdidPtrArray *mdid_array = GPOS_NEW(mp) MdidPtrArray(mp);
+	IMdIdArray *mdid_array = GPOS_NEW(mp) IMdIdArray(mp);
 
 	XMLStringTokenizer mdid_components(mdid_list_xml, CDXLTokens::XmlstrToken(EdxltokenComma));
 	const ULONG num_tokens = mdid_components.countTokens();
@@ -3578,8 +3578,8 @@ CDXLOperatorFactory::SetSegmentInfo
 //		CDXLOperatorFactory::ParseJoinType
 //
 //	@doc:
-//		Parse a join type from the attribute m_bytearray_value.
-//		Raise an exception if join type m_bytearray_value is invalid.
+//		Parse a join type from the attribute value.
+//		Raise an exception if join type value is invalid.
 //
 //---------------------------------------------------------------------------
 EdxlJoinType
@@ -3645,7 +3645,7 @@ CDXLOperatorFactory::ParseJoinType
 //		CDXLOperatorFactory::ParseIndexScanDirection
 //
 //	@doc:
-//		Parse the index scan direction from the attribute m_bytearray_value. Raise
+//		Parse the index scan direction from the attribute value. Raise
 //		exception if it is invalid
 //
 //---------------------------------------------------------------------------
@@ -3714,7 +3714,7 @@ CDXLOperatorFactory::MakeLogicalJoin
 //		CDXLOperatorFactory::ConvertAttrValueToDouble
 //
 //	@doc:
-//	  Converts the attribute m_bytearray_value to CDouble
+//	  Converts the attribute value to CDouble
 //
 //---------------------------------------------------------------------------
 CDouble
@@ -3740,7 +3740,7 @@ CDXLOperatorFactory::ConvertAttrValueToDouble
 //		CDXLOperatorFactory::ExtractConvertAttrValueToDouble
 //
 //	@doc:
-//	  Extracts the m_bytearray_value for the given attribute and converts it into CDouble
+//	  Extracts the value for the given attribute and converts it into CDouble
 //
 //---------------------------------------------------------------------------
 CDouble
@@ -3772,7 +3772,7 @@ CDXLOperatorFactory::ExtractConvertAttrValueToDouble
 //		CDXLOperatorFactory::ConvertAttrValueToLint
 //
 //	@doc:
-//	  Converts the attribute m_bytearray_value to LINT
+//	  Converts the attribute value to LINT
 //
 //---------------------------------------------------------------------------
 LINT
@@ -3799,7 +3799,7 @@ CDXLOperatorFactory::ConvertAttrValueToLint
 //		CDXLOperatorFactory::ExtractConvertAttrValueToLint
 //
 //	@doc:
-//	  Extracts the m_bytearray_value for the given attribute and converts it into LINT
+//	  Extracts the value for the given attribute and converts it into LINT
 //
 //---------------------------------------------------------------------------
 LINT

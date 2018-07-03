@@ -132,7 +132,7 @@ CParseHandlerScalarMinMax::EndElement
 //		CParseHandlerScalarMinMax::GetMinMaxType
 //
 //	@doc:
-//		Parse the min/max type from the attribute m_bytearray_value
+//		Parse the min/max type from the attribute value
 //
 //---------------------------------------------------------------------------
 CDXLScalarMinMax::EdxlMinMaxType

@@ -30,13 +30,13 @@ CMDRelationExternalGPDB::CMDRelationExternalGPDB
 	IMDId *mdid,
 	CMDName *mdname,
 	Ereldistrpolicy rel_distr_policy,
-	MDColumnPtrArray *mdcol_array,
+												 CMDColumnArray *mdcol_array,
 	ULongPtrArray *distr_col_array,
 	BOOL convert_hash_to_random,
 	ULongPtrArray2D *keyset_array,
-	MDIndexInfoPtrArray *md_index_info_array,
-	MdidPtrArray *mdid_triggers_array,
- 	MdidPtrArray *mdid_check_constraint_array,
+												 CMDIndexInfoArray *md_index_info_array,
+												 IMdIdArray *mdid_triggers_array,
+												 IMdIdArray *mdid_check_constraint_array,
 	INT reject_limit,
 	BOOL is_reject_limit_in_rows,
 	IMDId *mdid_fmt_err_table
@@ -71,8 +71,8 @@ CMDRelationExternalGPDB::CMDRelationExternalGPDB
 				IMDRelation::EreldistrHash == rel_distr_policy &&
 				"Converting hash distributed table to random only possible for hash distributed tables");
 
-	m_colpos_nondrop_colpos_map = GPOS_NEW(m_mp) UlongUlongHashMap(m_mp);
-	m_attrno_nondrop_col_pos_map = GPOS_NEW(m_mp) IntUlongHashMap(m_mp);
+	m_colpos_nondrop_colpos_map = GPOS_NEW(m_mp) UlongToUlongMap(m_mp);
+	m_attrno_nondrop_col_pos_map = GPOS_NEW(m_mp) IntToUlongMap(m_mp);
 	m_nondrop_col_pos_array = GPOS_NEW(m_mp) ULongPtrArray(m_mp);
 	m_col_width_array = GPOS_NEW(mp) CDoubleArray(mp);
 

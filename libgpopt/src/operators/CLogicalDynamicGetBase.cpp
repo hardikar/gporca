@@ -73,8 +73,8 @@ CLogicalDynamicGetBase::CLogicalDynamicGetBase
 	const CName *pnameAlias,
 	CTableDescriptor *ptabdesc,
 	ULONG scan_id,
-	ColRefArray *pdrgpcrOutput, 
-	ColRefArrays *pdrgpdrgpcrPart,
+	CColRefArray *pdrgpcrOutput, 
+	CColRefArrays *pdrgpdrgpcrPart,
 	ULONG ulSecondaryScanId,
 	BOOL is_partial,
 	CPartConstraint *ppartcnstr,
@@ -142,7 +142,7 @@ CLogicalDynamicGetBase::CLogicalDynamicGetBase
 	m_pdrgpdrgpcrPart = PdrgpdrgpcrCreatePartCols(mp, m_pdrgpcrOutput, m_ptabdesc->PdrgpulPart());
 	
 	// generate a constraint "true"
-	HMUlCnstr *phmulcnstr = CUtils::PhmulcnstrBoolConstOnPartKeys(mp, m_pdrgpdrgpcrPart, true /*m_bytearray_value*/);
+	UlongToConstraintMap *phmulcnstr = CUtils::PhmulcnstrBoolConstOnPartKeys(mp, m_pdrgpdrgpcrPart, true /*value*/);
 	CBitSet *pbsDefaultParts = CUtils::PbsAllSet(mp, m_pdrgpdrgpcrPart->Size());
 	m_pdrgpdrgpcrPart->AddRef();
 	m_part_constraint = GPOS_NEW(mp) CPartConstraint(mp, phmulcnstr, pbsDefaultParts, true /*is_unbounded*/, m_pdrgpdrgpcrPart);
@@ -210,7 +210,7 @@ CLogicalDynamicGetBase::PkcDeriveKeys
 	)
 	const
 {
-	const BitSetArray *pdrgpbs = m_ptabdesc->PdrgpbsKeys();
+	const CBitSetArray *pdrgpbs = m_ptabdesc->PdrgpbsKeys();
 
 	return CLogical::PkcKeysBaseTable(mp, pdrgpbs, m_pdrgpcrOutput);
 }

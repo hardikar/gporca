@@ -88,7 +88,7 @@ namespace gpopt
 	class CConstraintInterval;
 	class IConstExprEvaluator;
 
-	typedef CDynamicPtrArray<CExpression, CleanupNULL> DrgPexprJoins;
+	typedef CDynamicPtrArray<CExpression, CleanupNULL> CExpressionJoinsArray;
 
 	typedef BOOL (FnDXLPlanChecker)(CDXLNode *);
 
@@ -357,7 +357,7 @@ namespace gpopt
 			
 			// generate an n-ary join expression
 			static
-			CExpression *PexprLogicalNAryJoin(IMemoryPool *mp, ExpressionArray *pdrgpexpr);
+			CExpression *PexprLogicalNAryJoin(IMemoryPool *mp, CExpressionArray *pdrgpexpr);
 
 			// generate an n-ary join expression using given array of relation names
 			static
@@ -501,7 +501,7 @@ namespace gpopt
 
 			// generate a logical sequence expression
 			static
-			CExpression *PexprLogicalSequence(IMemoryPool *mp, ExpressionArray *pdrgpexpr); 
+			CExpression *PexprLogicalSequence(IMemoryPool *mp, CExpressionArray *pdrgpexpr); 
 
 			// generate a logical sequence expression
 			static
@@ -525,11 +525,11 @@ namespace gpopt
 
 			// generate a dynamic array of join expressions
 			static
-			DrgPexprJoins *PdrgpexprJoins(IMemoryPool *mp, CWStringConst *pstrRel, ULONG *pulRel, ULONG ulRels, BOOL fCrossProduct);
+			CExpressionJoinsArray *PdrgpexprJoins(IMemoryPool *mp, CWStringConst *pstrRel, ULONG *pulRel, ULONG ulRels, BOOL fCrossProduct);
 							
 			// generate a query context from an array of required column references
 			static
-			CQueryContext *PqcGenerate(IMemoryPool *mp, CExpression *pexpr, ColRefArray *colref_array);
+			CQueryContext *PqcGenerate(IMemoryPool *mp, CExpression *pexpr, CColRefArray *colref_array);
 
 			// generate a dummy query context for testing
 			static
@@ -545,7 +545,7 @@ namespace gpopt
 
 			// equality predicate shortcut
 			static
-			void EqualityPredicate(IMemoryPool *mp, CColRefSet *pcrsLeft, CColRefSet *pcrsRight, ExpressionArray *pdrgpexpr);
+			void EqualityPredicate(IMemoryPool *mp, CColRefSet *pcrsLeft, CColRefSet *pcrsRight, CExpressionArray *pdrgpexpr);
 
 			// int2 point
 			static
@@ -555,7 +555,7 @@ namespace gpopt
 			static
 			CPoint *PpointInt4(IMemoryPool *mp, INT i);
 
-			// create an INT4 point with null m_bytearray_value
+			// create an INT4 point with null value
 			static
 			CPoint *PpointInt4NullVal(IMemoryPool *mp);
 
@@ -707,7 +707,7 @@ namespace gpopt
 				ULONG ulSessionId,
 				ULONG ulCmdId,
 				FnDXLPlanChecker *pfdpc,
-				CostModelParamsArray *pdrgpcp
+				ICostModelParamsArray *pdrgpcp
 				);
 
 			// generate cost model used in tests
@@ -720,7 +720,7 @@ namespace gpopt
 				return GPOS_NEW(mp) CCostModelGPDBLegacy(mp, GPOPT_TEST_SEGMENTS);
 			}
 
-			// create a datum with a given type, encoded m_bytearray_value and int m_bytearray_value
+			// create a datum with a given type, encoded value and int value
 			static
 			IDatum *CreateGenericDatum(IMemoryPool *mp, CMDAccessor *md_accessor, IMDId *mdid_type, CWStringDynamic *pstrEncodedValue, LINT value);
 
@@ -816,7 +816,7 @@ namespace gpopt
 
 			// create Equivalence Class based on the breakpoints
 			static
-			ColRefSetArray *
+			CColRefSetArray *
 			createEquivalenceClasses(IMemoryPool *mp, CColRefSet *pcrs, INT setBoundary[]);
 	}; // class CTestUtils
 
@@ -880,11 +880,11 @@ namespace gpopt
 
 		// extract first partition key
 		CLogicalGet *popGetPartitioned = CLogicalGet::PopConvert(pexprGetPartitioned->Pop());
-		const ColRefArrays *pdrgpdrgpcr = popGetPartitioned->PdrgpdrgpcrPartColumns();
+		const CColRefArrays *pdrgpdrgpcr = popGetPartitioned->PdrgpdrgpcrPartColumns();
 
 		GPOS_ASSERT(pdrgpdrgpcr != NULL);
 		GPOS_ASSERT(0 < pdrgpdrgpcr->Size());
-		ColRefArray *colref_array = (*pdrgpdrgpcr)[0];
+		CColRefArray *colref_array = (*pdrgpdrgpcr)[0];
 		GPOS_ASSERT(1 == colref_array->Size());
 		CColRef *pcrPartKey = (*colref_array)[0];
 
@@ -977,7 +977,7 @@ namespace gpopt
 		CColRefSet *outer_refs = CDrvdPropRelational::GetRelationalProperties(pexprOuter->PdpDerive())->PcrsOutput();
 
 		CExpression *pexprInner = PexprLogicalSelectCorrelated(mp, outer_refs, 3);
-		CExpression *pexprPredicate = CUtils::PexprScalarConstBool(mp, true /*m_bytearray_value*/);
+		CExpression *pexprPredicate = CUtils::PexprScalarConstBool(mp, true /*value*/);
 
 		COperator *pop = GPOS_NEW(mp) T(mp);
 		return GPOS_NEW(mp) CExpression(mp, pop, pexprOuter, pexprInner, pexprPredicate);
@@ -1002,13 +1002,13 @@ namespace gpopt
 		CColRefSet *outer_refs = CDrvdPropRelational::GetRelationalProperties(pexprOuter->PdpDerive())->PcrsOutput();
 
 		CExpression *pexprInner = PexprLogicalSelectCorrelated(mp, outer_refs, 3);
-		CExpression *pexprPredicate = CUtils::PexprScalarConstBool(mp, true /*m_bytearray_value*/);
+		CExpression *pexprPredicate = CUtils::PexprScalarConstBool(mp, true /*value*/);
 
 		CColRefSet *pcrsOuterRef = CDrvdPropRelational::GetRelationalProperties(pexprInner->PdpDerive())->PcrsOuter();
 		GPOS_ASSERT(1 == pcrsOuterRef->Size());
 		CColRef *colref = pcrsOuterRef->PcrFirst();
 
-		ColRefArray *colref_array = GPOS_NEW(mp) ColRefArray(mp);
+		CColRefArray *colref_array = GPOS_NEW(mp) CColRefArray(mp);
 		colref_array->Append(colref);
 		COperator *pop = GPOS_NEW(mp) T(mp, colref_array, COperator::EopScalarSubquery);
 		return GPOS_NEW(mp) CExpression(mp, pop, pexprOuter, pexprInner, pexprPredicate);

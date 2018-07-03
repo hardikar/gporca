@@ -41,26 +41,26 @@ namespace gpnaucrates
 
 	// hash map from column id to a histogram
 	typedef CHashMap<ULONG, CHistogram, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupDelete<CHistogram> > UlongHistogramHashMap;
+					CleanupDelete<ULONG>, CleanupDelete<CHistogram> > UlongToHistogramMap;
 
 	// iterator
 	typedef CHashMapIter<ULONG, CHistogram, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupDelete<CHistogram> > UlongHistogramHashMapIter;
+					CleanupDelete<ULONG>, CleanupDelete<CHistogram> > UlongToHistogramMapIter;
 
 	// hash map from column ULONG to CDouble
 	typedef CHashMap<ULONG, CDouble, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupDelete<CDouble> > UlongDoubleHashMap;
+					CleanupDelete<ULONG>, CleanupDelete<CDouble> > UlongToDoubleMap;
 
 	// iterator
 	typedef CHashMapIter<ULONG, CDouble, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupDelete<CDouble> > UlongDoubleHashMapIter;
+					CleanupDelete<ULONG>, CleanupDelete<CDouble> > UlongToDoubleMapIter;
 
 	typedef CHashMap<ULONG, ULONG, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupDelete<ULONG> > UlongUlongHashMap;
+					CleanupDelete<ULONG>, CleanupDelete<ULONG> > UlongToUlongMap;
 
 	// hash maps mapping INT -> ULONG
 	typedef CHashMap<INT, ULONG, gpos::HashValue<INT>, gpos::Equals<INT>,
-					CleanupDelete<INT>, CleanupDelete<ULONG> > IntUlongHashMap;
+					CleanupDelete<INT>, CleanupDelete<ULONG> > IntToUlongMap;
 
 	//---------------------------------------------------------------------------
 	//	@class:
@@ -150,7 +150,7 @@ namespace gpnaucrates
 						(
 						IMemoryPool *mp,
 						const IStatistics *other_stats,
-						StatsPredJoinArray *join_preds_stats
+						CStatsPredJoinArray *join_preds_stats
 						)
 						const = 0;
 
@@ -160,7 +160,7 @@ namespace gpnaucrates
 						(
 						IMemoryPool *mp,
 						const IStatistics *other_stats,
-						StatsPredJoinArray *join_preds_stats
+						CStatsPredJoinArray *join_preds_stats
 						)
 						const = 0;
 
@@ -170,7 +170,7 @@ namespace gpnaucrates
 						(
 						IMemoryPool *mp,
 						const IStatistics *inner_side_stats,
-						StatsPredJoinArray *join_preds_stats
+						CStatsPredJoinArray *join_preds_stats
 						)
 						const = 0;
 
@@ -180,7 +180,7 @@ namespace gpnaucrates
 						(
 						IMemoryPool *mp,
 						const IStatistics *other_stats,
-						StatsPredJoinArray *join_preds_stats,
+						CStatsPredJoinArray *join_preds_stats,
 						BOOL DoIgnoreLASJHistComputation
 						)
 						const = 0;
@@ -207,7 +207,7 @@ namespace gpnaucrates
 
 			// copy stats with remapped column ids
 			virtual
-			IStatistics *CopyStatsWithRemap(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist = true) const = 0;
+			IStatistics *CopyStatsWithRemap(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist = true) const = 0;
 
 			// return a set of column references we have stats for
 			virtual
@@ -248,8 +248,8 @@ namespace gpnaucrates
 	}
 
 	// dynamic array for derived stats
-	typedef CDynamicPtrArray<IStatistics, CleanupStats> StatsArray;
-}
+	typedef CDynamicPtrArray<IStatistics, CleanupStats> IStatisticsArray;
+}  // namespace gpnaucrates
 
 #endif // !GPNAUCRATES_IStatistics_H
 

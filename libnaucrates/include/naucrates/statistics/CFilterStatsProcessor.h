@@ -77,36 +77,33 @@ namespace gpnaucrates
 				);
 
 			// create a new hash map of histograms after applying a conjunctive or disjunctive filter
-			static
-			UlongHistogramHashMap *MakeHistHashMapConjOrDisjFilter
-				(
+      static
+      UlongToHistogramMap *MakeHistHashMapConjOrDisjFilter(
 				IMemoryPool *mp,
 				const CStatisticsConfig *stats_config,
-				UlongHistogramHashMap *input_histograms,
+			UlongToHistogramMap *input_histograms,
 				CDouble input_rows,
 				CStatsPred *pred_stats,
 				CDouble *scale_factor
 				);
 
 			// create new hash map of histograms after applying the conjunction predicate
-			static
-			UlongHistogramHashMap *MakeHistHashMapConjFilter
-				(
+      static
+      UlongToHistogramMap *MakeHistHashMapConjFilter(
 				IMemoryPool *mp,
 				const CStatisticsConfig *stats_config,
-				UlongHistogramHashMap *intermediate_histograms,
+			UlongToHistogramMap *intermediate_histograms,
 				CDouble input_rows,
 				CStatsPredConj *conjunctive_pred_stats,
 				CDouble *scale_factor
 				);
 
 			// create new hash map of histograms after applying the disjunctive predicate
-			static
-			UlongHistogramHashMap *MakeHistHashMapDisjFilter
-				(
+      static
+      UlongToHistogramMap *MakeHistHashMapDisjFilter(
 				IMemoryPool *mp,
 				const CStatisticsConfig *stats_config,
-				UlongHistogramHashMap *input_histograms,
+			UlongToHistogramMap *input_histograms,
 				CDouble input_rows,
 				CStatsPredDisj *pred_stats,
 				CDouble *scale_factor
@@ -131,7 +128,7 @@ namespace gpnaucrates
 						IStatistics *child_stats,
 						CExpression *local_scalar_expr, // filter expression on local columns only
 						CExpression *outer_refs_scalar_expr, // filter expression involving outer references
-						StatsArray *all_outer_stats
+						IStatisticsArray *all_outer_stats
 						);
 	};
 }

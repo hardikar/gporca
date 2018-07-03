@@ -47,7 +47,7 @@ CDXLDatumInt4::CDXLDatumInt4
 //		CDXLDatumInt4::Value
 //
 //	@doc:
-//		Return the integer m_bytearray_value
+//		Return the integer value
 //
 //---------------------------------------------------------------------------
 INT

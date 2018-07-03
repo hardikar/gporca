@@ -136,7 +136,7 @@ CReqdPropPlan::ComputeReqdCols
 	CExpressionHandle &exprhdl,
 	CReqdProp *prpInput,
 	ULONG child_index,
-	DrgPdp *pdrgpdpCtxt
+	CDrvdPropArrays *pdrgpdpCtxt
 	)
 {
 	GPOS_ASSERT(NULL == m_pcrs);
@@ -162,7 +162,7 @@ CReqdPropPlan::ComputeReqdCTEs
 	CExpressionHandle &exprhdl,
 	CReqdProp *prpInput,
 	ULONG child_index,
-	DrgPdp *pdrgpdpCtxt
+	CDrvdPropArrays *pdrgpdpCtxt
 	)
 {
 	GPOS_ASSERT(NULL == m_pcter);
@@ -188,7 +188,7 @@ CReqdPropPlan::Compute
 	CExpressionHandle &exprhdl,
 	CReqdProp *prpInput,
 	ULONG child_index,
-	DrgPdp *pdrgpdpCtxt,
+	CDrvdPropArrays *pdrgpdpCtxt,
 	ULONG ulOptReq
 	)
 {
@@ -282,7 +282,7 @@ CReqdPropPlan::PpfmCombineDerived
 	CExpressionHandle &exprhdl,
 	CReqdPropPlan *prppInput,
 	ULONG child_index,
-	DrgPdp *pdrgpdpCtxt
+	CDrvdPropArrays *pdrgpdpCtxt
 	)
 {
 	// get partitioning info below required child
@@ -344,7 +344,7 @@ CReqdPropPlan::PpfmCombineDerived
 //		CReqdPropPlan::InitReqdPartitionPropagation
 //
 //	@doc:
-//		Compute hash m_bytearray_value using required columns and required sort order
+//		Compute hash value using required columns and required sort order
 //
 //---------------------------------------------------------------------------
 void
@@ -363,7 +363,7 @@ CReqdPropPlan::InitReqdPartitionPropagation
 	{
 		ULONG scan_id = ppartinfo->ScanId(ul);
 		IMDId *mdid = ppartinfo->GetRelMdId(ul);
-		PartKeysArray *pdrgppartkeys = ppartinfo->Pdrgppartkeys(ul);
+		CPartKeysArray *pdrgppartkeys = ppartinfo->Pdrgppartkeys(ul);
 		CPartConstraint *ppartcnstr = ppartinfo->Ppartcnstr(ul);
 
 		mdid->AddRef();
@@ -373,7 +373,7 @@ CReqdPropPlan::InitReqdPartitionPropagation
 		ppim->Insert
 			(
 			scan_id,
-			GPOS_NEW(mp) PartCnstrMap(mp), 
+			GPOS_NEW(mp) UlongToPartConstraintMap(mp), 
 			CPartIndexMap::EpimConsumer,
 			0, //ulExpectedPropagators
 			mdid,
@@ -531,7 +531,7 @@ CReqdPropPlan::Equals
 //		CReqdPropPlan::HashValue
 //
 //	@doc:
-//		Compute hash m_bytearray_value using required columns and required sort order
+//		Compute hash value using required columns and required sort order
 //
 //---------------------------------------------------------------------------
 ULONG
@@ -785,7 +785,7 @@ CReqdPropPlan::PrppRemap
 	IMemoryPool *mp,
 	CReqdPropPlan *prppInput,
 	CDrvdPropPlan *pdpplanInput,
-	UlongColRefHashMap *colref_mapping
+	UlongToColRefMap *colref_mapping
 	)
 {
 	GPOS_ASSERT(NULL != colref_mapping);

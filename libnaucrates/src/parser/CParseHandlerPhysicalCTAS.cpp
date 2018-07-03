@@ -177,7 +177,7 @@ CParseHandlerPhysicalCTAS::EndElement
 	GPOS_ASSERT(NULL != proj_list_parse_handler->CreateDXLNode());
 	GPOS_ASSERT(NULL != child_parse_handler->CreateDXLNode());
 	
-	DXLColumnDescrArray *dxl_col_descr_array = col_descr_parse_handler->GetDXLColumnDescrArray();
+	CDXLColDescrArray *dxl_col_descr_array = col_descr_parse_handler->GetDXLColumnDescrArray();
 	dxl_col_descr_array->AddRef();
 	
 	CDXLCtasStorageOptions *ctas_options = ctas_options_parse_handler->GetDxlCtasStorageOption();

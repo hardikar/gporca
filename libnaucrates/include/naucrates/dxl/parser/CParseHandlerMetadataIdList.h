@@ -36,7 +36,7 @@ namespace gpdxl
 	{
 		private:
 			// list of metadata identifiers
-			MdidPtrArray *m_mdid_array;
+		IMdIdArray *m_mdid_array;
 
 			
 			// private copy ctor
@@ -78,7 +78,7 @@ namespace gpdxl
 			~CParseHandlerMetadataIdList();
 			
 			// return the constructed list of metadata identifiers
-			MdidPtrArray *GetMdIdArray();
+			IMdIdArray *GetMdIdArray();
 			
 	};
 }

@@ -43,7 +43,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				IMDId *mdid,
-				HMUlExpr *phmulexprEqPredicates,
+				UlongToExprMap *phmulexprEqPredicates,
 				CColRef *pcrOid
 				);
 
@@ -87,7 +87,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CDistributionSpec *pdsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -100,7 +100,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				COrderSpec *posRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -113,7 +113,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CPartitionPropagationSpec *pppsRequired,
 				ULONG child_index,
-				DrgPdp *pdrgpdpCtxt,
+				CDrvdPropArrays *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 

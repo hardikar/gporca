@@ -83,7 +83,7 @@ namespace gpmd
 			
 			// output argument types
 			virtual
-			MdidPtrArray *OutputArgTypesMdidArray() const = 0;
+			IMdIdArray *OutputArgTypesMdidArray() const = 0;
 	};
 		
 }

@@ -47,7 +47,7 @@ namespace gpopt
 	class CXformLeftOuter2InnerUnionAllLeftAntiSemiJoin : public CXformExploration
 	{
 		private:
-			// if ratio of the cardinalities outer/inner is below this m_bytearray_value, we apply the xform
+			// if ratio of the cardinalities outer/inner is below this value, we apply the xform
 			static const DOUBLE m_dOuterInnerRatioThreshold;
 
 			// disable copy ctor
@@ -66,11 +66,11 @@ namespace gpopt
 			CExpression *PexprLeftAntiSemiJoinWithInnerGroupBy
 				(
 				IMemoryPool *mp,
-				ColRefArray *pdrgpcrOuter,
-				ColRefArray *pdrgpcrOuterCopy,
+				CColRefArray *pdrgpcrOuter,
+				CColRefArray *pdrgpcrOuterCopy,
 				CColRefSet *pcrsScalar,
 				CColRefSet *pcrsInner,
-				ColRefArray *pdrgpcrJoinOutput,
+				CColRefArray *pdrgpcrJoinOutput,
 				ULONG ulCTEJoinId,
 				ULONG ulCTEOuterId
 				);
@@ -81,13 +81,13 @@ namespace gpopt
 			CExpression *PexprProjectOverLeftAntiSemiJoin
 				(
 				IMemoryPool *mp,
-				ColRefArray *pdrgpcrOuter,
+				CColRefArray *pdrgpcrOuter,
 				CColRefSet *pcrsScalar,
 				CColRefSet *pcrsInner,
-				ColRefArray *pdrgpcrJoinOutput,
+				CColRefArray *pdrgpcrJoinOutput,
 				ULONG ulCTEJoinId,
 				ULONG ulCTEOuterId,
-				ColRefArray **ppdrgpcrProjectOutput
+				CColRefArray **ppdrgpcrProjectOutput
 				);
 
 		public:

@@ -24,7 +24,7 @@ namespace gpopt
 {
 	// type definition of corresponding dynamic pointer array
 	class CWindowFrame;
-	typedef CDynamicPtrArray<CWindowFrame, CleanupRelease> WindowFrameArray;
+	typedef CDynamicPtrArray<CWindowFrame, CleanupRelease> CWindowFrameArray;
 
 	using namespace gpos;
 
@@ -87,10 +87,10 @@ namespace gpopt
 			// type of trailing edge
 			const EFrameBoundary m_efbTrailing;
 
-			// scalar m_bytearray_value of leading edge, memory owned by this class
+			// scalar value of leading edge, memory owned by this class
 			CExpression *m_pexprLeading;
 
-			// scalar m_bytearray_value of trailing edge, memory owned by this class
+			// scalar value of trailing edge, memory owned by this class
 			CExpression *m_pexprTrailing;
 
 			// exclusion strategy
@@ -145,13 +145,13 @@ namespace gpopt
 				return m_efbTrailing;
 			}
 
-			// scalar m_bytearray_value of leading edge
+			// scalar value of leading edge
 			CExpression *PexprLeading() const
 			{
 				return m_pexprLeading;
 			}
 
-			// scalar m_bytearray_value of trailing edge
+			// scalar value of trailing edge
 			CExpression *PexprTrailing() const
 			{
 				return m_pexprTrailing;
@@ -172,7 +172,7 @@ namespace gpopt
 
 			// return a copy of the window frame with remapped columns
 			virtual
-			CWindowFrame *PwfCopyWithRemappedColumns(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			CWindowFrame *PwfCopyWithRemappedColumns(IMemoryPool *mp, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			// return columns used by frame edges
 			CColRefSet *PcrsUsed() const
@@ -186,15 +186,15 @@ namespace gpopt
 
 			// matching function over frame arrays
 			static
-			BOOL Equals(const WindowFrameArray *pdrgpwfFirst, const WindowFrameArray *pdrgpwfSecond);
+			BOOL Equals(const CWindowFrameArray *pdrgpwfFirst, const CWindowFrameArray *pdrgpwfSecond);
 
 			// combine hash values of a maximum number of entries
 			static
-			ULONG HashValue(const WindowFrameArray *pdrgpwfFirst, ULONG ulMaxSize);
+			ULONG HashValue(const CWindowFrameArray *pdrgpwfFirst, ULONG ulMaxSize);
 
 			// print array of window frame objects
 			static
-			IOstream &OsPrint(IOstream &os, const WindowFrameArray *pdrgpwf);
+			IOstream &OsPrint(IOstream &os, const CWindowFrameArray *pdrgpwf);
 
 			// check if a given window frame is empty
 			static

@@ -45,8 +45,8 @@ using namespace gpopt;
 CPhysicalSerialUnionAll::CPhysicalSerialUnionAll
 	(
 	IMemoryPool *mp,
-	ColRefArray *pdrgpcrOutput,
-	ColRefArrays *pdrgpdrgpcrInput,
+	CColRefArray *pdrgpcrOutput,
+	CColRefArrays *pdrgpdrgpcrInput,
 	ULONG ulScanIdPartialIndex
 	)
 	:
@@ -82,7 +82,7 @@ CPhysicalSerialUnionAll::PdsRequired
 	CExpressionHandle &exprhdl,
 	CDistributionSpec *pdsRequired,
 	ULONG child_index,
-	DrgPdp *pdrgpdpCtxt,
+	CDrvdPropArrays *pdrgpdpCtxt,
 	ULONG ulOptReq
 	)
 	const

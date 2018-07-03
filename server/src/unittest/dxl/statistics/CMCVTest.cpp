@@ -107,13 +107,13 @@ CMCVTest::EresUnittest_SortInt4MCVs()
 								);
 
 	// create hash map from colid -> histogram
-	UlongHistogramHashMap *col_histogram_mapping = GPOS_NEW(mp) UlongHistogramHashMap(mp);
+	UlongToHistogramMap *col_histogram_mapping = GPOS_NEW(mp) UlongToHistogramMap(mp);
 
 	// generate int histogram for column 1
 	col_histogram_mapping->Insert(GPOS_NEW(mp) ULONG(1), phistMCV);
 
 	// column width for int4
-	UlongDoubleHashMap *colid_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
+	UlongToDoubleMap *colid_width_mapping = GPOS_NEW(mp) UlongToDoubleMap(mp);
 	colid_width_mapping->Insert(GPOS_NEW(mp) ULONG(1), GPOS_NEW(mp) CDouble(4.0));
 
 	CStatistics *stats = GPOS_NEW(mp) CStatistics
@@ -204,21 +204,21 @@ CMCVTest::EresUnittest_MergeHistMCV()
 		CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 
 		// parse the stats objects
-		DXLStatsDerivedRelArray *pdrgpdxlstatsderrelMCV = CDXLUtils::ParseDXLToStatsDerivedRelArray(mp, szDXLInputMCV, NULL);
-		DXLStatsDerivedRelArray *pdrgpdxlstatsderrelHist = CDXLUtils::ParseDXLToStatsDerivedRelArray(mp, szDXLInputHist, NULL);
+		CDXLStatsDerivedRelationArray *pdrgpdxlstatsderrelMCV = CDXLUtils::ParseDXLToStatsDerivedRelArray(mp, szDXLInputMCV, NULL);
+		CDXLStatsDerivedRelationArray *pdrgpdxlstatsderrelHist = CDXLUtils::ParseDXLToStatsDerivedRelArray(mp, szDXLInputHist, NULL);
 
 		GPOS_CHECK_ABORT;
 
 		CDXLStatsDerivedRelation *pdxlstatsderrelMCV = (*pdrgpdxlstatsderrelMCV)[0];
-		const DXLStatsDerivedColArray *pdrgpdxlstatsdercolMCV = pdxlstatsderrelMCV->GetDXLStatsDerivedColArray();
+		const CDXLStatsDerivedColumnArray *pdrgpdxlstatsdercolMCV = pdxlstatsderrelMCV->GetDXLStatsDerivedColArray();
 		CDXLStatsDerivedColumn *pdxlstatsdercolMCV = (*pdrgpdxlstatsdercolMCV)[0];
-		BucketArray *pdrgppbucketMCV = CDXLUtils::ParseDXLToBucketsArray(mp, md_accessor, pdxlstatsdercolMCV);
+		CBucketArray *pdrgppbucketMCV = CDXLUtils::ParseDXLToBucketsArray(mp, md_accessor, pdxlstatsdercolMCV);
 		CHistogram *phistMCV =  GPOS_NEW(mp) CHistogram(pdrgppbucketMCV);
 
 		CDXLStatsDerivedRelation *pdxlstatsderrelHist = (*pdrgpdxlstatsderrelHist)[0];
-		const DXLStatsDerivedColArray *pdrgpdxlstatsdercolHist = pdxlstatsderrelHist->GetDXLStatsDerivedColArray();
+		const CDXLStatsDerivedColumnArray *pdrgpdxlstatsdercolHist = pdxlstatsderrelHist->GetDXLStatsDerivedColArray();
 		CDXLStatsDerivedColumn *pdxlstatsdercolHist = (*pdrgpdxlstatsdercolHist)[0];
-		BucketArray *pdrgppbucketHist = CDXLUtils::ParseDXLToBucketsArray(mp, md_accessor, pdxlstatsdercolHist);
+		CBucketArray *pdrgppbucketHist = CDXLUtils::ParseDXLToBucketsArray(mp, md_accessor, pdxlstatsdercolHist);
 		CHistogram *phistHist =  GPOS_NEW(mp) CHistogram(pdrgppbucketHist);
 
 		GPOS_CHECK_ABORT;
@@ -227,14 +227,14 @@ CMCVTest::EresUnittest_MergeHistMCV()
 		CHistogram *phistMerged = CStatisticsUtils::MergeMCVHist(mp, phistMCV, phistHist);
 
 		// create hash map from colid -> histogram
-		UlongHistogramHashMap *col_histogram_mapping = GPOS_NEW(mp) UlongHistogramHashMap(mp);
+		UlongToHistogramMap *col_histogram_mapping = GPOS_NEW(mp) UlongToHistogramMap(mp);
 
 		// generate int histogram for column 1
 		ULONG colid = pdxlstatsdercolMCV->GetColId();
 		col_histogram_mapping->Insert(GPOS_NEW(mp) ULONG(colid), phistMerged);
 
 		// column width for int4
-		UlongDoubleHashMap *colid_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
+		UlongToDoubleMap *colid_width_mapping = GPOS_NEW(mp) UlongToDoubleMap(mp);
 		CDouble width = pdxlstatsdercolMCV->Width();
 		colid_width_mapping->Insert(GPOS_NEW(mp) ULONG(colid), GPOS_NEW(mp) CDouble(width));
 

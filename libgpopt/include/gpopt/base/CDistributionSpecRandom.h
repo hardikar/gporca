@@ -36,7 +36,7 @@ namespace gpopt
 			BOOL m_is_duplicate_sensitive;
 			
 			// does Singleton spec satisfy current distribution?
-			// by default, Singleton satisfies hashed/random since all tuples with the same hash m_bytearray_value
+			// by default, Singleton satisfies hashed/random since all tuples with the same hash value
 			// are moved to the same host/segment,
 			// this flag adds the ability to mark a distribution request as non-satisfiable by Singleton
 			// in case we need to enforce across segments distribution
@@ -101,7 +101,7 @@ namespace gpopt
 			
 			// append enforcers to dynamic array for the given plan properties
 			virtual
-			void AppendEnforcers(IMemoryPool *mp, CExpressionHandle &exprhdl, CReqdPropPlan *prpp, ExpressionArray *pdrgpexpr, CExpression *pexpr);				
+			void AppendEnforcers(IMemoryPool *mp, CExpressionHandle &exprhdl, CReqdPropPlan *prpp, CExpressionArray *pdrgpexpr, CExpression *pexpr);				
 
 			// return distribution partitioning type
 			virtual

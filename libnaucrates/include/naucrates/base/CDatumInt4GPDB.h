@@ -35,7 +35,7 @@ class CDatumInt4GPDB : public IDatumInt4
 		// type information
 		IMDId *m_mdid;
 	
-		// integer m_bytearray_value
+		// integer value
 		INT m_val;
 
 		// is null
@@ -62,7 +62,7 @@ class CDatumInt4GPDB : public IDatumInt4
 		virtual
 		ULONG Size() const;
 
-		// accessor of integer m_bytearray_value
+		// accessor of integer value
 		virtual
 		INT Value() const;
 
