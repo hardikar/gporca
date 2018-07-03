@@ -373,7 +373,7 @@ CReqdPropPlan::InitReqdPartitionPropagation
 		ppim->Insert
 			(
 			scan_id,
-			GPOS_NEW(mp) PartCnstrMap(mp), 
+			GPOS_NEW(mp) UlongToPartConstraintMap(mp), 
 			CPartIndexMap::EpimConsumer,
 			0, //ulExpectedPropagators
 			mdid,
@@ -785,7 +785,7 @@ CReqdPropPlan::PrppRemap
 	IMemoryPool *mp,
 	CReqdPropPlan *prppInput,
 	CDrvdPropPlan *pdpplanInput,
-	UlongColRefHashMap *colref_mapping
+	UlongToColRefMap *colref_mapping
 	)
 {
 	GPOS_ASSERT(NULL != colref_mapping);

@@ -46,7 +46,7 @@ namespace gpnaucrates
 					 gpos::Equals<ULONG>,
 					 CleanupDelete<ULONG>,
 					 CleanupDelete<CHistogram> >
-		UlongHistogramHashMap;
+		UlongToHistogramMap;
 
 	// iterator
 	typedef CHashMapIter<ULONG,
@@ -55,7 +55,7 @@ namespace gpnaucrates
 						 gpos::Equals<ULONG>,
 						 CleanupDelete<ULONG>,
 						 CleanupDelete<CHistogram> >
-		UlongHistogramHashMapIter;
+		UlongToHistogramMapIter;
 
 	// hash map from column ULONG to CDouble
 	typedef CHashMap<ULONG,
@@ -64,7 +64,7 @@ namespace gpnaucrates
 					 gpos::Equals<ULONG>,
 					 CleanupDelete<ULONG>,
 					 CleanupDelete<CDouble> >
-		UlongDoubleHashMap;
+		UlongToDoubleMap;
 
 	// iterator
 	typedef CHashMapIter<ULONG,
@@ -73,7 +73,7 @@ namespace gpnaucrates
 						 gpos::Equals<ULONG>,
 						 CleanupDelete<ULONG>,
 						 CleanupDelete<CDouble> >
-		UlongDoubleHashMapIter;
+		UlongToDoubleMapIter;
 
 	typedef CHashMap<ULONG,
 					 ULONG,
@@ -81,7 +81,7 @@ namespace gpnaucrates
 					 gpos::Equals<ULONG>,
 					 CleanupDelete<ULONG>,
 					 CleanupDelete<ULONG> >
-		UlongUlongHashMap;
+		UlongToUlongMap;
 
 	// hash maps mapping INT -> ULONG
 	typedef CHashMap<INT,
@@ -90,7 +90,7 @@ namespace gpnaucrates
 					 gpos::Equals<INT>,
 					 CleanupDelete<INT>,
 					 CleanupDelete<ULONG> >
-		IntUlongHashMap;
+		IntToUlongMap;
 
 	//---------------------------------------------------------------------------
 	//	@class:
@@ -200,7 +200,7 @@ namespace gpnaucrates
 
 		// copy stats with remapped column ids
 		virtual IStatistics *CopyStatsWithRemap(IMemoryPool *mp,
-												UlongColRefHashMap *colref_mapping,
+												UlongToColRefMap *colref_mapping,
 												BOOL must_exist = true) const = 0;
 
 		// return a set of column references we have stats for

@@ -36,10 +36,10 @@ CPhysicalPartitionSelector::CPhysicalPartitionSelector
 	ULONG scan_id,
 	IMDId *mdid,
 	ColRefArrays *pdrgpdrgpcr,
-	PartCnstrMap *ppartcnstrmap,
+	UlongToPartConstraintMap *ppartcnstrmap,
 	CPartConstraint *ppartcnstr,
-	HMUlExpr *phmulexprEqPredicates,
-	HMUlExpr *phmulexprPredicates,
+	UlongToExprMap *phmulexprEqPredicates,
+	UlongToExprMap *phmulexprPredicates,
 	CExpression *pexprResidual
 	)
 	:
@@ -77,7 +77,7 @@ CPhysicalPartitionSelector::CPhysicalPartitionSelector
 	(
 	IMemoryPool *mp,
 	IMDId *mdid,
-	HMUlExpr *phmulexprEqPredicates
+	UlongToExprMap *phmulexprEqPredicates
 	)
 	:
 	CPhysical(mp),
@@ -94,7 +94,7 @@ CPhysicalPartitionSelector::CPhysicalPartitionSelector
 	GPOS_ASSERT(mdid->IsValid());
 	GPOS_ASSERT(NULL != phmulexprEqPredicates);
 
-	m_phmulexprPredicates = GPOS_NEW(mp) HMUlExpr(mp);
+	m_phmulexprPredicates = GPOS_NEW(mp) UlongToExprMap(mp);
 	m_pexprCombinedPredicate = PexprCombinedPartPred(mp);
 }
 
@@ -129,8 +129,8 @@ CPhysicalPartitionSelector::~CPhysicalPartitionSelector()
 BOOL
 CPhysicalPartitionSelector::FMatchExprMaps
 	(
-	HMUlExpr *phmulexprFst,
-	HMUlExpr *phmulexprSnd
+	UlongToExprMap *phmulexprFst,
+	UlongToExprMap *phmulexprSnd
 	)
 {
 	GPOS_ASSERT(NULL != phmulexprFst);
@@ -142,7 +142,7 @@ CPhysicalPartitionSelector::FMatchExprMaps
 		return false;
 	}
 
-	HMUlExprIter hmulei(phmulexprFst);
+	UlongToExprMapIter hmulei(phmulexprFst);
 
 	while (hmulei.Advance())
 	{
@@ -169,7 +169,7 @@ CPhysicalPartitionSelector::FMatchExprMaps
 BOOL
 CPhysicalPartitionSelector::FMatchPartCnstr
 	(
-	PartCnstrMap *ppartcnstrmap
+	UlongToPartConstraintMap *ppartcnstrmap
 	)
 	const
 {
@@ -193,8 +193,8 @@ CPhysicalPartitionSelector::FMatchPartCnstr
 BOOL
 CPhysicalPartitionSelector::FSubsetPartCnstr
 	(
-	PartCnstrMap *ppartcnstrmapFst,
-	PartCnstrMap *ppartcnstrmapSnd
+	UlongToPartConstraintMap *ppartcnstrmapFst,
+	UlongToPartConstraintMap *ppartcnstrmapSnd
 	)
 {
 	GPOS_ASSERT(NULL != ppartcnstrmapFst);
@@ -204,7 +204,7 @@ CPhysicalPartitionSelector::FSubsetPartCnstr
 		return false;
 	}
 
-	PartCnstrMapIter partcnstriter(ppartcnstrmapFst);
+	UlongToPartConstraintMapIter partcnstriter(ppartcnstrmapFst);
 
 	while (partcnstriter.Advance())
 	{
@@ -628,7 +628,7 @@ CPhysicalPartitionSelector::PppsRequired
 
 		IMDId *mdid = ppimInput->GetRelMdId(scan_id);
 		PartKeysArray *pdrgppartkeys = ppimInput->Pdrgppartkeys(scan_id);
-		PartCnstrMap *ppartcnstrmap = ppimInput->Ppartcnstrmap(scan_id);
+		UlongToPartConstraintMap *ppartcnstrmap = ppimInput->Ppartcnstrmap(scan_id);
 		CPartConstraint *ppartcnstr = ppimInput->PpartcnstrRel(scan_id);
 		CPartIndexMap::EPartIndexManipulator epim = ppimInput->Epim(scan_id);
 		mdid->AddRef();

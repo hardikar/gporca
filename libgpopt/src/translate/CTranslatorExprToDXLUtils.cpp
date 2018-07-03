@@ -328,12 +328,12 @@ CTranslatorExprToDXLUtils::PdxlnPropagationExpressionForPartConstraints
 	IMemoryPool *mp, 
 	CMDAccessor *md_accessor, 
 	CColumnFactory *col_factory,
-	PartCnstrMap *ppartcnstrmap,
+	UlongToPartConstraintMap *ppartcnstrmap,
 	ColRefArrays *pdrgpdrgpcrPartKeys,
 	CharPtrArray *pdrgszPartTypes
 	)
 {	
-	PartCnstrMapIter pcmi(ppartcnstrmap);
+	UlongToPartConstraintMapIter pcmi(ppartcnstrmap);
 		
 	CDXLNode *pdxlnScalarRootIfStmt = NULL;
 	CDXLNode *pdxlnScalarLeafIfStmt = NULL;
@@ -1464,7 +1464,7 @@ CTranslatorExprToDXLUtils::PdxlnPropExprPartitionSelector
 	CMDAccessor *md_accessor,
 	CColumnFactory *col_factory,
 	BOOL fConditional,
-	PartCnstrMap *ppartcnstrmap,
+	UlongToPartConstraintMap *ppartcnstrmap,
 	ColRefArrays *pdrgpdrgpcrKeys,
 	ULONG scan_id,
 	CharPtrArray *pdrgszPartTypes
@@ -1731,7 +1731,7 @@ CTranslatorExprToDXLUtils::PdrgpcrMapColumns
 	(
 	IMemoryPool *mp,
 	ColRefArray *pdrgpcrInput,
-	HMCrUl *phmcrul,
+	ColRefToUlongMap *phmcrul,
 	ColRefArray *pdrgpcrMapDest
 	)
 {
@@ -1941,14 +1941,14 @@ CTranslatorExprToDXLUtils::PdxlnCombineBoolean
 //		and the m_bytearray_value is the index of that column in the array
 //
 //---------------------------------------------------------------------------
-HMCrUl *
+ColRefToUlongMap *
 CTranslatorExprToDXLUtils::PhmcrulColIndex
 	(
 	IMemoryPool *mp,
 	ColRefArray *colref_array
 	)
 {
-	HMCrUl *phmcrul = GPOS_NEW(mp) HMCrUl(mp);
+	ColRefToUlongMap *phmcrul = GPOS_NEW(mp) ColRefToUlongMap(mp);
 
 	const ULONG length = colref_array->Size();
 	for (ULONG ul = 0; ul < length; ul++)
