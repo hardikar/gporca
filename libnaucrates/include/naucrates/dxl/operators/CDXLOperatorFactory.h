@@ -74,7 +74,7 @@ namespace gpdxl
 			static
 			LINT Value
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attrs,
 				Edxltoken target_elem,
 				BYTE *data
@@ -84,7 +84,7 @@ namespace gpdxl
 			static
 			BYTE *GetByteArray
 					(
-					CDXLMemoryManager *memory_manager_dxl,
+					CDXLMemoryManager *dxl_memory_manager,
 					const Attributes &attrs,
 					Edxltoken target_elem,
 					ULONG *length
@@ -102,7 +102,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumOid
 								(
-								CDXLMemoryManager *memory_manager_dxl,
+								CDXLMemoryManager *dxl_memory_manager,
 								const Attributes &attrs,
 								Edxltoken target_elem,
 								IMDId *mdid,
@@ -113,7 +113,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumInt2
 								(
-								CDXLMemoryManager *memory_manager_dxl,
+								CDXLMemoryManager *dxl_memory_manager,
 								const Attributes &attrs,
 								Edxltoken target_elem,
 								IMDId *mdid,
@@ -124,7 +124,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumInt4
 								(
-								CDXLMemoryManager *memory_manager_dxl,
+								CDXLMemoryManager *dxl_memory_manager,
 								const Attributes &attrs,
 								Edxltoken target_elem,
 								IMDId *mdid,
@@ -135,7 +135,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumInt8
 								(
-								CDXLMemoryManager *memory_manager_dxl,
+								CDXLMemoryManager *dxl_memory_manager,
 								const Attributes &attrs,
 								Edxltoken target_elem,
 								IMDId *mdid,
@@ -146,7 +146,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumBool
 								(
-								CDXLMemoryManager *memory_manager_dxl,
+								CDXLMemoryManager *dxl_memory_manager,
 								const Attributes &attrs,
 								Edxltoken target_elem,
 								IMDId *mdid,
@@ -158,7 +158,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumGeneric
 								(
-								CDXLMemoryManager *memory_manager_dxl,
+								CDXLMemoryManager *dxl_memory_manager,
 								const Attributes &attrs,
 								Edxltoken target_elem,
 								IMDId *mdid,
@@ -170,7 +170,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumStatsDoubleMappable
 								(
-								CDXLMemoryManager *memory_manager_dxl,
+								CDXLMemoryManager *dxl_memory_manager,
 								const Attributes &attrs,
 								Edxltoken target_elem,
 								IMDId *mdid,
@@ -182,7 +182,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumStatsLintMappable
 								(
-								CDXLMemoryManager *memory_manager_dxl,
+								CDXLMemoryManager *dxl_memory_manager,
 								const Attributes &attrs,
 								Edxltoken target_elem,
 								IMDId *mdid,
@@ -192,105 +192,105 @@ namespace gpdxl
 
 			// create a table scan operator
 			static
-			CDXLPhysical *MakeDXLTblScan(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLTblScan(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a subquery scan operator
 			static
-			CDXLPhysical *MakeDXLSubqScan(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLSubqScan(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a result operator
 			static
-			CDXLPhysical *MakeDXLResult(CDXLMemoryManager *memory_manager_dxl);
+			CDXLPhysical *MakeDXLResult(CDXLMemoryManager *dxl_memory_manager);
 
 			// create a hashjoin operator
 			static
-			CDXLPhysical *MakeDXLHashJoin(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLHashJoin(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a nested loop join operator
 			static
-			CDXLPhysical *MakeDXLNLJoin(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLNLJoin(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a merge join operator
 			static
-			CDXLPhysical *MakeDXLMergeJoin(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLMergeJoin(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a gather motion operator
 			static
-			CDXLPhysical *MakeDXLGatherMotion(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLGatherMotion(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a broadcast motion operator
 			static
-			CDXLPhysical *MakeDXLBroadcastMotion(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLBroadcastMotion(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a redistribute motion operator
 			static
-			CDXLPhysical *MakeDXLRedistributeMotion(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLRedistributeMotion(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a routed motion operator
 			static
-			CDXLPhysical *MakeDXLRoutedMotion(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLRoutedMotion(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a random motion operator
 			static
-			CDXLPhysical *MakeDXLRandomMotion(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLRandomMotion(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create an append operator
 			static
-			CDXLPhysical *MakeDXLAppend(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLAppend(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a limit operator
 			static
-			CDXLPhysical *MakeDXLLimit(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLLimit(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create an aggregation operator
 			static
-			CDXLPhysical *MakeDXLAgg(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLAgg(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a sort operator
 			static
-			CDXLPhysical *MakeDXLSort(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLSort(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a materialize operator
 			static
-			CDXLPhysical *MakeDXLMaterialize(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLPhysical *MakeDXLMaterialize(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a limit count operator
 			static
-			CDXLScalar *MakeDXLLimitCount(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLLimitCount(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a limit offset operator
 			static
-			CDXLScalar *MakeDXLLimitOffset(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLLimitOffset(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a scalar comparison operator
 			static
-			CDXLScalar *MakeDXLScalarCmp(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLScalarCmp(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a distinct comparison operator
 			static
-			CDXLScalar *MakeDXLDistinctCmp(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLDistinctCmp(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a scalar OpExpr
 			static
-			CDXLScalar *MakeDXLOpExpr(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLOpExpr(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a scalar ArrayComp
 			static
-			CDXLScalar *MakeDXLArrayComp(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLArrayComp(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a BoolExpr
 			static
-			CDXLScalar *MakeDXLBoolExpr(CDXLMemoryManager *memory_manager_dxl, const EdxlBoolExprType);
+			CDXLScalar *MakeDXLBoolExpr(CDXLMemoryManager *dxl_memory_manager, const EdxlBoolExprType);
 
 			// create a boolean test
 			static
-			CDXLScalar *MakeDXLBooleanTest(CDXLMemoryManager *memory_manager_dxl, const EdxlBooleanTestType);
+			CDXLScalar *MakeDXLBooleanTest(CDXLMemoryManager *dxl_memory_manager, const EdxlBooleanTestType);
 
 			// create a subplan operator
 			static
 			CDXLScalar *MakeDXLSubPlan
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				IMDId *mdid,
 										  DXLColRefArray *dxl_colref_array,
 				EdxlSubPlanType dxl_subplan_type,
@@ -299,96 +299,96 @@ namespace gpdxl
 
 			// create a NullTest
 			static
-			CDXLScalar *MakeDXLNullTest(CDXLMemoryManager *memory_manager_dxl, const BOOL );
+			CDXLScalar *MakeDXLNullTest(CDXLMemoryManager *dxl_memory_manager, const BOOL );
 
 			// create a cast
 			static
-			CDXLScalar *MakeDXLCast(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLCast(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a coerce
 			static
-			CDXLScalar *MakeDXLCoerceToDomain(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLCoerceToDomain(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a CoerceViaIo
 			static
-			CDXLScalar *MakeDXLCoerceViaIO(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLCoerceViaIO(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a ArrayCoerceExpr
 			static
-			CDXLScalar *MakeDXLArrayCoerceExpr(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLArrayCoerceExpr(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a scalar identifier operator
 			static
-			CDXLScalar *MakeDXLScalarIdent(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLScalarIdent(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a scalar Const
 			static
-			CDXLScalar *MakeDXLConstValue(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLConstValue(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a CaseStmt
 			static
-			CDXLScalar *MakeDXLIfStmt(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLIfStmt(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a FuncExpr
 			static
-			CDXLScalar *MakeDXLFuncExpr(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLFuncExpr(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a AggRef
 			static
-			CDXLScalar *MakeDXLAggFunc(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLAggFunc(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a scalar window function (WindowRef)
 			static
-			CDXLScalar *MakeWindowRef(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeWindowRef(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create an array
 			static
-			CDXLScalar *MakeDXLArray(CDXLMemoryManager *memory_manager_dxl, const Attributes &attr);
+			CDXLScalar *MakeDXLArray(CDXLMemoryManager *dxl_memory_manager, const Attributes &attr);
 
 			// create a proj elem
 			static
-			CDXLScalar *MakeDXLProjElem(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLProjElem(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a hash expr 
 			static
-			CDXLScalar *MakeDXLHashExpr(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLHashExpr(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a sort col
 			static
-			CDXLScalar *MakeDXLSortCol(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLScalar *MakeDXLSortCol(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create an object representing cost estimates of a physical operator
 			// from the parsed XML attributes
 			static
-			CDXLOperatorCost *MakeDXLOperatorCost(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLOperatorCost *MakeDXLOperatorCost(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a table descriptor element
 			static
-			CDXLTableDescr *MakeDXLTableDescr(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLTableDescr *MakeDXLTableDescr(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create an index descriptor
 			static
-			CDXLIndexDescr *MakeDXLIndexDescr(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLIndexDescr *MakeDXLIndexDescr(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// create a column descriptor object
 			static
-			CDXLColDescr *MakeColumnDescr(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLColDescr *MakeColumnDescr(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 			
 			// create a column reference object
 			static
-			CDXLColRef *MakeDXLColRef(CDXLMemoryManager *memory_manager_dxl, const Attributes &, Edxltoken);
+			CDXLColRef *MakeDXLColRef(CDXLMemoryManager *dxl_memory_manager, const Attributes &, Edxltoken);
 			
 			// create a logical join 
 			static
-			CDXLLogical *MakeLogicalJoin(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			CDXLLogical *MakeLogicalJoin(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// parse an output segment index
 			static
-			INT ParseOutputSegId(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			INT ParseOutputSegId(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// parse a grouping column id
 			static
-			ULONG ParseGroupingColId(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs);
+			ULONG ParseGroupingColId(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs);
 
 			// extracts the m_bytearray_value for the given attribute.
 			// if there is no such attribute defined, and the given optional
@@ -407,7 +407,7 @@ namespace gpdxl
 			static
 			BOOL ConvertAttrValueToBool
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -417,7 +417,7 @@ namespace gpdxl
 			static
 			LINT ConvertAttrValueToLint
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -427,7 +427,7 @@ namespace gpdxl
 			static
 			LINT ExtractConvertAttrValueToLint
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -439,7 +439,7 @@ namespace gpdxl
 			static
 			CDouble ConvertAttrValueToDouble
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -449,7 +449,7 @@ namespace gpdxl
 			static
 			CDouble ExtractConvertAttrValueToDouble
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -460,7 +460,7 @@ namespace gpdxl
 			static
 			ULONG ConvertAttrValueToUlong
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -471,7 +471,7 @@ namespace gpdxl
 			static
 			ULLONG ConvertAttrValueToUllong
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -482,7 +482,7 @@ namespace gpdxl
 			static
 			INT ConvertAttrValueToInt
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -493,7 +493,7 @@ namespace gpdxl
 			static
 			INT ExtractConvertAttrValueToInt
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -506,7 +506,7 @@ namespace gpdxl
 			static
 			SINT ConvertAttrValueToShortInt
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -517,7 +517,7 @@ namespace gpdxl
 			static
 			SINT ExtractConvertAttrValueToShortInt
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -530,7 +530,7 @@ namespace gpdxl
 			static
 			CHAR ConvertAttrValueToChar
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -541,7 +541,7 @@ namespace gpdxl
 			static
 			OID ConvertAttrValueToOid
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -552,7 +552,7 @@ namespace gpdxl
 			static
 			OID ExtractConvertAttrValueToOid
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -564,7 +564,7 @@ namespace gpdxl
 			static
 			BOOL ExtractConvertAttrValueToBool
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -576,7 +576,7 @@ namespace gpdxl
 			static
 			CHAR *ExtractConvertAttrValueToSz
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -588,7 +588,7 @@ namespace gpdxl
 			static
 			CHAR* ConvertAttrValueToSz
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -598,7 +598,7 @@ namespace gpdxl
 			static
 			CWStringDynamic *ExtractConvertAttrValueToStr
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -609,7 +609,7 @@ namespace gpdxl
 			static
 			ULONG ExtractConvertAttrValueToUlong
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -622,7 +622,7 @@ namespace gpdxl
 			static
 			ULLONG ExtractConvertAttrValueToUllong
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -634,7 +634,7 @@ namespace gpdxl
 			static
 			IMDId *ExtractConvertAttrValueToMdId
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem,
@@ -646,7 +646,7 @@ namespace gpdxl
 			static
 			IMDId *MakeMdIdFromStr
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *mdid_xml,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -656,7 +656,7 @@ namespace gpdxl
 			static
 			CMDIdGPDB *GetGPDBMdId
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -666,7 +666,7 @@ namespace gpdxl
 			static
 			CMDIdGPDB *GetGPDBCTASMdId
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -676,7 +676,7 @@ namespace gpdxl
 			static
 			CMDIdColStats *GetColStatsMdId
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -686,7 +686,7 @@ namespace gpdxl
 			static
 			CMDIdRelStats *GetRelStatsMdId
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -696,7 +696,7 @@ namespace gpdxl
 			static
 			CMDIdCast *GetCastFuncMdId
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -706,7 +706,7 @@ namespace gpdxl
 			static
 			CMDIdScCmp *GetScCmpMdId
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				XMLChArray *remaining_tokens,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -716,7 +716,7 @@ namespace gpdxl
 			static
 			CDXLDatum *GetDatumVal
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attrs,
 				Edxltoken target_elem
 				);
@@ -726,7 +726,7 @@ namespace gpdxl
 			static
 			MdidPtrArray *ExtractConvertMdIdsToArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *mdid_list_xml,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -737,7 +737,7 @@ namespace gpdxl
 			static
 			ULongPtrArray *ExtractConvertValuesToArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const Attributes &attr,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -750,7 +750,7 @@ namespace gpdxl
 			static
 			CDynamicPtrArray<T, CleanupFn> *ExtractIntsToArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xmlszUl,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -759,7 +759,7 @@ namespace gpdxl
 			static
 			ULongPtrArray *ExtractIntsToUlongArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xmlszUl,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -767,7 +767,7 @@ namespace gpdxl
 			{
 				return ExtractIntsToArray<ULONG, CleanupDelete, ConvertAttrValueToUlong>
 						(
-						memory_manager_dxl,
+						dxl_memory_manager,
 						xmlszUl,
 						target_attr,
 						target_elem
@@ -777,7 +777,7 @@ namespace gpdxl
 			static
 			IntPtrArray *ExtractIntsToIntArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xmlszUl,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -785,7 +785,7 @@ namespace gpdxl
 			{
 				return ExtractIntsToArray<INT, CleanupDelete, ConvertAttrValueToInt>
 						(
-						memory_manager_dxl,
+						dxl_memory_manager,
 						xmlszUl,
 						target_attr,
 						target_elem
@@ -797,7 +797,7 @@ namespace gpdxl
 			static
 			CharPtrArray *ExtractConvertPartitionTypeToArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -809,7 +809,7 @@ namespace gpdxl
 			static
 			ULongPtrArray2D *ExtractConvertUlongTo2DArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -820,7 +820,7 @@ namespace gpdxl
 			static
 			IntPtrArray *ExtractConvertSegmentIdsToArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *seg_id_list_xml,
 				Edxltoken target_attr,
 				Edxltoken target_elem
@@ -831,7 +831,7 @@ namespace gpdxl
 			static
 			StringPtrArray *ExtractConvertStrsToArray
 				(
-				CDXLMemoryManager *memory_manager_dxl,
+				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val
 				);
 			
@@ -859,7 +859,7 @@ namespace gpdxl
 
 			// parse system id
 			static
-			CSystemId Sysid(CDXLMemoryManager *memory_manager_dxl, const Attributes &attrs, Edxltoken target_attr, Edxltoken target_elem);
+			CSystemId Sysid(CDXLMemoryManager *dxl_memory_manager, const Attributes &attrs, Edxltoken target_attr, Edxltoken target_elem);
 			
 			// parse the frame boundary
 			static
@@ -902,14 +902,14 @@ namespace gpdxl
 	CDynamicPtrArray<T, CleanupFn> *
 	CDXLOperatorFactory::ExtractIntsToArray
 		(
-		CDXLMemoryManager *memory_manager_dxl,
+		CDXLMemoryManager *dxl_memory_manager,
 		const XMLCh *mdid_list_xml,
 		Edxltoken target_attr,
 		Edxltoken target_elem
 		)
 	{
 		// get the memory pool from the memory manager
-		IMemoryPool *mp = memory_manager_dxl->Pmp();
+		IMemoryPool *mp = dxl_memory_manager->Pmp();
 
 		CDynamicPtrArray<T, CleanupFn> *pdrgpt = GPOS_NEW(mp) CDynamicPtrArray<T, CleanupFn>(mp);
 
@@ -922,7 +922,7 @@ namespace gpdxl
 
 			GPOS_ASSERT(NULL != xmlszNext);
 
-			T *pt = GPOS_NEW(mp) T(ValueFromXmlstr(memory_manager_dxl, xmlszNext, target_attr, target_elem));
+			T *pt = GPOS_NEW(mp) T(ValueFromXmlstr(dxl_memory_manager, xmlszNext, target_attr, target_elem));
 			pdrgpt->Append(pt);
 		}
 

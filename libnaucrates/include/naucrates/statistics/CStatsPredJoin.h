@@ -53,14 +53,14 @@ namespace gpnaucrates
 			// c'tor
 			CStatsPredJoin
 				(
-				ULONG col_id1,
+				ULONG colid1,
 				CStatsPred::EStatsCmpType stats_cmp_type,
-				ULONG col_id2
+				ULONG colid2
 				)
 				:
-				m_colidOuter(col_id1),
+				m_colidOuter(colid1),
 				m_stats_cmp_type(stats_cmp_type),
-				m_colidInner(col_id2)
+				m_colidInner(colid2)
 			{}
 
 			// accessors

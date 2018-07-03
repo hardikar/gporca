@@ -55,7 +55,7 @@ namespace gpdxl
 			// grouping column ids
 			ULongPtrArray *m_grouping_colids_array;
 			
-			EdxlAggStrategy m_agg_strategy_dxl;
+		EdxlAggStrategy m_dxl_agg_strategy;
 			
 			// is it safe to stream the local hash aggregate
 			BOOL m_stream_safe;
@@ -68,7 +68,7 @@ namespace gpdxl
 			CDXLPhysicalAgg
 				(
 				IMemoryPool *mp,
-				EdxlAggStrategy agg_strategy_dxl,
+				EdxlAggStrategy dxl_agg_strategy,
 				BOOL stream_safe
 				);
 			
@@ -91,7 +91,7 @@ namespace gpdxl
 			// is aggregate a hash aggregate that it safe to stream
 			BOOL IsStreamSafe() const
 			{
-				return (EdxlaggstrategyHashed == m_agg_strategy_dxl) && m_stream_safe;
+			return (EdxlaggstrategyHashed == m_dxl_agg_strategy) && m_stream_safe;
 			}
 			
 			// serialize operator in DXL format

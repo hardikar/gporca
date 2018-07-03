@@ -38,7 +38,7 @@ CDXLLogicalDelete::CDXLLogicalDelete
 	)
 	:
 	CDXLLogical(mp),
-	m_table_descr_dxl(table_descr),
+	m_dxl_table_descr(table_descr),
 	m_ctid_colid(ctid_colid),
 	m_segid_colid(segid_colid),
 	m_deletion_colid_array(delete_colid_array)
@@ -57,7 +57,7 @@ CDXLLogicalDelete::CDXLLogicalDelete
 //---------------------------------------------------------------------------
 CDXLLogicalDelete::~CDXLLogicalDelete()
 {
-	m_table_descr_dxl->Release();
+	m_dxl_table_descr->Release();
 	m_deletion_colid_array->Release();
 }
 
@@ -115,7 +115,7 @@ CDXLLogicalDelete::SerializeToDXL
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenCtidColId), m_ctid_colid);
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenGpSegmentIdColId), m_segid_colid);
 
-	m_table_descr_dxl->SerializeToDXL(xml_serializer);
+	m_dxl_table_descr->SerializeToDXL(xml_serializer);
 	node->SerializeChildrenToDXL(xml_serializer);
 
 	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);

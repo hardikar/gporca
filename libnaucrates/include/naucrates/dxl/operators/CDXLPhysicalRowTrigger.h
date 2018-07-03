@@ -41,10 +41,10 @@ namespace gpdxl
 			INT m_type;
 
 			// old column ids
-			ULongPtrArray *m_col_ids_old;
+		ULongPtrArray *m_colids_old;
 
 			// new column ids
-			ULongPtrArray *m_col_ids_new;
+		ULongPtrArray *m_colids_new;
 
 			// private copy ctor
 			CDXLPhysicalRowTrigger(const CDXLPhysicalRowTrigger &);
@@ -57,8 +57,8 @@ namespace gpdxl
 				IMemoryPool *mp,
 				IMDId *rel_mdid,
 				INT type,
-				ULongPtrArray *col_ids_old,
-				ULongPtrArray *col_ids_new
+				ULongPtrArray *colids_old,
+				ULongPtrArray *colids_new
 				);
 
 			// dtor
@@ -88,13 +88,13 @@ namespace gpdxl
 			// old column ids
 			ULongPtrArray *GetColIdsOld() const
 			{
-				return m_col_ids_old;
+			return m_colids_old;
 			}
 
 			// new column ids
 			ULongPtrArray *GetColIdsNew() const
 			{
-				return m_col_ids_new;
+			return m_colids_new;
 			}
 
 #ifdef GPOS_DEBUG

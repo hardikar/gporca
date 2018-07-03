@@ -253,7 +253,7 @@ namespace gpdxl
 			virtual
 			BOOL IsColDefined
 				(
-				ULONG // col_id
+				ULONG // colid
 				)
 				const
 			{

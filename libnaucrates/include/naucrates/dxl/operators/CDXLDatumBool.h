@@ -86,13 +86,13 @@ namespace gpdxl
 			static
 			CDXLDatumBool *Cast
 				(
-				CDXLDatum *datum_dxl
+				CDXLDatum *dxl_datum
 				)
 			{
-				GPOS_ASSERT(NULL != datum_dxl);
-				GPOS_ASSERT(CDXLDatum::CDXLDatum::EdxldatumBool == datum_dxl->GetDatumType());
+			GPOS_ASSERT(NULL != dxl_datum);
+			GPOS_ASSERT(CDXLDatum::CDXLDatum::EdxldatumBool == dxl_datum->GetDatumType());
 
-				return dynamic_cast<CDXLDatumBool*>(datum_dxl);
+				return dynamic_cast<CDXLDatumBool*>(dxl_datum);
 			}
 	};
 }

@@ -69,7 +69,7 @@ CMDIdColStats::Serialize()
 			(
 			GPOS_WSZ_LIT("%d.%d.%d.%d.%d"), 
 			MdidType(), 
-			m_rel_mdid->OidObjectId(),
+					   m_rel_mdid->Oid(),
 			m_rel_mdid->VersionMajor(),
 			m_rel_mdid->VersionMinor(),
 			m_attr_pos

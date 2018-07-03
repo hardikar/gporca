@@ -45,7 +45,7 @@ namespace gpdxl
 			CDXLScalarConstValue
 				(
 				IMemoryPool *mp,
-				CDXLDatum *datum_dxl
+				CDXLDatum *dxl_datum
 				);
 
 			virtual

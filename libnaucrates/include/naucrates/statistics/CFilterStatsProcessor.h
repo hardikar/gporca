@@ -34,10 +34,10 @@ namespace gpnaucrates
 				(
 				IMemoryPool *mp,
 				CStatsPred *pred_stats,
-				CBitSet *filter_col_ids,
+												CBitSet *filter_colids,
 				CHistogram *hist_before,
 				CDouble *last_scale_factor,
-				ULONG *target_last_col_id
+				ULONG *target_last_colid
 				);
 
 			// create a new histogram after applying a point filter
@@ -46,10 +46,10 @@ namespace gpnaucrates
 				(
 				IMemoryPool *mp,
 				CStatsPredPoint *pred_stats,
-				CBitSet *filter_col_ids,
+											   CBitSet *filter_colids,
 				CHistogram *hist_before,
 				CDouble *last_scale_factor,
-				ULONG *target_last_col_id
+				ULONG *target_last_colid
 				);
 
 			// create a new histogram after applying a LIKE filter
@@ -58,10 +58,10 @@ namespace gpnaucrates
 				(
 				IMemoryPool *mp,
 				CStatsPredLike *pred_stats,
-				CBitSet *filter_col_ids,
+											  CBitSet *filter_colids,
 				CHistogram *hist_before,
 				CDouble *last_scale_factor,
-				ULONG *target_last_col_id
+				ULONG *target_last_colid
 				);
 
 			// create a new histogram for an unsupported predicate
@@ -70,10 +70,10 @@ namespace gpnaucrates
 				(
 				IMemoryPool *mp,
 				CStatsPredUnsupported *pred_stats,
-				CBitSet *filter_col_ids,
+												   CBitSet *filter_colids,
 				CHistogram *hist_before,
 				CDouble *last_scale_factor,
-				ULONG *target_last_col_id
+				ULONG *target_last_colid
 				);
 
 			// create a new hash map of histograms after applying a conjunctive or disjunctive filter
@@ -114,7 +114,7 @@ namespace gpnaucrates
 
 			// check if the column is a new column for statistic calculation
 			static
-			BOOL IsNewStatsColumn(ULONG col_id, ULONG last_col_id);
+			BOOL IsNewStatsColumn(ULONG colid, ULONG last_colid);
 
 		public:
 

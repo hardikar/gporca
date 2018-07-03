@@ -132,7 +132,7 @@ CDXLLogicalCTAS::GetOpNameStr() const
 BOOL
 CDXLLogicalCTAS::IsColDefined
 	(
-	ULONG col_id
+	ULONG colid
 	)
 	const
 {
@@ -140,7 +140,7 @@ CDXLLogicalCTAS::IsColDefined
 	for (ULONG idx = 0; idx < size; idx++)
 	{
 		ULONG id = (*m_col_descr_array)[idx]->Id();
-		if (id == col_id)
+		if (id == colid)
 		{
 			return true;
 		}

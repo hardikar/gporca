@@ -25,7 +25,7 @@ using namespace gpos;
 using namespace gpdxl;
 
 static
-CDXLMemoryManager *memory_manager_dxl = NULL;
+CDXLMemoryManager *dxl_memory_manager = NULL;
 
 static
 IMemoryPool *pmpXerces = NULL;
@@ -66,14 +66,14 @@ void InitDXL()
 	GPOS_ASSERT(NULL != pmpDXL);
 
 	// setup own memory manager
-	memory_manager_dxl = GPOS_NEW(pmpXerces) CDXLMemoryManager(pmpXerces);
+	dxl_memory_manager = GPOS_NEW(pmpXerces) CDXLMemoryManager(pmpXerces);
 
 	// initialize Xerces, if this fails library initialization should crash here
 	XMLPlatformUtils::Initialize(
 			XMLUni::fgXercescDefaultLocale, // locale
 			NULL, // nlsHome: location for message files
 			NULL, // panicHandler
-			memory_manager_dxl // memoryManager
+								 dxl_memory_manager  // memoryManager
 			);
 
 	// initialize DXL tokens
@@ -108,8 +108,8 @@ void ShutdownDXL()
 
 	CDXLTokens::Terminate();
 
-	GPOS_DELETE(memory_manager_dxl);
-	memory_manager_dxl = NULL;
+	GPOS_DELETE(dxl_memory_manager);
+	dxl_memory_manager = NULL;
 }
 
 

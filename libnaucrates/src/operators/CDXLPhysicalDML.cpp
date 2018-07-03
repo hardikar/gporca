@@ -30,7 +30,7 @@ using namespace gpdxl;
 CDXLPhysicalDML::CDXLPhysicalDML
 	(
 	IMemoryPool *mp,
-	const EdxlDmlType dml_type_dxl,
+	const EdxlDmlType dxl_dml_type,
 	CDXLTableDescr *table_descr,
 	ULongPtrArray *src_colids_array,
 	ULONG action_colid,
@@ -44,8 +44,8 @@ CDXLPhysicalDML::CDXLPhysicalDML
 	)
 	:
 	CDXLPhysical(mp),
-	m_dml_type_dxl(dml_type_dxl),
-	m_table_descr_dxl(table_descr),
+	m_dxl_dml_type(dxl_dml_type),
+	m_dxl_table_descr(table_descr),
 	m_src_colids_array(src_colids_array),
 	m_action_colid(action_colid),
 	m_oid_colid(oid_colid),
@@ -56,7 +56,7 @@ CDXLPhysicalDML::CDXLPhysicalDML
 	m_direct_dispatch_info(dxl_direct_dispatch_info),
 	m_input_sort_req(input_sort_req)
 {
-	GPOS_ASSERT(EdxldmlSentinel > dml_type_dxl);
+	GPOS_ASSERT(EdxldmlSentinel > dxl_dml_type);
 	GPOS_ASSERT(NULL != table_descr);
 	GPOS_ASSERT(NULL != src_colids_array);
 }
@@ -71,7 +71,7 @@ CDXLPhysicalDML::CDXLPhysicalDML
 //---------------------------------------------------------------------------
 CDXLPhysicalDML::~CDXLPhysicalDML()
 {
-	m_table_descr_dxl->Release();
+	m_dxl_table_descr->Release();
 	m_src_colids_array->Release();
 	CRefCount::SafeRelease(m_direct_dispatch_info);
 }
@@ -101,7 +101,7 @@ CDXLPhysicalDML::GetDXLOperator() const
 const CWStringConst *
 CDXLPhysicalDML::GetOpNameStr() const
 {
-	switch (m_dml_type_dxl)
+	switch (m_dxl_dml_type)
 	{
 		case Edxldmlinsert:
 				return CDXLTokens::GetDXLTokenStr(EdxltokenPhysicalDMLInsert);
@@ -143,7 +143,7 @@ CDXLPhysicalDML::SerializeToDXL
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenGpSegmentIdColId), m_segid_colid);
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenInputSorted), m_input_sort_req);
 	
-	if (Edxldmlupdate == m_dml_type_dxl)
+	if (Edxldmlupdate == m_dxl_dml_type)
 	{
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenUpdatePreservesOids), m_preserve_oids);
 	}
@@ -170,7 +170,7 @@ CDXLPhysicalDML::SerializeToDXL
 	(*node)[0]->SerializeToDXL(xml_serializer);
 
 	// serialize table descriptor
-	m_table_descr_dxl->SerializeToDXL(xml_serializer);
+	m_dxl_table_descr->SerializeToDXL(xml_serializer);
 	
 	// serialize physical child
 	(*node)[1]->SerializeToDXL(xml_serializer);

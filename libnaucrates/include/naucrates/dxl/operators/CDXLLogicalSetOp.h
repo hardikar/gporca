@@ -142,7 +142,7 @@ namespace gpdxl
 
 			// check if given column is defined by operator
 			virtual
-			BOOL IsColDefined(ULONG col_id) const;
+			BOOL IsColDefined(ULONG colid) const;
 
 			// conversion function
 			static

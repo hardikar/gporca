@@ -728,27 +728,27 @@ CDXLUtils::ParseDXLToBucketsArray
 {
 	BucketArray *stats_buckets_array = GPOS_NEW(mp) BucketArray(mp);
 	
-	const DXLBucketPtrArray *buckets_dxl_array = dxl_derived_col_stats->TransformHistogramToDXLBucketArray();
-	const ULONG num_of_buckets = buckets_dxl_array->Size();
+	const DXLBucketPtrArray *dxl_bucket_array = dxl_derived_col_stats->TransformHistogramToDXLBucketArray();
+	const ULONG num_of_buckets = dxl_bucket_array->Size();
 	for (ULONG ul = 0; ul < num_of_buckets; ul++)
 	{
-		CDXLBucket *bucket_dxl = (*buckets_dxl_array)[ul];
+		CDXLBucket *dxl_bucket = (*dxl_bucket_array)[ul];
 		
 		// translate the lower and upper bounds of the bucket
-		IDatum *datum_lower_bound = GetDatum(mp, md_accessor, bucket_dxl->GetDXLDatumLower());
+		IDatum *datum_lower_bound = GetDatum(mp, md_accessor, dxl_bucket->GetDXLDatumLower());
 		CPoint *point_lower_bound = GPOS_NEW(mp) CPoint(datum_lower_bound);
-		
-		IDatum *datum_upper_bound = GetDatum(mp, md_accessor, bucket_dxl->GetDXLDatumUpper());
+
+		IDatum *datum_upper_bound = GetDatum(mp, md_accessor, dxl_bucket->GetDXLDatumUpper());
 		CPoint *point_upper_bound = GPOS_NEW(mp) CPoint(datum_upper_bound);
 		
 		CBucket *bucket = GPOS_NEW(mp) CBucket
 										(
 										point_lower_bound,
 										point_upper_bound,
-										bucket_dxl->IsLowerClosed(),
-										bucket_dxl->IsUpperClosed(),
-										bucket_dxl->GetFrequency(),
-										bucket_dxl->GetNumDistinct()
+										dxl_bucket->IsLowerClosed(),
+										dxl_bucket->IsUpperClosed(),
+										dxl_bucket->GetFrequency(),
+										dxl_bucket->GetNumDistinct()
 										);
 		
 		stats_buckets_array->Append(bucket);

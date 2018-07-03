@@ -219,7 +219,7 @@ namespace gpnaucrates
 					(
 					IMemoryPool *mp,
 					CStatsPred *pred_stats,
-					ULONG cond_col_id,
+								  ULONG cond_colid,
 					CHistogram *histogram,
 					CDouble last_scale_factor,
 					BOOL is_filter_applied_before
@@ -230,9 +230,9 @@ namespace gpnaucrates
 			void ExtractUsedColIds
 					(
 					IMemoryPool *mp,
-					CBitSet *col_ids_bitset, 
+					CBitSet *colids_bitset, 
 					CStatsPred *pred_stats,
-					ULongPtrArray *col_ids
+					ULongPtrArray *colids
 					);
 
 			// given the previously generated histogram, update the intermediate
@@ -246,7 +246,7 @@ namespace gpnaucrates
 					CDouble local_rows,
 					CHistogram *previous_histogram,
 					UlongHistogramHashMap *disjunctive_result_histograms,
-					ULONG last_col_id
+					ULONG last_colid
 					);
 
 			// given a disjunction filter, generate a bit set of columns whose
@@ -264,7 +264,7 @@ namespace gpnaucrates
 			void AddHistogram
 					(
 					IMemoryPool *mp,
-					ULONG col_id,
+					ULONG colid,
 					const CHistogram *histogram,
 					UlongHistogramHashMap *col_histogram_mapping,
 					BOOL replace_old = false

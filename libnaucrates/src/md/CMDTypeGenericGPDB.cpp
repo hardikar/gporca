@@ -266,24 +266,24 @@ CMDTypeGenericGPDB::GetDatumForDXLConstVal
 	)
 	const
 {
-	CDXLDatumGeneric *datum_dxl = CDXLDatumGeneric::Cast(const_cast<CDXLDatum*>(dxl_op->GetDatumVal()));
+	CDXLDatumGeneric *dxl_datum = CDXLDatumGeneric::Cast(const_cast<CDXLDatum *>(dxl_op->GetDatumVal()));
 	GPOS_ASSERT(NULL != dxl_op);
 
 	LINT lint_value = 0;
-	if (datum_dxl->IsDatumMappableToLINT())
+	if (dxl_datum->IsDatumMappableToLINT())
 	{
-		lint_value = datum_dxl->GetLINTMapping();
+		lint_value = dxl_datum->GetLINTMapping();
 	}
 
 	CDouble double_value = 0;
-	if (datum_dxl->IsDatumMappableToDouble())
+	if (dxl_datum->IsDatumMappableToDouble())
 	{
-		double_value = datum_dxl->GetDoubleMapping();
+		double_value = dxl_datum->GetDoubleMapping();
 	}
 
 	m_mdid->AddRef();
-	return GPOS_NEW(m_mp) CDatumGenericGPDB(m_mp, m_mdid, datum_dxl->TypeModifier(), datum_dxl->GetByteArray(), datum_dxl->Length(),
-											 datum_dxl->IsNull(), lint_value, double_value);
+	return GPOS_NEW(m_mp) CDatumGenericGPDB(m_mp, m_mdid, dxl_datum->TypeModifier(), dxl_datum->GetByteArray(), dxl_datum->Length(),
+											 dxl_datum->IsNull(), lint_value, double_value);
 }
 
 //---------------------------------------------------------------------------
@@ -298,12 +298,12 @@ IDatum*
 CMDTypeGenericGPDB::GetDatumForDXLDatum
 	(
 	IMemoryPool *mp,
-	const CDXLDatum *datum_dxl
+	const CDXLDatum *dxl_datum
 	)
 	const
 {
 	m_mdid->AddRef();
-	CDXLDatumGeneric *dxl_datum_generic = CDXLDatumGeneric::Cast(const_cast<CDXLDatum *>(datum_dxl));
+	CDXLDatumGeneric *dxl_datum_generic = CDXLDatumGeneric::Cast(const_cast<CDXLDatum *>(dxl_datum));
 
 	LINT lint_value = 0;
 	if (dxl_datum_generic->IsDatumMappableToLINT())
@@ -381,7 +381,7 @@ CMDTypeGenericGPDB::GetDatumVal
 BOOL
 CMDTypeGenericGPDB::IsAmbiguous() const
 {
-	OID oid = CMDIdGPDB::CastMdid(m_mdid)->OidObjectId();
+	OID oid = CMDIdGPDB::CastMdid(m_mdid)->Oid();
 	// This should match the IsPolymorphicType() macro in GPDB's pg_type.h
 	return (GPDB_ANYELEMENT_OID == oid ||
 		GPDB_ANYARRAY_OID == oid ||
@@ -414,7 +414,7 @@ CMDTypeGenericGPDB::CreateDXLDatumVal
 	GPOS_ASSERT(IMDId::EmdidGPDB == mdid->MdidType());
 
 	const CMDIdGPDB * const pmdidGPDB = CMDIdGPDB::CastMdid(mdid);
-	switch (pmdidGPDB->OidObjectId())
+	switch (pmdidGPDB->Oid())
 	{
 		// numbers
 		case GPDB_NUMERIC:
@@ -520,9 +520,9 @@ CMDTypeGenericGPDB::GetDXLOpScConst
 	)
 	const
 {
-	CDXLDatum *datum_dxl = GetDatumVal(mp, datum);
+	CDXLDatum *dxl_datum = GetDatumVal(mp, datum);
 
-	return GPOS_NEW(mp) CDXLScalarConstValue(mp, datum_dxl);
+	return GPOS_NEW(mp) CDXLScalarConstValue(mp, dxl_datum);
 }
 
 //---------------------------------------------------------------------------

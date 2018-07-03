@@ -255,24 +255,24 @@ CJoinStatsProcessor::SetResultingJoinStats
 	UlongHistogramHashMap *result_col_hist_mapping = GPOS_NEW(mp) UlongHistogramHashMap(mp);
 
 	// build a bitset with all join columns
-	CBitSet *join_col_ids = GPOS_NEW(mp) CBitSet(mp);
+	CBitSet *join_colids = GPOS_NEW(mp) CBitSet(mp);
 	for (ULONG i = 0; i < join_pred_stats_info->Size(); i++)
 	{
 		CStatsPredJoin *join_stats = (*join_pred_stats_info)[i];
 
-		(void) join_col_ids->ExchangeSet(join_stats->ColIdOuter());
+		(void) join_colids->ExchangeSet(join_stats->ColIdOuter());
 		if (!semi_join)
 		{
-			(void) join_col_ids->ExchangeSet(join_stats->ColIdInner());
+			(void) join_colids->ExchangeSet(join_stats->ColIdInner());
 		}
 	}
 
 	// histograms on columns that do not appear in join condition will
 	// be copied over to the result structure
-	outer_stats->AddNotExcludedHistograms(mp, join_col_ids, result_col_hist_mapping);
+	outer_stats->AddNotExcludedHistograms(mp, join_colids, result_col_hist_mapping);
 	if (!semi_join)
 	{
-		inner_side_stats->AddNotExcludedHistograms(mp, join_col_ids, result_col_hist_mapping);
+		inner_side_stats->AddNotExcludedHistograms(mp, join_colids, result_col_hist_mapping);
 	}
 
 	CDoubleArray *join_conds_scale_factors = GPOS_NEW(mp) CDoubleArray(mp);
@@ -284,13 +284,13 @@ CJoinStatsProcessor::SetResultingJoinStats
 	for (ULONG i = 0; i < num_join_conds; i++)
 	{
 		CStatsPredJoin *pred_info = (*join_pred_stats_info)[i];
-		ULONG col_id1 = pred_info->ColIdOuter();
-		ULONG col_id2 = pred_info->ColIdInner();
-		GPOS_ASSERT(col_id1 != col_id2);
+		ULONG colid1 = pred_info->ColIdOuter();
+		ULONG colid2 = pred_info->ColIdInner();
+		GPOS_ASSERT(colid1 != colid2);
 		// find the histograms corresponding to the two columns
-		const CHistogram *outer_histogram = outer_stats->GetHistogram(col_id1);
+		const CHistogram *outer_histogram = outer_stats->GetHistogram(colid1);
 		// are column id1 and 2 always in the order of outer inner?
-		const CHistogram *inner_histogram = inner_side_stats->GetHistogram(col_id2);
+		const CHistogram *inner_histogram = inner_side_stats->GetHistogram(colid2);
 		GPOS_ASSERT(NULL != outer_histogram);
 		GPOS_ASSERT(NULL != inner_histogram);
 		BOOL is_input_empty = CStatistics::IsEmptyJoin(outer_stats, inner_side_stats, IsLASJ);
@@ -316,10 +316,10 @@ CJoinStatsProcessor::SetResultingJoinStats
 
 		output_is_empty = JoinStatsAreEmpty(outer_stats->IsEmpty(), output_is_empty, outer_histogram, inner_histogram, outer_histogram_after, join_type);
 
-		CStatisticsUtils::AddHistogram(mp, col_id1, outer_histogram_after, result_col_hist_mapping);
+		CStatisticsUtils::AddHistogram(mp, colid1, outer_histogram_after, result_col_hist_mapping);
 		if (!semi_join)
 		{
-			CStatisticsUtils::AddHistogram(mp, col_id2, inner_histogram_after, result_col_hist_mapping);
+			CStatisticsUtils::AddHistogram(mp, colid2, inner_histogram_after, result_col_hist_mapping);
 		}
 		GPOS_DELETE(outer_histogram_after);
 		GPOS_DELETE(inner_histogram_after);
@@ -336,7 +336,7 @@ CJoinStatsProcessor::SetResultingJoinStats
 
 	// clean up
 	join_conds_scale_factors->Release();
-	join_col_ids->Release();
+	join_colids->Release();
 
 	UlongDoubleHashMap *col_width_mapping_result = outer_stats->CopyWidths(mp);
 	if (!semi_join)

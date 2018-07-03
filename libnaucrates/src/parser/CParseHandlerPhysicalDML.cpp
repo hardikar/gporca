@@ -42,7 +42,7 @@ CParseHandlerPhysicalDML::CParseHandlerPhysicalDML
 	)
 	:
 	CParseHandlerPhysicalOp(mp, parse_handler_mgr, parse_handler_root),
-	m_dml_type_dxl(Edxldmlinsert),
+	m_dxl_dml_type(Edxldmlinsert),
 	m_src_colids_array(NULL),
 	m_action_colid(0),
 	m_oid_colid(0),
@@ -83,12 +83,12 @@ CParseHandlerPhysicalDML::StartElement
 	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenPhysicalDMLDelete), element_local_name))
 	{
 		token_type = EdxltokenPhysicalDMLDelete;
-		m_dml_type_dxl = Edxldmldelete;
+		m_dxl_dml_type = Edxldmldelete;
 	}
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenPhysicalDMLUpdate), element_local_name))
 	{
 		token_type = EdxltokenPhysicalDMLUpdate;
-		m_dml_type_dxl = Edxldmlupdate;
+		m_dxl_dml_type = Edxldmlupdate;
 	}
 
 	const XMLCh *src_colids_xml = CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenColumns, token_type);
@@ -172,9 +172,9 @@ CParseHandlerPhysicalDML::EndElement
 	const XMLCh* const // element_qname
 	)
 {
-	EdxlDmlType dml_type_dxl = CParseHandlerPhysicalDML::GetDmlOpType(element_local_name);
+	EdxlDmlType dxl_dml_type = CParseHandlerPhysicalDML::GetDmlOpType(element_local_name);
 
-	if (EdxldmlSentinel == dml_type_dxl || m_dml_type_dxl != dml_type_dxl)
+	if (EdxldmlSentinel == dxl_dml_type || m_dxl_dml_type != dxl_dml_type)
 	{
 		CWStringDynamic *str = CDXLUtils::CreateDynamicStringFromXMLChArray(m_parse_handler_mgr->GetDXLMemoryManager(), element_local_name);
 		GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLUnexpectedTag, str->GetBuffer());
@@ -201,9 +201,9 @@ CParseHandlerPhysicalDML::EndElement
 
 	CDXLDirectDispatchInfo *dxl_direct_dispatch_info = direct_dispatch_parse_handler->GetDXLDirectDispatchInfo();
 	dxl_direct_dispatch_info->AddRef();
-	CDXLPhysicalDML *dxl_op = GPOS_NEW(m_mp) CDXLPhysicalDML(m_mp, m_dml_type_dxl, table_descr, m_src_colids_array, m_action_colid, m_oid_colid, m_ctid_colid, m_segid_colid, m_preserve_oids, m_tuple_oid_col_oid, dxl_direct_dispatch_info, m_input_sort_req);
+	CDXLPhysicalDML *dxl_op = GPOS_NEW(m_mp) CDXLPhysicalDML(m_mp, m_dxl_dml_type, table_descr, m_src_colids_array, m_action_colid, m_oid_colid, m_ctid_colid, m_segid_colid, m_preserve_oids, m_tuple_oid_col_oid, dxl_direct_dispatch_info, m_input_sort_req);
 	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
-	
+
 	// set statistics and physical properties
 	CParseHandlerUtils::SetProperties(m_dxl_node, prop_parse_handler);
 

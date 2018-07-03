@@ -38,7 +38,7 @@ CParseHandlerStatistics::CParseHandlerStatistics
 	)
 	:
 	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
-	m_stats_derived_rel_dxl_array(NULL)
+	m_dxl_stats_derived_rel_array(NULL)
 {
 }
 
@@ -53,7 +53,7 @@ CParseHandlerStatistics::CParseHandlerStatistics
 //---------------------------------------------------------------------------
 CParseHandlerStatistics::~CParseHandlerStatistics()
 {
-	CRefCount::SafeRelease(m_stats_derived_rel_dxl_array);
+	CRefCount::SafeRelease(m_dxl_stats_derived_rel_array);
 }
 
 //---------------------------------------------------------------------------
@@ -82,7 +82,7 @@ CParseHandlerStatistics::GetParseHandlerType() const
 DXLStatsDerivedRelArray *
 CParseHandlerStatistics::GetStatsDerivedRelDXLArray() const
 {
-	return m_stats_derived_rel_dxl_array;
+	return m_dxl_stats_derived_rel_array;
 }
 
 //---------------------------------------------------------------------------
@@ -105,14 +105,14 @@ CParseHandlerStatistics::StartElement
 	if (0 == XMLString::compareString(element_local_name, CDXLTokens::XmlstrToken(EdxltokenStatistics)))
 	{
 		// start of the statistics section in the DXL document
-		GPOS_ASSERT(NULL == m_stats_derived_rel_dxl_array);
+		GPOS_ASSERT(NULL == m_dxl_stats_derived_rel_array);
 
-		m_stats_derived_rel_dxl_array = GPOS_NEW(m_mp) DXLStatsDerivedRelArray(m_mp);
+		m_dxl_stats_derived_rel_array = GPOS_NEW(m_mp) DXLStatsDerivedRelArray(m_mp);
 	}
 	else
 	{
 		// currently we only have derived relation statistics objects
-		GPOS_ASSERT(NULL != m_stats_derived_rel_dxl_array);
+		GPOS_ASSERT(NULL != m_dxl_stats_derived_rel_array);
 
 		// install a parse handler for the given element
 		CParseHandlerBase *parse_handler_base = CParseHandlerFactory::GetParseHandler(m_mp, element_local_name, m_parse_handler_mgr, this);
@@ -148,7 +148,7 @@ CParseHandlerStatistics::EndElement
 		GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLUnexpectedTag, str->GetBuffer());
 	}
 
-	GPOS_ASSERT(NULL != m_stats_derived_rel_dxl_array);
+	GPOS_ASSERT(NULL != m_dxl_stats_derived_rel_array);
 
 	const ULONG num_of_stats = this->Length();
 	for (ULONG idx = 0; idx < num_of_stats; idx++)
@@ -157,7 +157,7 @@ CParseHandlerStatistics::EndElement
 
 		CDXLStatsDerivedRelation *dxl_stats_derived_relation = stats_derived_rel_parse_handler->GetDxlStatsDrvdRelation();
 		dxl_stats_derived_relation->AddRef();
-		m_stats_derived_rel_dxl_array->Append(dxl_stats_derived_relation);
+		m_dxl_stats_derived_rel_array->Append(dxl_stats_derived_relation);
 	}
 
 	m_parse_handler_mgr->DeactivateHandler();

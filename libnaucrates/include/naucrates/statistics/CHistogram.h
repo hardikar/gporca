@@ -419,7 +419,7 @@ namespace gpnaucrates
 				(
 				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
-				ULONG col_id,
+				ULONG colid,
 				CDouble width
 				)
 				const;

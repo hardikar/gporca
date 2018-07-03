@@ -29,12 +29,12 @@ using namespace gpmd;
 //---------------------------------------------------------------------------
 CStatsPredPoint::CStatsPredPoint
 	(
-	ULONG col_id,
+	ULONG colid,
 	CStatsPred::EStatsCmpType stats_cmp_type,
 	CPoint *point
 	)
 	:
-	CStatsPred(col_id),
+	CStatsPred(colid),
 	m_stats_cmp_type(stats_cmp_type),
 	m_pred_point(point)
 {

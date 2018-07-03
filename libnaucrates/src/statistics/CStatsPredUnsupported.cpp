@@ -25,11 +25,11 @@ using namespace gpnaucrates;
 //---------------------------------------------------------------------------
 CStatsPredUnsupported::CStatsPredUnsupported
 	(
-	ULONG col_id,
+	ULONG colid,
 	CStatsPred::EStatsCmpType stats_cmp_type
 	)
 	:
-	CStatsPred(col_id),
+	CStatsPred(colid),
 	m_stats_cmp_type(stats_cmp_type),
 	m_default_scale_factor(0.0)
 {
@@ -47,12 +47,12 @@ CStatsPredUnsupported::CStatsPredUnsupported
 //---------------------------------------------------------------------------
 CStatsPredUnsupported::CStatsPredUnsupported
 	(
-	ULONG col_id,
+	ULONG colid,
 	CStatsPred::EStatsCmpType stats_cmp_type,
 	CDouble default_scale_factor
 	)
 	:
-	CStatsPred(col_id),
+	CStatsPred(colid),
 	m_stats_cmp_type(stats_cmp_type),
 	m_default_scale_factor(default_scale_factor)
 {

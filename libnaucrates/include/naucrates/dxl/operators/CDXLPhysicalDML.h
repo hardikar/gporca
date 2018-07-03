@@ -44,10 +44,10 @@ namespace gpdxl
 		private:
 
 			// operator type
-			const EdxlDmlType m_dml_type_dxl;
+		const EdxlDmlType m_dxl_dml_type;
 
 			// target table descriptor
-			CDXLTableDescr *m_table_descr_dxl;
+		CDXLTableDescr *m_dxl_table_descr;
 
 			// list of source column ids		
 			ULongPtrArray *m_src_colids_array;
@@ -85,7 +85,7 @@ namespace gpdxl
 			CDXLPhysicalDML
 				(
 				IMemoryPool *mp,
-				const EdxlDmlType dml_type_dxl,
+				const EdxlDmlType dxl_dml_type,
 				CDXLTableDescr *table_descr,
 				ULongPtrArray *src_colids_array,
 				ULONG action_colid,
@@ -111,13 +111,13 @@ namespace gpdxl
 			// DML operator type
 			EdxlDmlType GetDmlOpType() const
 			{
-				return m_dml_type_dxl;
+			return m_dxl_dml_type;
 			}
 
 			// target table descriptor 
 			CDXLTableDescr *GetDXLTableDescr() const
 			{
-				return m_table_descr_dxl;
+			return m_dxl_table_descr;
 			}
 			
 			// source column ids

@@ -75,11 +75,11 @@ namespace gpdxl
 			virtual
 			BOOL IsColDefined
 				(
-				ULONG col_id
+				ULONG colid
 				)
 				const
 			{
-				return (Id() == col_id);
+			return (Id() == colid);
 			}
 
 			// conversion function

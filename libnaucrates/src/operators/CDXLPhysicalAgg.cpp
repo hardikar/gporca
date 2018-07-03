@@ -27,16 +27,16 @@ using namespace gpdxl;
 CDXLPhysicalAgg::CDXLPhysicalAgg
 	(
 	IMemoryPool *mp,
-	EdxlAggStrategy agg_strategy_dxl,
+	EdxlAggStrategy dxl_agg_strategy,
 	BOOL stream_safe
 	)
 	:
 	CDXLPhysical(mp),
 	m_grouping_colids_array(NULL),
-	m_agg_strategy_dxl(agg_strategy_dxl),
+	  m_dxl_agg_strategy(dxl_agg_strategy),
 	m_stream_safe(stream_safe)
 {
-	GPOS_ASSERT_IMP(stream_safe, (EdxlaggstrategyHashed == agg_strategy_dxl));
+	GPOS_ASSERT_IMP(stream_safe, (EdxlaggstrategyHashed == dxl_agg_strategy));
 }
 
 
@@ -80,7 +80,7 @@ CDXLPhysicalAgg::GetDXLOperator() const
 EdxlAggStrategy
 CDXLPhysicalAgg::GetAggStrategy() const
 {
-	return m_agg_strategy_dxl;
+	return m_dxl_agg_strategy;
 }
 
 
@@ -110,7 +110,7 @@ CDXLPhysicalAgg::GetOpNameStr() const
 const CWStringConst *
 CDXLPhysicalAgg::GetAggStrategyNameStr() const
 {
-	switch (m_agg_strategy_dxl)
+	switch (m_dxl_agg_strategy)
 	{
 		case EdxlaggstrategyPlain:
 			return CDXLTokens::GetDXLTokenStr(EdxltokenAggStrategyPlain);
@@ -243,7 +243,7 @@ CDXLPhysicalAgg::AssertValid
 	// assert proj list and filter are valid
 	CDXLPhysical::AssertValid(node, validate_children);
 	
-	GPOS_ASSERT((EdxlaggstrategySentinel > m_agg_strategy_dxl) && (EdxlaggstrategyPlain <= m_agg_strategy_dxl));
+	GPOS_ASSERT((EdxlaggstrategySentinel > m_dxl_agg_strategy) && (EdxlaggstrategyPlain <= m_dxl_agg_strategy));
 
 	GPOS_ASSERT(EdxlaggIndexSentinel == node->Arity());
 	GPOS_ASSERT(NULL != m_grouping_colids_array);

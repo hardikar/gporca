@@ -29,7 +29,7 @@ IMemoryPool *
 CDXLTokens::m_mp =  NULL;
 
 CDXLMemoryManager *
-CDXLTokens::m_memory_manager_dxl = NULL;
+CDXLTokens::m_dxl_memory_manager = NULL;
 
 
 //---------------------------------------------------------------------------
@@ -47,12 +47,12 @@ CDXLTokens::Init
 	)
 {
 	GPOS_ASSERT(NULL != mp);
-	GPOS_ASSERT(NULL == m_memory_manager_dxl);
+	GPOS_ASSERT(NULL == m_dxl_memory_manager);
 	GPOS_ASSERT(NULL == m_mp);
 
 	m_mp = mp;
 
-	m_memory_manager_dxl = GPOS_NEW(m_mp) CDXLMemoryManager(m_mp);
+	m_dxl_memory_manager = GPOS_NEW(m_mp) CDXLMemoryManager(m_mp);
 
 	SWszMapElem rgStrMap[] = 
 	{
@@ -752,7 +752,7 @@ CDXLTokens::Terminate()
 {
 	GPOS_DELETE_ARRAY(m_pstrmap);
 	GPOS_DELETE_ARRAY(m_pxmlszmap);
-	GPOS_DELETE(m_memory_manager_dxl);
+	GPOS_DELETE(m_dxl_memory_manager);
 }
 
 
@@ -824,7 +824,7 @@ CDXLTokens::XmlstrFromWsz
 	clib::Wcstombs(sz, const_cast<WCHAR *>(wsz), 1 + length);
 	
 	GPOS_ASSERT(0 <= iLen);
-	XMLCh *pxmlsz = XMLString::transcode(sz, m_memory_manager_dxl);
+	XMLCh *pxmlsz = XMLString::transcode(sz, m_dxl_memory_manager);
 	GPOS_DELETE_ARRAY(sz);
 	return pxmlsz;
 }

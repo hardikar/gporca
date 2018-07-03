@@ -60,7 +60,7 @@ CParseHandlerDXL::CParseHandlerDXL
 	m_mdid_array(NULL),
 	m_scalar_expr_dxl(NULL),
 	m_system_id_array(NULL),
-	m_stats_derived_rel_dxl_array(NULL),
+	  m_dxl_stats_derived_rel_array(NULL),
 	m_search_stage_array(NULL),
 	m_plan_id(gpos::ullong_max),
 	m_plan_space_size(gpos::ullong_max),
@@ -89,7 +89,7 @@ CParseHandlerDXL::~CParseHandlerDXL()
 	CRefCount::SafeRelease(m_mdid_array);
 	CRefCount::SafeRelease(m_scalar_expr_dxl);
 	CRefCount::SafeRelease(m_system_id_array);
-	CRefCount::SafeRelease(m_stats_derived_rel_dxl_array);
+	CRefCount::SafeRelease(m_dxl_stats_derived_rel_array);
 	CRefCount::SafeRelease(m_search_stage_array);
 	CRefCount::SafeRelease(m_cost_model_params);
 
@@ -261,7 +261,7 @@ CParseHandlerDXL::GetSysidPtrArray() const
 DXLStatsDerivedRelArray *
 CParseHandlerDXL::GetStatsDerivedRelDXLArray() const
 {
-	return m_stats_derived_rel_dxl_array;
+	return m_dxl_stats_derived_rel_array;
 }
 
 
@@ -622,7 +622,7 @@ CParseHandlerDXL::ExtractStats
 	GPOS_ASSERT(NULL != dxl_derived_rel_stats_array);
 
 	dxl_derived_rel_stats_array->AddRef();
-	m_stats_derived_rel_dxl_array = dxl_derived_rel_stats_array;
+	m_dxl_stats_derived_rel_array = dxl_derived_rel_stats_array;
 }
 
 //---------------------------------------------------------------------------

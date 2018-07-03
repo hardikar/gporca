@@ -84,13 +84,13 @@ namespace gpdxl
 			static
 			CDXLDatumInt8 *Cast
 				(
-				CDXLDatum *datum_dxl
+				CDXLDatum *dxl_datum
 				)
 			{
-				GPOS_ASSERT(NULL != datum_dxl);
-				GPOS_ASSERT(CDXLDatum::EdxldatumInt8 == datum_dxl->GetDatumType());
+			GPOS_ASSERT(NULL != dxl_datum);
+			GPOS_ASSERT(CDXLDatum::EdxldatumInt8 == dxl_datum->GetDatumType());
 
-				return dynamic_cast<CDXLDatumInt8*>(datum_dxl);
+				return dynamic_cast<CDXLDatumInt8*>(dxl_datum);
 			}
 	};
 }

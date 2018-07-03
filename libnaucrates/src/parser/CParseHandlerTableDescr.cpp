@@ -39,7 +39,7 @@ CParseHandlerTableDescr::CParseHandlerTableDescr
 	)
 	:
 	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
-	m_table_descr_dxl(NULL)
+	m_dxl_table_descr(NULL)
 {
 }
 
@@ -53,7 +53,7 @@ CParseHandlerTableDescr::CParseHandlerTableDescr
 //---------------------------------------------------------------------------
 CParseHandlerTableDescr::~CParseHandlerTableDescr()
 {
-	CRefCount::SafeRelease(m_table_descr_dxl);
+	CRefCount::SafeRelease(m_dxl_table_descr);
 }
 
 //---------------------------------------------------------------------------
@@ -67,7 +67,7 @@ CParseHandlerTableDescr::~CParseHandlerTableDescr()
 CDXLTableDescr *
 CParseHandlerTableDescr::GetDXLTableDescr()
 {
-	return m_table_descr_dxl;
+	return m_dxl_table_descr;
 }
 
 //---------------------------------------------------------------------------
@@ -94,8 +94,8 @@ CParseHandlerTableDescr::StartElement
 	}
 	
 	// parse table name from attributes
-	m_table_descr_dxl = CDXLOperatorFactory::MakeDXLTableDescr(m_parse_handler_mgr->GetDXLMemoryManager(), attrs);
-		
+	m_dxl_table_descr = CDXLOperatorFactory::MakeDXLTableDescr(m_parse_handler_mgr->GetDXLMemoryManager(), attrs);
+
 	// install column descriptor parsers
 	CParseHandlerBase *col_descr_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenColumns), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(col_descr_parse_handler);
@@ -134,11 +134,11 @@ CParseHandlerTableDescr::EndElement
 	CParseHandlerColDescr *col_descr_parse_handler = dynamic_cast<CParseHandlerColDescr *>((*this)[0]);
 	
 	GPOS_ASSERT(NULL != col_descr_parse_handler->GetDXLColumnDescrArray());
-	
-	DXLColumnDescrArray *column_descr_dxl_array = col_descr_parse_handler->GetDXLColumnDescrArray();
-	column_descr_dxl_array->AddRef();
-	m_table_descr_dxl->SetColumnDescriptors(column_descr_dxl_array);
-			
+
+	DXLColumnDescrArray *dxl_column_descr_array = col_descr_parse_handler->GetDXLColumnDescrArray();
+	dxl_column_descr_array->AddRef();
+	m_dxl_table_descr->SetColumnDescriptors(dxl_column_descr_array);
+
 	// deactivate handler
 	m_parse_handler_mgr->DeactivateHandler();
 }

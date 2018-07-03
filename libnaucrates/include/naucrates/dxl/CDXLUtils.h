@@ -475,7 +475,7 @@ namespace gpdxl
 				(
 				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
-				const CDXLDatum *datum_dxl
+				const CDXLDatum *dxl_datum
 				);
 
 			// serialize Datum with given tag

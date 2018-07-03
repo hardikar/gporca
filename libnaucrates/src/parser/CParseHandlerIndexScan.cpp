@@ -200,28 +200,28 @@ CParseHandlerIndexScan::EndElementHelper
 	CParseHandlerIndexDescr *index_descr_parse_handler = dynamic_cast<CParseHandlerIndexDescr *>((*this)[4]);
 	CParseHandlerTableDescr *table_descr_parse_handler = dynamic_cast<CParseHandlerTableDescr *>((*this)[5]);
 
-	CDXLTableDescr *table_descr_dxl = table_descr_parse_handler->GetDXLTableDescr();
-	table_descr_dxl->AddRef();
+	CDXLTableDescr *dxl_table_descr = table_descr_parse_handler->GetDXLTableDescr();
+	dxl_table_descr->AddRef();
 
-	CDXLIndexDescr *index_descr_dxl = index_descr_parse_handler->GetDXLIndexDescr();
-	index_descr_dxl->AddRef();
+	CDXLIndexDescr *dxl_index_descr = index_descr_parse_handler->GetDXLIndexDescr();
+	dxl_index_descr->AddRef();
 
 	CDXLPhysical *dxl_op = NULL;
 	if (EdxltokenPhysicalIndexOnlyScan == token_type)
 	{
-		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalIndexOnlyScan(m_mp, table_descr_dxl, index_descr_dxl, m_index_scan_dir);
+		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalIndexOnlyScan(m_mp, dxl_table_descr, dxl_index_descr, m_index_scan_dir);
 		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 	}
 	else if (EdxltokenPhysicalIndexScan == token_type)
 	{
-		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalIndexScan(m_mp, table_descr_dxl, index_descr_dxl, m_index_scan_dir);
+		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalIndexScan(m_mp, dxl_table_descr, dxl_index_descr, m_index_scan_dir);
 		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 	}
 	else
 	{
 		GPOS_ASSERT(EdxltokenPhysicalDynamicIndexScan == token_type);
 
-		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalDynamicIndexScan(m_mp, table_descr_dxl, part_idx_id, part_idx_id_printable, index_descr_dxl, m_index_scan_dir);
+		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalDynamicIndexScan(m_mp, dxl_table_descr, part_idx_id, part_idx_id_printable, dxl_index_descr, m_index_scan_dir);
 		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 	}
 

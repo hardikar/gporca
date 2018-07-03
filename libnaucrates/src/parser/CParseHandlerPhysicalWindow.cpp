@@ -41,7 +41,7 @@ CParseHandlerPhysicalWindow::CParseHandlerPhysicalWindow
 	)
 	:
 	CParseHandlerPhysicalOp(mp, parse_handler_mgr, parse_handler_root),
-	m_part_by_col_identifier_array(NULL)
+	m_part_by_colid_array(NULL)
 {
 }
 
@@ -68,9 +68,9 @@ CParseHandlerPhysicalWindow::StartElement
 		GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLUnexpectedTag, str->GetBuffer());
 	}
 
-	const XMLCh *xml_str_part_by_cols= CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenPartKeys, EdxltokenPhysicalWindow);
-	m_part_by_col_identifier_array = CDXLOperatorFactory::ExtractIntsToUlongArray(m_parse_handler_mgr->GetDXLMemoryManager(), xml_str_part_by_cols, EdxltokenPartKeys, EdxltokenPhysicalWindow);
-	GPOS_ASSERT(NULL != m_part_by_col_identifier_array);
+	const XMLCh *xml_str_part_by_cols = CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenPartKeys, EdxltokenPhysicalWindow);
+	m_part_by_colid_array = CDXLOperatorFactory::ExtractIntsToUlongArray(m_parse_handler_mgr->GetDXLMemoryManager(), xml_str_part_by_cols, EdxltokenPartKeys, EdxltokenPhysicalWindow);
+	GPOS_ASSERT(NULL != m_part_by_colid_array);
 
 	// parse handler for window key list
 	CParseHandlerBase *window_key_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenWindowKeyList), m_parse_handler_mgr, this);
@@ -130,7 +130,7 @@ CParseHandlerPhysicalWindow::EndElement
 
 	CParseHandlerWindowKeyList *window_key_list_parse_handler = dynamic_cast<CParseHandlerWindowKeyList *>((*this)[4]);
 	CDXLWindowKeyArray *window_key_array_dxlnode = window_key_list_parse_handler->GetDxlWindowKeyArray();
-	CDXLPhysicalWindow *window_op_dxlnode = GPOS_NEW(m_mp) CDXLPhysicalWindow(m_mp, m_part_by_col_identifier_array, window_key_array_dxlnode);
+	CDXLPhysicalWindow *window_op_dxlnode = GPOS_NEW(m_mp) CDXLPhysicalWindow(m_mp, m_part_by_colid_array, window_key_array_dxlnode);
 	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, window_op_dxlnode);
 
 	// set statistics and physical properties

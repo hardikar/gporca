@@ -131,7 +131,7 @@ CDXLLogicalTVF::GetColumnDescrAt
 BOOL
 CDXLLogicalTVF::IsColDefined
 	(
-	ULONG col_id
+	ULONG colid
 	)
 	const
 {
@@ -139,7 +139,7 @@ CDXLLogicalTVF::IsColDefined
 	for (ULONG ulDescr = 0; ulDescr < size; ulDescr++)
 	{
 		ULONG id = GetColumnDescrAt(ulDescr)->Id();
-		if (id == col_id)
+		if (id == colid)
 		{
 			return true;
 		}

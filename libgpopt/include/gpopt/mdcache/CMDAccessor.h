@@ -262,12 +262,12 @@ namespace gpopt
 					(
 					IMemoryPool *mp,
 					IMDId *rel_mdid,
-					ULONG col_id,
+					ULONG colid,
 					ULONG ulPos,
 					BOOL fSystemCol,
 					BOOL fEmptyTable,
 					UlongHistogramHashMap *col_histogram_mapping,
-					UlongDoubleHashMap *col_id_width_mapping,
+					UlongDoubleHashMap *colid_width_mapping,
 					CStatisticsConfig *stats_config
 					);
 
@@ -278,7 +278,7 @@ namespace gpopt
 			CBucket *Pbucket(IMemoryPool *mp, IMDId *mdid_type, const CDXLBucket *dxl_bucket);
 			
 			// construct a typed datum from a DXL bucket  
-			IDatum *GetDatum(IMemoryPool *mp, IMDId *mdid_type, const CDXLDatum *datum_dxl);
+			IDatum *GetDatum(IMemoryPool *mp, IMDId *mdid_type, const CDXLDatum *dxl_datum);
 
 		public:
 			// ctors

@@ -32,7 +32,7 @@ CDXLPhysicalTableScan::CDXLPhysicalTableScan
 	)
 	:
 	CDXLPhysical(mp),
-	m_table_descr_dxl(NULL)
+	m_dxl_table_descr(NULL)
 {
 }
 
@@ -51,7 +51,7 @@ CDXLPhysicalTableScan::CDXLPhysicalTableScan
 	CDXLTableDescr *table_descr
 	)
 	:CDXLPhysical(mp),
-	 m_table_descr_dxl(table_descr)
+	 m_dxl_table_descr(table_descr)
 {
 }
 
@@ -66,7 +66,7 @@ CDXLPhysicalTableScan::CDXLPhysicalTableScan
 //---------------------------------------------------------------------------
 CDXLPhysicalTableScan::~CDXLPhysicalTableScan()
 {
-	CRefCount::SafeRelease(m_table_descr_dxl);
+	CRefCount::SafeRelease(m_dxl_table_descr);
 }
 
 
@@ -85,9 +85,9 @@ CDXLPhysicalTableScan::SetTableDescriptor
 	)
 {
 	// allow setting table descriptor only once
-	GPOS_ASSERT (NULL == m_table_descr_dxl);
+	GPOS_ASSERT(NULL == m_dxl_table_descr);
 	
-	m_table_descr_dxl = table_descr;
+	m_dxl_table_descr = table_descr;
 }
 
 //---------------------------------------------------------------------------
@@ -130,7 +130,7 @@ CDXLPhysicalTableScan::GetOpNameStr() const
 const CDXLTableDescr *
 CDXLPhysicalTableScan::GetDXLTableDescr()
 {
-	return m_table_descr_dxl;
+	return m_dxl_table_descr;
 }
 
 
@@ -161,7 +161,7 @@ CDXLPhysicalTableScan::SerializeToDXL
 	dxlnode->SerializeChildrenToDXL(xml_serializer);
 	
 	// serialize table descriptor
-	m_table_descr_dxl->SerializeToDXL(xml_serializer);
+	m_dxl_table_descr->SerializeToDXL(xml_serializer);
 	
 	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);		
 }
@@ -190,9 +190,9 @@ CDXLPhysicalTableScan::AssertValid
 	GPOS_ASSERT(2 == dxlnode->Arity());
 	
 	// assert validity of table descriptor
-	GPOS_ASSERT(NULL != m_table_descr_dxl);
-	GPOS_ASSERT(NULL != m_table_descr_dxl->MdName());
-	GPOS_ASSERT(m_table_descr_dxl->MdName()->GetMDName()->IsValid());
+	GPOS_ASSERT(NULL != m_dxl_table_descr);
+	GPOS_ASSERT(NULL != m_dxl_table_descr->MdName());
+	GPOS_ASSERT(m_dxl_table_descr->MdName()->GetMDName()->IsValid());
 }
 #endif // GPOS_DEBUG
 

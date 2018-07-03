@@ -35,7 +35,7 @@ namespace gpdxl
 		private:
 
 			// target table descriptor
-			CDXLTableDescr *m_table_descr_dxl;
+		CDXLTableDescr *m_dxl_table_descr;
 
 			// ctid column id
 			ULONG m_ctid_colid;
@@ -86,7 +86,7 @@ namespace gpdxl
 			// target table descriptor
 			CDXLTableDescr *GetDXLTableDescr() const
 			{
-				return m_table_descr_dxl;
+			return m_dxl_table_descr;
 			}
 
 			// ctid column id

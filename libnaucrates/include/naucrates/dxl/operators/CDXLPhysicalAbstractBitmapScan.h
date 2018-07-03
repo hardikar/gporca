@@ -51,7 +51,7 @@ namespace gpdxl
 
 		protected:
 			// table descriptor for the scanned table
-			CDXLTableDescr *m_table_descr_dxl;
+		CDXLTableDescr *m_dxl_table_descr;
 
 		public:
 			// ctor
@@ -62,7 +62,7 @@ namespace gpdxl
 				)
 				:
 				CDXLPhysical(mp),
-				m_table_descr_dxl(table_descr)
+				m_dxl_table_descr(table_descr)
 			{
 				GPOS_ASSERT(NULL != table_descr);
 			}
@@ -74,7 +74,7 @@ namespace gpdxl
 			// table descriptor
 			const CDXLTableDescr *GetDXLTableDescr()
 			{
-				return m_table_descr_dxl;
+			return m_dxl_table_descr;
 			}
 
 #ifdef GPOS_DEBUG

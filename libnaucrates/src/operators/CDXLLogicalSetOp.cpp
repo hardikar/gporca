@@ -185,7 +185,7 @@ CDXLLogicalSetOp::SerializeToDXL
 BOOL
 CDXLLogicalSetOp::IsColDefined
 	(
-	ULONG col_id
+	ULONG colid
 	)
 	const
 {
@@ -193,7 +193,7 @@ CDXLLogicalSetOp::IsColDefined
 	for (ULONG descr_id = 0; descr_id < size; descr_id++)
 	{
 		ULONG id = GetColumnDescrAt(descr_id)->Id();
-		if (id == col_id)
+		if (id == colid)
 		{
 			return true;
 		}

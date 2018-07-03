@@ -298,8 +298,8 @@ CParseHandlerMDType::IsBuiltInType
 	}
 	
 	const CMDIdGPDB *mdidGPDB = CMDIdGPDB::CastMdid(mdid);
-	
-	switch (mdidGPDB->OidObjectId())
+
+	switch (mdidGPDB->Oid())
 	{
 		case GPDB_INT2:
 		case GPDB_INT4:
@@ -383,8 +383,8 @@ CParseHandlerMDType::EndElement
 		// TODO:  - Jan 30, 2012; add support for other types of mdids
 		
 		const CMDIdGPDB *pmdidGPDB = CMDIdGPDB::CastMdid(m_mdid);
-		
-		switch(pmdidGPDB->OidObjectId())
+
+		switch (pmdidGPDB->Oid())
 		{
 			case GPDB_INT2:
 				m_imd_obj = GPOS_NEW(m_mp) CMDTypeInt2GPDB(m_mp);

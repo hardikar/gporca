@@ -170,8 +170,8 @@ CParseHandlerLogicalCTAS::EndElement
 	GPOS_ASSERT(NULL != ctas_options_parse_handler->GetDxlCtasStorageOption());
 	GPOS_ASSERT(NULL != child_parse_handler->CreateDXLNode());
 	
-	DXLColumnDescrArray *column_descr_dxl_array = col_descr_parse_handler->GetDXLColumnDescrArray();
-	column_descr_dxl_array->AddRef();
+	DXLColumnDescrArray *dxl_column_descr_array = col_descr_parse_handler->GetDXLColumnDescrArray();
+	dxl_column_descr_array->AddRef();
 	
 	CDXLCtasStorageOptions *dxl_ctas_storage_opt = ctas_options_parse_handler->GetDxlCtasStorageOption();
 	dxl_ctas_storage_opt->AddRef();
@@ -185,7 +185,7 @@ CParseHandlerLogicalCTAS::EndElement
 										m_mdid, 
 										m_mdname_schema, 
 										m_mdname, 
-										column_descr_dxl_array,
+										dxl_column_descr_array,
 										dxl_ctas_storage_opt,
 										m_rel_distr_policy, 
 										m_distr_column_pos_array, 

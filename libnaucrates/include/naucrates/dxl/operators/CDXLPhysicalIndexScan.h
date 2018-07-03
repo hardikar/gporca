@@ -42,10 +42,10 @@ namespace gpdxl
 		private:
 
 			// table descriptor for the scanned table
-			CDXLTableDescr *m_table_descr_dxl;
+		CDXLTableDescr *m_dxl_table_descr;
 
 			// index descriptor associated with the scanned table
-			CDXLIndexDescr *m_index_descr_dxl;
+		CDXLIndexDescr *m_dxl_index_descr;
 
 			// scan direction of the index
 			EdxlIndexScanDirection m_index_scan_dir;
@@ -60,7 +60,7 @@ namespace gpdxl
 				(
 				IMemoryPool *mp,
 				CDXLTableDescr *table_descr,
-				CDXLIndexDescr *index_descr_dxl,
+				CDXLIndexDescr *dxl_index_descr,
 				EdxlIndexScanDirection idx_scan_direction
 				);
 

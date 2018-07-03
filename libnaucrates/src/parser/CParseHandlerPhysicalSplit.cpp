@@ -72,15 +72,15 @@ CParseHandlerPhysicalSplit::StartElement
 		GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLUnexpectedTag, str->GetBuffer());
 	}
 
-	const XMLCh *delete_col_ids = CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenDeleteCols, EdxltokenPhysicalSplit);
-	m_deletion_colid_array = CDXLOperatorFactory::ExtractIntsToUlongArray(m_parse_handler_mgr->GetDXLMemoryManager(), delete_col_ids, EdxltokenDeleteCols, EdxltokenPhysicalSplit);
+	const XMLCh *delete_colids = CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenDeleteCols, EdxltokenPhysicalSplit);
+	m_deletion_colid_array = CDXLOperatorFactory::ExtractIntsToUlongArray(m_parse_handler_mgr->GetDXLMemoryManager(), delete_colids, EdxltokenDeleteCols, EdxltokenPhysicalSplit);
 
-	const XMLCh *insert_col_ids = CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenInsertCols, EdxltokenPhysicalSplit);
-	m_insert_colid_array = CDXLOperatorFactory::ExtractIntsToUlongArray(m_parse_handler_mgr->GetDXLMemoryManager(), insert_col_ids, EdxltokenInsertCols, EdxltokenPhysicalSplit);
+	const XMLCh *insert_colids = CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenInsertCols, EdxltokenPhysicalSplit);
+	m_insert_colid_array = CDXLOperatorFactory::ExtractIntsToUlongArray(m_parse_handler_mgr->GetDXLMemoryManager(), insert_colids, EdxltokenInsertCols, EdxltokenPhysicalSplit);
 
-	m_action_colid = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenActionColId, EdxltokenPhysicalSplit);
-	m_ctid_colid = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenCtidColId, EdxltokenPhysicalSplit);
-	m_segid_colid = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenGpSegmentIdColId, EdxltokenPhysicalSplit);
+	m_action_colid = CDXLOperatorFactory::ExtractConvertAttrValueToUlong( m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenActionColId, EdxltokenPhysicalSplit);
+	m_ctid_colid = CDXLOperatorFactory::ExtractConvertAttrValueToUlong( m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenCtidColId, EdxltokenPhysicalSplit);
+	m_segid_colid = CDXLOperatorFactory::ExtractConvertAttrValueToUlong( m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenGpSegmentIdColId, EdxltokenPhysicalSplit);
 
 	const XMLCh *update_with_preserved_oids = attrs.getValue(CDXLTokens::XmlstrToken(EdxltokenUpdatePreservesOids));
 	if (NULL != update_with_preserved_oids)

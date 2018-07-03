@@ -119,10 +119,10 @@ CParseHandlerScalarBitmapIndexProbe::EndElement
 	CParseHandlerIndexCondList *index_cond_list_parse_handler = dynamic_cast<CParseHandlerIndexCondList *>((*this)[0]);
 	CParseHandlerIndexDescr *index_descr_parse_handler = dynamic_cast<CParseHandlerIndexDescr *>((*this)[1]);
 
-	CDXLIndexDescr *index_descr_dxl = index_descr_parse_handler->GetDXLIndexDescr();
-	index_descr_dxl->AddRef();
+	CDXLIndexDescr *dxl_index_descr = index_descr_parse_handler->GetDXLIndexDescr();
+	dxl_index_descr->AddRef();
 
-	CDXLScalar *dxl_op = GPOS_NEW(m_mp) CDXLScalarBitmapIndexProbe(m_mp, index_descr_dxl);
+	CDXLScalar *dxl_op = GPOS_NEW(m_mp) CDXLScalarBitmapIndexProbe(m_mp, dxl_index_descr);
 	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 
 	// add children

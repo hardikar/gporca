@@ -115,7 +115,7 @@ namespace gpnaucrates
 
 			// skew estimate for given column
 			virtual
-			CDouble GetSkew(ULONG col_id) const = 0;
+			CDouble GetSkew(ULONG colid) const = 0;
 
 			// what is the width in bytes
 			virtual
@@ -123,7 +123,7 @@ namespace gpnaucrates
 
 			// what is the width in bytes of set of column id's
 			virtual
-			CDouble Width(ULongPtrArray *col_ids) const = 0;
+			CDouble Width(ULongPtrArray *colids) const = 0;
 
 			// what is the width in bytes of set of column references
 			virtual

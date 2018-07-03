@@ -129,7 +129,7 @@ namespace gpopt
 				Edxlopid edxlopid,
 				IMDId *scalar_op_mdid,
 				const CWStringConst *str,
-				ULONG col_id,
+				ULONG colid,
 				CDXLNode *pdxlnLogicalChild,
 				CDXLNode *pdxlnScalarChild
 				);
@@ -148,7 +148,7 @@ namespace gpopt
 
 			// create the array of column reference used in the partition by column
 			// list of a window specification
-			ColRefArray *PdrgpcrPartitionByCol(const ULongPtrArray *partition_by_col_id_array);
+			ColRefArray *PdrgpcrPartitionByCol(const ULongPtrArray *partition_by_colid_array);
 
 			// translate a DXL logical window into an expr logical project
 			CExpression *PexprCreateWindow(const CDXLNode *pdxlnLgProject);
@@ -186,7 +186,7 @@ namespace gpopt
 						const IMDType *pmdtype,
 						INT type_modifier,
 						BOOL fStoreMapping,
-						ULONG col_id
+						ULONG colid
 						);
 
 			// check if we currently support the casting of such column types
@@ -350,7 +350,7 @@ namespace gpopt
 			CExpression *PexprScalarProjElem(const CDXLNode *pdxlnProjElem);
 			
 			// construct an order spec from a dxl sort col list node
-			COrderSpec *Pos(const CDXLNode *sort_col_list_dxl);
+			COrderSpec *Pos(const CDXLNode *sort_col_list_dxlnode);
 			
 			// translate a dxl node into an expression tree
 			CExpression *Pexpr(const CDXLNode *dxlnode);
@@ -395,7 +395,7 @@ namespace gpopt
 			// look up the column reference in the hash map. We raise an exception if
 			// the column is not found
 			static
-			CColRef *LookupColRef(UlongColRefHashMap *colref_mapping, ULONG col_id);
+			CColRef *LookupColRef(UlongColRefHashMap *colref_mapping, ULONG colid);
 
 		public:
 			// ctor
@@ -417,7 +417,7 @@ namespace gpopt
 				(
 				const CDXLNode *dxlnode,
 				ColRefArray *colref_array,
-				ULongPtrArray *col_ids = NULL);
+				ULongPtrArray *colids = NULL);
 
 			// return the array of query output column reference id
 			ULongPtrArray *PdrgpulOutputColRefs();

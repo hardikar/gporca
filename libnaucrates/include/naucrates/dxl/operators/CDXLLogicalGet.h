@@ -33,7 +33,7 @@ namespace gpdxl
 		private:
 
 			// table descriptor for the scanned table
-			CDXLTableDescr *m_table_descr_dxl;
+		CDXLTableDescr *m_dxl_table_descr;
 
 			// private copy ctor
 			CDXLLogicalGet(CDXLLogicalGet&);
@@ -57,7 +57,7 @@ namespace gpdxl
 
 			// check if given column is defined by operator
 			virtual
-			BOOL IsColDefined(ULONG col_id) const;
+			BOOL IsColDefined(ULONG colid) const;
 
 			// conversion function
 			static

@@ -1104,18 +1104,18 @@ CMDAccessor::RecordColumnStats
 	(
 	IMemoryPool *mp,
 	IMDId *rel_mdid,
-	ULONG col_id,
+	ULONG colid,
 	ULONG ulPos,
 	BOOL fSystemCol,
 	BOOL fEmptyTable,
 	UlongHistogramHashMap *col_histogram_mapping,
-	UlongDoubleHashMap *col_id_width_mapping,
+	UlongDoubleHashMap *colid_width_mapping,
 	CStatisticsConfig *stats_config
 	)
 {
 	GPOS_ASSERT(NULL != rel_mdid);
 	GPOS_ASSERT(NULL != col_histogram_mapping);
-	GPOS_ASSERT(NULL != col_id_width_mapping);
+	GPOS_ASSERT(NULL != colid_width_mapping);
 
 	// get the column statistics
 	const IMDColStats *pmdcolstats = Pmdcolstats(mp, rel_mdid, ulPos);
@@ -1123,14 +1123,14 @@ CMDAccessor::RecordColumnStats
 
 	// fetch the column width and insert it into the hashmap
 	CDouble *width = GPOS_NEW(mp) CDouble(pmdcolstats->Width());
-	col_id_width_mapping->Insert(GPOS_NEW(mp) ULONG(col_id), width);
+	colid_width_mapping->Insert(GPOS_NEW(mp) ULONG(colid), width);
 
 	// extract the the histogram and insert it into the hashmap
 	const IMDRelation *pmdrel = RetrieveRel(rel_mdid);
 	IMDId *mdid_type = pmdrel->GetMdCol(ulPos)->MDIdType();
 	CHistogram *histogram = GetHistogram(mp, mdid_type, pmdcolstats);
 	GPOS_ASSERT(NULL != histogram);
-	col_histogram_mapping->Insert(GPOS_NEW(mp) ULONG(col_id), histogram);
+	col_histogram_mapping->Insert(GPOS_NEW(mp) ULONG(colid), histogram);
 
 	BOOL fGuc = GPOS_FTRACE(EopttracePrintColsWithMissingStats);
 	BOOL fRecordMissingStats = !fEmptyTable && fGuc && !fSystemCol
@@ -1199,7 +1199,7 @@ CMDAccessor::Pstats
 	const IMDRelation *pmdrel = RetrieveRel(rel_mdid);
 
 	UlongHistogramHashMap *col_histogram_mapping = GPOS_NEW(mp) UlongHistogramHashMap(mp);
-	UlongDoubleHashMap *col_id_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
+	UlongDoubleHashMap *colid_width_mapping = GPOS_NEW(mp) UlongDoubleHashMap(mp);
 
 	CColRefSetIter crsiHist(*pcrsHist);
 	while (crsiHist.Advance())
@@ -1210,7 +1210,7 @@ CMDAccessor::Pstats
 		CColRefTable *pcrtable = CColRefTable::PcrConvert(pcrHist);
 
 		// extract the column identifier, position of the attribute in the system catalog
-		ULONG col_id = pcrtable->Id();
+		ULONG colid = pcrtable->Id();
 		INT attno = pcrtable->AttrNum();
 		ULONG ulPos = pmdrel->GetPosFromAttno(attno);
 
@@ -1218,12 +1218,12 @@ CMDAccessor::Pstats
 			(
 			mp,
 			rel_mdid,
-			col_id,
+			colid,
 			ulPos,
 			pcrtable->FSystemCol(),
 			fEmptyTable,
 			col_histogram_mapping,
-			col_id_width_mapping,
+			colid_width_mapping,
 			stats_config
 			);
 	}
@@ -1239,12 +1239,12 @@ CMDAccessor::Pstats
 		CColRefTable *pcrtable = CColRefTable::PcrConvert(pcrWidth);
 
 		// extract the column identifier, position of the attribute in the system catalog
-		ULONG col_id = pcrtable->Id();
+		ULONG colid = pcrtable->Id();
 		INT attno = pcrtable->AttrNum();
 		ULONG ulPos = pmdrel->GetPosFromAttno(attno);
 
 		CDouble *width = GPOS_NEW(mp) CDouble(pmdrel->ColWidth(ulPos));
-		col_id_width_mapping->Insert(GPOS_NEW(mp) ULONG(col_id), width);
+		colid_width_mapping->Insert(GPOS_NEW(mp) ULONG(colid), width);
 	}
 
 	CDouble rows = std::max(DOUBLE(1.0), pmdRelStats->Rows().Get());
@@ -1253,7 +1253,7 @@ CMDAccessor::Pstats
 							(
 							mp,
 							col_histogram_mapping,
-							col_id_width_mapping,
+							colid_width_mapping,
 							rows,
 							fEmptyTable
 							);
@@ -1361,12 +1361,12 @@ CMDAccessor::GetDatum
 	(
 	IMemoryPool *mp,
 	IMDId *mdid_type,
-	const CDXLDatum *datum_dxl
+	const CDXLDatum *dxl_datum
 	)
 {
 	const IMDType *pmdtype = RetrieveType(mdid_type);
 		
-	return pmdtype->GetDatumForDXLDatum(mp, datum_dxl);
+	return pmdtype->GetDatumForDXLDatum(mp, dxl_datum);
 }
 
 //---------------------------------------------------------------------------

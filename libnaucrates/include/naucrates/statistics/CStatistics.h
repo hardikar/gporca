@@ -132,7 +132,7 @@ namespace gpnaucrates
 				(
 				IMemoryPool *mp,
 				UlongHistogramHashMap *col_histogram_mapping,
-				UlongDoubleHashMap *col_id_width_mapping,
+					UlongDoubleHashMap *colid_width_mapping,
 				CDouble rows,
 				BOOL is_empty,
 				ULONG num_predicates = 0
@@ -146,7 +146,7 @@ namespace gpnaucrates
 			UlongDoubleHashMap *CopyWidths(IMemoryPool *mp) const;
 
 			virtual
-			void CopyWidthsInto(IMemoryPool *mp, UlongDoubleHashMap *col_id_width_mapping) const;
+			void CopyWidthsInto(IMemoryPool *mp, UlongDoubleHashMap *colid_width_mapping) const;
 
 			virtual
 			UlongHistogramHashMap *CopyHistograms(IMemoryPool *mp) const;
@@ -164,11 +164,11 @@ namespace gpnaucrates
 
 			// skew estimate for given column
 			virtual
-			CDouble GetSkew(ULONG col_id) const;
+			CDouble GetSkew(ULONG colid) const;
 
 			// what is the width in bytes of set of column id's
 			virtual
-			CDouble Width(ULongPtrArray *col_ids) const;
+			CDouble Width(ULongPtrArray *colids) const;
 
 			// what is the width in bytes of set of column references
 			virtual
@@ -189,11 +189,11 @@ namespace gpnaucrates
 			virtual
 			const CHistogram *GetHistogram
 								(
-								ULONG col_id
+								ULONG colid
 								)
 								const
 			{
-				return m_colid_histogram_mapping->Find(&col_id);
+			return m_colid_histogram_mapping->Find(&colid);
 			}
 
 			// look up the number of distinct values of a particular column
@@ -202,7 +202,7 @@ namespace gpnaucrates
 
 			// look up the width of a particular column
 			virtual
-			const CDouble *GetWidth(ULONG col_id) const;
+			const CDouble *GetWidth(ULONG colid) const;
 
 			// the risk of errors in cardinality estimation
 			virtual
@@ -327,11 +327,11 @@ namespace gpnaucrates
 				IMemoryPool *mp
 				)
 			{
-				ULongPtrArray *col_ids = GPOS_NEW(mp) ULongPtrArray(mp);
-				CStatistics *stats = MakeDummyStats(mp, col_ids, DefaultRelationRows);
+			ULongPtrArray *colids = GPOS_NEW(mp) ULongPtrArray(mp);
+			CStatistics *stats = MakeDummyStats(mp, colids, DefaultRelationRows);
 
 				// clean up
-				col_ids->Release();
+			colids->Release();
 
 				return stats;
 			}
@@ -349,7 +349,7 @@ namespace gpnaucrates
 
 			// create a dummy statistics object
 			static
-			CStatistics *MakeDummyStats(IMemoryPool *mp, ULongPtrArray *col_ids, CDouble rows);
+			CStatistics *MakeDummyStats(IMemoryPool *mp, ULongPtrArray *colids, CDouble rows);
 
 			// create a dummy statistics object
 			static
@@ -357,7 +357,7 @@ namespace gpnaucrates
 				(
 				IMemoryPool *mp,
 				ULongPtrArray *col_histogram_mapping,
-				ULongPtrArray *col_id_width_mapping,
+				ULongPtrArray *colid_width_mapping,
 				CDouble rows
 				);
 
@@ -387,7 +387,7 @@ namespace gpnaucrates
 
 			// add upper bound ndvs information for a given set of columns
 			static
-			void CreateAndInsertUpperBoundNDVs(IMemoryPool *mp, CStatistics *stats, ULongPtrArray *col_ids, CDouble rows);
+			void CreateAndInsertUpperBoundNDVs(IMemoryPool *mp, CStatistics *stats, ULongPtrArray *colids, CDouble rows);
 
 			// cap the total number of distinct values (NDV) in buckets to the number of rows
 			static

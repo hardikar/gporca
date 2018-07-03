@@ -36,7 +36,7 @@ CDXLPhysicalDynamicTableScan::CDXLPhysicalDynamicTableScan
 	)
 	:
 	CDXLPhysical(mp),
-	m_table_descr_dxl(table_descr),
+	m_dxl_table_descr(table_descr),
 	m_part_index_id(part_idx_id),
 	m_part_index_id_printable(part_idx_id_printable)
 {
@@ -54,7 +54,7 @@ CDXLPhysicalDynamicTableScan::CDXLPhysicalDynamicTableScan
 //---------------------------------------------------------------------------
 CDXLPhysicalDynamicTableScan::~CDXLPhysicalDynamicTableScan()
 {
-	m_table_descr_dxl->Release();
+	m_dxl_table_descr->Release();
 }
 
 //---------------------------------------------------------------------------
@@ -97,7 +97,7 @@ CDXLPhysicalDynamicTableScan::GetOpNameStr() const
 const CDXLTableDescr *
 CDXLPhysicalDynamicTableScan::GetDXLTableDescr() const
 {
-	return m_table_descr_dxl;
+	return m_dxl_table_descr;
 }
 
 //---------------------------------------------------------------------------
@@ -154,8 +154,8 @@ CDXLPhysicalDynamicTableScan::SerializeToDXL
 	}
 	node->SerializePropertiesToDXL(xml_serializer);
 	node->SerializeChildrenToDXL(xml_serializer);
-	m_table_descr_dxl->SerializeToDXL(xml_serializer);
-	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);		
+	m_dxl_table_descr->SerializeToDXL(xml_serializer);
+	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);
 }
 
 #ifdef GPOS_DEBUG
@@ -178,9 +178,9 @@ CDXLPhysicalDynamicTableScan::AssertValid
 	GPOS_ASSERT(2 == node->Arity());
 	
 	// assert validity of table descriptor
-	GPOS_ASSERT(NULL != m_table_descr_dxl);
-	GPOS_ASSERT(NULL != m_table_descr_dxl->MdName());
-	GPOS_ASSERT(m_table_descr_dxl->MdName()->GetMDName()->IsValid());
+	GPOS_ASSERT(NULL != m_dxl_table_descr);
+	GPOS_ASSERT(NULL != m_dxl_table_descr->MdName());
+	GPOS_ASSERT(m_dxl_table_descr->MdName()->GetMDName()->IsValid());
 }
 #endif // GPOS_DEBUG
 

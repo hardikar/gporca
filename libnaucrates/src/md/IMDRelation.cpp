@@ -89,15 +89,15 @@ CWStringDynamic *
 IMDRelation::ColumnsToStr
 	(
 	IMemoryPool *mp,
-	ULongPtrArray *col_id_array
+	ULongPtrArray *colid_array
 	)
 {
 	CWStringDynamic *str = GPOS_NEW(mp) CWStringDynamic(mp);
 
-	ULONG length = col_id_array->Size();
+	ULONG length = colid_array->Size();
 	for (ULONG ul = 0; ul < length; ul++)
 	{
-		ULONG id = *((*col_id_array)[ul]);
+		ULONG id = *((*colid_array)[ul]);
 		if (ul == length - 1)
 		{
 			// last element: do not print a comma

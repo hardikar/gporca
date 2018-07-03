@@ -877,7 +877,7 @@ CStatsPredUtils::GetStatsPredLike
 	}
 
 	CScalarIdent *scalar_ident_op = CScalarIdent::PopConvert(expr_scalar_ident->Pop());
-	ULONG col_id = scalar_ident_op->Pcr()->Id();
+	ULONG colid = scalar_ident_op->Pcr()->Id();
 
 	CScalarConst *scalar_const_op = CScalarConst::PopConvert(expr_scalar_const->Pop());
 	IDatum  *datum_literal = scalar_const_op->GetDatum();
@@ -898,7 +898,7 @@ CStatsPredUtils::GetStatsPredLike
 	expr_left->AddRef();
 	expr_right->AddRef();
 
-	return GPOS_NEW(mp) CStatsPredLike(col_id, expr_left, expr_right, default_scale_factor);
+	return GPOS_NEW(mp) CStatsPredLike(colid, expr_left, expr_right, default_scale_factor);
 }
 
 
@@ -1021,19 +1021,19 @@ CStatsPredUtils::GetStatsPredFromBoolExpr
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 
 	IDatum *datum = NULL;
-	ULONG col_id = gpos::ulong_max;
+	ULONG colid = gpos::ulong_max;
 
 	if (CPredicateUtils::FBooleanScalarIdent(predicate_expr))
 	{
 		CScalarIdent *scalar_ident_op = CScalarIdent::PopConvert(predicate_op);
 		datum = md_accessor->PtMDType<IMDTypeBool>()->CreateBoolDatum(mp, true /* fValue */, false /* is_null */);
-		col_id = scalar_ident_op->Pcr()->Id();
+		colid = scalar_ident_op->Pcr()->Id();
 	}
 	else
 	{
 		CExpression *child_expr = (*predicate_expr)[0];
 		datum = md_accessor->PtMDType<IMDTypeBool>()->CreateBoolDatum(mp, false /* fValue */, false /* is_null */);
-		col_id = CScalarIdent::PopConvert(child_expr->Pop())->Pcr()->Id();
+		colid = CScalarIdent::PopConvert(child_expr->Pop())->Pcr()->Id();
 	}
 
 	if (!datum->StatsAreComparable(datum))
@@ -1041,13 +1041,13 @@ CStatsPredUtils::GetStatsPredFromBoolExpr
 		// stats calculations on such datums unsupported
 		datum->Release();
 
-		return GPOS_NEW(mp) CStatsPredUnsupported(col_id, CStatsPred::EstatscmptEq);
+		return GPOS_NEW(mp) CStatsPredUnsupported(colid, CStatsPred::EstatscmptEq);
 	}
 
 
-	GPOS_ASSERT(NULL != datum && gpos::ulong_max != col_id);
+	GPOS_ASSERT(NULL != datum && gpos::ulong_max != colid);
 
-	return GPOS_NEW(mp) CStatsPredPoint(col_id, CStatsPred::EstatscmptEq, GPOS_NEW(mp) CPoint(datum));
+	return GPOS_NEW(mp) CStatsPredPoint(colid, CStatsPred::EstatscmptEq, GPOS_NEW(mp) CPoint(datum));
 }
 
 

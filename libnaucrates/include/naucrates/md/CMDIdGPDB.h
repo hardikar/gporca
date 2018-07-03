@@ -96,7 +96,7 @@ namespace gpmd
 			
 			// oid
 			virtual
-			OID OidObjectId() const;
+			OID Oid() const;
 			
 			// major version
 			virtual

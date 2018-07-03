@@ -185,9 +185,9 @@ CDXLScalarBitmapBoolOp::AssertValid
 	) 
 	const
 {
-	EdxlBitmapBoolOp dxl_bitmap_bool_op = ((CDXLScalarBitmapBoolOp *) dxlnode->GetOperator())->GetDXLBitmapOpType();
+	EdxlBitmapBoolOp bitmap_bool_dxlop = ((CDXLScalarBitmapBoolOp *) dxlnode->GetOperator())->GetDXLBitmapOpType();
 
-	GPOS_ASSERT( (dxl_bitmap_bool_op == EdxlbitmapAnd) || (dxl_bitmap_bool_op == EdxlbitmapOr));
+	GPOS_ASSERT((bitmap_bool_dxlop == EdxlbitmapAnd) || (bitmap_bool_dxlop == EdxlbitmapOr));
 
 	ULONG arity = dxlnode->Arity();
 	GPOS_ASSERT(2 == arity);
