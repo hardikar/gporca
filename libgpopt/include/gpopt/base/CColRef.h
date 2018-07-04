@@ -28,8 +28,8 @@ namespace gpopt
 	class CColRef;
 
 	// colref array
-	typedef CDynamicPtrArray<CColRef, CleanupNULL> ColRefArray;
-	typedef CDynamicPtrArray<ColRefArray, CleanupRelease> ColRefArrays;
+	typedef CDynamicPtrArray<CColRef, CleanupNULL> CColRefArray;
+	typedef CDynamicPtrArray<CColRefArray, CleanupRelease> CColRefArrays;
 	
 	// hash map mapping ULONG -> CColRef
 	typedef CHashMap<ULONG, CColRef, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
@@ -146,15 +146,15 @@ namespace gpopt
 
 			// extract array of colids from array of colrefs
 			static
-			ULongPtrArray *Pdrgpul(IMemoryPool *mp, ColRefArray *colref_array);
+			ULongPtrArray *Pdrgpul(IMemoryPool *mp, CColRefArray *colref_array);
 
 			// check if the the array of column references are equal
 			static
-			BOOL Equals(const ColRefArray *pdrgpcr1, const ColRefArray *pdrgpcr2);
+			BOOL Equals(const CColRefArray *pdrgpcr1, const CColRefArray *pdrgpcr2);
 
 			// check if the the array of column reference arrays are equal
 			static
-			BOOL Equals(const ColRefArrays *pdrgdrgpcr1, const ColRefArrays *pdrgdrgpcr2);
+			BOOL Equals(const CColRefArrays *pdrgdrgpcr1, const CColRefArrays *pdrgdrgpcr2);
 
 			// type of column reference (base/computed)
 			virtual

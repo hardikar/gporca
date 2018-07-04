@@ -64,8 +64,8 @@ namespace gpopt
 				ULONG ulOriginOpId,
 				const CName *pnameAlias,
 				ULONG ulPartIndex,
-				ColRefArray *pdrgpcrOutput,
-				ColRefArrays *pdrgpdrgpcrPart,
+				CColRefArray *pdrgpcrOutput,
+				CColRefArrays *pdrgpdrgpcrPart,
 				ULONG ulSecondaryPartIndexId,
 				CPartConstraint *ppartcnstr,
 				CPartConstraint *ppartcnstrRel
@@ -168,7 +168,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CExpressionHandle &exprhdl,
-				StatsArray *stats_ctxt
+				IStatisticsArray *stats_ctxt
 				)
 				const;
 

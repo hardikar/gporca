@@ -44,8 +44,8 @@ namespace gpopt
 			CLogicalDifferenceAll
 				(
 				IMemoryPool *mp,
-				ColRefArray *pdrgpcrOutput,
-				ColRefArrays *pdrgpdrgpcrInput
+				CColRefArray *pdrgpcrOutput,
+				CColRefArrays *pdrgpdrgpcrInput
 				);
 
 			// dtor
@@ -124,7 +124,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CExpressionHandle &exprhdl,
-				StatsArray *stats_ctxt
+				IStatisticsArray *stats_ctxt
 				)
 				const;
 

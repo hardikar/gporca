@@ -111,7 +111,7 @@ CPartitionPropagationSpec::AppendEnforcers
 	prpp
 #endif // GPOS_DEBUG
 	,
-	ExpressionArray *pdrgpexpr, 
+	CExpressionArray *pdrgpexpr, 
 	CExpression *pexpr
 	)
 {
@@ -141,8 +141,8 @@ CPartitionPropagationSpec::AppendEnforcers
 		CExpression *pexprResolver = NULL;
 
 		IMDId *mdid = m_ppim->GetRelMdId(scan_id);
-		ColRefArrays *pdrgpdrgpcrKeys = NULL;
-		PartKeysArray *pdrgppartkeys = m_ppim->Pdrgppartkeys(scan_id);
+		CColRefArrays *pdrgpdrgpcrKeys = NULL;
+		CPartKeysArray *pdrgppartkeys = m_ppim->Pdrgppartkeys(scan_id);
 		CPartConstraint *ppartcnstr = m_ppim->PpartcnstrRel(scan_id);
 		UlongToPartConstraintMap *ppartcnstrmap = m_ppim->Ppartcnstrmap(scan_id);
 		mdid->AddRef();
@@ -281,7 +281,7 @@ CPartitionPropagationSpec::FRequiresPartitionPropagation
 	CPartIndexMap *ppim = GPOS_NEW(mp) CPartIndexMap(mp);
 	
 	IMDId *mdid = m_ppim->GetRelMdId(part_idx_id);
-	PartKeysArray *pdrgppartkeys = m_ppim->Pdrgppartkeys(part_idx_id);
+	CPartKeysArray *pdrgppartkeys = m_ppim->Pdrgppartkeys(part_idx_id);
 	CPartConstraint *ppartcnstr = m_ppim->PpartcnstrRel(part_idx_id);
 	UlongToPartConstraintMap *ppartcnstrmap = m_ppim->Ppartcnstrmap(part_idx_id);
 	mdid->AddRef();
@@ -316,7 +316,7 @@ CPartitionPropagationSpec::SplitPartPredicates
 	(
 	IMemoryPool *mp,
 	CExpression *pexprScalar,
-	ColRefArrays *pdrgpdrgpcrKeys,
+	CColRefArrays *pdrgpdrgpcrKeys,
 	UlongToExprMap *phmulexprEqFilter,	// output
 	UlongToExprMap *phmulexprFilter,		// output
 	CExpression **ppexprResidual	// output
@@ -329,7 +329,7 @@ CPartitionPropagationSpec::SplitPartPredicates
 	GPOS_ASSERT(NULL != ppexprResidual);
 	GPOS_ASSERT(NULL == *ppexprResidual);
 
-	ExpressionArray *pdrgpexprConjuncts = CPredicateUtils::PdrgpexprConjuncts(mp, pexprScalar);
+	CExpressionArray *pdrgpexprConjuncts = CPredicateUtils::PdrgpexprConjuncts(mp, pexprScalar);
 	CBitSet *pbsUsed = GPOS_NEW(mp) CBitSet(mp);
 	CColRefSet *pcrsKeys = PcrsKeys(mp, pdrgpdrgpcrKeys);
 
@@ -338,7 +338,7 @@ CPartitionPropagationSpec::SplitPartPredicates
 	{
 		CColRef *colref = CUtils::PcrExtractPartKey(pdrgpdrgpcrKeys, ul);
 		// find conjuncts for this key and mark their positions
-		ExpressionArray *pdrgpexprKey = PdrgpexprPredicatesOnKey(mp, pdrgpexprConjuncts, colref, pcrsKeys, &pbsUsed);
+		CExpressionArray *pdrgpexprKey = PdrgpexprPredicatesOnKey(mp, pdrgpexprConjuncts, colref, pcrsKeys, &pbsUsed);
 		const ULONG length = pdrgpexprKey->Size();
 		if (length == 0)
 		{
@@ -399,7 +399,7 @@ CColRefSet *
 CPartitionPropagationSpec::PcrsKeys
 	(
 	IMemoryPool *mp,
-	ColRefArrays *pdrgpdrgpcrKeys
+	CColRefArrays *pdrgpdrgpcrKeys
 	)
 {
 	CColRefSet *pcrs = GPOS_NEW(mp) CColRefSet(mp);
@@ -427,14 +427,14 @@ CExpression *
 CPartitionPropagationSpec::PexprResidualFilter
 	(
 	IMemoryPool *mp,
-	ExpressionArray *pdrgpexpr,
+	CExpressionArray *pdrgpexpr,
 	CBitSet *pbsUsed
 	)
 {
 	GPOS_ASSERT(NULL != pdrgpexpr);
 	GPOS_ASSERT(NULL != pbsUsed);
 
-	ExpressionArray *pdrgpexprUnused = GPOS_NEW(mp) ExpressionArray(mp);
+	CExpressionArray *pdrgpexprUnused = GPOS_NEW(mp) CExpressionArray(mp);
 
 	const ULONG length = pdrgpexpr->Size();
 	for (ULONG ul = 0; ul < length; ul++)
@@ -469,11 +469,11 @@ CPartitionPropagationSpec::PexprResidualFilter
 //		an array of predicates on all keys
 //
 //---------------------------------------------------------------------------
-ExpressionArray *
+CExpressionArray *
 CPartitionPropagationSpec::PdrgpexprPredicatesOnKey
 	(
 	IMemoryPool *mp,
-	ExpressionArray *pdrgpexpr,
+	CExpressionArray *pdrgpexpr,
 	CColRef *colref,
 	CColRefSet *pcrsKeys,
 	CBitSet **ppbs
@@ -484,7 +484,7 @@ CPartitionPropagationSpec::PdrgpexprPredicatesOnKey
 	GPOS_ASSERT(NULL != ppbs);
 	GPOS_ASSERT(NULL != *ppbs);
 
-	ExpressionArray *pdrgpexprResult = GPOS_NEW(mp) ExpressionArray(mp);
+	CExpressionArray *pdrgpexprResult = GPOS_NEW(mp) CExpressionArray(mp);
 
 	const ULONG length = pdrgpexpr->Size();
 	for (ULONG ul = 0; ul < length; ul++)

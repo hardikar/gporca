@@ -73,8 +73,8 @@ CLogicalDynamicGetBase::CLogicalDynamicGetBase
 	const CName *pnameAlias,
 	CTableDescriptor *ptabdesc,
 	ULONG scan_id,
-	ColRefArray *pdrgpcrOutput, 
-	ColRefArrays *pdrgpdrgpcrPart,
+	CColRefArray *pdrgpcrOutput, 
+	CColRefArrays *pdrgpdrgpcrPart,
 	ULONG ulSecondaryScanId,
 	BOOL is_partial,
 	CPartConstraint *ppartcnstr,
@@ -210,7 +210,7 @@ CLogicalDynamicGetBase::PkcDeriveKeys
 	)
 	const
 {
-	const BitSetArray *pdrgpbs = m_ptabdesc->PdrgpbsKeys();
+	const CBitSetArray *pdrgpbs = m_ptabdesc->PdrgpbsKeys();
 
 	return CLogical::PkcKeysBaseTable(mp, pdrgpbs, m_pdrgpcrOutput);
 }

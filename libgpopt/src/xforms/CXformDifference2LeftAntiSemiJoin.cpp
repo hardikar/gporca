@@ -75,8 +75,8 @@ CXformDifference2LeftAntiSemiJoin::Transform
 	CExpression *pexprRightChild = (*pexpr)[1];
 
 	CLogicalDifference *popDifference = CLogicalDifference::PopConvert(pexpr->Pop());
-	ColRefArray *pdrgpcrOutput = popDifference->PdrgpcrOutput();
-	ColRefArrays *pdrgpdrgpcrInput = popDifference->PdrgpdrgpcrInput();
+	CColRefArray *pdrgpcrOutput = popDifference->PdrgpcrOutput();
+	CColRefArrays *pdrgpdrgpcrInput = popDifference->PdrgpdrgpcrInput();
 
 	// generate the scalar condition for the left anti-semi join
 	CExpression *pexprScCond = CUtils::PexprConjINDFCond(mp, pdrgpdrgpcrInput);
@@ -101,7 +101,7 @@ CXformDifference2LeftAntiSemiJoin::Transform
 											(
 											mp,
 											GPOS_NEW(mp) CScalarProjectList(mp),
-											GPOS_NEW(mp) ExpressionArray(mp)
+											GPOS_NEW(mp) CExpressionArray(mp)
 											);
 
 	CExpression *pexprAgg = CUtils::PexprLogicalGbAggGlobal(mp, pdrgpcrOutput, pexprLASJ, pexprProjList);

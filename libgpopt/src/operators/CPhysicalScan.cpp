@@ -37,7 +37,7 @@ CPhysicalScan::CPhysicalScan
 	IMemoryPool *mp,
 	const CName *pnameAlias,
 	CTableDescriptor *ptabdesc,
-	ColRefArray *pdrgpcrOutput
+	CColRefArray *pdrgpcrOutput
 	)
 	:
 	CPhysical(mp),
@@ -167,7 +167,7 @@ CExpression *
 CPhysicalScan::PexprMatchEqualitySide
 	(
 	CExpression *pexprToMatch,
-	ExpressionArray *pdrgpexpr // array of predicates to inspect
+	CExpressionArray *pdrgpexpr // array of predicates to inspect
 	)
 {
 	GPOS_ASSERT(NULL != pexprToMatch);
@@ -233,11 +233,11 @@ CPhysicalScan::PdshashedDeriveWithOuterRefs
 	GPOS_ASSERT(CDistributionSpec::EdtHashed == m_pds->Edt());
 
 	CExpression *pexprIndexPred = exprhdl.PexprScalarChild(0 /*child_index*/);
-	ExpressionArray *pdrgpexpr = CPredicateUtils::PdrgpexprConjuncts(mp, pexprIndexPred);
+	CExpressionArray *pdrgpexpr = CPredicateUtils::PdrgpexprConjuncts(mp, pexprIndexPred);
 
-	ExpressionArray *pdrgpexprMatching = GPOS_NEW(mp) ExpressionArray(mp);
+	CExpressionArray *pdrgpexprMatching = GPOS_NEW(mp) CExpressionArray(mp);
 	CDistributionSpecHashed *pdshashed = CDistributionSpecHashed::PdsConvert(m_pds);
-	ExpressionArray *pdrgpexprHashed = pdshashed->Pdrgpexpr();
+	CExpressionArray *pdrgpexprHashed = pdshashed->Pdrgpexpr();
 	const ULONG size = pdrgpexprHashed->Size();
 
 	BOOL fSuccess = true;
@@ -324,7 +324,7 @@ CPhysicalScan::PpimDeriveFromDynamicScan
 	IMemoryPool *mp,
 	ULONG part_idx_id,
 	IMDId *rel_mdid,
-	ColRefArrays *pdrgpdrgpcrPart,
+	CColRefArrays *pdrgpdrgpcrPart,
 	ULONG ulSecondaryPartIndexId,
 	CPartConstraint *ppartcnstr,
 	CPartConstraint *ppartcnstrRel,
@@ -336,7 +336,7 @@ CPhysicalScan::PpimDeriveFromDynamicScan
 	
 	(void) ppartcnstrmap->Insert(GPOS_NEW(mp) ULONG(ulSecondaryPartIndexId), ppartcnstr);
 
-	PartKeysArray *pdrgppartkeys = GPOS_NEW(mp) PartKeysArray(mp);
+	CPartKeysArray *pdrgppartkeys = GPOS_NEW(mp) CPartKeysArray(mp);
 	pdrgppartkeys->Append(GPOS_NEW(mp) CPartKeys(pdrgpdrgpcrPart));
 
 	ppim->Insert(part_idx_id, ppartcnstrmap, CPartIndexMap::EpimConsumer, ulExpectedPropagators, rel_mdid, pdrgppartkeys, ppartcnstrRel);

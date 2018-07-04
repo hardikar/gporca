@@ -18,23 +18,23 @@ namespace gpopt
 		private:
 
 			// output column array
-			ColRefArray *const m_pdrgpcrOutput;
+			CColRefArray *const m_pdrgpcrOutput;
 
 			// input column array
-			ColRefArrays *const m_pdrgpdrgpcrInput;
+			CColRefArrays *const m_pdrgpdrgpcrInput;
 
 			// if this union is needed for partial indexes then store the scan
 			// id, otherwise this will be gpos::ulong_max
 			const ULONG m_ulScanIdPartialIndex;
 
 			// set representation of input columns
-			ColRefSetArray *m_pdrgpcrsInput;
+			CColRefSetArray *m_pdrgpcrsInput;
 
 			// array of child hashed distributions -- used locally for distribution derivation
-			DrgPds *const m_pdrgpds;
+			CDistributionSpecArray *const m_pdrgpds;
 
 			// map given array of scalar ident expressions to positions of UnionAll input columns in the given child;
-			ULongPtrArray *PdrgpulMap(IMemoryPool *mp, ExpressionArray *pdrgpexpr, ULONG child_index) const;
+			ULongPtrArray *PdrgpulMap(IMemoryPool *mp, CExpressionArray *pdrgpexpr, ULONG child_index) const;
 
 			// derive hashed distribution from child operators
 			CDistributionSpecHashed *PdshashedDerive(IMemoryPool *mp, CExpressionHandle &exprhdl) const;
@@ -58,8 +58,8 @@ namespace gpopt
 			CPhysicalUnionAll
 				(
 					IMemoryPool *mp,
-					ColRefArray *pdrgpcrOutput,
-					ColRefArrays *pdrgpdrgpcrInput,
+					CColRefArray *pdrgpcrOutput,
+					CColRefArrays *pdrgpdrgpcrInput,
 					ULONG ulScanIdPartialIndex
 				);
 
@@ -82,10 +82,10 @@ namespace gpopt
 			BOOL FInputOrderSensitive() const;
 
 			// accessor of output column array
-			ColRefArray *PdrgpcrOutput() const;
+			CColRefArray *PdrgpcrOutput() const;
 
 			// accessor of input column array
-			ColRefArrays *PdrgpdrgpcrInput() const;
+			CColRefArrays *PdrgpdrgpcrInput() const;
 
 			// if this unionall is needed for partial indexes then return the scan
 			// id, otherwise return gpos::ulong_max
@@ -111,7 +111,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CColRefSet *pcrsRequired,
 					ULONG child_index,
-					DrgPdp *pdrgpdpCtxt,
+					CDrvdPropArrays *pdrgpdpCtxt,
 					ULONG ulOptReq
 				);
 
@@ -123,7 +123,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CCTEReq *pcter,
 					ULONG child_index,
-					DrgPdp *pdrgpdpCtxt,
+					CDrvdPropArrays *pdrgpdpCtxt,
 					ULONG ulOptReq
 				)
 			const;
@@ -136,7 +136,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					COrderSpec *posRequired,
 					ULONG child_index,
-					DrgPdp *pdrgpdpCtxt,
+					CDrvdPropArrays *pdrgpdpCtxt,
 					ULONG ulOptReq
 				)
 			const;
@@ -149,7 +149,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CRewindabilitySpec *prsRequired,
 					ULONG child_index,
-					DrgPdp *pdrgpdpCtxt,
+					CDrvdPropArrays *pdrgpdpCtxt,
 					ULONG ulOptReq
 				)
 			const;
@@ -162,7 +162,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CPartitionPropagationSpec *pppsRequired,
 					ULONG child_index,
-					DrgPdp *pdrgpdpCtxt,
+					CDrvdPropArrays *pdrgpdpCtxt,
 					ULONG ulOptReq
 				);
 

@@ -87,7 +87,7 @@ namespace gpopt
 			// find the partitioning level of the given part key, given the whole
 			// array of part keys
 			static
-			ULONG UlPartKeyLevel(const CColRef *colref, ColRefArrays *pdrgpdrgpcr);
+			ULONG UlPartKeyLevel(const CColRef *colref, CColRefArrays *pdrgpdrgpcr);
 
 			// construct a test for a partial scan given a part constraint
 			static 
@@ -97,7 +97,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				CConstraint *pcnstr,
-				ColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRefArrays *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -108,9 +108,9 @@ namespace gpopt
 				IMemoryPool *mp, 
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
-				ConstraintArray *pdrgpcnstr,
+				CConstraintArray *pdrgpcnstr,
 				BOOL fConjunction,
-				ColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRefArrays *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -122,7 +122,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				CConstraint *pcnstr,
-				ColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRefArrays *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -134,7 +134,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				CConstraint *pcnstr,
-				ColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRefArrays *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -146,7 +146,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				CConstraint *pcnstr,
-				ColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRefArrays *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -157,7 +157,7 @@ namespace gpopt
 				IMemoryPool *mp, 
 				CMDAccessor *md_accessor, 
 				CConstraint *pcnstr,
-				ColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRefArrays *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 
@@ -252,7 +252,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp, 
 				CMDAccessor *md_accessor,
-				ExpressionArray *pdrgpexprHashed, 
+				CExpressionArray *pdrgpexprHashed, 
 				CConstraint *pcnstr
 				);
 			
@@ -378,7 +378,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				const CPartConstraint *ppartcnstr,
-				ColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRefArrays *pdrgpdrgpcrPartKeys,
 				CharPtrArray *pdrgszPartTypes
 				);
 			
@@ -391,7 +391,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				UlongToPartConstraintMap *ppartcnstrmap,
-				ColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRefArrays *pdrgpdrgpcrPartKeys,
 				CharPtrArray *pdrgszPartTypes
 				);
 			
@@ -406,7 +406,7 @@ namespace gpopt
 			// check whether a project list has the same columns in the given array
 			// and in the same order
 			static
-			BOOL FProjectListMatch(CDXLNode *pdxlnPrL, ColRefArray *colref_array);
+			BOOL FProjectListMatch(CDXLNode *pdxlnPrL, CColRefArray *colref_array);
 
 			// create a project list by creating references to the columns of the given
 			// project list of the child node
@@ -443,7 +443,7 @@ namespace gpopt
 				CColumnFactory *col_factory,
 				BOOL fConditional,
 				UlongToPartConstraintMap *ppartcnstrmap,
-				ColRefArrays *pdrgpdrgpcrKeys,
+				CColRefArrays *pdrgpdrgpcrKeys,
 				ULONG scan_id,
 				CharPtrArray *pdrgszPartTypes
 				);
@@ -467,11 +467,11 @@ namespace gpopt
 
 			// construct an array of NULL datums for a given array of columns
 			static
-			IDatumArray *PdrgpdatumNulls(IMemoryPool *mp, ColRefArray *colref_array);
+			IDatumArray *PdrgpdatumNulls(IMemoryPool *mp, CColRefArray *colref_array);
 
 			// map an array of columns to a new array of columns
 			static
-			ColRefArray *PdrgpcrMapColumns(IMemoryPool *mp, ColRefArray *pdrgpcrInput, ColRefToUlongMap *phmcrul, ColRefArray *pdrgpcrMapDest);
+			CColRefArray *PdrgpcrMapColumns(IMemoryPool *mp, CColRefArray *pdrgpcrInput, ColRefToUlongMap *phmcrul, CColRefArray *pdrgpcrMapDest);
 
 			// combine two boolean expressions using the given boolean operator
 			static
@@ -520,7 +520,7 @@ namespace gpopt
 			// build hashmap based on a column array, where the key is the column
 			// and the m_bytearray_value is the index of that column in the array
 			static
-			ColRefToUlongMap *PhmcrulColIndex(IMemoryPool *mp, ColRefArray *colref_array);
+			ColRefToUlongMap *PhmcrulColIndex(IMemoryPool *mp, CColRefArray *colref_array);
 			
 			// set statistics of the operator
 			static
@@ -534,7 +534,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CDXLNode *dxlnode, 
 				CDrvdPropRelational *pdpRel, 
-				DrgPds *pdrgpdsBaseTables
+				CDistributionSpecArray *pdrgpdsBaseTables
 				);
 			
 			// is the aggregate a local hash aggregate that is safe to stream
