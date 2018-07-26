@@ -39,7 +39,7 @@ const INT CConstExprEvaluatorDXLTest::m_iDefaultEvalValue = 300;
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CConstExprEvaluatorDXLTest::CDummyConstDXLNodeEvaluator::PdxlnEvaluateExpr
+//		CConstExprEvaluatorDXLTest::CDummyConstDXLNodeEvaluator::EvaluateExpr
 //
 //	@doc:
 //		Evaluate the given DXL node representing an expression and returns a dummy
@@ -47,7 +47,7 @@ const INT CConstExprEvaluatorDXLTest::m_iDefaultEvalValue = 300;
 //
 //---------------------------------------------------------------------------
 gpdxl::CDXLNode *
-CConstExprEvaluatorDXLTest::CDummyConstDXLNodeEvaluator::PdxlnEvaluateExpr
+CConstExprEvaluatorDXLTest::CDummyConstDXLNodeEvaluator::EvaluateExpr
 	(
 	const gpdxl::CDXLNode * /*pdxlnExpr*/
 	)

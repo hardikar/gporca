@@ -82,7 +82,7 @@ namespace gpopt
 
 					// evaluate the given DXL node representing an expression and returns a dummy value as DXL
 					virtual
-					gpdxl::CDXLNode *PdxlnEvaluateExpr(const gpdxl::CDXLNode *pdxlnExpr);
+					gpdxl::CDXLNode *EvaluateExpr(const gpdxl::CDXLNode *pdxlnExpr);
 
 					// can evaluate expressions
 					virtual
