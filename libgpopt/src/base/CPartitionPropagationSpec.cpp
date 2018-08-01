@@ -17,6 +17,7 @@
 #include "gpopt/base/CPartIndexMap.h"
 #include "gpopt/operators/CPhysicalPartitionSelector.h"
 #include "gpopt/operators/CPredicateUtils.h"
+#include "gpopt/operators/CExpressionHandle.h"
 
 using namespace gpos;
 using namespace gpopt;
@@ -119,6 +120,8 @@ CPartitionPropagationSpec::AppendEnforcers
 	GPOS_ASSERT(NULL != pmp);
 	GPOS_ASSERT(NULL != pdrgpexpr);
 	GPOS_ASSERT(NULL != pexpr);
+
+	exprhdl.Pdp()->DbgPrint();
 	
 	DrgPul *pdrgpul = m_ppim->PdrgpulScanIds(pmp);
 	const ULONG ulSize = pdrgpul->UlLength();
