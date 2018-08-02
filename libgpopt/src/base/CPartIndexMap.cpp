@@ -760,7 +760,9 @@ CPartIndexMap::FSubset
 		}
 		
 		if (pptiFst->Epim() != pptiSnd->Epim() ||
-			pptiFst->UlExpectedPropagators() != pptiSnd->UlExpectedPropagators())
+			(pptiFst->UlExpectedPropagators() != gpos::ulong_max &&
+			 pptiSnd->UlExpectedPropagators() != gpos::ulong_max &&
+			 pptiFst->UlExpectedPropagators() != pptiSnd->UlExpectedPropagators()))
 		{
 			return false;
 		}		
