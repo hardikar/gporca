@@ -37,8 +37,8 @@ CDXLBucket::CDXLBucket
 	CDouble distinct
 	)
 	:
-	m_lower_bound_datum_dxl(dxl_datum_lower),
-	m_upper_bound_datum_dxl(dxl_datum_upper),
+	m_lower_bound_dxl_datum(dxl_datum_lower),
+	m_upper_bound_dxl_datum(dxl_datum_upper),
 	m_is_lower_closed(is_lower_closed),
 	m_is_upper_closed(is_upper_closed),
 	m_frequency(frequency),
@@ -60,8 +60,8 @@ CDXLBucket::CDXLBucket
 //---------------------------------------------------------------------------
 CDXLBucket::~CDXLBucket()
 {
-	m_lower_bound_datum_dxl->Release();
-	m_upper_bound_datum_dxl->Release();
+	m_lower_bound_dxl_datum->Release();
+	m_upper_bound_dxl_datum->Release();
 }
 
 //---------------------------------------------------------------------------
@@ -75,7 +75,7 @@ CDXLBucket::~CDXLBucket()
 const CDXLDatum *
 CDXLBucket::GetDXLDatumLower() const
 {
-	return m_lower_bound_datum_dxl;
+	return m_lower_bound_dxl_datum;
 }
 
 //---------------------------------------------------------------------------
@@ -89,7 +89,7 @@ CDXLBucket::GetDXLDatumLower() const
 const CDXLDatum *
 CDXLBucket::GetDXLDatumUpper() const
 {
-	return m_upper_bound_datum_dxl;
+	return m_upper_bound_dxl_datum;
 }
 
 //---------------------------------------------------------------------------
@@ -142,8 +142,8 @@ CDXLBucket::Serialize
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenStatsFrequency), m_frequency);
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenStatsDistinct), m_distinct);
 	
-	SerializeBoundaryValue(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenStatsBucketLowerBound), m_lower_bound_datum_dxl, m_is_lower_closed);
-	SerializeBoundaryValue(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenStatsBucketUpperBound), m_upper_bound_datum_dxl, m_is_upper_closed);
+	SerializeBoundaryValue(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenStatsBucketLowerBound), m_lower_bound_dxl_datum, m_is_lower_closed);
+	SerializeBoundaryValue(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenStatsBucketUpperBound), m_upper_bound_dxl_datum, m_is_upper_closed);
 	
 	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), 
 						CDXLTokens::GetDXLTokenStr(EdxltokenColumnStatsBucket));
