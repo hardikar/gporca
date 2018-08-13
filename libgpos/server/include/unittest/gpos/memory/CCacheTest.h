@@ -170,7 +170,7 @@ namespace gpos
 					// add a new entry to the linked list
 					void AddEntry
 						(
-						IMemoryPool *memory_pool,
+						IMemoryPool *mp,
 						ULONG ulKey,
 						ULONG ulVal
 						);

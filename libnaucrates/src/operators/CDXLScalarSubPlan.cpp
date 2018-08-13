@@ -31,14 +31,14 @@ using namespace gpopt;
 //---------------------------------------------------------------------------
 CDXLScalarSubPlan::CDXLScalarSubPlan
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *first_col_type_mdid,
 									 DXLColRefArray *dxl_colref_array,
 	EdxlSubPlanType dxl_subplan_type,
 	CDXLNode *dxlnode_test_expr
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_first_col_type_mdid(first_col_type_mdid),
 	m_dxl_colref_array(dxl_colref_array),
 	m_dxl_subplan_type(dxl_subplan_type),

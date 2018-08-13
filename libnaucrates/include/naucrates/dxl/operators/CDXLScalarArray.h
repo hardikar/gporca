@@ -48,7 +48,7 @@ namespace gpdxl
 			// ctor
 			CDXLScalarArray
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *elem_type_mdid,
 				IMDId *array_type_mdid,
 				BOOL multi_dimensional_array

@@ -52,7 +52,7 @@ CWStringConst::CWStringConst
 //---------------------------------------------------------------------------
 CWStringConst::CWStringConst
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const WCHAR *w_str_buffer
 	)
 	:
@@ -63,7 +63,7 @@ CWStringConst::CWStringConst
 		),
 	m_w_str_buffer(NULL)
 {
-	GPOS_ASSERT(NULL != memory_pool);
+	GPOS_ASSERT(NULL != mp);
 	GPOS_ASSERT(NULL != w_str_buffer);
 
 	if (0 == m_length)
@@ -74,7 +74,7 @@ CWStringConst::CWStringConst
 	else
 	{
 		// make a copy of the string
-		WCHAR *w_str_temp_buffer = GPOS_NEW_ARRAY(memory_pool, WCHAR, m_length + 1);
+		WCHAR *w_str_temp_buffer = GPOS_NEW_ARRAY(mp, WCHAR, m_length + 1);
 		clib::WcStrNCpy(w_str_temp_buffer, w_str_buffer, m_length + 1);
 		m_w_str_buffer = w_str_temp_buffer;
 	}

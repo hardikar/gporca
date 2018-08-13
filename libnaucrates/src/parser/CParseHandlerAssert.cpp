@@ -34,12 +34,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerAssert::CParseHandlerAssert
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerPhysicalOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerPhysicalOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -79,19 +79,19 @@ CParseHandlerAssert::StartElement
 			);
 	}
 	
-	m_dxl_op = GPOS_NEW(m_memory_pool) CDXLPhysicalAssert(m_memory_pool, error_code);
+	m_dxl_op = GPOS_NEW(m_mp) CDXLPhysicalAssert(m_mp, error_code);
 
 	// ctor created a copy of the error code
 	GPOS_DELETE_ARRAY(error_code);
 	
 	// parse handler for child node
-	CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenPhysical), m_parse_handler_mgr, this);
+	CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenPhysical), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 
 	// parse handler for the predicate
 	CParseHandlerBase *assert_pred_parse_handler = CParseHandlerFactory::GetParseHandler
 											(
-											m_memory_pool, 
+											m_mp, 
 											CDXLTokens::XmlstrToken(EdxltokenScalarAssertConstraintList), 
 											m_parse_handler_mgr, 
 											this
@@ -99,11 +99,11 @@ CParseHandlerAssert::StartElement
 	m_parse_handler_mgr->ActivateParseHandler(assert_pred_parse_handler);
 
 	// parse handler for the proj list
-	CParseHandlerBase *proj_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
+	CParseHandlerBase *proj_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(proj_list_parse_handler);
 
 	//parse handler for the properties of the operator
-	CParseHandlerBase *prop_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
+	CParseHandlerBase *prop_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(prop_parse_handler);
 
 	this->Append(prop_parse_handler);
@@ -140,7 +140,7 @@ CParseHandlerAssert::EndElement
 	CParseHandlerScalarAssertConstraintList *assert_pred_parse_handler = dynamic_cast<CParseHandlerScalarAssertConstraintList *>((*this)[2]);
 	CParseHandlerPhysicalOp *child_parse_handler = dynamic_cast<CParseHandlerPhysicalOp*>((*this)[3]);
 
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, m_dxl_op);
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, m_dxl_op);
 	CParseHandlerUtils::SetProperties(m_dxl_node, prop_parse_handler);
 
 	// add constructed children

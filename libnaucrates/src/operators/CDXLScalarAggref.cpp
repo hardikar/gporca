@@ -32,14 +32,14 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarAggref::CDXLScalarAggref
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *agg_func_mdid,
 	IMDId *resolved_rettype_mdid,
 	BOOL is_distinct,
 	EdxlAggrefStage agg_stage
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_agg_func_mdid(agg_func_mdid),
 	m_resolved_rettype_mdid(resolved_rettype_mdid),
 	m_is_distinct(is_distinct),

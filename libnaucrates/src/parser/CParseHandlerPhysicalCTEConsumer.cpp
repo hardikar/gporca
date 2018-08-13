@@ -32,12 +32,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerPhysicalCTEConsumer::CParseHandlerPhysicalCTEConsumer
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerPhysicalOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerPhysicalOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -74,14 +74,14 @@ CParseHandlerPhysicalCTEConsumer::StartElement
 
 	ULongPtrArray *output_colids_array = CDXLOperatorFactory::ExtractConvertValuesToArray(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenColumns, EdxltokenPhysicalCTEConsumer);
 
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, GPOS_NEW(m_memory_pool) CDXLPhysicalCTEConsumer(m_memory_pool, id, output_colids_array));
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, GPOS_NEW(m_mp) CDXLPhysicalCTEConsumer(m_mp, id, output_colids_array));
 
 	// parse handler for the proj list
-	CParseHandlerBase *proj_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
+	CParseHandlerBase *proj_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(proj_list_parse_handler);
 
 	//parse handler for the properties of the operator
-	CParseHandlerBase *prop_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
+	CParseHandlerBase *prop_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(prop_parse_handler);
 
 	// store parse handlers

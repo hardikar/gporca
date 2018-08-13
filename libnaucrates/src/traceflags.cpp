@@ -28,7 +28,7 @@ using namespace gpos;
 //---------------------------------------------------------------------------
 void SetTraceflags
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CBitSet *pbsInput, // set of trace flags to be enabled
 	CBitSet **ppbsEnabled,   // output: enabled trace flags before function is called
 	CBitSet **ppbsDisabled   // output: disabled trace flags before function is called
@@ -49,8 +49,8 @@ void SetTraceflags
 	CAutoTraceFlag atf3(EtraceSimulateNetError, false);
 	CAutoTraceFlag atf4(EtraceSimulateIOError, false);
 
-	*ppbsEnabled = GPOS_NEW(memory_pool) CBitSet(memory_pool, EopttraceSentinel);
-	*ppbsDisabled = GPOS_NEW(memory_pool) CBitSet(memory_pool, EopttraceSentinel);
+	*ppbsEnabled = GPOS_NEW(mp) CBitSet(mp, EopttraceSentinel);
+	*ppbsDisabled = GPOS_NEW(mp) CBitSet(mp, EopttraceSentinel);
 	CBitSetIter bsiter(*pbsInput);
 	while (bsiter.Advance())
 	{

@@ -43,12 +43,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerIndexScan::CParseHandlerIndexScan
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerPhysicalOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerPhysicalOp(mp, parse_handler_mgr, parse_handler_root),
 	m_index_scan_dir(EdxlisdSentinel)
 {
 }
@@ -132,32 +132,32 @@ CParseHandlerIndexScan::StartElementHelper
 	// order of their expected appearance
 
 	CParseHandlerBase *table_descr_parse_handler =
-			CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenTableDescr), m_parse_handler_mgr, this);
+			CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenTableDescr), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(table_descr_parse_handler);
 
 	// parse handler for the index descriptor
 	CParseHandlerBase *index_descr_parse_handler =
-			CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenIndexDescr), m_parse_handler_mgr, this);
+			CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenIndexDescr), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(index_descr_parse_handler);
 
 	// parse handler for the index condition list
 	CParseHandlerBase *index_condition_list_parse_handler =
-			CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarIndexCondList), m_parse_handler_mgr, this);
+			CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarIndexCondList), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(index_condition_list_parse_handler);
 
 	// parse handler for the filter
 	CParseHandlerBase *filter_parse_handler =
-			CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarFilter), m_parse_handler_mgr, this);
+			CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarFilter), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(filter_parse_handler);
 
 	// parse handler for the proj list
 	CParseHandlerBase *proj_list_parse_handler =
-			CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
+			CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(proj_list_parse_handler);
 
 	//parse handler for the properties of the operator
 	CParseHandlerBase *prop_parse_handler =
-			CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
+			CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(prop_parse_handler);
 
 	// store parse handlers
@@ -209,20 +209,20 @@ CParseHandlerIndexScan::EndElementHelper
 	CDXLPhysical *dxl_op = NULL;
 	if (EdxltokenPhysicalIndexOnlyScan == token_type)
 	{
-		dxl_op = GPOS_NEW(m_memory_pool) CDXLPhysicalIndexOnlyScan(m_memory_pool, table_descr_dxl, index_descr_dxl, m_index_scan_dir);
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalIndexOnlyScan(m_mp, table_descr_dxl, index_descr_dxl, m_index_scan_dir);
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 	}
 	else if (EdxltokenPhysicalIndexScan == token_type)
 	{
-		dxl_op = GPOS_NEW(m_memory_pool) CDXLPhysicalIndexScan(m_memory_pool, table_descr_dxl, index_descr_dxl, m_index_scan_dir);
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalIndexScan(m_mp, table_descr_dxl, index_descr_dxl, m_index_scan_dir);
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 	}
 	else
 	{
 		GPOS_ASSERT(EdxltokenPhysicalDynamicIndexScan == token_type);
 
-		dxl_op = GPOS_NEW(m_memory_pool) CDXLPhysicalDynamicIndexScan(m_memory_pool, table_descr_dxl, part_idx_id, part_idx_id_printable, index_descr_dxl, m_index_scan_dir);
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+		dxl_op = GPOS_NEW(m_mp) CDXLPhysicalDynamicIndexScan(m_mp, table_descr_dxl, part_idx_id, part_idx_id_printable, index_descr_dxl, m_index_scan_dir);
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 	}
 
 	// set statistics and physical properties

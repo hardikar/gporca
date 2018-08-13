@@ -28,12 +28,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarComp::CDXLScalarComp
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_op,
 	const CWStringConst *comparison_operator_name
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_mdid(mdid_op),
 	m_comparison_operator_name(comparison_operator_name)
 {

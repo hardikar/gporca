@@ -32,7 +32,7 @@ namespace gpnaucrates
 			static
 			CHistogram *MakeHistSimpleFilter
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CStatsPred *pred_stats,
 				CBitSet *filter_col_ids,
 				CHistogram *hist_before,
@@ -44,7 +44,7 @@ namespace gpnaucrates
 			static
 			CHistogram *MakeHistPointFilter
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CStatsPredPoint *pred_stats,
 				CBitSet *filter_col_ids,
 				CHistogram *hist_before,
@@ -56,7 +56,7 @@ namespace gpnaucrates
 			static
 			CHistogram *MakeHistLikeFilter
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CStatsPredLike *pred_stats,
 				CBitSet *filter_col_ids,
 				CHistogram *hist_before,
@@ -68,7 +68,7 @@ namespace gpnaucrates
 			static
 			CHistogram *MakeHistUnsupportedPred
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CStatsPredUnsupported *pred_stats,
 				CBitSet *filter_col_ids,
 				CHistogram *hist_before,
@@ -80,7 +80,7 @@ namespace gpnaucrates
 			static
 			UlongHistogramHashMap *MakeHistHashMapConjOrDisjFilter
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CStatisticsConfig *stats_config,
 				UlongHistogramHashMap *input_histograms,
 				CDouble input_rows,
@@ -92,7 +92,7 @@ namespace gpnaucrates
 			static
 			UlongHistogramHashMap *MakeHistHashMapConjFilter
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CStatisticsConfig *stats_config,
 				UlongHistogramHashMap *intermediate_histograms,
 				CDouble input_rows,
@@ -104,7 +104,7 @@ namespace gpnaucrates
 			static
 			UlongHistogramHashMap *MakeHistHashMapDisjFilter
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CStatisticsConfig *stats_config,
 				UlongHistogramHashMap *input_histograms,
 				CDouble input_rows,
@@ -120,13 +120,13 @@ namespace gpnaucrates
 
 		// filter
 		static
-		CStatistics *MakeStatsFilter(IMemoryPool *memory_pool, const CStatistics *input_stats, CStatsPred *base_pred_stats, BOOL do_cap_NDVs);
+		CStatistics *MakeStatsFilter(IMemoryPool *mp, const CStatistics *input_stats, CStatsPred *base_pred_stats, BOOL do_cap_NDVs);
 
 		// derive statistics for filter operation based on given scalar expression
 		static
 		IStatistics *MakeStatsFilterForScalarExpr
 						(
-						IMemoryPool *memory_pool,
+						IMemoryPool *mp,
 						CExpressionHandle &exprhdl,
 						IStatistics *child_stats,
 						CExpression *local_scalar_expr, // filter expression on local columns only

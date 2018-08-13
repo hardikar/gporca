@@ -48,7 +48,7 @@ namespace gpmd
 		private:
 
 			// memory pool
-			IMemoryPool *m_memory_pool;
+			IMemoryPool *m_mp;
 
 			// included default partitions
 			ULongPtrArray *m_level_with_default_part_array;
@@ -61,7 +61,7 @@ namespace gpmd
 		public:
 
 			// ctor
-			CMDPartConstraintGPDB(IMemoryPool *memory_pool, ULongPtrArray *level_with_default_part_array, BOOL is_unbounded, CDXLNode *dxlnode);
+			CMDPartConstraintGPDB(IMemoryPool *mp, ULongPtrArray *level_with_default_part_array, BOOL is_unbounded, CDXLNode *dxlnode);
 
 			// dtor
 			virtual
@@ -73,7 +73,7 @@ namespace gpmd
 			
 			// the scalar expression of the part constraint
 			virtual
-			CExpression *GetPartConstraintExpr(IMemoryPool *memory_pool, CMDAccessor *md_accessor, ColRefArray *colref_array) const;
+			CExpression *GetPartConstraintExpr(IMemoryPool *mp, CMDAccessor *md_accessor, ColRefArray *colref_array) const;
 			
 			// included default partitions
 			virtual

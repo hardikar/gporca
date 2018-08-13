@@ -77,7 +77,7 @@ namespace gpos
 		private:
 
 			// allocated memory pool to the cached object
-			IMemoryPool *m_memory_pool;
+			IMemoryPool *m_mp;
 
 			// m_bytearray_value that needs to be cached
 			T m_val;
@@ -94,13 +94,13 @@ namespace gpos
 			// ctor
 			CCacheEntry
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				K key,
 				T val,
 				ULONG g_clock_counter
 				)
 				:
-				m_memory_pool(memory_pool),
+				m_mp(mp),
 				m_val(val),
 				m_deleted(false),
 				m_g_clock_counter(g_clock_counter),
@@ -134,7 +134,7 @@ namespace gpos
 			// gets the memory pool of cached object
 			IMemoryPool *Pmp() const
 			{
-				return m_memory_pool;
+				return m_mp;
 			}
 
 			// marks entry as deleted

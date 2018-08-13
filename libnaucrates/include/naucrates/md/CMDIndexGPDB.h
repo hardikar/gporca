@@ -38,7 +38,7 @@ namespace gpmd
 		private:
 			
 			// memory pool
-			IMemoryPool *m_memory_pool;
+			IMemoryPool *m_mp;
 			
 			// index mdid
 			IMDId *m_mdid;
@@ -78,7 +78,7 @@ namespace gpmd
 			// ctor
 			CMDIndexGPDB
 				(
-				IMemoryPool *memory_pool, 
+				IMemoryPool *mp, 
 				IMDId *mdid, 
 				CMDName *mdname,
 				BOOL is_clustered, 

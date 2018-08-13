@@ -30,12 +30,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerSortCol::CParseHandlerSortCol
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -65,7 +65,7 @@ CParseHandlerSortCol::StartElement
 	
 	// parse and create sort col operator
 	CDXLScalarSortCol *dxl_op = (CDXLScalarSortCol *) CDXLOperatorFactory::MakeDXLSortCol(m_parse_handler_mgr->GetDXLMemoryManager(), attrs);
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 }
 
 //---------------------------------------------------------------------------

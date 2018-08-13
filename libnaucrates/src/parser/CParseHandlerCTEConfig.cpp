@@ -35,12 +35,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerCTEConfig::CParseHandlerCTEConfig
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_cte_conf(NULL)
 {
 }
@@ -84,7 +84,7 @@ CParseHandlerCTEConfig::StartElement
 	// parse CTE configuration options
 	ULONG cte_inlining_cut_off = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenCTEInliningCutoff, EdxltokenCTEConfig);
 
-	m_cte_conf = GPOS_NEW(m_memory_pool) CCTEConfig(cte_inlining_cut_off);
+	m_cte_conf = GPOS_NEW(m_mp) CCTEConfig(cte_inlining_cut_off);
 }
 
 //---------------------------------------------------------------------------

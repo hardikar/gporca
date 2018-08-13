@@ -34,20 +34,20 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLWindowSpec::CDXLWindowSpec
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	ULongPtrArray *partition_by_col_id_array,
 	CMDName *mdname,
 	CDXLNode *sort_col_list_dxl,
 	CDXLWindowFrame *window_frame
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_partition_by_col_id_array(partition_by_col_id_array),
 	m_mdname(mdname),
 	m_sort_col_list_dxl(sort_col_list_dxl),
 	m_window_frame(window_frame)
 {
-	GPOS_ASSERT(NULL != m_memory_pool);
+	GPOS_ASSERT(NULL != m_mp);
 	GPOS_ASSERT(NULL != m_partition_by_col_id_array);
 }
 
@@ -88,7 +88,7 @@ CDXLWindowSpec::SerializeToDXL
 	GPOS_ASSERT(NULL != m_partition_by_col_id_array);
 
 	// serialize partition keys
-	CWStringDynamic *partition_by_col_id_string = CDXLUtils::Serialize(m_memory_pool, m_partition_by_col_id_array);
+	CWStringDynamic *partition_by_col_id_string = CDXLUtils::Serialize(m_mp, m_partition_by_col_id_array);
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenPartKeys), partition_by_col_id_string);
 	GPOS_DELETE(partition_by_col_id_string);
 

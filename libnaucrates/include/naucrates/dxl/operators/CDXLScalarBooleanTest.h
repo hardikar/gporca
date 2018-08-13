@@ -57,7 +57,7 @@ namespace gpdxl
 			// ctor/dtor
 			CDXLScalarBooleanTest
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const EdxlBooleanTestType dxl_bool_type
 				);
 

@@ -28,11 +28,11 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalMaterialize::CDXLPhysicalMaterialize
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	BOOL is_eager
 	)
 	:
-	CDXLPhysical(memory_pool),
+	CDXLPhysical(mp),
 	m_is_eager(is_eager),
 	m_spooling_op_id(0),
 	m_spool_type(EdxlspoolNone),
@@ -51,14 +51,14 @@ CDXLPhysicalMaterialize::CDXLPhysicalMaterialize
 //---------------------------------------------------------------------------
 CDXLPhysicalMaterialize::CDXLPhysicalMaterialize
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	BOOL is_eager,
 	ULONG spooling_op_id,
 	INT executor_slice,
 	ULONG num_consumer_slices
 	)
 	:
-	CDXLPhysical(memory_pool),
+	CDXLPhysical(mp),
 	m_is_eager(is_eager),
 	m_spooling_op_id(spooling_op_id),
 	m_spool_type(EdxlspoolMaterialize),

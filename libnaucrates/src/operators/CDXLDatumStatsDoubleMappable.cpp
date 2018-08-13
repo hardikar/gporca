@@ -32,7 +32,7 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLDatumStatsDoubleMappable::CDXLDatumStatsDoubleMappable
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_type,
 	INT type_modifier,
 	BOOL is_passed_by_value,
@@ -42,7 +42,7 @@ CDXLDatumStatsDoubleMappable::CDXLDatumStatsDoubleMappable
 	CDouble val
 	)
 	:
-	CDXLDatumGeneric(memory_pool, mdid_type, type_modifier, is_passed_by_value, is_null, data, length),
+	CDXLDatumGeneric(mp, mdid_type, type_modifier, is_passed_by_value, is_null, data, length),
 	m_val(val)
 {
 }

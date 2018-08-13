@@ -29,7 +29,7 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalDML::CDXLPhysicalDML
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const EdxlDmlType dml_type_dxl,
 	CDXLTableDescr *table_descr,
 	ULongPtrArray *src_colids_array,
@@ -43,7 +43,7 @@ CDXLPhysicalDML::CDXLPhysicalDML
 	BOOL input_sort_req
 	)
 	:
-	CDXLPhysical(memory_pool),
+	CDXLPhysical(mp),
 	m_dml_type_dxl(dml_type_dxl),
 	m_table_descr_dxl(table_descr),
 	m_src_colids_array(src_colids_array),
@@ -133,7 +133,7 @@ CDXLPhysicalDML::SerializeToDXL
 	const CWStringConst *element_name = GetOpNameStr();
 	xml_serializer->OpenElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);
 
-	CWStringDynamic *pstrCols = CDXLUtils::Serialize(m_memory_pool, m_src_colids_array);
+	CWStringDynamic *pstrCols = CDXLUtils::Serialize(m_mp, m_src_colids_array);
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenColumns), pstrCols);
 	GPOS_DELETE(pstrCols);
 

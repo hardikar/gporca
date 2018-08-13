@@ -29,9 +29,9 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLLogicalSelect::CDXLLogicalSelect
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
-	:CDXLLogical(memory_pool)
+	:CDXLLogical(mp)
 {
 }
 

@@ -29,7 +29,7 @@ using namespace gpmd;
 //---------------------------------------------------------------------------
 CDXLColDescr::CDXLColDescr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CMDName *md_name,
 	ULONG column_id,
 	INT attr_no,
@@ -39,7 +39,7 @@ CDXLColDescr::CDXLColDescr
 	ULONG width
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_md_name(md_name),
 	m_column_id(column_id),
 	m_attr_no(attr_no),

@@ -44,11 +44,11 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerDXL::CParseHandlerDXL
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, NULL),
+	CParseHandlerBase(mp, parse_handler_mgr, NULL),
 	m_trace_flags_bitset(NULL),
 	m_optimizer_config(NULL),
 	m_mdrequest(NULL),
@@ -399,7 +399,7 @@ CParseHandlerDXL::StartElement
 		GPOS_ASSERT(IsValidStartElement(element_local_name));
 
 		// install a parse handler for the given element
-		CParseHandlerBase *parse_handler_base = CParseHandlerFactory::GetParseHandler(m_memory_pool, element_local_name, m_parse_handler_mgr, this);
+		CParseHandlerBase *parse_handler_base = CParseHandlerFactory::GetParseHandler(m_mp, element_local_name, m_parse_handler_mgr, this);
 	
 		m_parse_handler_mgr->ActivateParseHandler(parse_handler_base);
 			
@@ -678,7 +678,7 @@ CParseHandlerDXL::ExtractMDRequest
 	mdid_array->AddRef();
 	md_type_request_array->AddRef();
 	
-	m_mdrequest = GPOS_NEW(m_memory_pool) CMDRequest(m_memory_pool, mdid_array, md_type_request_array);
+	m_mdrequest = GPOS_NEW(m_mp) CMDRequest(m_mp, mdid_array, md_type_request_array);
 }
 
 

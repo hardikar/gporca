@@ -30,11 +30,11 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarPartOid::CDXLScalarPartOid
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	ULONG partitioning_level
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_partitioning_level(partitioning_level)
 {
 }

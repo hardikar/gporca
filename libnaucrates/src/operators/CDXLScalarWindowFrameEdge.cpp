@@ -26,12 +26,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarWindowFrameEdge::CDXLScalarWindowFrameEdge
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	BOOL fLeading,
 	EdxlFrameBoundary frame_boundary
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_leading_edge(fLeading),
 	m_dxl_frame_boundary(frame_boundary)
 {

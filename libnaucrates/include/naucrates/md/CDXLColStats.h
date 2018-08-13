@@ -44,7 +44,7 @@ namespace gpmd
 		private:
 		
 			// memory pool
-			IMemoryPool *m_memory_pool;
+			IMemoryPool *m_mp;
 
 			// metadata id of the object
 			CMDIdColStats *m_mdid_col_stats;
@@ -80,7 +80,7 @@ namespace gpmd
 			// ctor
 			CDXLColStats
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CMDIdColStats *mdid_col_stats,
 				CMDName *mdname,
 				CDouble width,
@@ -159,7 +159,7 @@ namespace gpmd
 
 			// dummy colstats
 			static
-			CDXLColStats *CreateDXLDummyColStats(IMemoryPool *memory_pool, IMDId *mdid, CMDName *mdname, CDouble width);
+			CDXLColStats *CreateDXLDummyColStats(IMemoryPool *mp, IMDId *mdid, CMDName *mdname, CDouble width);
 
 	};
 

@@ -20,10 +20,10 @@ using namespace gpdxl;
 // ctor
 CDXLPhysicalValuesScan::CDXLPhysicalValuesScan
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CDXLPhysical(memory_pool)
+	CDXLPhysical(mp)
 {}
 
 // dtor

@@ -31,12 +31,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarPartBound::CParseHandlerScalarPartBound
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -67,7 +67,7 @@ CParseHandlerScalarPartBound::StartElement
 	IMDId *m_mdid_type = CDXLOperatorFactory::ExtractConvertAttrValueToMdId(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenMDType, EdxltokenScalarPartBound);
 	BOOL is_lower_bound = CDXLOperatorFactory::ExtractConvertAttrValueToBool(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenScalarPartBoundLower, EdxltokenScalarPartBound);
 
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode (m_memory_pool, GPOS_NEW(m_memory_pool) CDXLScalarPartBound(m_memory_pool, partition_level, m_mdid_type, is_lower_bound));
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode (m_mp, GPOS_NEW(m_mp) CDXLScalarPartBound(m_mp, partition_level, m_mdid_type, is_lower_bound));
 }
 
 //---------------------------------------------------------------------------

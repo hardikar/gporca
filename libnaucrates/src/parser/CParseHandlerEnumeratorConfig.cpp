@@ -33,12 +33,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerEnumeratorConfig::CParseHandlerEnumeratorConfig
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_enumerator_cfg(NULL)
 {
 }
@@ -84,7 +84,7 @@ CParseHandlerEnumeratorConfig::StartElement
 	ULLONG num_of_plan_samples = CDXLOperatorFactory::ExtractConvertAttrValueToUllong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenPlanSamples, EdxltokenOptimizerConfig);
 	CDouble cost_threshold = CDXLOperatorFactory::ExtractConvertAttrValueToDouble(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenCostThreshold, EdxltokenOptimizerConfig);
 
-	m_enumerator_cfg = GPOS_NEW(m_memory_pool) CEnumeratorConfig(m_memory_pool, plan_id, num_of_plan_samples, cost_threshold);
+	m_enumerator_cfg = GPOS_NEW(m_mp) CEnumeratorConfig(m_mp, plan_id, num_of_plan_samples, cost_threshold);
 }
 
 //---------------------------------------------------------------------------

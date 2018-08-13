@@ -39,7 +39,7 @@ namespace gpdxl
 		
 		private:
 			// memory pool
-			IMemoryPool *m_memory_pool;
+			IMemoryPool *m_mp;
 			
 			// output stream for writing out the xml document
 			IOstream &m_os;
@@ -73,12 +73,12 @@ namespace gpdxl
 			// ctor/dtor
 			CXMLSerializer
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IOstream &os,
 				BOOL indentation = true
 				)
 				:
-				m_memory_pool(memory_pool),
+				m_mp(mp),
 				m_os(os),
 				m_indentation(indentation),
 				m_strstackElems(NULL),
@@ -86,7 +86,7 @@ namespace gpdxl
 				m_ulLevel(0),
 				m_iteration_since_last_abortcheck(0)
 			{
-				m_strstackElems = GPOS_NEW(m_memory_pool) StrStack(m_memory_pool);
+				m_strstackElems = GPOS_NEW(m_mp) StrStack(m_mp);
 			}
 			
 			~CXMLSerializer();
@@ -94,7 +94,7 @@ namespace gpdxl
 			// get underlying memory pool
 			IMemoryPool *Pmp() const
 			{
-				return m_memory_pool;
+				return m_mp;
 			}
 
 			// starts an XML document

@@ -32,12 +32,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarComp::CParseHandlerScalarComp
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root),
 	m_dxl_op(NULL)
 {
 }
@@ -84,11 +84,11 @@ CParseHandlerScalarComp::StartElement
 	// order of their expected appearance
 	
 	// parse handler for right scalar node
-	CParseHandlerBase *right_child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+	CParseHandlerBase *right_child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(right_child_parse_handler);
 	
 	// parse handler for left scalar node
-	CParseHandlerBase *left_child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+	CParseHandlerBase *left_child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(left_child_parse_handler);
 	
 	// store parse handlers
@@ -120,7 +120,7 @@ CParseHandlerScalarComp::EndElement
 	}
 
 	// construct node from the created child nodes
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, m_dxl_op);
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, m_dxl_op);
 
 	CParseHandlerScalarOp *left_child_parse_handler = dynamic_cast<CParseHandlerScalarOp *>((*this)[0]);
 	CParseHandlerScalarOp *right_child_parse_handler = dynamic_cast<CParseHandlerScalarOp *>((*this)[1]);

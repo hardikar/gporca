@@ -35,12 +35,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerColStats::CParseHandlerColStats
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_base
 	)
 	:
-	CParseHandlerMetadataObject(memory_pool, parse_handler_mgr, parse_handler_base),
+	CParseHandlerMetadataObject(mp, parse_handler_mgr, parse_handler_base),
 	m_mdid(NULL),
 	m_md_name(NULL),
 	m_width(0.0),
@@ -88,7 +88,7 @@ CParseHandlerColStats::StartElement
 		CWStringDynamic *column_name = CDXLUtils::CreateDynamicStringFromXMLChArray(m_parse_handler_mgr->GetDXLMemoryManager(), parsed_column_name);
 		
 		// create a copy of the string in the CMDName constructor
-		m_md_name = GPOS_NEW(m_memory_pool) CMDName(m_memory_pool, column_name);
+		m_md_name = GPOS_NEW(m_mp) CMDName(m_mp, column_name);
 		GPOS_DELETE(column_name);
 		
 		m_width = CDXLOperatorFactory::ExtractConvertAttrValueToDouble(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenWidth, EdxltokenColumnStats);
@@ -121,7 +121,7 @@ CParseHandlerColStats::StartElement
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenColumnStatsBucket), element_local_name))
 	{
 		// new bucket
-		CParseHandlerBase *parse_handler_base_stats_bucket = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenColumnStatsBucket), m_parse_handler_mgr, this);
+		CParseHandlerBase *parse_handler_base_stats_bucket = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenColumnStatsBucket), m_parse_handler_mgr, this);
 		this->Append(parse_handler_base_stats_bucket);
 		
 		m_parse_handler_mgr->ActivateParseHandler(parse_handler_base_stats_bucket);	
@@ -158,7 +158,7 @@ CParseHandlerColStats::EndElement
 
 	// get histogram buckets from child parse handlers
 	
-	DXLBucketPtrArray *stats_bucket_dxl_array = GPOS_NEW(m_memory_pool) DXLBucketPtrArray(m_memory_pool);
+	DXLBucketPtrArray *stats_bucket_dxl_array = GPOS_NEW(m_mp) DXLBucketPtrArray(m_mp);
 	
 	for (ULONG ul = 0; ul < this->Length(); ul++)
 	{
@@ -170,9 +170,9 @@ CParseHandlerColStats::EndElement
 		stats_bucket_dxl_array->Append(bucket_dxl);
 	}
 	
-	m_imd_obj = GPOS_NEW(m_memory_pool) CDXLColStats
+	m_imd_obj = GPOS_NEW(m_mp) CDXLColStats
 							(
-							m_memory_pool,
+							m_mp,
 							m_mdid,
 							m_md_name,
 							m_width,

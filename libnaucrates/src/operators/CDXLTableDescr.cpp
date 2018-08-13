@@ -30,20 +30,20 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLTableDescr::CDXLTableDescr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	ULONG ulExecuteAsUser
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_column_descr_dxl_array(NULL),
 	m_execute_as_user_id(ulExecuteAsUser)
 {
 	GPOS_ASSERT(NULL != m_mdname);
-	m_column_descr_dxl_array = GPOS_NEW(memory_pool) DXLColumnDescrArray(memory_pool);
+	m_column_descr_dxl_array = GPOS_NEW(mp) DXLColumnDescrArray(mp);
 }
 
 

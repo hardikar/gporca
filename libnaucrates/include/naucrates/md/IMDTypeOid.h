@@ -54,7 +54,7 @@ namespace gpmd
 
 			// factory function for OID datums
 			virtual
-			IDatumOid *CreateOidDatum(IMemoryPool *memory_pool, OID oid_value, BOOL is_null) const = 0;
+			IDatumOid *CreateOidDatum(IMemoryPool *mp, OID oid_value, BOOL is_null) const = 0;
 	};
 }
 

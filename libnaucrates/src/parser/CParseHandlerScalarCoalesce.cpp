@@ -31,12 +31,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarCoalesce::CParseHandlerScalarCoalesce
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root),
 	m_mdid_type(NULL)
 {
 }
@@ -66,7 +66,7 @@ CParseHandlerScalarCoalesce::StartElement
 	else
 	{
 		// parse scalar child
-		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 
 		// store parse handlers
@@ -99,7 +99,7 @@ CParseHandlerScalarCoalesce::EndElement
 	}
 
 	// construct node
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, GPOS_NEW(m_memory_pool) CDXLScalarCoalesce(m_memory_pool, m_mdid_type));
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, GPOS_NEW(m_mp) CDXLScalarCoalesce(m_mp, m_mdid_type));
 
 	// loop over children and add them to this parsehandler
 	const ULONG size = this->Length();

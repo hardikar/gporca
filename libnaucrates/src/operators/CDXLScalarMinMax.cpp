@@ -29,12 +29,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarMinMax::CDXLScalarMinMax
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_type,
 	EdxlMinMaxType min_max_type
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_mdid_type(mdid_type),
 	m_min_max_type(min_max_type)
 {

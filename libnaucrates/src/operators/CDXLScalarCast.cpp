@@ -30,12 +30,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarCast::CDXLScalarCast
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_type,
 	IMDId *func_mdid
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_mdid_type(mdid_type),
 	m_func_mdid(func_mdid)
 {

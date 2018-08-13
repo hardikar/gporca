@@ -31,12 +31,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarIdent::CParseHandlerScalarIdent
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root),
 	m_dxl_op(NULL)
 {
 }
@@ -104,7 +104,7 @@ CParseHandlerScalarIdent::EndElement
 	
 	// construct scalar ident node
 	GPOS_ASSERT(NULL != m_dxl_op);
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool);
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp);
 	m_dxl_node->SetOperator(m_dxl_op);
 			
 	// deactivate handler

@@ -40,12 +40,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarOpList::CParseHandlerScalarOpList
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root),
 	m_dxl_op_list_type(CDXLScalarOpList::EdxloplistSentinel)
 {
 }
@@ -72,7 +72,7 @@ CParseHandlerScalarOpList::StartElement
 	{
 		// create the list
 		m_dxl_op_list_type = dxl_op_list_type;
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode (m_memory_pool, GPOS_NEW(m_memory_pool) CDXLScalarOpList(m_memory_pool, m_dxl_op_list_type));
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode (m_mp, GPOS_NEW(m_mp) CDXLScalarOpList(m_mp, m_dxl_op_list_type));
 	}
 	else
 	{
@@ -80,7 +80,7 @@ CParseHandlerScalarOpList::StartElement
 		GPOS_ASSERT(NULL != m_dxl_node);
 
 		// parse scalar child
-		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 
 		// store parse handler

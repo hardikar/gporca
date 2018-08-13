@@ -84,7 +84,7 @@ namespace gpdxl
 			// ctor
 			CDXLLogicalCTAS
 				(
-				IMemoryPool *memory_pool, 
+				IMemoryPool *mp, 
 				IMDId *mdid,
 				CMDName *mdname_schema, 
 				CMDName *mdname_rel, 

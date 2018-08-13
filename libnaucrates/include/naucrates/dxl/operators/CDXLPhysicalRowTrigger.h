@@ -54,7 +54,7 @@ namespace gpdxl
 			// ctor
 			CDXLPhysicalRowTrigger
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *rel_mdid,
 				INT type,
 				ULongPtrArray *col_ids_old,

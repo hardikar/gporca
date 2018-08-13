@@ -28,12 +28,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerMDRequest::CParseHandlerMDRequest
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_mdid_array(NULL)
 {
 }
@@ -74,8 +74,8 @@ CParseHandlerMDRequest::StartElement
 	{
 		// start of MD request section
 		GPOS_ASSERT(NULL == m_mdid_array);
-		m_mdid_array = GPOS_NEW(m_memory_pool) MdidPtrArray(m_memory_pool);
-		m_mdtype_request_array = GPOS_NEW(m_memory_pool) CMDRequest::MDTypeRequestPtrArray(m_memory_pool);
+		m_mdid_array = GPOS_NEW(m_mp) MdidPtrArray(m_mp);
+		m_mdtype_request_array = GPOS_NEW(m_mp) CMDRequest::MDTypeRequestPtrArray(m_mp);
 		
 		return;
 	}
@@ -100,7 +100,7 @@ CParseHandlerMDRequest::StartElement
 	{		
 		// parse type request
 		IMDType::ETypeInfo type_info = (IMDType::ETypeInfo) CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenTypeInfo, EdxltokenMDTypeRequest);
-		m_mdtype_request_array->Append(GPOS_NEW(m_memory_pool) CMDRequest::SMDTypeRequest(sysid, type_info));
+		m_mdtype_request_array->Append(GPOS_NEW(m_mp) CMDRequest::SMDTypeRequest(sysid, type_info));
 	}
 }
 

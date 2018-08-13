@@ -48,7 +48,7 @@ namespace gpdxl
 
 		public:
 			// ctor
-			CDXLPhysicalAssert(IMemoryPool *memory_pool, const CHAR *sql_state);
+			CDXLPhysicalAssert(IMemoryPool *mp, const CHAR *sql_state);
 
 			// dtor
 			virtual

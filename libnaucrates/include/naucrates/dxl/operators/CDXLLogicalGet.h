@@ -40,7 +40,7 @@ namespace gpdxl
 
 		public:
 			// ctor
-			CDXLLogicalGet(IMemoryPool *memory_pool, CDXLTableDescr *table_descr);
+			CDXLLogicalGet(IMemoryPool *mp, CDXLTableDescr *table_descr);
 
 			// dtor
 			virtual

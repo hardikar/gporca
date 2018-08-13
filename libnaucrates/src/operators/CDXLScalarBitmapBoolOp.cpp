@@ -31,12 +31,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarBitmapBoolOp::CDXLScalarBitmapBoolOp
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_type,
 	EdxlBitmapBoolOp bitmap_op_type
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_mdid_type(mdid_type),
 	m_bitmap_op_type(bitmap_op_type)
 {

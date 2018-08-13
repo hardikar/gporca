@@ -50,7 +50,7 @@ namespace gpdxl
 
 		public:
 			// ctor
-			CDXLScalarOpList(IMemoryPool *memory_pool, EdxlOpListType dxl_op_list_type = EdxloplistGeneral);
+			CDXLScalarOpList(IMemoryPool *mp, EdxlOpListType dxl_op_list_type = EdxloplistGeneral);
 
 			// operator type
 			virtual

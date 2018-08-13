@@ -52,7 +52,7 @@ namespace gpdxl
 		public:
 
 			// ctor
-			CDXLLogicalDelete(IMemoryPool *memory_pool, CDXLTableDescr *table_descr, ULONG ctid_colid, ULONG segid_colid, ULongPtrArray *delete_colid_array);
+			CDXLLogicalDelete(IMemoryPool *mp, CDXLTableDescr *table_descr, ULONG ctid_colid, ULONG segid_colid, ULongPtrArray *delete_colid_array);
 
 			// dtor
 			virtual

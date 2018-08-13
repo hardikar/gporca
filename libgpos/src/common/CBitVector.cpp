@@ -47,7 +47,7 @@ CBitVector::Clear()
 //---------------------------------------------------------------------------
 CBitVector::CBitVector
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	ULONG nbits
 	)
 	:
@@ -65,7 +65,7 @@ CBitVector::CBitVector
 	GPOS_ASSERT(m_len * BITS_PER_UNIT >= m_nbits && "Bit vector sized incorrectly");
 	
 	// allocate and clear
-	m_vec = GPOS_NEW_ARRAY(memory_pool, ULLONG, m_len);
+	m_vec = GPOS_NEW_ARRAY(mp, ULLONG, m_len);
 	
 	CAutoRg<ULLONG> argull;
 	argull = m_vec;
@@ -101,7 +101,7 @@ CBitVector::~CBitVector()
 //---------------------------------------------------------------------------
 CBitVector::CBitVector
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CBitVector &bv
 	)
 	:
@@ -111,7 +111,7 @@ CBitVector::CBitVector
 {
 	
 	// deep copy
-	m_vec = GPOS_NEW_ARRAY(memory_pool, ULLONG, m_len);
+	m_vec = GPOS_NEW_ARRAY(mp, ULLONG, m_len);
 	
 	// Using auto range for cleanliness only;
 	// NOTE: 03/25/2008; strictly speaking not necessary since there is

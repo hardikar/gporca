@@ -78,11 +78,11 @@ namespace gpos
 			static CMemoryPoolManager *m_memory_pool_mgr;
 
 			// down-cast IMemoryPool to CMemoryPool
-			CMemoryPool *Convert(IMemoryPool *memory_pool)
+			CMemoryPool *Convert(IMemoryPool *mp)
 			{
-				GPOS_ASSERT(NULL != memory_pool);
+				GPOS_ASSERT(NULL != mp);
 
-				return dynamic_cast<CMemoryPool*>(memory_pool);
+				return dynamic_cast<CMemoryPool*>(mp);
 			}
 
 			// private ctor
@@ -120,7 +120,7 @@ namespace gpos
 
 			// destroy a memory pool at shutdown
 			static
-			void DestroyMemoryPoolAtShutdown(CMemoryPool *memory_pool);
+			void DestroyMemoryPoolAtShutdown(CMemoryPool *mp);
 
 		public:
 

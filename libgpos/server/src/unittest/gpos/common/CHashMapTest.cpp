@@ -52,7 +52,7 @@ CHashMapTest::EresUnittest_Basic()
 {
 	// create memory pool
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	// test with CHAR array
 	ULONG_PTR rgul[] = {1,2,3,4,5,6,7,8,9};
@@ -64,7 +64,7 @@ CHashMapTest::EresUnittest_Basic()
 	typedef CHashMap<ULONG_PTR, CHAR, HashPtr<ULONG_PTR>, gpos::Equals<ULONG_PTR>,
 		CleanupNULL<ULONG_PTR>, CleanupNULL<CHAR> > HMUlChar;
 
-	HMUlChar *phm = GPOS_NEW(memory_pool) HMUlChar(memory_pool, 128);
+	HMUlChar *phm = GPOS_NEW(mp) HMUlChar(mp, 128);
 	for (ULONG i = 0; i < ulCnt; ++i)
 	{
 #ifdef GPOS_DEBUG
@@ -111,11 +111,11 @@ CHashMapTest::EresUnittest_Basic()
 	// test replacing values and triggering their release
 	typedef CHashMap<ULONG, ULONG, HashValue<ULONG>, gpos::Equals<ULONG>,
 			CleanupDelete<ULONG>, CleanupDelete<ULONG> > UlongUlongHashMap;
-	UlongUlongHashMap *phm2 = GPOS_NEW(memory_pool) UlongUlongHashMap(memory_pool, 128);
+	UlongUlongHashMap *phm2 = GPOS_NEW(mp) UlongUlongHashMap(mp, 128);
 
-	ULONG *pulKey = GPOS_NEW(memory_pool) ULONG(1);
-	ULONG *pulVal1 = GPOS_NEW(memory_pool) ULONG(2);
-	ULONG *pulVal2 = GPOS_NEW(memory_pool) ULONG(3);
+	ULONG *pulKey = GPOS_NEW(mp) ULONG(1);
+	ULONG *pulVal1 = GPOS_NEW(mp) ULONG(2);
+	ULONG *pulVal2 = GPOS_NEW(mp) ULONG(3);
 
 #ifdef GPOS_DEBUG
 	fSuccess =
@@ -156,18 +156,18 @@ CHashMapTest::EresUnittest_Ownership()
 {
 	// create memory pool
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	ULONG ulCnt = 256;
 
 	typedef CHashMap<ULONG_PTR, CHAR, HashPtr<ULONG_PTR>, gpos::Equals<ULONG_PTR>,
 		CleanupDelete<ULONG_PTR>, CleanupDeleteArray<CHAR> > HMUlChar;
 	
-	HMUlChar *phm = GPOS_NEW(memory_pool) HMUlChar(memory_pool, 32);
+	HMUlChar *phm = GPOS_NEW(mp) HMUlChar(mp, 32);
 	for (ULONG i = 0; i < ulCnt; ++i)
 	{
-		ULONG_PTR *pulp = GPOS_NEW(memory_pool) ULONG_PTR(i);
-		CHAR *sz = GPOS_NEW_ARRAY(memory_pool, CHAR, 3);
+		ULONG_PTR *pulp = GPOS_NEW(mp) ULONG_PTR(i);
+		CHAR *sz = GPOS_NEW_ARRAY(mp, CHAR, 3);
 	
 #ifdef GPOS_DEBUG
 		BOOL fSuccess =

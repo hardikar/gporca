@@ -28,13 +28,13 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalNLJoin::CDXLPhysicalNLJoin
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	EdxlJoinType join_type,
 	BOOL is_index_nlj,
 	BOOL nest_params_exists
 	)
 	:
-	CDXLPhysicalJoin(memory_pool, join_type),
+	CDXLPhysicalJoin(mp, join_type),
 	m_is_index_nlj(is_index_nlj),
 	m_nest_params_exists(nest_params_exists)
 {

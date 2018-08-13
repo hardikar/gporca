@@ -29,11 +29,11 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarBitmapIndexProbe::CDXLScalarBitmapIndexProbe
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CDXLIndexDescr *index_descr_dxl
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_index_descr_dxl(index_descr_dxl)
 {
 	GPOS_ASSERT(NULL != m_index_descr_dxl);

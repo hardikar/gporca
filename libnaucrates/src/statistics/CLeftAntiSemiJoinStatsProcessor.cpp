@@ -19,7 +19,7 @@ using namespace gpmd;
 void
 CLeftAntiSemiJoinStatsProcessor::JoinHistogramsLASJ
 			(
-			IMemoryPool *memory_pool,
+			IMemoryPool *mp,
 			const CHistogram *histogram1,
 			const CHistogram *histogram2,
 			CStatsPredJoin *join_stats,
@@ -48,7 +48,7 @@ CLeftAntiSemiJoinStatsProcessor::JoinHistogramsLASJ
 
 	if (is_input_empty)
 	{
-		*result_hist1 = histogram1->CopyHistogram(memory_pool);
+		*result_hist1 = histogram1->CopyHistogram(mp);
 		*result_hist2 = NULL;
 
 		return;
@@ -59,7 +59,7 @@ CLeftAntiSemiJoinStatsProcessor::JoinHistogramsLASJ
 	{
 		*result_hist1 = histogram1->MakeLASJHistogramNormalize
 				(
-				memory_pool,
+				mp,
 				stats_cmp_type,
 				num_rows1,
 				histogram2,
@@ -81,7 +81,7 @@ CLeftAntiSemiJoinStatsProcessor::JoinHistogramsLASJ
 	// for an unsupported join predicate operator or in the case of missing stats,
 	// copy input histograms and use default scale factor
 	*scale_factor = CDouble(CScaleFactorUtils::DefaultJoinPredScaleFactor);
-	*result_hist1 = histogram1->CopyHistogram(memory_pool);
+	*result_hist1 = histogram1->CopyHistogram(mp);
 	*result_hist2 = NULL;
 }
 
@@ -89,7 +89,7 @@ CLeftAntiSemiJoinStatsProcessor::JoinHistogramsLASJ
 CStatistics *
 CLeftAntiSemiJoinStatsProcessor::CalcLASJoinStatsStatic
 		(
-		IMemoryPool *memory_pool,
+		IMemoryPool *mp,
 		const IStatistics *outer_stats_input,
 		const IStatistics *inner_stats_input,
 		StatsPredJoinArray *join_preds_stats,
@@ -103,7 +103,7 @@ CLeftAntiSemiJoinStatsProcessor::CalcLASJoinStatsStatic
 
 	return CJoinStatsProcessor::SetResultingJoinStats
 			(
-			memory_pool,
+			mp,
 			outer_stats->GetStatsConfig(),
 			outer_stats_input,
 			inner_stats_input,

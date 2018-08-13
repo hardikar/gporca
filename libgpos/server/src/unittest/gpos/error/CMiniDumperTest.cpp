@@ -58,11 +58,11 @@ GPOS_RESULT
 CMiniDumperTest::EresUnittest_Basic()
 {
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
-	CMiniDumperStream mdrs(memory_pool);
+	CMiniDumperStream mdrs(mp);
 
-	CWStringDynamic wstrMinidump(memory_pool);
+	CWStringDynamic wstrMinidump(mp);
 	COstreamString oss(&wstrMinidump);
 	mdrs.Init(&oss);
 
@@ -96,13 +96,13 @@ GPOS_RESULT
 CMiniDumperTest::EresUnittest_Concurrency()
 {
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	CWorkerPoolManager *pwpm = CWorkerPoolManager::WorkerPoolManager();
 
-	CWStringDynamic wstrMinidump(memory_pool);
+	CWStringDynamic wstrMinidump(mp);
 	COstreamString oss(&wstrMinidump);
-	CMiniDumperStream mdrs(memory_pool);
+	CMiniDumperStream mdrs(mp);
 	mdrs.Init(&oss);
 
 	GPOS_TRY
@@ -110,7 +110,7 @@ CMiniDumperTest::EresUnittest_Concurrency()
 		// register stack serializer with error context
 		CSerializableStack ss;
 
-		CAutoTaskProxy atp(memory_pool, pwpm);
+		CAutoTaskProxy atp(mp, pwpm);
 		CTask *rgPtsk[6];
 
 		// one task throws, the other get aborted
@@ -235,10 +235,10 @@ CMiniDumperTest::PvLoopSerialize
 //---------------------------------------------------------------------------
 CMiniDumperTest::CMiniDumperStream::CMiniDumperStream
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CMiniDumper(memory_pool)
+	CMiniDumper(mp)
 {}
 
 

@@ -53,7 +53,7 @@ CListTest::EresUnittest_Basics()
 {
 	// create memory pool
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	CList<SElem> listFwd;
 	listFwd.Init(GPOS_OFFSET(SElem, m_linkFwd));
@@ -62,7 +62,7 @@ CListTest::EresUnittest_Basics()
 	listBwd.Init(GPOS_OFFSET(SElem, m_linkBwd));
 
 	ULONG cSize = 10;
-	SElem *rgelem = GPOS_NEW_ARRAY(memory_pool, SElem, cSize);
+	SElem *rgelem = GPOS_NEW_ARRAY(mp, SElem, cSize);
 
 	GPOS_ASSERT(0 == listFwd.Size());
 	GPOS_ASSERT(0 == listBwd.Size());
@@ -130,7 +130,7 @@ CListTest::EresUnittest_Navigate()
 {
 	// create memory pool
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	CList<SElem> listFwd;
 	listFwd.Init(GPOS_OFFSET(SElem, m_linkFwd));
@@ -139,7 +139,7 @@ CListTest::EresUnittest_Navigate()
 	listBwd.Init(GPOS_OFFSET(SElem, m_linkBwd));
 
 	ULONG cSize = 10;
-	SElem *rgelem = GPOS_NEW_ARRAY(memory_pool, SElem, cSize);
+	SElem *rgelem = GPOS_NEW_ARRAY(mp, SElem, cSize);
 
 	// insert all elements in reverse order,
 	// i.e. list is in same order as array
@@ -192,13 +192,13 @@ CListTest::EresUnittest_Cursor()
 {
 	// create memory pool
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	CList<SElem> list;
 	list.Init(GPOS_OFFSET(SElem, m_linkFwd));
 
 	ULONG cSize = 5;
-	SElem *rgelem = GPOS_NEW_ARRAY(memory_pool, SElem, cSize);
+	SElem *rgelem = GPOS_NEW_ARRAY(mp, SElem, cSize);
 
 	list.Append(&rgelem[0]);
 

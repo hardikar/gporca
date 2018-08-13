@@ -30,7 +30,7 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CMDTriggerGPDB::CMDTriggerGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	IMDId *rel_mdid,
@@ -39,7 +39,7 @@ CMDTriggerGPDB::CMDTriggerGPDB
 	BOOL is_enabled
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_rel_mdid(rel_mdid),
@@ -52,7 +52,7 @@ CMDTriggerGPDB::CMDTriggerGPDB
 	GPOS_ASSERT(m_func_mdid->IsValid());
 	GPOS_ASSERT(0 <= type);
 
-	m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 }
 
 //---------------------------------------------------------------------------

@@ -26,14 +26,14 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLColRef::CDXLColRef
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CMDName *mdname,
 	ULONG id,
 	IMDId *mdid_type,
 	INT type_modifier
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdname(mdname),
 	m_id(id),
 	m_mdid_type(mdid_type),

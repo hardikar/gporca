@@ -32,7 +32,7 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLDatumStatsLintMappable::CDXLDatumStatsLintMappable
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_type,
 	INT type_modifier,
 	BOOL is_passed_by_value,
@@ -42,7 +42,7 @@ CDXLDatumStatsLintMappable::CDXLDatumStatsLintMappable
 	LINT value
 	)
 	:
-	CDXLDatumGeneric(memory_pool, mdid_type, type_modifier, is_passed_by_value, is_null, byte_array, length),
+	CDXLDatumGeneric(mp, mdid_type, type_modifier, is_passed_by_value, is_null, byte_array, length),
 	m_val(value)
 {
 }

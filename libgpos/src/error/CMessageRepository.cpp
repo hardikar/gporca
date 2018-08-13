@@ -31,12 +31,12 @@ CMessageRepository *CMessageRepository::m_repository = NULL;
 //---------------------------------------------------------------------------
 CMessageRepository::CMessageRepository
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	m_memory_pool(memory_pool)
+	m_mp(mp)
 {
-	GPOS_ASSERT(NULL != memory_pool);
+	GPOS_ASSERT(NULL != mp);
 }
 
 
@@ -117,10 +117,10 @@ CMessageRepository::Init()
 	GPOS_ASSERT(NULL == m_repository);
 	
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
-	CMessageRepository *repository = GPOS_NEW(memory_pool) CMessageRepository(memory_pool);
-	repository->InitDirectory(memory_pool);
+	CMessageRepository *repository = GPOS_NEW(mp) CMessageRepository(mp);
+	repository->InitDirectory(mp);
 	repository->LoadStandardMessages();
 	
 	CMessageRepository::m_repository = repository;
@@ -161,7 +161,7 @@ CMessageRepository::GetMessageRepository()
 void
 CMessageRepository::Shutdown()
 {
-	CMemoryPoolManager::GetMemoryPoolMgr()->Destroy(m_memory_pool);
+	CMemoryPoolManager::GetMemoryPoolMgr()->Destroy(m_mp);
 	CMessageRepository::m_repository = NULL;
 }
 
@@ -177,12 +177,12 @@ CMessageRepository::Shutdown()
 void
 CMessageRepository::InitDirectory
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 {
 	m_hash_table.Init
 		(
-		memory_pool,
+		mp,
 		128,
 		GPOS_OFFSET(CMessageTable, m_link),
 		GPOS_OFFSET(CMessageTable, m_locale),
@@ -248,7 +248,7 @@ CMessageRepository::AddMessageTable
 	)
 {
 	CMessageTable *new_mt =
-		GPOS_NEW(m_memory_pool) CMessageTable(m_memory_pool, GPOS_MSGTAB_SIZE, locale);
+		GPOS_NEW(m_mp) CMessageTable(m_mp, GPOS_MSGTAB_SIZE, locale);
 	
 	{
 		TMTAccessor tmta(m_hash_table, locale);

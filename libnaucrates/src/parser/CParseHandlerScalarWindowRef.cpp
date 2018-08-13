@@ -30,12 +30,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarWindowRef::CParseHandlerScalarWindowRef
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -63,7 +63,7 @@ CParseHandlerScalarWindowRef::StartElement
 				(CDXLScalarWindowRef*) CDXLOperatorFactory::MakeWindowRef(m_parse_handler_mgr->GetDXLMemoryManager(), attrs);
 
 		// construct node from the created scalar window ref
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 	}
 	else
 	{
@@ -71,7 +71,7 @@ CParseHandlerScalarWindowRef::StartElement
 		GPOS_ASSERT(NULL != m_dxl_node);
 
 		CParseHandlerBase *op_parse_handler =
-				CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+				CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(op_parse_handler);
 
 		// store parse handlers

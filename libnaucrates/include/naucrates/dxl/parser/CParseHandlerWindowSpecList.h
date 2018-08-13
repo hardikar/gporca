@@ -61,7 +61,7 @@ namespace gpdxl
 			// ctor
 			CParseHandlerWindowSpecList
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CParseHandlerManager *parse_handler_mgr,
 				CParseHandlerBase *pph
 				);

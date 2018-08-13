@@ -26,7 +26,7 @@ namespace gpnaucrates
 		static
 		CStatistics *CreateStatsForUnionAll
 						(
-						IMemoryPool *memory_pool,
+						IMemoryPool *mp,
 						const CStatistics *stats_first_child,
 						const CStatistics *stats_second_child,
 						ULongPtrArray *output_colids,

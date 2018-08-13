@@ -28,10 +28,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarFilter::CDXLScalarFilter
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CDXLScalar(memory_pool)
+	CDXLScalar(mp)
 {
 }
 

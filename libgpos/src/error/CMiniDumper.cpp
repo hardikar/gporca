@@ -29,15 +29,15 @@ using namespace gpos;
 //---------------------------------------------------------------------------
 CMiniDumper::CMiniDumper
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_initialized(false),
 	m_finalized(false),
 	m_oos(NULL)
 {
-	GPOS_ASSERT(NULL != memory_pool);
+	GPOS_ASSERT(NULL != mp);
 }
 
 

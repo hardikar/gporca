@@ -56,7 +56,7 @@ namespace gpdxl
 
 		public:
 			// ctor
-			CDXLPhysicalPartitionSelector(IMemoryPool *memory_pool, IMDId *mdid_rel, ULONG num_of_part_levels, ULONG scan_id);
+			CDXLPhysicalPartitionSelector(IMemoryPool *mp, IMDId *mdid_rel, ULONG num_of_part_levels, ULONG scan_id);
 			
 			// dtor
 			virtual

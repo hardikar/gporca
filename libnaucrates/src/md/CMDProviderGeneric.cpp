@@ -36,15 +36,15 @@ using namespace gpmd;
 //---------------------------------------------------------------------------
 CMDProviderGeneric::CMDProviderGeneric
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 {
 	// TODO:  - Jan 25, 2012; those should not be tied to a particular system
-	m_mdid_int2 = GPOS_NEW(memory_pool) CMDIdGPDB(GPDB_INT2);
-	m_mdid_int4 = GPOS_NEW(memory_pool) CMDIdGPDB(GPDB_INT4);
-	m_mdid_int8 = GPOS_NEW(memory_pool) CMDIdGPDB(GPDB_INT8);
-	m_mdid_bool = GPOS_NEW(memory_pool) CMDIdGPDB(GPDB_BOOL);
-	m_mdid_oid = GPOS_NEW(memory_pool) CMDIdGPDB(GPDB_OID);
+	m_mdid_int2 = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT2);
+	m_mdid_int4 = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT4);
+	m_mdid_int8 = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT8);
+	m_mdid_bool = GPOS_NEW(mp) CMDIdGPDB(GPDB_BOOL);
+	m_mdid_oid = GPOS_NEW(mp) CMDIdGPDB(GPDB_OID);
 }
 
 //---------------------------------------------------------------------------

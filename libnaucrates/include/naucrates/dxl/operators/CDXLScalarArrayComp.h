@@ -49,7 +49,7 @@ namespace gpdxl
 			// ctor/dtor
 			CDXLScalarArrayComp
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *mdid_op,
 				const CWStringConst *str_opname,
 				EdxlArrayCompType comparison_type

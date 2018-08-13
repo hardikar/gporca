@@ -39,12 +39,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerQuery::CParseHandlerQuery
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_dxl_node(NULL),
 	m_output_colums_dxl_array(NULL),
 	m_cte_producers(NULL)
@@ -144,16 +144,16 @@ CParseHandlerQuery::StartElement
 		CWStringDynamic *str = CDXLUtils::CreateDynamicStringFromXMLChArray(m_parse_handler_mgr->GetDXLMemoryManager(), element_local_name);
 		GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLUnexpectedTag, str->GetBuffer());
 	}
-	GPOS_ASSERT(NULL != m_memory_pool);
+	GPOS_ASSERT(NULL != m_mp);
 
 	// create parse handler for the query output node
-	CParseHandlerBase *parse_handler_query_output = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenQueryOutput), m_parse_handler_mgr, this);
+	CParseHandlerBase *parse_handler_query_output = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenQueryOutput), m_parse_handler_mgr, this);
 
 	// create parse handler for the CTE list
-	CParseHandlerBase *parse_handler_cte = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenCTEList), m_parse_handler_mgr, this);
+	CParseHandlerBase *parse_handler_cte = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenCTEList), m_parse_handler_mgr, this);
 
 	// create a parse handler for logical nodes
-	CParseHandlerBase *parse_handler_root = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenLogical), m_parse_handler_mgr, this);
+	CParseHandlerBase *parse_handler_root = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenLogical), m_parse_handler_mgr, this);
 
 	m_parse_handler_mgr->ActivateParseHandler(parse_handler_root);
 	m_parse_handler_mgr->ActivateParseHandler(parse_handler_cte);

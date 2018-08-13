@@ -26,12 +26,12 @@ XERCES_CPP_NAMESPACE_USE
 // ctor
 CParseHandlerMDArrayCoerceCast::CParseHandlerMDArrayCoerceCast
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerMetadataObject(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerMetadataObject(mp, parse_handler_mgr, parse_handler_root)
 {}
 
 // invoked by Xerces to process an opening tag
@@ -146,7 +146,7 @@ CParseHandlerMDArrayCoerceCast::StartElement
 							EdxltokenGPDBArrayCoerceCast
 							);
 
-	m_imd_obj = GPOS_NEW(m_memory_pool) CMDArrayCoerceCastGPDB(m_memory_pool, mdid, mdname, mdid_src, mdid_dest, is_binary_coercible, mdid_cast_func, coerce_path_type, type_modifier, is_explicit, dxl_coercion_form, location);
+	m_imd_obj = GPOS_NEW(m_mp) CMDArrayCoerceCastGPDB(m_mp, mdid, mdname, mdid_src, mdid_dest, is_binary_coercible, mdid_cast_func, coerce_path_type, type_modifier, is_explicit, dxl_coercion_form, location);
 }
 
 // invoked by Xerces to process a closing tag

@@ -41,7 +41,7 @@ namespace gpmd
 	{		
 		private:
 			// memory pool
-			IMemoryPool *m_memory_pool;
+			IMemoryPool *m_mp;
 			
 			// DXL for object
 			const CWStringDynamic *m_dxl_str;
@@ -125,7 +125,7 @@ namespace gpmd
 			// ctor
 			CMDTypeGenericGPDB
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *mdid,
 				CMDName *mdname,
 				BOOL is_redistributable,
@@ -243,7 +243,7 @@ namespace gpmd
 
 			// create typed datum from DXL datum
 			virtual
-			IDatum *GetDatumForDXLDatum(IMemoryPool *memory_pool, const CDXLDatum *datum_dxl) const;
+			IDatum *GetDatumForDXLDatum(IMemoryPool *mp, const CDXLDatum *datum_dxl) const;
 
 			// return the GPDB length
 			INT
@@ -261,15 +261,15 @@ namespace gpmd
 
 			// generate the DXL datum from IDatum
 			virtual
-			CDXLDatum* GetDatumVal(IMemoryPool *memory_pool, IDatum *datum) const;
+			CDXLDatum* GetDatumVal(IMemoryPool *mp, IDatum *datum) const;
 
 			// generate the DXL datum representing null m_bytearray_value
 			virtual
-			CDXLDatum* GetDXLDatumNull(IMemoryPool *memory_pool) const;
+			CDXLDatum* GetDXLDatumNull(IMemoryPool *mp) const;
 
 			// generate the DXL scalar constant from IDatum
 			virtual
-			CDXLScalarConstValue* GetDXLOpScConst(IMemoryPool *memory_pool, IDatum *datum) const;
+			CDXLScalarConstValue* GetDXLOpScConst(IMemoryPool *mp, IDatum *datum) const;
 
 #ifdef GPOS_DEBUG
 			// debug print of the type in the provided stream
@@ -285,7 +285,7 @@ namespace gpmd
 			static
 			CDXLDatum *CreateDXLDatumVal
 						(
-						IMemoryPool *memory_pool,
+						IMemoryPool *mp,
 						IMDId *mdid,
 						INT type_modifier,
 						BOOL is_passed_by_value,
@@ -300,7 +300,7 @@ namespace gpmd
 			static
 			CDXLDatum *CreateDXLDatumStatsDoubleMappable
 						(
-						IMemoryPool *memory_pool,
+						IMemoryPool *mp,
 						IMDId *mdid,
 						INT type_modifier,
 						BOOL is_passed_by_value,
@@ -315,7 +315,7 @@ namespace gpmd
 			static
 			CDXLDatum *CreateDXLDatumStatsIntMappable
 						(
-						IMemoryPool *memory_pool,
+						IMemoryPool *mp,
 						IMDId *mdid,
 						INT type_modifier,
 						BOOL is_passed_by_value,

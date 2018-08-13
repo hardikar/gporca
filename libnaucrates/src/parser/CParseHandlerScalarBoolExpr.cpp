@@ -33,12 +33,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarBoolExpr::CParseHandlerScalarBoolExpr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root),
 	m_dxl_bool_type(Edxland)
 {
 }
@@ -79,13 +79,13 @@ CParseHandlerScalarBoolExpr::StartElement
 			CDXLScalarBoolExpr *dxl_op = (CDXLScalarBoolExpr*) CDXLOperatorFactory::MakeDXLBoolExpr(m_parse_handler_mgr->GetDXLMemoryManager(), m_dxl_bool_type);
 
 			// construct node from the created child nodes
-			m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+			m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 		}
 		else
 		{
 
 			// This is to support nested BoolExpr. TODO:  - create a separate xml tag for boolean expression
-			CParseHandlerBase *bool_expr_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarBoolOr), m_parse_handler_mgr, this);
+			CParseHandlerBase *bool_expr_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarBoolOr), m_parse_handler_mgr, this);
 			m_parse_handler_mgr->ActivateParseHandler(bool_expr_parse_handler);
 
 			// store parse handlers
@@ -101,7 +101,7 @@ CParseHandlerScalarBoolExpr::StartElement
 			GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLUnexpectedTag, CDXLUtils::CreateDynamicStringFromXMLChArray(m_parse_handler_mgr->GetDXLMemoryManager(), element_local_name)->GetBuffer());
 		}
 
-		CParseHandlerBase *op_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *op_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(op_parse_handler);
 
 		// store parse handlers

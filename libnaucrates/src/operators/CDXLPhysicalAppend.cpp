@@ -28,12 +28,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalAppend::CDXLPhysicalAppend
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	BOOL fIsTarget,
 	BOOL fIsZapped
 	)
 	:
-	CDXLPhysical(memory_pool),
+	CDXLPhysical(mp),
 	m_used_in_upd_del(fIsTarget),
 	m_is_zapped(fIsZapped)
 {

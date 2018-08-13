@@ -27,12 +27,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLIndexDescr::CDXLIndexDescr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname)
 {

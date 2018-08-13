@@ -32,12 +32,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerStatistics::CParseHandlerStatistics
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_stats_derived_rel_dxl_array(NULL)
 {
 }
@@ -107,7 +107,7 @@ CParseHandlerStatistics::StartElement
 		// start of the statistics section in the DXL document
 		GPOS_ASSERT(NULL == m_stats_derived_rel_dxl_array);
 
-		m_stats_derived_rel_dxl_array = GPOS_NEW(m_memory_pool) DXLStatsDerivedRelArray(m_memory_pool);
+		m_stats_derived_rel_dxl_array = GPOS_NEW(m_mp) DXLStatsDerivedRelArray(m_mp);
 	}
 	else
 	{
@@ -115,7 +115,7 @@ CParseHandlerStatistics::StartElement
 		GPOS_ASSERT(NULL != m_stats_derived_rel_dxl_array);
 
 		// install a parse handler for the given element
-		CParseHandlerBase *parse_handler_base = CParseHandlerFactory::GetParseHandler(m_memory_pool, element_local_name, m_parse_handler_mgr, this);
+		CParseHandlerBase *parse_handler_base = CParseHandlerFactory::GetParseHandler(m_mp, element_local_name, m_parse_handler_mgr, this);
 
 		m_parse_handler_mgr->ActivateParseHandler(parse_handler_base);
 

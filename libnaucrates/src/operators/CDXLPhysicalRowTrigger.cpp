@@ -27,14 +27,14 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalRowTrigger::CDXLPhysicalRowTrigger
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *rel_mdid,
 	INT type,
 	ULongPtrArray *col_ids_old,
 	ULongPtrArray *col_ids_new
 	)
 	:
-	CDXLPhysical(memory_pool),
+	CDXLPhysical(mp),
 	m_rel_mdid(rel_mdid),
 	m_type(type),
 	m_col_ids_old(col_ids_old),
@@ -113,14 +113,14 @@ CDXLPhysicalRowTrigger::SerializeToDXL
 
 	if (NULL != m_col_ids_old)
 	{
-		CWStringDynamic *pstrColsOld = CDXLUtils::Serialize(m_memory_pool, m_col_ids_old);
+		CWStringDynamic *pstrColsOld = CDXLUtils::Serialize(m_mp, m_col_ids_old);
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenOldCols), pstrColsOld);
 		GPOS_DELETE(pstrColsOld);
 	}
 
 	if (NULL != m_col_ids_new)
 	{
-		CWStringDynamic *pstrColsNew = CDXLUtils::Serialize(m_memory_pool, m_col_ids_new);
+		CWStringDynamic *pstrColsNew = CDXLUtils::Serialize(m_mp, m_col_ids_new);
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenNewCols), pstrColsNew);
 		GPOS_DELETE(pstrColsNew);
 	}

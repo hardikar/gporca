@@ -29,16 +29,16 @@ using namespace gpmd;
 //---------------------------------------------------------------------------
 CMDRequest::CMDRequest
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	MdidPtrArray *mdid_array,
 	MDTypeRequestPtrArray *mdtype_request_array
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid_array(mdid_array),
 	m_mdtype_request_array(mdtype_request_array)
 {
-	GPOS_ASSERT(NULL != memory_pool);
+	GPOS_ASSERT(NULL != mp);
 	GPOS_ASSERT(NULL != mdid_array);
 	GPOS_ASSERT(NULL != mdtype_request_array);
 }
@@ -53,19 +53,19 @@ CMDRequest::CMDRequest
 //---------------------------------------------------------------------------
 CMDRequest::CMDRequest
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	SMDTypeRequest *md_type_request
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid_array(NULL),
 	m_mdtype_request_array(NULL)
 {
-	GPOS_ASSERT(NULL != memory_pool);
+	GPOS_ASSERT(NULL != mp);
 	GPOS_ASSERT(NULL != md_type_request);
 	
-	m_mdid_array = GPOS_NEW(m_memory_pool) MdidPtrArray(m_memory_pool);
-	m_mdtype_request_array = GPOS_NEW(m_memory_pool) MDTypeRequestPtrArray(m_memory_pool);
+	m_mdid_array = GPOS_NEW(m_mp) MdidPtrArray(m_mp);
+	m_mdtype_request_array = GPOS_NEW(m_mp) MDTypeRequestPtrArray(m_mp);
 	
 	m_mdtype_request_array->Append(md_type_request);
 }
@@ -98,7 +98,7 @@ CMDRequest::GetStrRepr
 	CSystemId sysid
 	) 
 {
-	CWStringDynamic *str = GPOS_NEW(m_memory_pool) CWStringDynamic(m_memory_pool);
+	CWStringDynamic *str = GPOS_NEW(m_mp) CWStringDynamic(m_mp);
 	str->AppendFormat(GPOS_WSZ_LIT("%d.%ls"), sysid.MdidType(), sysid.GetBuffer());
 	return str;
 }

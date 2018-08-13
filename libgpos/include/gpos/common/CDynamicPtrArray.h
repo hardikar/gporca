@@ -81,7 +81,7 @@ namespace gpos
 		private:
 		
 			// memory pool
-			IMemoryPool *m_memory_pool;
+			IMemoryPool *m_mp;
 			
 			// currently allocated size
 			ULONG m_capacity;
@@ -126,7 +126,7 @@ namespace gpos
                 GPOS_ASSERT(new_size > m_capacity && "Invalid call to Resize, cannot shrink array");
 
                 // get new target array
-                T **new_elems = GPOS_NEW_ARRAY(m_memory_pool, T*, new_size);
+                T **new_elems = GPOS_NEW_ARRAY(m_mp, T*, new_size);
 
                 if (m_size > 0)
                 {
@@ -145,7 +145,7 @@ namespace gpos
 			explicit
 			CDynamicPtrArray<T, CleanupFn> (IMemoryPool *mp, ULONG min_size = 4, ULONG expansion_factor = 10)
             :
-            m_memory_pool(mp),
+            m_mp(mp),
             m_capacity(0),
             m_min_size(std::max((ULONG)4, min_size)),
             m_size(0),
@@ -318,7 +318,7 @@ namespace gpos
                 GPOS_ASSERT(NULL != subsequence);
 
                 ULONG subsequence_length = subsequence->Size();
-                ULongPtrArray *indexes = GPOS_NEW(m_memory_pool) ULongPtrArray(m_memory_pool);
+                ULongPtrArray *indexes = GPOS_NEW(m_mp) ULongPtrArray(m_mp);
 
                 for (ULONG ul1 = 0; ul1 < subsequence_length; ul1++)
                 {
@@ -331,7 +331,7 @@ namespace gpos
 						return NULL;
 					}
 
-					indexes->Append(GPOS_NEW(m_memory_pool) ULONG(index));
+					indexes->Append(GPOS_NEW(m_mp) ULONG(index));
 				}
                 return indexes;
             }

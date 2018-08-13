@@ -40,7 +40,7 @@ namespace gpdxl
 
 			// ctor
 			explicit
-			CDXLScalarSwitchCase(IMemoryPool *memory_pool);
+			CDXLScalarSwitchCase(IMemoryPool *mp);
 
 			//dtor
 			virtual

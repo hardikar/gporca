@@ -52,7 +52,7 @@ namespace gpdxl
 			// ctor/dtor
 			CDXLScalarCoerceToDomain
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *mdid_type,
 				INT type_modifier,
 				EdxlCoercionForm dxl_coerce_format,

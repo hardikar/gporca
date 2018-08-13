@@ -30,12 +30,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLLogicalInsert::CDXLLogicalInsert
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CDXLTableDescr *table_descr,
 	ULongPtrArray *src_colids_array
 	)
 	:
-	CDXLLogical(memory_pool),
+	CDXLLogical(mp),
 	m_table_descr_dxl(table_descr),
 	m_src_colids_array(src_colids_array)
 {
@@ -104,7 +104,7 @@ CDXLLogicalInsert::SerializeToDXL
 	const CWStringConst *element_name = GetOpNameStr();
 	xml_serializer->OpenElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);
 
-	CWStringDynamic *src_colids = CDXLUtils::Serialize(m_memory_pool, m_src_colids_array);
+	CWStringDynamic *src_colids = CDXLUtils::Serialize(m_mp, m_src_colids_array);
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenInsertCols), src_colids);
 	GPOS_DELETE(src_colids);
 

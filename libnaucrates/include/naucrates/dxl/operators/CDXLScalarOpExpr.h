@@ -49,7 +49,7 @@ namespace gpdxl
 			// ctor/dtor
 			CDXLScalarOpExpr
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *mdid_op,
 				IMDId *return_type_mdid,
 				const CWStringConst *str_opname

@@ -23,10 +23,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalar::CDXLScalar
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CDXLOperator(memory_pool)
+	CDXLOperator(mp)
 {
 }
 

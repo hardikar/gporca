@@ -138,7 +138,7 @@ namespace gpdxl
 			static 
 			CMDRequest *ParseDXLToMDRequest
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CHAR *dxl_string,
 				const CHAR *xsd_file_path
 				);
@@ -147,7 +147,7 @@ namespace gpdxl
 			static 
 			CMDRequest *ParseDXLToMDRequest
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const WCHAR *dxl_string,
 				const CHAR *xsd_file_path
 				);
@@ -156,7 +156,7 @@ namespace gpdxl
 			static
 			COptimizerConfig *ParseDXLToOptimizerConfig
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CHAR *dxl_string,
 				const CHAR *xsd_file_path
 				);
@@ -216,7 +216,7 @@ namespace gpdxl
 			static
 			CStatisticsArray *ParseDXLToOptimizerStatisticObjArray
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
 				DXLStatsDerivedRelArray *dxl_derived_rel_stats_array
 				);
@@ -226,7 +226,7 @@ namespace gpdxl
 			static
 			BucketArray *ParseDXLToBucketsArray
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
 				CDXLStatsDerivedColumn *dxl_derived_col_stats
 				);
@@ -235,7 +235,7 @@ namespace gpdxl
 			static 
 			void SerializeQuery
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IOstream& os,
 				const CDXLNode *dxl_query_node,
 				const DXLNodeArray *query_output_dxlnode_array,
@@ -248,7 +248,7 @@ namespace gpdxl
 			static
 			CWStringDynamic *SerializeULLONG
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				ULLONG value
 				);
 
@@ -256,7 +256,7 @@ namespace gpdxl
 			static 
 			void SerializePlan
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IOstream &os,
 				const CDXLNode *node,
 				ULLONG plan_id,
@@ -268,7 +268,7 @@ namespace gpdxl
 			static 
 			CWStringDynamic *SerializeStatistics
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
 				const CStatisticsArray *statistics_array,
 				BOOL serialize_header_footer,
@@ -279,7 +279,7 @@ namespace gpdxl
 			static 
 			void SerializeStatistics
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
 				const CStatisticsArray *statistics_array,
 				IOstream &os,
@@ -291,7 +291,7 @@ namespace gpdxl
 			static 
 			void SerializeMetadata
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const IMDCachePtrArray *imd_obj_array,
 				IOstream &os,
 				BOOL serialize_document_header_footer,
@@ -302,7 +302,7 @@ namespace gpdxl
 			static 
 			void SerializeMDRequest
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CMDRequest *md_request,
 				IOstream &os,
 				BOOL serialize_document_header_footer,
@@ -313,7 +313,7 @@ namespace gpdxl
 			static 
 			void SerializeMDRequest
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const IMDId *mdid,
 				IOstream &os,
 				BOOL serialize_document_header_footer,
@@ -334,7 +334,7 @@ namespace gpdxl
 			static 
 			CWStringDynamic *SerializeMetadata
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const IMDId *mdid,
 				BOOL serialize_document_header_footer,
 				BOOL indentation
@@ -344,7 +344,7 @@ namespace gpdxl
 			static
 			CWStringDynamic *SerializeSamplePlans
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CEnumeratorConfig *enumerator_cfg,
 				BOOL indentation
 				);
@@ -353,7 +353,7 @@ namespace gpdxl
 			static
 			CWStringDynamic *SerializeCostDistr
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CEnumeratorConfig *enumerator_cfg,
 				BOOL indentation
 				);
@@ -372,7 +372,7 @@ namespace gpdxl
 			static
 			CWStringDynamic *SerializeScalarExpr
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CDXLNode *node,
 				BOOL serialize_document_header_footer,
 				BOOL indentation
@@ -399,13 +399,13 @@ namespace gpdxl
 			static 
 			CWStringDynamic *CreateDynamicStringFromCharArray
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CHAR *c
 				);
 			
 			// create an MD name from a character array
 			static 
-			CMDName *CreateMDNameFromCharArray(IMemoryPool *memory_pool, const CHAR *c);
+			CMDName *CreateMDNameFromCharArray(IMemoryPool *mp, const CHAR *c);
 			
 			// create an MD name from a Xerces character array
 			static 
@@ -415,7 +415,7 @@ namespace gpdxl
 			static 
 			CWStringDynamic *EncodeByteArrayToString
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const BYTE *byte,
 				ULONG length
 				);
@@ -425,7 +425,7 @@ namespace gpdxl
 			static 
 			CWStringDynamic *Serialize
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CDynamicPtrArray<T, CleanupFn> *arr
 				);
 
@@ -433,7 +433,7 @@ namespace gpdxl
 			static
 			CWStringDynamic *Serialize
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const ULongPtrArray2D *pdrgpul
 				);
 
@@ -441,7 +441,7 @@ namespace gpdxl
 			static
 			CWStringDynamic *SerializeToCommaSeparatedString
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CharPtrArray *pdrgpsz
 				);
 
@@ -449,17 +449,17 @@ namespace gpdxl
 			static 
 			BYTE *DecodeByteArrayFromString
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CWStringDynamic *dxl_string,
 				ULONG *length
 				);
 			
 			static 
-			CHAR *Read(IMemoryPool *memory_pool, const CHAR *filename);
+			CHAR *Read(IMemoryPool *mp, const CHAR *filename);
 			
 			// create a multi-byte character string from a wide character string
 			static 
-			CHAR *CreateMultiByteCharStringFromWCString(IMemoryPool *memory_pool, const WCHAR *wc_string);
+			CHAR *CreateMultiByteCharStringFromWCString(IMemoryPool *mp, const WCHAR *wc_string);
 			
 			// serialize a double m_bytearray_value in a string
 			static 
@@ -473,7 +473,7 @@ namespace gpdxl
 			static
 			IDatum *GetDatum
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
 				const CDXLDatum *datum_dxl
 				);
@@ -499,11 +499,11 @@ namespace gpdxl
 	CWStringDynamic *
 	CDXLUtils::Serialize
 		(
-		IMemoryPool *memory_pool,
+		IMemoryPool *mp,
 		const CDynamicPtrArray<T, CleanupFn> *dynamic_ptr_array
 		)
 	{
-		CAutoP<CWStringDynamic> string_var(GPOS_NEW(memory_pool) CWStringDynamic(memory_pool));
+		CAutoP<CWStringDynamic> string_var(GPOS_NEW(mp) CWStringDynamic(mp));
 
 		ULONG length = dynamic_ptr_array->Size();
 		for (ULONG ul = 0; ul < length; ul++)

@@ -38,12 +38,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerMDGPDBTrigger::CParseHandlerMDGPDBTrigger
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerMetadataObject(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerMetadataObject(mp, parse_handler_mgr, parse_handler_root),
 	m_mdid(NULL),
 	m_mdname(NULL),
 	m_rel_mdid(NULL),
@@ -79,7 +79,7 @@ CParseHandlerMDGPDBTrigger::StartElement
 
 	const XMLCh *xml_str_name = CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenName, EdxltokenGPDBTrigger);
 	CWStringDynamic *str_name = CDXLUtils::CreateDynamicStringFromXMLChArray(m_parse_handler_mgr->GetDXLMemoryManager(), xml_str_name);
-	m_mdname = GPOS_NEW(m_memory_pool) CMDName(m_memory_pool, str_name);
+	m_mdname = GPOS_NEW(m_mp) CMDName(m_mp, str_name);
 	GPOS_DELETE(str_name);
 	GPOS_ASSERT(m_mdid->IsValid() && NULL != m_mdname);
 
@@ -133,9 +133,9 @@ CParseHandlerMDGPDBTrigger::EndElement
 	}
 
 	// construct the MD trigger object
-	m_imd_obj = GPOS_NEW(m_memory_pool) CMDTriggerGPDB
+	m_imd_obj = GPOS_NEW(m_mp) CMDTriggerGPDB
 								(
-								m_memory_pool,
+								m_mp,
 								m_mdid,
 								m_mdname,
 								m_rel_mdid,

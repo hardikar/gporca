@@ -34,14 +34,14 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarSubPlanParamList::CParseHandlerScalarSubPlanParamList
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
-	m_dxl_colref_array = GPOS_NEW(memory_pool) DXLColRefArray(memory_pool);
+	m_dxl_colref_array = GPOS_NEW(mp) DXLColRefArray(mp);
 	m_has_param_list = false;
 }
 
@@ -88,7 +88,7 @@ CParseHandlerScalarSubPlanParamList::StartElement
 		GPOS_ASSERT(m_has_param_list);
 
 		// start new param
-		CParseHandlerBase *parse_handler_subplan_param = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarSubPlanParam), m_parse_handler_mgr, this);
+		CParseHandlerBase *parse_handler_subplan_param = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarSubPlanParam), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(parse_handler_subplan_param);
 
 		// store parse handler

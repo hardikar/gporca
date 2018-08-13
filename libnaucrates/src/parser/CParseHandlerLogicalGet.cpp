@@ -32,12 +32,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerLogicalGet::CParseHandlerLogicalGet
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerLogicalOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerLogicalOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -65,7 +65,7 @@ CParseHandlerLogicalGet::StartElement
 	// create child node parsers
 
 	// parse handler for table descriptor
-	CParseHandlerBase *table_descr_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenTableDescr), m_parse_handler_mgr, this);
+	CParseHandlerBase *table_descr_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenTableDescr), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(table_descr_parse_handler);
 
 	// store child parse handlers in array
@@ -122,12 +122,12 @@ CParseHandlerLogicalGet::EndElement
 
 	if (EdxltokenLogicalGet == token_type)
 	{
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, GPOS_NEW(m_memory_pool) CDXLLogicalGet(m_memory_pool, table_descr));
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, GPOS_NEW(m_mp) CDXLLogicalGet(m_mp, table_descr));
 	}
 	else
 	{
 		GPOS_ASSERT(EdxltokenLogicalExternalGet == token_type);
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, GPOS_NEW(m_memory_pool) CDXLLogicalExternalGet(m_memory_pool, table_descr));
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, GPOS_NEW(m_mp) CDXLLogicalExternalGet(m_mp, table_descr));
 	}
 
 #ifdef GPOS_DEBUG

@@ -30,12 +30,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerDefaultValueExpr::CParseHandlerDefaultValueExpr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root),
 	is_default_val_started(false)
 {
 }
@@ -68,7 +68,7 @@ CParseHandlerDefaultValueExpr::StartElement
 		GPOS_ASSERT(is_default_val_started);
 		
 		// install a scalar op parse handler to parse the expression
-		CParseHandlerBase *scalar_op_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, element_local_name, m_parse_handler_mgr, this);
+		CParseHandlerBase *scalar_op_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, element_local_name, m_parse_handler_mgr, this);
 		
 		GPOS_ASSERT(NULL != scalar_op_parse_handler);
 

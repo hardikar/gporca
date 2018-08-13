@@ -43,8 +43,8 @@ namespace gpdxl
 		public:
 			// ctors
 			explicit
-			CDXLLogicalGroupBy(IMemoryPool *memory_pool);
-			CDXLLogicalGroupBy(IMemoryPool *memory_pool, ULongPtrArray *pdrgpulGrpColIds);
+			CDXLLogicalGroupBy(IMemoryPool *mp);
+			CDXLLogicalGroupBy(IMemoryPool *mp, ULongPtrArray *pdrgpulGrpColIds);
 
 			// dtor
 			virtual

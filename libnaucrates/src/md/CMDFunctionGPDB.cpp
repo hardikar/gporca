@@ -30,7 +30,7 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CMDFunctionGPDB::CMDFunctionGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	IMDId *result_type_mdid,
@@ -41,7 +41,7 @@ CMDFunctionGPDB::CMDFunctionGPDB
 	BOOL is_strict
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_mdid_type_result(result_type_mdid),
@@ -56,7 +56,7 @@ CMDFunctionGPDB::CMDFunctionGPDB
 	GPOS_ASSERT(EfdaSentinel > func_data_access);
 
 	InitDXLTokenArrays();
-	m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 }
 
 //---------------------------------------------------------------------------
@@ -182,7 +182,7 @@ CWStringDynamic *
 CMDFunctionGPDB::GetOutputArgTypeArrayStr() const
 {
 	GPOS_ASSERT(NULL != m_mdid_types_array);
-	CWStringDynamic *str = GPOS_NEW(m_memory_pool) CWStringDynamic(m_memory_pool);
+	CWStringDynamic *str = GPOS_NEW(m_mp) CWStringDynamic(m_mp);
 
 	const ULONG len = m_mdid_types_array->Size();
 	for (ULONG ul = 0; ul < len; ul++)

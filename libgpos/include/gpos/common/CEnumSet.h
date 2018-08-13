@@ -39,15 +39,15 @@ namespace gpos
 				
 			// ctor
 			explicit
-			CEnumSet<T, sentinel_index>(IMemoryPool *memory_pool)
+			CEnumSet<T, sentinel_index>(IMemoryPool *mp)
 				:
-				CBitSet(memory_pool, sentinel_index)
+				CBitSet(mp, sentinel_index)
 			{}
 		
 			explicit
-			CEnumSet<T, sentinel_index>(IMemoryPool *memory_pool, const CEnumSet<T, sentinel_index> &enum_set)
+			CEnumSet<T, sentinel_index>(IMemoryPool *mp, const CEnumSet<T, sentinel_index> &enum_set)
 				:
-				CBitSet(memory_pool, enum_set)
+				CBitSet(mp, enum_set)
 			{}
 			
 			// dtor

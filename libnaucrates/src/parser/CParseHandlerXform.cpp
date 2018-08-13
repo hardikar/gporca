@@ -34,12 +34,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerXform::CParseHandlerXform
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_xform(NULL)
 {}
 
@@ -81,7 +81,7 @@ CParseHandlerXform::StartElement
 
 	const XMLCh *xml_str_xform_name = CDXLOperatorFactory::ExtractAttrValue(attrs, EdxltokenName, EdxltokenXform);
 	CWStringDynamic *str_xform_name = CDXLUtils::CreateDynamicStringFromXMLChArray(m_parse_handler_mgr->GetDXLMemoryManager(), xml_str_xform_name);
-	CHAR *char_str_xform_name = CDXLUtils::CreateMultiByteCharStringFromWCString(m_memory_pool, str_xform_name->GetBuffer());
+	CHAR *char_str_xform_name = CDXLUtils::CreateMultiByteCharStringFromWCString(m_mp, str_xform_name->GetBuffer());
 	m_xform = CXformFactory::Pxff()->Pxf(char_str_xform_name);
 	GPOS_ASSERT(NULL != m_xform);
 

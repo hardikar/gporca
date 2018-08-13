@@ -64,7 +64,7 @@ namespace gpdxl
 			// ctor/dtor
 			CDXLScalarAggref
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *agg_mdid,
 				IMDId *resolved_rettype,
 				BOOL is_distinct,

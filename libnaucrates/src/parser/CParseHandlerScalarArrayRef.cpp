@@ -33,12 +33,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarArrayRef::CParseHandlerScalarArrayRef
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root),
 	m_parse_index_lists(0),
 	m_parsing_ref_expr(false),
 	m_parsing_assign_expr(false)
@@ -73,7 +73,7 @@ CParseHandlerScalarArrayRef::StartElement
 		IMDId *return_type_mdid = CDXLOperatorFactory::ExtractConvertAttrValueToMdId(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenTypeId, EdxltokenScalarArrayRef);
 		INT type_modifier = CDXLOperatorFactory::ExtractConvertAttrValueToInt(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenTypeMod, EdxltokenScalarArrayRef, true, default_type_modifier);
 
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode (m_memory_pool, GPOS_NEW(m_memory_pool) CDXLScalarArrayRef(m_memory_pool, elem_type_mdid, type_modifier, array_type_mdid, return_type_mdid));
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode (m_mp, GPOS_NEW(m_mp) CDXLScalarArrayRef(m_mp, elem_type_mdid, type_modifier, array_type_mdid, return_type_mdid));
 	}
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenScalarArrayRefIndexList), element_local_name))
 	{
@@ -81,7 +81,7 @@ CParseHandlerScalarArrayRef::StartElement
 		GPOS_ASSERT(2 > m_parse_index_lists);
 
 		// parse index list
-		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarArrayRefIndexList), m_parse_handler_mgr, this);
+		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarArrayRefIndexList), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 
 		// store parse handler
@@ -113,7 +113,7 @@ CParseHandlerScalarArrayRef::StartElement
 		// parse scalar child
 		GPOS_ASSERT(m_parsing_ref_expr || m_parsing_assign_expr);
 
-		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 
 		// store parse handler

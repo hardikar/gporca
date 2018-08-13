@@ -23,7 +23,7 @@ namespace gpnaucrates
 			static
 			CStatistics *CalcInnerJoinStatsStatic
 					(
-					IMemoryPool *memory_pool,
+					IMemoryPool *mp,
 					const IStatistics *outer_stats_input,
 					const IStatistics *inner_stats_input,
 					StatsPredJoinArray *join_preds_stats

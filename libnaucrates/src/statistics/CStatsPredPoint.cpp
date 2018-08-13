@@ -51,7 +51,7 @@ CStatsPredPoint::CStatsPredPoint
 //---------------------------------------------------------------------------
 CStatsPredPoint::CStatsPredPoint
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CColRef *colref,
 	CStatsPred::EStatsCmpType stats_cmp_type,
 	IDatum *datum
@@ -65,9 +65,9 @@ CStatsPredPoint::CStatsPredPoint
 	GPOS_ASSERT(NULL != datum);
 
 	m_colid = colref->Id();
-	IDatum *padded_datum = PreprocessDatum(memory_pool, colref, datum);
+	IDatum *padded_datum = PreprocessDatum(mp, colref, datum);
 
-	m_pred_point = GPOS_NEW(memory_pool) CPoint(padded_datum);
+	m_pred_point = GPOS_NEW(mp) CPoint(padded_datum);
 }
 
 //---------------------------------------------------------------------------
@@ -79,7 +79,7 @@ CStatsPredPoint::CStatsPredPoint
 IDatum *
 CStatsPredPoint::PreprocessDatum
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CColRef *colref,
 	IDatum *datum
 	)
@@ -96,7 +96,7 @@ CStatsPredPoint::PreprocessDatum
 
 	const CColRefTable *colref_table = CColRefTable::PcrConvert(const_cast<CColRef*>(colref));
 
-	return datum->MakePaddedDatum(memory_pool, colref_table->Width());
+	return datum->MakePaddedDatum(mp, colref_table->Width());
 }
 
 // EOF

@@ -51,7 +51,7 @@ namespace gpdxl
 
 		public:
 			// ctor/dtor
-			CDXLPhysicalSubqueryScan(IMemoryPool *memory_pool, CMDName *mdname);
+			CDXLPhysicalSubqueryScan(IMemoryPool *mp, CMDName *mdname);
 
 			virtual
 			~CDXLPhysicalSubqueryScan();

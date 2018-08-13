@@ -94,7 +94,7 @@ CMemoryPool::FinalizeAlloc
 	GPOS_ASSERT(NULL != ptr);
 
 	AllocHeader *header = static_cast<AllocHeader*>(ptr);
-	header->m_memory_pool = this;
+	header->m_mp = this;
 	header->m_alloc = alloc;
 
 	BYTE *alloc_type = reinterpret_cast<BYTE*>(header + 1) + alloc;
@@ -124,7 +124,7 @@ CMemoryPool::FreeAlloc
 	AllocHeader *header = static_cast<AllocHeader*>(ptr) - 1;
 	BYTE *alloc_type = static_cast<BYTE*>(ptr) + header->m_alloc;
 	GPOS_RTL_ASSERT(*alloc_type == eat);
-	header->m_memory_pool->Free(header);
+	header->m_mp->Free(header);
 
 }
 

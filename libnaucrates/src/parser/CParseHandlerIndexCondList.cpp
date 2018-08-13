@@ -30,12 +30,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerIndexCondList::CParseHandlerIndexCondList
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -59,7 +59,7 @@ CParseHandlerIndexCondList::StartElement
 	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenScalarIndexCondList), element_local_name))
 	{
 		// start the index condition list
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode (m_memory_pool, GPOS_NEW(m_memory_pool) CDXLScalarIndexCondList(m_memory_pool));
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode (m_mp, GPOS_NEW(m_mp) CDXLScalarIndexCondList(m_mp));
 	}
 	else
 	{
@@ -71,7 +71,7 @@ CParseHandlerIndexCondList::StartElement
 
 		CParseHandlerBase *op_parse_handler = CParseHandlerFactory::GetParseHandler
 															(
-															m_memory_pool,
+															m_mp,
 															CDXLTokens::XmlstrToken(EdxltokenScalar),
 															m_parse_handler_mgr,
 															this

@@ -28,10 +28,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLLogicalJoin::CDXLLogicalJoin
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	EdxlJoinType join_type
 	)
-	:CDXLLogical(memory_pool),
+	:CDXLLogical(mp),
 	 m_join_type(join_type)
 {
 }

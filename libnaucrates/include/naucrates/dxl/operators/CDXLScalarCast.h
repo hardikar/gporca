@@ -53,7 +53,7 @@ namespace gpdxl
 			// ctor/dtor
 			CDXLScalarCast
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *mdid_type,
 				IMDId *func_mdid
 				);

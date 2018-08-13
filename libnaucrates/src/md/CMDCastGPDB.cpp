@@ -30,7 +30,7 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CMDCastGPDB::CMDCastGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	IMDId *mdid_src,
@@ -40,7 +40,7 @@ CMDCastGPDB::CMDCastGPDB
 	EmdCoercepathType path_type
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_mdid_src(mdid_src),
@@ -54,7 +54,7 @@ CMDCastGPDB::CMDCastGPDB
 	GPOS_ASSERT(m_mdid_dest->IsValid());
 	GPOS_ASSERT_IMP(!is_binary_coercible, m_mdid_cast_func->IsValid());
 
-	m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 }
 
 //---------------------------------------------------------------------------

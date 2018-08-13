@@ -32,12 +32,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarIfStmt::CParseHandlerScalarIfStmt
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -65,21 +65,21 @@ CParseHandlerScalarIfStmt::StartElement
 		CDXLScalarIfStmt *dxl_op = (CDXLScalarIfStmt*) CDXLOperatorFactory::MakeDXLIfStmt(m_parse_handler_mgr->GetDXLMemoryManager(), attrs);
 
 		// construct node
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 
 		// create and activate the parse handler for the children nodes in reverse
 		// order of their expected appearance
 
 		// parse handler for handling else result expression scalar node
-		CParseHandlerBase *else_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *else_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(else_parse_handler);
 
 		// parse handler for handling result expression scalar node
-		CParseHandlerBase *result_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *result_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(result_parse_handler);
 
 		// parse handler for the when condition clause
-		CParseHandlerBase *when_cond_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *when_cond_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(when_cond_parse_handler);
 
 		// store parse handlers

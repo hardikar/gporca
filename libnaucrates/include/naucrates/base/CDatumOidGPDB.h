@@ -70,7 +70,7 @@ namespace gpnaucrates
 
 			// return string representation
 			virtual
-			const CWStringConst *GetStrRepr(IMemoryPool *memory_pool) const;
+			const CWStringConst *GetStrRepr(IMemoryPool *mp) const;
 
 			// hash function
 			virtual
@@ -82,7 +82,7 @@ namespace gpnaucrates
 
 			// copy datum
 			virtual
-			IDatum *MakeCopy(IMemoryPool *memory_pool) const;
+			IDatum *MakeCopy(IMemoryPool *mp) const;
 
 			// print function
 			virtual

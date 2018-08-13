@@ -40,7 +40,7 @@ const CDouble CDatumGenericGPDB::DefaultCdbRolloffSelectivity(0.14);
 //---------------------------------------------------------------------------
 CDatumGenericGPDB::CDatumGenericGPDB
 		(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *mdid,
 				INT type_modifier,
 				const void *src,
@@ -50,7 +50,7 @@ CDatumGenericGPDB::CDatumGenericGPDB
 				CDouble stats_comp_val_double
 		)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_size(size),
 	m_bytearray_value(NULL),
 	m_is_null(is_null),
@@ -59,14 +59,14 @@ CDatumGenericGPDB::CDatumGenericGPDB
 	m_stats_comp_val_int(stats_comp_val_int),
 	m_stats_comp_val_double(stats_comp_val_double)
 {
-	GPOS_ASSERT(NULL != memory_pool);
+	GPOS_ASSERT(NULL != mp);
 	GPOS_ASSERT(mdid->IsValid());
 	
 	if (!IsNull())
 	{
 		GPOS_ASSERT(0 < size);
 
-		m_bytearray_value = GPOS_NEW_ARRAY(m_memory_pool, BYTE, size);
+		m_bytearray_value = GPOS_NEW_ARRAY(m_mp, BYTE, size);
 		(void) clib::Memcpy(m_bytearray_value, src, size);
 	}
 }
@@ -178,28 +178,28 @@ CDatumGenericGPDB::HashValue() const
 const CWStringConst *
 CDatumGenericGPDB::GetStrRepr
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	const
 {
-	CWStringDynamic str(memory_pool);
+	CWStringDynamic str(mp);
 
 	if (IsNull())
 	{
 		str.AppendFormat(GPOS_WSZ_LIT("null"));
-		return GPOS_NEW(memory_pool) CWStringConst(memory_pool, str.GetBuffer());
+		return GPOS_NEW(mp) CWStringConst(mp, str.GetBuffer());
 	}
 
 	// pretty print datums that can be mapped to LINTs or CDoubles
 	if (IsDatumMappableToLINT())
 	{
 		str.AppendFormat(GPOS_WSZ_LIT("%0.3f"), (double) GetLINTMapping());
-		return GPOS_NEW(memory_pool) CWStringConst(memory_pool, str.GetBuffer());
+		return GPOS_NEW(mp) CWStringConst(mp, str.GetBuffer());
 	}
 	else if (IsDatumMappableToDouble())
 	{
 		str.AppendFormat(GPOS_WSZ_LIT("%0.3f"), GetDoubleMapping().Get());
-		return GPOS_NEW(memory_pool) CWStringConst(memory_pool, str.GetBuffer());
+		return GPOS_NEW(mp) CWStringConst(mp, str.GetBuffer());
 	}
 
 	// print hex representation of bytes
@@ -209,7 +209,7 @@ CDatumGenericGPDB::GetStrRepr
 		str.AppendFormat(GPOS_WSZ_LIT("%02X"), m_bytearray_value[i]);
 	}
 
-	return GPOS_NEW(memory_pool) CWStringConst(memory_pool, str.GetBuffer());
+	return GPOS_NEW(mp) CWStringConst(mp, str.GetBuffer());
 }
 
 //---------------------------------------------------------------------------
@@ -261,14 +261,14 @@ CDatumGenericGPDB::Matches
 IDatum *
 CDatumGenericGPDB::MakeCopy
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	const
 {
 	m_mdid->AddRef();
 	
 	// CDatumGenericGPDB makes a copy of the buffer
-	return GPOS_NEW(memory_pool) CDatumGenericGPDB(memory_pool, m_mdid, m_type_modifier, m_bytearray_value, m_size, m_is_null, m_stats_comp_val_int, m_stats_comp_val_double);
+	return GPOS_NEW(mp) CDatumGenericGPDB(mp, m_mdid, m_type_modifier, m_bytearray_value, m_size, m_is_null, m_stats_comp_val_int, m_stats_comp_val_double);
 }
 
 
@@ -287,7 +287,7 @@ CDatumGenericGPDB::OsPrint
 	)
 	const
 {
-	const CWStringConst *str = GetStrRepr(m_memory_pool);
+	const CWStringConst *str = GetStrRepr(m_mp);
 	os << str->GetBuffer();
 	GPOS_DELETE(str);
 
@@ -414,7 +414,7 @@ CDatumGenericGPDB::StatsAreEqual
 BYTE *
 CDatumGenericGPDB::MakeCopyOfValue
 		(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				ULONG *dest_length
 		)
 	const
@@ -426,7 +426,7 @@ CDatumGenericGPDB::MakeCopyOfValue
 	{
 		length = this->Size();;
 		GPOS_ASSERT(length > 0);
-		dest = GPOS_NEW_ARRAY(memory_pool, BYTE, length);
+		dest = GPOS_NEW_ARRAY(mp, BYTE, length);
 		(void) clib::Memcpy(dest, this->m_bytearray_value, length);
 	}
 
@@ -459,7 +459,7 @@ CDatumGenericGPDB::NeedsPadding() const
 IDatum *
 CDatumGenericGPDB::MakePaddedDatum
 		(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				ULONG col_len
 		)
 	const
@@ -469,7 +469,7 @@ CDatumGenericGPDB::MakePaddedDatum
 
 	if (this->IsNull() || (gpos::ulong_max == col_len))
 	{
-		return this->MakeCopy(memory_pool);
+		return this->MakeCopy(mp);
 	}
 
 	const ULONG datum_len = this->Size();
@@ -479,7 +479,7 @@ CDatumGenericGPDB::MakePaddedDatum
 		const BYTE *original = this->GetByteArrayValue();
 		BYTE *dest = NULL;
 
-		dest = GPOS_NEW_ARRAY(m_memory_pool, BYTE, adjusted_col_width);
+		dest = GPOS_NEW_ARRAY(m_mp, BYTE, adjusted_col_width);
 		(void) clib::Memcpy(dest, original, datum_len);
 
 		// datum's length smaller than column's size, therefore pad the input datum
@@ -487,9 +487,9 @@ CDatumGenericGPDB::MakePaddedDatum
 
 		// create a new datum
 		this->MDId()->AddRef();
-		CDatumGenericGPDB *datum_new = GPOS_NEW(m_memory_pool) CDatumGenericGPDB
+		CDatumGenericGPDB *datum_new = GPOS_NEW(m_mp) CDatumGenericGPDB
 													(
-													memory_pool,
+													mp,
 													this->MDId(),
 													this->TypeModifier(),
 													dest,
@@ -505,7 +505,7 @@ CDatumGenericGPDB::MakePaddedDatum
 		return datum_new;
 	}
 
-	return this->MakeCopy(memory_pool);
+	return this->MakeCopy(mp);
 }
 
 //---------------------------------------------------------------------------

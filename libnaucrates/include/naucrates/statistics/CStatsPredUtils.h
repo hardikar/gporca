@@ -50,7 +50,7 @@ namespace gpopt
 			};
 
 			// shorthand for functions for extracting statistics filter from predicate expressions
-			typedef CStatsPred * (FuncPtrStatsFilterFromPredExpr)(IMemoryPool *memory_pool, CExpression *predicate_expr, CColRefSet *outer_refs);
+			typedef CStatsPred * (FuncPtrStatsFilterFromPredExpr)(IMemoryPool *mp, CExpression *predicate_expr, CColRefSet *outer_refs);
 
 			// pair of predicate type and the corresponding function to extracts is statistics filter
 			struct SScStatsfilterMapping
@@ -72,17 +72,17 @@ namespace gpopt
 
 			// extract statistics filtering information from boolean expression
 			static
-			CStatsPred *GetStatsPredFromBoolExpr(IMemoryPool *memory_pool, CExpression *predicate_expr, CColRefSet *outer_refs);
+			CStatsPred *GetStatsPredFromBoolExpr(IMemoryPool *mp, CExpression *predicate_expr, CColRefSet *outer_refs);
 
 			// extract statistics filtering information from a scalar array compare operator
 			static
-			void ProcessArrayCmp(IMemoryPool *memory_pool, CExpression *predicate_expr, StatsPredPtrArry *pdrgpstatspred);
+			void ProcessArrayCmp(IMemoryPool *mp, CExpression *predicate_expr, StatsPredPtrArry *pdrgpstatspred);
 
 			// create and add statistics filtering information for supported filters
 			static
 			void AddSupportedStatsFilters
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				StatsPredPtrArry *pdrgpstatspred,
 				CExpression *predicate_expr,
 				CColRefSet *outer_refs
@@ -90,19 +90,19 @@ namespace gpopt
 
 			// create a conjunctive statistics filter composed of the extracted components of the conjunction
 			static
-			CStatsPred *CreateStatsPredConj(IMemoryPool *memory_pool, CExpression *scalar_expr, CColRefSet *outer_refs);
+			CStatsPred *CreateStatsPredConj(IMemoryPool *mp, CExpression *scalar_expr, CColRefSet *outer_refs);
 
 			// create a disjunction statistics filter composed of the extracted components of the disjunction
 			static
-			CStatsPred *CreateStatsPredDisj(IMemoryPool *memory_pool, CExpression *predicate_expr, CColRefSet *outer_refs);
+			CStatsPred *CreateStatsPredDisj(IMemoryPool *mp, CExpression *predicate_expr, CColRefSet *outer_refs);
 
 			// return statistics filter type for the given expression
 			static
-			CStatsPredUtils::EPredicateType GetPredTypeForExpr(IMemoryPool *memory_pool, CExpression *predicate_expr);
+			CStatsPredUtils::EPredicateType GetPredTypeForExpr(IMemoryPool *mp, CExpression *predicate_expr);
 
 			// is the condition a conjunctive predicate
 			static
-			BOOL IsConjunction(IMemoryPool *memory_pool, CExpression *predicate_expr);
+			BOOL IsConjunction(IMemoryPool *mp, CExpression *predicate_expr);
 
 			// is the condition a boolean predicate
 			static
@@ -130,24 +130,24 @@ namespace gpopt
 
 			// extract statistics filtering information from a point comparison
 			static
-			CStatsPred *GetStatsPredPoint(IMemoryPool *memory_pool, CExpression *predicate_expr, CColRefSet *outer_refs);
+			CStatsPred *GetStatsPredPoint(IMemoryPool *mp, CExpression *predicate_expr, CColRefSet *outer_refs);
 
 			// extract statistics filtering information from a LIKE comparison
 			static
-			CStatsPred *GetStatsPredLike(IMemoryPool *memory_pool, CExpression *predicate_expr, CColRefSet *outer_refs);
+			CStatsPred *GetStatsPredLike(IMemoryPool *mp, CExpression *predicate_expr, CColRefSet *outer_refs);
 
 			// extract statistics filtering information from a null test
 			static
-			CStatsPred *GetStatsPredNullTest(IMemoryPool *memory_pool, CExpression *predicate_expr, CColRefSet *outer_refs);
+			CStatsPred *GetStatsPredNullTest(IMemoryPool *mp, CExpression *predicate_expr, CColRefSet *outer_refs);
 
 			// create an unsupported statistics predicate
 			static
-			CStatsPred *CreateStatsPredUnsupported(IMemoryPool *memory_pool, CExpression *predicate_expr, CColRefSet *outer_refs);
+			CStatsPred *CreateStatsPredUnsupported(IMemoryPool *mp, CExpression *predicate_expr, CColRefSet *outer_refs);
 
 			// generate a point predicate for expressions of the form colid CMP constant for which we support stats calculation;
 			// else return an unsupported stats predicate
 			static
-			CStatsPred *GetPredStats(IMemoryPool *memory_pool, CExpression *expr);
+			CStatsPred *GetPredStats(IMemoryPool *mp, CExpression *expr);
 
 			// return the statistics predicate comparison type based on the md identifier
 			static
@@ -157,7 +157,7 @@ namespace gpopt
 			static
 			CStatsPredJoin *ExtractJoinStatsFromJoinPred
 								(
-								IMemoryPool *memory_pool,
+								IMemoryPool *mp,
 								CExpression *join_predicate_expr,
 			ColRefSetArray *join_output_col_refset,  // array of output columns of join's relational inputs
 								CColRefSet *outer_refs,
@@ -179,13 +179,13 @@ namespace gpopt
 
 			// extract statistics filter from scalar expression
 			static
-			CStatsPred *ExtractPredStats(IMemoryPool *memory_pool, CExpression *scalar_expr, CColRefSet *outer_refs);
+			CStatsPred *ExtractPredStats(IMemoryPool *mp, CExpression *scalar_expr, CColRefSet *outer_refs);
 
 			// helper function to extract array of statistics join filter from an array of join predicates
 			static
 			StatsPredJoinArray *ExtractJoinStatsFromJoinPredArray
 								(
-								IMemoryPool *memory_pool,
+								IMemoryPool *mp,
 								CExpression *scalar_expr,
 			ColRefSetArray *output_col_refset,  // array of output columns of join's relational inputs
 								CColRefSet *outer_refs,
@@ -194,13 +194,13 @@ namespace gpopt
 
 			// helper function to extract array of statistics join filter from an expression handle
 			static
-			StatsPredJoinArray *ExtractJoinStatsFromExprHandle(IMemoryPool *memory_pool, CExpressionHandle &expr_handle);
+			StatsPredJoinArray *ExtractJoinStatsFromExprHandle(IMemoryPool *mp, CExpressionHandle &expr_handle);
 
 			// helper function to extract array of statistics join filter from an expression
 			static
 			StatsPredJoinArray *ExtractJoinStatsFromExpr
 								(
-								IMemoryPool *memory_pool,
+								IMemoryPool *mp,
 								CExpressionHandle &expr_handle,
 								CExpression *scalar_expression,
 								ColRefSetArray *output_col_refset,

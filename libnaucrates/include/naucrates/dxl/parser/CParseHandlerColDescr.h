@@ -67,7 +67,7 @@ namespace gpdxl
 			// ctor/dtor
 			CParseHandlerColDescr
 				(
-				IMemoryPool *m_memory_pool,
+				IMemoryPool *m_mp,
 				CParseHandlerManager *parse_handler_mgr,
 				CParseHandlerBase *parse_handler_base
 				);

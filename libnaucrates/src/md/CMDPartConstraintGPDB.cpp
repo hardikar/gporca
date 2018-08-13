@@ -30,13 +30,13 @@ using namespace gpopt;
 //---------------------------------------------------------------------------
 CMDPartConstraintGPDB::CMDPartConstraintGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	ULongPtrArray *level_with_default_part_array,
 	BOOL is_unbounded,
 	CDXLNode *dxlnode
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_level_with_default_part_array(level_with_default_part_array),
 	m_is_unbounded(is_unbounded),
 	m_dxl_node(dxlnode)
@@ -70,7 +70,7 @@ CMDPartConstraintGPDB::~CMDPartConstraintGPDB()
 CExpression *
 CMDPartConstraintGPDB::GetPartConstraintExpr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CMDAccessor *md_accessor,
 	ColRefArray *colref_array
 	)
@@ -79,7 +79,7 @@ CMDPartConstraintGPDB::GetPartConstraintExpr
 	GPOS_ASSERT(NULL != colref_array);
 
 	// translate the DXL representation of the part constraint expression
-	CTranslatorDXLToExpr dxltr(memory_pool, md_accessor);
+	CTranslatorDXLToExpr dxltr(mp, md_accessor);
 	return dxltr.PexprTranslateScalar(m_dxl_node, colref_array);
 }
 
@@ -130,7 +130,7 @@ CMDPartConstraintGPDB::Serialize
 						CDXLTokens::GetDXLTokenStr(EdxltokenPartConstraint));
 	
 	// serialize default parts
-	CWStringDynamic *default_part_array = CDXLUtils::Serialize(m_memory_pool, m_level_with_default_part_array);
+	CWStringDynamic *default_part_array = CDXLUtils::Serialize(m_mp, m_level_with_default_part_array);
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenDefaultPartition), default_part_array);
 	GPOS_DELETE(default_part_array);
 

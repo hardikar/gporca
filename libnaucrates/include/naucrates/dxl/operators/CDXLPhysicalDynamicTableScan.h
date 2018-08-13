@@ -57,7 +57,7 @@ namespace gpdxl
 			// ctor
 			CDXLPhysicalDynamicTableScan
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CDXLTableDescr *table_descr,
 				ULONG part_idx_id,
 				ULONG part_idx_id_printable

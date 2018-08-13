@@ -28,11 +28,11 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalRoutedDistributeMotion::CDXLPhysicalRoutedDistributeMotion
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	ULONG segment_id_col
 	)
 	:
-	CDXLPhysicalMotion(memory_pool),
+	CDXLPhysicalMotion(mp),
 	m_segment_id_col(segment_id_col)
 {
 }

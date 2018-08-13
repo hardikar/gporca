@@ -29,12 +29,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerWindowFrame::CParseHandlerWindowFrame
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_dxl_win_frame_spec(EdxlfsSentinel),
 	m_dxl_frame_exclusion_strategy(EdxlfesSentinel),
 	m_window_frame(NULL)
@@ -65,12 +65,12 @@ CParseHandlerWindowFrame::StartElement
 
 		// parse handler for the trailing window frame edge
 		CParseHandlerBase *trailing_val_parse_handler_base =
-				CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarWindowFrameTrailingEdge), m_parse_handler_mgr, this);
+				CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarWindowFrameTrailingEdge), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(trailing_val_parse_handler_base);
 
 		// parse handler for the leading scalar values
 		CParseHandlerBase *leading_val_parse_handler_base =
-				CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarWindowFrameLeadingEdge), m_parse_handler_mgr, this);
+				CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarWindowFrameLeadingEdge), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(leading_val_parse_handler_base);
 
 		this->Append(leading_val_parse_handler_base);
@@ -117,7 +117,7 @@ CParseHandlerWindowFrame::EndElement
 	CDXLNode *dxlnode_leading = leading_val_parse_handler_base->CreateDXLNode();
 	dxlnode_leading->AddRef();
 
-	m_window_frame = GPOS_NEW(m_memory_pool) CDXLWindowFrame(m_memory_pool, m_dxl_win_frame_spec, m_dxl_frame_exclusion_strategy, dxlnode_leading, dxlnode_trailing);
+	m_window_frame = GPOS_NEW(m_mp) CDXLWindowFrame(m_mp, m_dxl_win_frame_spec, m_dxl_frame_exclusion_strategy, dxlnode_leading, dxlnode_trailing);
 
 	// deactivate handler
 	m_parse_handler_mgr->DeactivateHandler();

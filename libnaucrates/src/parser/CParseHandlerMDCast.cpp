@@ -34,12 +34,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerMDCast::CParseHandlerMDCast
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerMetadataObject(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerMetadataObject(mp, parse_handler_mgr, parse_handler_root)
 {}
 
 //---------------------------------------------------------------------------
@@ -128,7 +128,7 @@ CParseHandlerMDCast::StartElement
 															true		// coerce_path_type is optional
 															);
 
-	m_imd_obj = GPOS_NEW(m_memory_pool) CMDCastGPDB(m_memory_pool, mdid, mdname, mdid_src, mdid_dest, is_binary_coercible, mdid_cast_func, coerce_path_type);
+	m_imd_obj = GPOS_NEW(m_mp) CMDCastGPDB(m_mp, mdid, mdname, mdid_src, mdid_dest, is_binary_coercible, mdid_cast_func, coerce_path_type);
 }
 
 //---------------------------------------------------------------------------

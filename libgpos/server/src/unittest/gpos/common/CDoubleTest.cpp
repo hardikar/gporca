@@ -55,7 +55,7 @@ GPOS_RESULT
 CDoubleTest::EresUnittest_Arithmetic()
 {
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	CDouble fp1(2.5);
 	CDouble fp2(3.5);
@@ -83,7 +83,7 @@ CDoubleTest::EresUnittest_Arithmetic()
 	CDouble fp3(10.0);
 	fp3 = fp1 + fp2;
 
-	CAutoTrace trace(memory_pool);
+	CAutoTrace trace(mp);
 	IOstream &os(trace.Os());
 
 	os << "Arithmetic operations: " << std::endl
@@ -114,7 +114,7 @@ GPOS_RESULT
 CDoubleTest::EresUnittest_Bool()
 {
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	CDouble fp1(2.5);
 	CDouble fp2(3.5);
@@ -129,7 +129,7 @@ CDoubleTest::EresUnittest_Bool()
 	GPOS_ASSERT(fp2 >= fp3);
 	GPOS_ASSERT(fp2 <= fp3);
 
-	CAutoTrace trace(memory_pool);
+	CAutoTrace trace(mp);
 	IOstream &os(trace.Os());
 
 	os << "Boolean operations: " << std::endl
@@ -158,11 +158,11 @@ GPOS_RESULT
 CDoubleTest::EresUnittest_Convert()
 {
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	CDouble fp(3.5);
 
-	CAutoTrace trace(memory_pool);
+	CAutoTrace trace(mp);
 	IOstream &os(trace.Os());
 
 	os << "Conversions:" << std::endl
@@ -189,12 +189,12 @@ GPOS_RESULT
 CDoubleTest::EresUnittest_Limits()
 {
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
 	CDouble fpZero(0);
 	CDouble fpInf(1e10 / fpZero);
 
-	CAutoTrace trace(memory_pool);
+	CAutoTrace trace(mp);
 	IOstream &os(trace.Os());
 
 	GPOS_ASSERT(fpZero == fpZero / fpInf);

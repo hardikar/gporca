@@ -46,7 +46,7 @@ using namespace gpmd;
 //---------------------------------------------------------------------------
 CMDTypeGenericGPDB::CMDTypeGenericGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	BOOL is_redistributable,
@@ -72,7 +72,7 @@ CMDTypeGenericGPDB::CMDTypeGenericGPDB
 	INT gpdb_length
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_is_redistributable(is_redistributable),
@@ -100,10 +100,10 @@ CMDTypeGenericGPDB::CMDTypeGenericGPDB
 {
 	GPOS_ASSERT_IMP(m_is_fixed_length, 0 < m_length);
 	GPOS_ASSERT_IMP(!m_is_fixed_length, 0 > m_gpdb_length);
-	m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 
 	m_mdid->AddRef();
-	m_datum_null = GPOS_NEW(m_memory_pool) CDatumGenericGPDB(m_memory_pool, m_mdid, default_type_modifier, NULL /*pba*/, 0 /*length*/, true /*constNull*/, 0 /*lValue */, 0 /*dValue */);
+	m_datum_null = GPOS_NEW(m_mp) CDatumGenericGPDB(m_mp, m_mdid, default_type_modifier, NULL /*pba*/, 0 /*length*/, true /*constNull*/, 0 /*lValue */, 0 /*dValue */);
 }
 
 //---------------------------------------------------------------------------
@@ -282,7 +282,7 @@ CMDTypeGenericGPDB::GetDatumForDXLConstVal
 	}
 
 	m_mdid->AddRef();
-	return GPOS_NEW(m_memory_pool) CDatumGenericGPDB(m_memory_pool, m_mdid, datum_dxl->TypeModifier(), datum_dxl->GetByteArray(), datum_dxl->Length(),
+	return GPOS_NEW(m_mp) CDatumGenericGPDB(m_mp, m_mdid, datum_dxl->TypeModifier(), datum_dxl->GetByteArray(), datum_dxl->Length(),
 											 datum_dxl->IsNull(), lint_value, double_value);
 }
 
@@ -297,7 +297,7 @@ CMDTypeGenericGPDB::GetDatumForDXLConstVal
 IDatum*
 CMDTypeGenericGPDB::GetDatumForDXLDatum
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CDXLDatum *datum_dxl
 	)
 	const
@@ -317,9 +317,9 @@ CMDTypeGenericGPDB::GetDatumForDXLDatum
 		double_value = dxl_datum_generic->GetDoubleMapping();
 	}
 
-	return GPOS_NEW(m_memory_pool) CDatumGenericGPDB
+	return GPOS_NEW(m_mp) CDatumGenericGPDB
 						(
-						memory_pool,
+						mp,
 						m_mdid,
 						dxl_datum_generic->TypeModifier(),
 						dxl_datum_generic->GetByteArray(),
@@ -341,7 +341,7 @@ CMDTypeGenericGPDB::GetDatumForDXLDatum
 CDXLDatum *
 CMDTypeGenericGPDB::GetDatumVal
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IDatum *datum
 	)
 	const
@@ -352,7 +352,7 @@ CMDTypeGenericGPDB::GetDatumVal
 	BYTE *pba = NULL;
 	if (!datum_generic->IsNull())
 	{
-		pba = datum_generic->MakeCopyOfValue(memory_pool, &length);
+		pba = datum_generic->MakeCopyOfValue(mp, &length);
 	}
 
 	LINT lValue = 0;
@@ -367,7 +367,7 @@ CMDTypeGenericGPDB::GetDatumVal
 		dValue = datum_generic->GetDoubleMapping();
 	}
 
-	return CreateDXLDatumVal(memory_pool, m_mdid, datum_generic->TypeModifier(), m_is_passed_by_value, datum_generic->IsNull(), pba, length, lValue, dValue);
+	return CreateDXLDatumVal(mp, m_mdid, datum_generic->TypeModifier(), m_is_passed_by_value, datum_generic->IsNull(), pba, length, lValue, dValue);
 }
 
 //---------------------------------------------------------------------------
@@ -400,7 +400,7 @@ CMDTypeGenericGPDB::IsAmbiguous() const
 CDXLDatum *
 CMDTypeGenericGPDB::CreateDXLDatumVal
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	INT type_modifier,
 	BOOL is_passed_by_value,
@@ -420,14 +420,14 @@ CMDTypeGenericGPDB::CreateDXLDatumVal
 		case GPDB_NUMERIC:
 		case GPDB_FLOAT4:
 		case GPDB_FLOAT8:
-			return CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable(memory_pool, mdid, type_modifier, is_passed_by_value, is_null, pba,
+			return CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable(mp, mdid, type_modifier, is_passed_by_value, is_null, pba,
 																	length, lValue, dValue);
 		// has lint mapping
 		case GPDB_CHAR:
 		case GPDB_VARCHAR:
 		case GPDB_TEXT:
 		case GPDB_CASH:
-			return CMDTypeGenericGPDB::CreateDXLDatumStatsIntMappable(memory_pool, mdid, type_modifier, is_passed_by_value, is_null, pba, length, lValue, dValue);
+			return CMDTypeGenericGPDB::CreateDXLDatumStatsIntMappable(mp, mdid, type_modifier, is_passed_by_value, is_null, pba, length, lValue, dValue);
 		// time-related types
 		case GPDB_DATE:
 		case GPDB_TIME:
@@ -438,15 +438,15 @@ CMDTypeGenericGPDB::CreateDXLDatumVal
 		case GPDB_RELTIME:
 		case GPDB_INTERVAL:
 		case GPDB_TIMEINTERVAL:
-			return CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable(memory_pool, mdid, type_modifier, is_passed_by_value, is_null, pba,
+			return CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable(mp, mdid, type_modifier, is_passed_by_value, is_null, pba,
 																	length, lValue, dValue);
 		// network-related types
 		case GPDB_INET:
 		case GPDB_CIDR:
 		case GPDB_MACADDR:
-			return CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable(memory_pool, mdid, type_modifier, is_passed_by_value, is_null, pba, length, lValue, dValue);
+			return CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable(mp, mdid, type_modifier, is_passed_by_value, is_null, pba, length, lValue, dValue);
 		default:
-			return GPOS_NEW(memory_pool) CDXLDatumGeneric(memory_pool, mdid, type_modifier, is_passed_by_value, is_null, pba, length);
+			return GPOS_NEW(mp) CDXLDatumGeneric(mp, mdid, type_modifier, is_passed_by_value, is_null, pba, length);
 	}
 }
 
@@ -462,7 +462,7 @@ CMDTypeGenericGPDB::CreateDXLDatumVal
 CDXLDatum *
 CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	INT type_modifier,
 	BOOL is_passed_by_value,
@@ -474,7 +474,7 @@ CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable
 	)
 {
 	GPOS_ASSERT(CMDTypeGenericGPDB::HasByte2DoubleMapping(mdid));
-	return GPOS_NEW(memory_pool) CDXLDatumStatsDoubleMappable(memory_pool, mdid, type_modifier, is_passed_by_value, is_null, byte_array, length, double_value);
+	return GPOS_NEW(mp) CDXLDatumStatsDoubleMappable(mp, mdid, type_modifier, is_passed_by_value, is_null, byte_array, length, double_value);
 }
 
 
@@ -489,7 +489,7 @@ CMDTypeGenericGPDB::CreateDXLDatumStatsDoubleMappable
 CDXLDatum *
 CMDTypeGenericGPDB::CreateDXLDatumStatsIntMappable
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	INT type_modifier,
 	BOOL is_passed_by_value,
@@ -501,7 +501,7 @@ CMDTypeGenericGPDB::CreateDXLDatumStatsIntMappable
 	)
 {
 	GPOS_ASSERT(CMDTypeGenericGPDB::HasByte2IntMapping(mdid));
-	return GPOS_NEW(memory_pool) CDXLDatumStatsLintMappable(memory_pool, mdid, type_modifier, is_passed_by_value, is_null, byte_array, length, lint_value);
+	return GPOS_NEW(mp) CDXLDatumStatsLintMappable(mp, mdid, type_modifier, is_passed_by_value, is_null, byte_array, length, lint_value);
 }
 
 //---------------------------------------------------------------------------
@@ -515,14 +515,14 @@ CMDTypeGenericGPDB::CreateDXLDatumStatsIntMappable
 CDXLScalarConstValue *
 CMDTypeGenericGPDB::GetDXLOpScConst
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IDatum *datum
 	)
 	const
 {
-	CDXLDatum *datum_dxl = GetDatumVal(memory_pool, datum);
+	CDXLDatum *datum_dxl = GetDatumVal(mp, datum);
 
-	return GPOS_NEW(memory_pool) CDXLScalarConstValue(memory_pool, datum_dxl);
+	return GPOS_NEW(mp) CDXLScalarConstValue(mp, datum_dxl);
 }
 
 //---------------------------------------------------------------------------
@@ -536,13 +536,13 @@ CMDTypeGenericGPDB::GetDXLOpScConst
 CDXLDatum *
 CMDTypeGenericGPDB::GetDXLDatumNull
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	const
 {
 	m_mdid->AddRef();
 
-	return CreateDXLDatumVal(memory_pool, m_mdid, default_type_modifier, m_is_passed_by_value, true /*fConstNull*/, NULL /*byte_array*/, 0 /*length*/, 0 /*lint_value */, 0 /*double_value */);
+	return CreateDXLDatumVal(mp, m_mdid, default_type_modifier, m_is_passed_by_value, true /*fConstNull*/, NULL /*byte_array*/, 0 /*length*/, 0 /*lint_value */, 0 /*double_value */);
 }
 
 //---------------------------------------------------------------------------

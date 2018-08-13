@@ -28,10 +28,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalLimit::CDXLPhysicalLimit
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CDXLPhysical(memory_pool)
+	CDXLPhysical(mp)
 {
 }
 

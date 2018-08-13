@@ -21,12 +21,12 @@ XERCES_CPP_NAMESPACE_USE
 // Ctor
 CParseHandlerScalarPartListValues::CParseHandlerScalarPartListValues
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -49,7 +49,7 @@ CParseHandlerScalarPartListValues::StartElement
 	ULONG partition_level = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenPartLevel, EdxltokenScalarPartListValues);
 	IMDId *mdid_result = CDXLOperatorFactory::ExtractConvertAttrValueToMdId(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenGPDBScalarOpResultTypeId, EdxltokenScalarPartListValues);
 	IMDId *mdid_element = CDXLOperatorFactory::ExtractConvertAttrValueToMdId(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenArrayElementType, EdxltokenScalarPartListValues);
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode (m_memory_pool, GPOS_NEW(m_memory_pool) CDXLScalarPartListValues(m_memory_pool, partition_level, mdid_result, mdid_element));
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode (m_mp, GPOS_NEW(m_mp) CDXLScalarPartListValues(m_mp, partition_level, mdid_result, mdid_element));
 }
 
 // Invoked by Xerces to process a closing tag

@@ -28,14 +28,14 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarArrayRef::CDXLScalarArrayRef
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *elem_type_mdid,
 	INT type_modifier,
 	IMDId *array_type_mdid,
 	IMDId *return_type_mdid
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_elem_type_mdid(elem_type_mdid),
 	m_type_modifier(type_modifier),
 	m_array_type_mdid(array_type_mdid),

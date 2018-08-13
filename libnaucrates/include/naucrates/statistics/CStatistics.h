@@ -68,7 +68,7 @@ namespace gpnaucrates
 				};
 
 		// helper method to copy stats on columns that are not excluded by bitset
-		void AddNotExcludedHistograms(IMemoryPool *memory_pool, CBitSet *excluded_cols, UlongHistogramHashMap *col_histogram_mapping) const;
+		void AddNotExcludedHistograms(IMemoryPool *mp, CBitSet *excluded_cols, UlongHistogramHashMap *col_histogram_mapping) const;
 
 		private:
 
@@ -119,18 +119,18 @@ namespace gpnaucrates
 
 			// helper method to add histograms where the column ids have been remapped
 			static
-			void AddHistogramsWithRemap(IMemoryPool *memory_pool, UlongHistogramHashMap *src_histograms, UlongHistogramHashMap *dest_histograms, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			void AddHistogramsWithRemap(IMemoryPool *mp, UlongHistogramHashMap *src_histograms, UlongHistogramHashMap *dest_histograms, UlongColRefHashMap *colref_mapping, BOOL must_exist);
 
 			// helper method to add width information where the column ids have been remapped
 			static
-			void AddWidthInfoWithRemap(IMemoryPool *memory_pool, UlongDoubleHashMap *src_width, UlongDoubleHashMap *dest_width, UlongColRefHashMap *colref_mapping, BOOL must_exist);
+			void AddWidthInfoWithRemap(IMemoryPool *mp, UlongDoubleHashMap *src_width, UlongDoubleHashMap *dest_width, UlongColRefHashMap *colref_mapping, BOOL must_exist);
 
 		public:
 
 			// ctor
 			CStatistics
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				UlongHistogramHashMap *col_histogram_mapping,
 				UlongDoubleHashMap *col_id_width_mapping,
 				CDouble rows,
@@ -143,13 +143,13 @@ namespace gpnaucrates
 			~CStatistics();
 
 			virtual
-			UlongDoubleHashMap *CopyWidths(IMemoryPool *memory_pool) const;
+			UlongDoubleHashMap *CopyWidths(IMemoryPool *mp) const;
 
 			virtual
-			void CopyWidthsInto(IMemoryPool *memory_pool, UlongDoubleHashMap *col_id_width_mapping) const;
+			void CopyWidthsInto(IMemoryPool *mp, UlongDoubleHashMap *col_id_width_mapping) const;
 
 			virtual
-			UlongHistogramHashMap *CopyHistograms(IMemoryPool *memory_pool) const;
+			UlongHistogramHashMap *CopyHistograms(IMemoryPool *mp) const;
 
 			// actual number of rows
 			virtual
@@ -172,7 +172,7 @@ namespace gpnaucrates
 
 			// what is the width in bytes of set of column references
 			virtual
-			CDouble Width(IMemoryPool *memory_pool, CColRefSet *colrefs) const;
+			CDouble Width(IMemoryPool *mp, CColRefSet *colrefs) const;
 
 			// what is the width in bytes
 			virtual
@@ -223,17 +223,17 @@ namespace gpnaucrates
 
 			// inner join with another stats structure
 			virtual
-			CStatistics *CalcInnerJoinStats(IMemoryPool *memory_pool, const IStatistics *other_stats, StatsPredJoinArray *join_preds_stats) const;
+			CStatistics *CalcInnerJoinStats(IMemoryPool *mp, const IStatistics *other_stats, StatsPredJoinArray *join_preds_stats) const;
 
 			// LOJ with another stats structure
 			virtual
-			CStatistics *CalcLOJoinStats(IMemoryPool *memory_pool, const IStatistics *other_stats, StatsPredJoinArray *join_preds_stats) const;
+			CStatistics *CalcLOJoinStats(IMemoryPool *mp, const IStatistics *other_stats, StatsPredJoinArray *join_preds_stats) const;
 
 			// left anti semi join with another stats structure
 			virtual
 			CStatistics *CalcLASJoinStats
 							(
-							IMemoryPool *memory_pool,
+							IMemoryPool *mp,
 							const IStatistics *other_stats,
 							StatsPredJoinArray *join_preds_stats,
 							BOOL DoIgnoreLASJHistComputation // except for the case of LOJ cardinality estimation this flag is always
@@ -242,15 +242,15 @@ namespace gpnaucrates
 
 			// semi join stats computation
 			virtual
-			CStatistics *CalcLSJoinStats(IMemoryPool *memory_pool, const IStatistics *inner_side_stats, StatsPredJoinArray *join_preds_stats) const;
+			CStatistics *CalcLSJoinStats(IMemoryPool *mp, const IStatistics *inner_side_stats, StatsPredJoinArray *join_preds_stats) const;
 
 			// return required props associated with stats object
 			virtual
-			CReqdPropRelational *GetReqdRelationalProps(IMemoryPool *memory_pool) const;
+			CReqdPropRelational *GetReqdRelationalProps(IMemoryPool *mp) const;
 
 			// append given stats to current object
 			virtual
-			void AppendStats(IMemoryPool *memory_pool, IStatistics *stats);
+			void AppendStats(IMemoryPool *mp, IStatistics *stats);
 
 			// set number of rebinds
 			virtual
@@ -266,23 +266,23 @@ namespace gpnaucrates
 
 			// copy stats
 			virtual
-			IStatistics *CopyStats(IMemoryPool *memory_pool) const;
+			IStatistics *CopyStats(IMemoryPool *mp) const;
 
 			// return a copy of this stats object scaled by a given factor
 			virtual
-			IStatistics *ScaleStats(IMemoryPool *memory_pool, CDouble factor) const;
+			IStatistics *ScaleStats(IMemoryPool *mp, CDouble factor) const;
 
 			// copy stats with remapped column id
 			virtual
-			IStatistics *CopyStatsWithRemap(IMemoryPool *memory_pool, UlongColRefHashMap *colref_mapping, BOOL must_exist) const;
+			IStatistics *CopyStatsWithRemap(IMemoryPool *mp, UlongColRefHashMap *colref_mapping, BOOL must_exist) const;
 
 			// return the set of column references we have stats for
 			virtual
-			CColRefSet *GetColRefSet(IMemoryPool *memory_pool) const;
+			CColRefSet *GetColRefSet(IMemoryPool *mp) const;
 
 			// generate the DXL representation of the statistics object
 			virtual
-			CDXLStatsDerivedRelation *GetDxlStatsDrvdRelation(IMemoryPool *memory_pool, CMDAccessor *md_accessor) const;
+			CDXLStatsDerivedRelation *GetDxlStatsDrvdRelation(IMemoryPool *mp, CMDAccessor *md_accessor) const;
 
 			// print function
 			virtual
@@ -302,7 +302,7 @@ namespace gpnaucrates
 
 			// return the column identifiers of all columns statistics maintained
 			virtual
-			ULongPtrArray *GetColIdsWithStats(IMemoryPool *memory_pool) const;
+			ULongPtrArray *GetColIdsWithStats(IMemoryPool *mp) const;
 
 			virtual
 			ULONG
@@ -324,11 +324,11 @@ namespace gpnaucrates
 			static
 			CStatistics *MakeEmptyStats
 				(
-				IMemoryPool *memory_pool
+				IMemoryPool *mp
 				)
 			{
-				ULongPtrArray *col_ids = GPOS_NEW(memory_pool) ULongPtrArray(memory_pool);
-				CStatistics *stats = MakeDummyStats(memory_pool, col_ids, DefaultRelationRows);
+				ULongPtrArray *col_ids = GPOS_NEW(mp) ULongPtrArray(mp);
+				CStatistics *stats = MakeDummyStats(mp, col_ids, DefaultRelationRows);
 
 				// clean up
 				col_ids->Release();
@@ -349,13 +349,13 @@ namespace gpnaucrates
 
 			// create a dummy statistics object
 			static
-			CStatistics *MakeDummyStats(IMemoryPool *memory_pool, ULongPtrArray *col_ids, CDouble rows);
+			CStatistics *MakeDummyStats(IMemoryPool *mp, ULongPtrArray *col_ids, CDouble rows);
 
 			// create a dummy statistics object
 			static
 			CStatistics *MakeDummyStats
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				ULongPtrArray *col_histogram_mapping,
 				ULongPtrArray *col_id_width_mapping,
 				CDouble rows
@@ -387,7 +387,7 @@ namespace gpnaucrates
 
 			// add upper bound ndvs information for a given set of columns
 			static
-			void CreateAndInsertUpperBoundNDVs(IMemoryPool *memory_pool, CStatistics *stats, ULongPtrArray *col_ids, CDouble rows);
+			void CreateAndInsertUpperBoundNDVs(IMemoryPool *mp, CStatistics *stats, ULongPtrArray *col_ids, CDouble rows);
 
 			// cap the total number of distinct values (NDV) in buckets to the number of rows
 			static

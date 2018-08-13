@@ -26,7 +26,7 @@ CDXLTokens::SXMLStrMapElem *
 CDXLTokens::m_pxmlszmap = NULL;
 
 IMemoryPool *
-CDXLTokens::m_memory_pool =  NULL;
+CDXLTokens::m_mp =  NULL;
 
 CDXLMemoryManager *
 CDXLTokens::m_memory_manager_dxl = NULL;
@@ -43,16 +43,16 @@ CDXLTokens::m_memory_manager_dxl = NULL;
 void
 CDXLTokens::Init
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 {
-	GPOS_ASSERT(NULL != memory_pool);
+	GPOS_ASSERT(NULL != mp);
 	GPOS_ASSERT(NULL == m_memory_manager_dxl);
-	GPOS_ASSERT(NULL == m_memory_pool);
+	GPOS_ASSERT(NULL == m_mp);
 
-	m_memory_pool = memory_pool;
+	m_mp = mp;
 
-	m_memory_manager_dxl = GPOS_NEW(m_memory_pool) CDXLMemoryManager(m_memory_pool);
+	m_memory_manager_dxl = GPOS_NEW(m_mp) CDXLMemoryManager(m_mp);
 
 	SWszMapElem rgStrMap[] = 
 	{
@@ -727,14 +727,14 @@ CDXLTokens::Init
 			{EdxltokenNLJIndexOuterRefAsParam, GPOS_WSZ_LIT("OuterRefAsParam")},
 	};
 	
-	m_pstrmap = GPOS_NEW_ARRAY(m_memory_pool, SStrMapElem, EdxltokenSentinel);
-	m_pxmlszmap = GPOS_NEW_ARRAY(m_memory_pool, SXMLStrMapElem, EdxltokenSentinel);
+	m_pstrmap = GPOS_NEW_ARRAY(m_mp, SStrMapElem, EdxltokenSentinel);
+	m_pxmlszmap = GPOS_NEW_ARRAY(m_mp, SXMLStrMapElem, EdxltokenSentinel);
 	
 	for (ULONG ul = 0; ul < GPOS_ARRAY_SIZE(rgStrMap); ul++)
 	{
 		SWszMapElem mapelem = rgStrMap[ul];
 		
-		m_pstrmap[mapelem.m_edxlt].m_pstr = GPOS_NEW(m_memory_pool) CWStringConst(m_memory_pool, mapelem.m_wsz);
+		m_pstrmap[mapelem.m_edxlt].m_pstr = GPOS_NEW(m_mp) CWStringConst(m_mp, mapelem.m_wsz);
 		m_pxmlszmap[mapelem.m_edxlt].m_xmlsz = XmlstrFromWsz(mapelem.m_wsz);
 	}
 }
@@ -816,7 +816,7 @@ CDXLTokens::XmlstrFromWsz
 	)
 {
 	ULONG length = GPOS_WSZ_LENGTH(wsz);
-	CHAR *sz = GPOS_NEW_ARRAY(m_memory_pool, CHAR, 1 + length);
+	CHAR *sz = GPOS_NEW_ARRAY(m_mp, CHAR, 1 + length);
 
 #ifdef GPOS_DEBUG
 	LINT  iLen =

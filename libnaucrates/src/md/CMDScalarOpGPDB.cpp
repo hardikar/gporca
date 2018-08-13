@@ -30,7 +30,7 @@ using namespace gpmd;
 //---------------------------------------------------------------------------
 CMDScalarOpGPDB::CMDScalarOpGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	IMDId *mdid_type_left,
@@ -44,7 +44,7 @@ CMDScalarOpGPDB::CMDScalarOpGPDB
 	MdidPtrArray *mdid_op_classes_array
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_mdid_type_left(mdid_type_left),
@@ -58,7 +58,7 @@ CMDScalarOpGPDB::CMDScalarOpGPDB
 	m_mdid_op_classes_array(mdid_op_classes_array)
 {
 	GPOS_ASSERT(NULL != mdid_op_classes_array);
-	m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 }
 
 

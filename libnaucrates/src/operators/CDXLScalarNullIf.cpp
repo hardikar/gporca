@@ -28,12 +28,12 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarNullIf::CDXLScalarNullIf
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_op,
 	IMDId *mdid_type
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_mdid_op(mdid_op),
 	m_mdid_type(mdid_type)
 {

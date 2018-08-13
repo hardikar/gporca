@@ -36,12 +36,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerMDGPDBScalarOp::CParseHandlerMDGPDBScalarOp
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerMetadataObject(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerMetadataObject(mp, parse_handler_mgr, parse_handler_root),
 	m_mdid(NULL),
 	m_mdname(NULL),
 	m_mdid_type_left(NULL),
@@ -85,7 +85,7 @@ CParseHandlerMDGPDBScalarOp::StartElement
 		CWStringDynamic *str_opname = CDXLUtils::CreateDynamicStringFromXMLChArray(m_parse_handler_mgr->GetDXLMemoryManager(), xml_str_op_name);
 		
 		// create a copy of the string in the CMDName constructor
-		m_mdname = GPOS_NEW(m_memory_pool) CMDName(m_memory_pool, str_opname);
+		m_mdname = GPOS_NEW(m_mp) CMDName(m_mp, str_opname);
 		
 		GPOS_DELETE(str_opname);
 
@@ -202,7 +202,7 @@ CParseHandlerMDGPDBScalarOp::StartElement
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenOpClasses), element_local_name))
 	{
 		// parse handler for operator class list
-		CParseHandlerBase *op_class_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenMetadataIdList), m_parse_handler_mgr, this);
+		CParseHandlerBase *op_class_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenMetadataIdList), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(op_class_list_parse_handler);
 		this->Append(op_class_list_parse_handler);
 		op_class_list_parse_handler->startElement(element_uri, element_local_name, element_qname, attrs);
@@ -247,11 +247,11 @@ CParseHandlerMDGPDBScalarOp::EndElement
 		}
 		else 
 		{
-			mdid_op_classes_array = GPOS_NEW(m_memory_pool) MdidPtrArray(m_memory_pool);
+			mdid_op_classes_array = GPOS_NEW(m_mp) MdidPtrArray(m_mp);
 		}
-		m_imd_obj = GPOS_NEW(m_memory_pool) CMDScalarOpGPDB
+		m_imd_obj = GPOS_NEW(m_mp) CMDScalarOpGPDB
 				(
-				m_memory_pool,
+				m_mp,
 				m_mdid,
 				m_mdname,
 				m_mdid_type_left,

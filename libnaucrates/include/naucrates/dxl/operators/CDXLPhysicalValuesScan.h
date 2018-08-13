@@ -35,7 +35,7 @@ namespace gpdxl
 			// ctor
 			CDXLPhysicalValuesScan
 				(
-					IMemoryPool *memory_pool
+					IMemoryPool *mp
 				);
 
 			// dtor

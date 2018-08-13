@@ -64,7 +64,7 @@ namespace gpopt
 			// ctor
 			CIndexDescriptor
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *pmdidIndex,
 				const CName &name,
 <<<<<<< HEAD
@@ -127,7 +127,7 @@ namespace gpopt
 			// create an index descriptor
 			static CIndexDescriptor *Pindexdesc
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				const CTableDescriptor *ptabdesc,
 				const IMDIndex *pmdindex
 				);

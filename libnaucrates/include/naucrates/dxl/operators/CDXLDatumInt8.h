@@ -49,7 +49,7 @@ namespace gpdxl
 			// ctor
 			CDXLDatumInt8
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *mdid_type,
 				BOOL is_null,
 				LINT val

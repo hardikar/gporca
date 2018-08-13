@@ -53,9 +53,9 @@ CMessageTest::EresUnittest_BasicWrapper()
 {
 	// create memory pool of 128KB
 	CAutoMemoryPool amp;
-	IMemoryPool *memory_pool = amp.Pmp();
+	IMemoryPool *mp = amp.Pmp();
 
-	return EresUnittest_Basic(memory_pool,
+	return EresUnittest_Basic(mp,
 				// parameters to Assert message
 				__FILE__, __LINE__, GPOS_WSZ_LIT("!true"));
 }
@@ -77,7 +77,7 @@ CMessageTest::EresUnittest_Basic
 {	
 	const ULONG size = 2048;
 	
-	IMemoryPool *memory_pool = (IMemoryPool*)pv;
+	IMemoryPool *mp = (IMemoryPool*)pv;
 
 	// take pre-defined assertion exc message
 	CMessage *pmsg = CMessage::GetMessage(CException::ExmiAssert);
@@ -87,7 +87,7 @@ CMessageTest::EresUnittest_Basic
 							  CException::ExmiAssert));
 		
 	// target buffer for format test
-	WCHAR *wsz = GPOS_NEW_ARRAY(memory_pool, WCHAR, size);
+	WCHAR *wsz = GPOS_NEW_ARRAY(mp, WCHAR, size);
 	CWStringStatic wss(wsz, size);
 
 	VA_LIST vl;

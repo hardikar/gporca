@@ -35,12 +35,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerHint::CParseHandlerHint
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_hint(NULL)
 {
 }
@@ -89,7 +89,7 @@ CParseHandlerHint::StartElement
 	ULONG broadcast_threshold = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenBroadcastThreshold, EdxltokenHint, true, BROADCAST_THRESHOLD);
 	ULONG enforce_constraint_on_dml = CDXLOperatorFactory::ExtractConvertAttrValueToBool(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenEnforceConstraintsOnDML, EdxltokenHint, true, true);
 
-	m_hint = GPOS_NEW(m_memory_pool) CHint
+	m_hint = GPOS_NEW(m_mp) CHint
 								(
 								min_num_of_parts_to_require_sort_on_insert,
 								join_arity_for_associativity_commutativity,

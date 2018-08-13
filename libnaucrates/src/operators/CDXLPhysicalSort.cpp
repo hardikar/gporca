@@ -28,11 +28,11 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalSort::CDXLPhysicalSort
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	BOOL discard_duplicates
 	)
 	:
-	CDXLPhysical(memory_pool),
+	CDXLPhysical(mp),
 	m_discard_duplicates(discard_duplicates)
 {
 }

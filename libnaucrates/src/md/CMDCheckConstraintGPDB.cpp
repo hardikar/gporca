@@ -31,14 +31,14 @@ using namespace gpopt;
 //---------------------------------------------------------------------------
 CMDCheckConstraintGPDB::CMDCheckConstraintGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	IMDId *rel_mdid,
 	CDXLNode *dxlnode
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_rel_mdid(rel_mdid),
@@ -49,7 +49,7 @@ CMDCheckConstraintGPDB::CMDCheckConstraintGPDB
 	GPOS_ASSERT(NULL != mdname);
 	GPOS_ASSERT(NULL != dxlnode);
 
-	m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 }
 
 //---------------------------------------------------------------------------
@@ -80,7 +80,7 @@ CMDCheckConstraintGPDB::~CMDCheckConstraintGPDB()
 CExpression *
 CMDCheckConstraintGPDB::GetCheckConstraintExpr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CMDAccessor *md_accessor,
 	ColRefArray *colref_array
 	)
@@ -98,7 +98,7 @@ CMDCheckConstraintGPDB::GetCheckConstraintExpr
 #endif // GPOS_DEBUG
 
 	// translate the DXL representation of the check constraint expression
-	CTranslatorDXLToExpr dxltr(memory_pool, md_accessor);
+	CTranslatorDXLToExpr dxltr(mp, md_accessor);
 	return dxltr.PexprTranslateScalar(m_dxl_node, colref_array, mdrel->NonDroppedColsArray());
 }
 

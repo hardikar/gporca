@@ -50,7 +50,7 @@ namespace gpdxl
 			
 		public:
 			// ctor
-			CDXLPhysicalRoutedDistributeMotion(IMemoryPool *memory_pool, ULONG segment_id_col);
+			CDXLPhysicalRoutedDistributeMotion(IMemoryPool *mp, ULONG segment_id_col);
 			
 			// operator type
 			Edxlopid GetDXLOperator() const;

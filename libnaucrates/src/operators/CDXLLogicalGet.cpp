@@ -30,10 +30,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLLogicalGet::CDXLLogicalGet
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CDXLTableDescr *table_descr
 	)
-	:CDXLLogical(memory_pool),
+	:CDXLLogical(mp),
 	 m_table_descr_dxl(table_descr)
 {
 }

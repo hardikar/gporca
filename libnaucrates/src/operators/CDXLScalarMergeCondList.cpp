@@ -27,10 +27,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarMergeCondList::CDXLScalarMergeCondList
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CDXLScalar(memory_pool)
+	CDXLScalar(mp)
 {
 }
 

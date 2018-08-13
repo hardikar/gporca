@@ -186,11 +186,11 @@ CDatumInt2GPDB::HashValue() const
 const CWStringConst *
 CDatumInt2GPDB::GetStrRepr
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	const
 {
-	CWStringDynamic str(memory_pool);
+	CWStringDynamic str(mp);
 	if (!IsNull())
 	{
 		str.AppendFormat(GPOS_WSZ_LIT("%d"), m_val);
@@ -200,7 +200,7 @@ CDatumInt2GPDB::GetStrRepr
 		str.AppendFormat(GPOS_WSZ_LIT("null"));
 	}
 
-	return GPOS_NEW(memory_pool) CWStringConst(memory_pool, str.GetBuffer());
+	return GPOS_NEW(mp) CWStringConst(mp, str.GetBuffer());
 }
 
 
@@ -246,12 +246,12 @@ CDatumInt2GPDB::Matches
 IDatum *
 CDatumInt2GPDB::MakeCopy
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	const
 {
 	m_mdid->AddRef();
-	return GPOS_NEW(memory_pool) CDatumInt2GPDB(m_mdid, m_val, m_is_null);
+	return GPOS_NEW(mp) CDatumInt2GPDB(m_mdid, m_val, m_is_null);
 }
 
 

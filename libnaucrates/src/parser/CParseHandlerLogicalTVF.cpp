@@ -33,12 +33,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerLogicalTVF::CParseHandlerLogicalTVF
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerLogicalOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerLogicalOp(mp, parse_handler_mgr, parse_handler_root),
 	m_func_mdid(NULL),
 	m_return_type_mdid(NULL),
 	m_mdname(NULL)
@@ -76,7 +76,7 @@ CParseHandlerLogicalTVF::StartElement
 																);
 
 		CWStringDynamic *func_name_str = CDXLUtils::CreateDynamicStringFromXMLChArray(m_parse_handler_mgr->GetDXLMemoryManager(), func_name);
-		m_mdname = GPOS_NEW(m_memory_pool) CMDName(m_memory_pool, func_name_str);
+		m_mdname = GPOS_NEW(m_mp) CMDName(m_mp, func_name_str);
 		GPOS_DELETE(func_name_str);
 
 		// parse function return type
@@ -86,7 +86,7 @@ CParseHandlerLogicalTVF::StartElement
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenColumns), element_local_name))
 	{
 		// parse handler for columns
-		CParseHandlerBase *cold_descr_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenColumns), m_parse_handler_mgr, this);
+		CParseHandlerBase *cold_descr_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenColumns), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(cold_descr_parse_handler);
 
 		// store parse handlers
@@ -97,7 +97,7 @@ CParseHandlerLogicalTVF::StartElement
 	else
 	{
 		// parse scalar child
-		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 
 		// store parse handlers
@@ -138,9 +138,9 @@ CParseHandlerLogicalTVF::EndElement
 	GPOS_ASSERT(NULL != cold_descr_dxl_array);
 
 	cold_descr_dxl_array->AddRef();
-	CDXLLogicalTVF *lg_tvf_op = GPOS_NEW(m_memory_pool) CDXLLogicalTVF(m_memory_pool, m_func_mdid, m_return_type_mdid, m_mdname, cold_descr_dxl_array);
+	CDXLLogicalTVF *lg_tvf_op = GPOS_NEW(m_mp) CDXLLogicalTVF(m_mp, m_func_mdid, m_return_type_mdid, m_mdname, cold_descr_dxl_array);
 
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, lg_tvf_op);
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, lg_tvf_op);
 
 	const ULONG length = this->Length();
 	// loop over arglist children and add them to this parsehandler

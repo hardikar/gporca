@@ -30,12 +30,12 @@ XERCES_CPP_NAMESPACE_USE
 //	ctor
 CParseHandlerValuesScan::CParseHandlerValuesScan
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerPhysicalOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerPhysicalOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -52,14 +52,14 @@ CParseHandlerValuesScan::StartElement
 {
 	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenPhysicalValuesScan), element_local_name))
 	{
-		m_dxl_op = GPOS_NEW(m_memory_pool) CDXLPhysicalValuesScan(m_memory_pool);
+		m_dxl_op = GPOS_NEW(m_mp) CDXLPhysicalValuesScan(m_mp);
 
 		// parse handler for the proj list
-		CParseHandlerBase *proj_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
+		CParseHandlerBase *proj_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(proj_list_parse_handler);
 
 		//parse handler for the properties of the operator
-		CParseHandlerBase *prop_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
+		CParseHandlerBase *prop_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(prop_parse_handler);
 
 		// store parse handlers
@@ -69,7 +69,7 @@ CParseHandlerValuesScan::StartElement
 	else
 	{
 		// parse scalar child
-		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarValuesList), m_parse_handler_mgr, this);
+		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarValuesList), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 
 		// store parse handler
@@ -97,7 +97,7 @@ CParseHandlerValuesScan::EndElement
 	const ULONG arity = this->Length();
 	GPOS_ASSERT(3 <= arity);
 
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, m_dxl_op);
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, m_dxl_op);
 
 	// valuesscan has properties element as its first child
 	CParseHandlerProperties *prop_parse_handler = dynamic_cast<CParseHandlerProperties *>((*this)[0]);

@@ -30,12 +30,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerScalarAggref::CParseHandlerScalarAggref
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -62,7 +62,7 @@ CParseHandlerScalarAggref::StartElement
 		CDXLScalarAggref *dxl_op = (CDXLScalarAggref*) CDXLOperatorFactory::MakeDXLAggFunc(m_parse_handler_mgr->GetDXLMemoryManager(), attrs);
 
 		// construct node from the created scalar AggRef
-		m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+		m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 
 	}
 	else
@@ -70,7 +70,7 @@ CParseHandlerScalarAggref::StartElement
 		// we must have seen an aggref already and initialized the aggref node
 		GPOS_ASSERT(NULL != m_dxl_node);
 
-		CParseHandlerBase *parse_handler_base = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
+		CParseHandlerBase *parse_handler_base = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalar), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(parse_handler_base);
 
 		// store parse handlers

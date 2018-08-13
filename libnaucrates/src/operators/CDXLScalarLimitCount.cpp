@@ -29,10 +29,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarLimitCount::CDXLScalarLimitCount
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CDXLScalar(memory_pool)
+	CDXLScalar(mp)
 {
 }
 

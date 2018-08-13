@@ -21,12 +21,12 @@ XERCES_CPP_NAMESPACE_USE
 // Ctor
 CParseHandlerScalarPartListNullTest::CParseHandlerScalarPartListNullTest
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerScalarOp(memory_pool, parse_handler_mgr, parse_handler_root)
+	CParseHandlerScalarOp(mp, parse_handler_mgr, parse_handler_root)
 {
 }
 
@@ -49,7 +49,7 @@ CParseHandlerScalarPartListNullTest::StartElement
 	ULONG partition_level = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenPartLevel, EdxltokenScalarPartListNullTest);
 	BOOL is_null = CDXLOperatorFactory::ExtractConvertAttrValueToBool(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenScalarIsNull, EdxltokenScalarPartListNullTest);
 
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode (m_memory_pool, GPOS_NEW(m_memory_pool) CDXLScalarPartListNullTest(m_memory_pool, partition_level, is_null));
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode (m_mp, GPOS_NEW(m_mp) CDXLScalarPartListNullTest(m_mp, partition_level, is_null));
 }
 
 // Invoked by Xerces to process a closing tag

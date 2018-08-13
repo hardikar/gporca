@@ -32,12 +32,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerPlan::CParseHandlerPlan
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_plan_id(0),
 	m_plan_space_size(0),
 	m_dxl_node(NULL),
@@ -105,7 +105,7 @@ CParseHandlerPlan::StartElement
 	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenDirectDispatchInfo), element_local_name))
 	{
 		GPOS_ASSERT(0 < this->Length());
-		CParseHandlerBase *direct_dispatch_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenDirectDispatchInfo), m_parse_handler_mgr, this);
+		CParseHandlerBase *direct_dispatch_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenDirectDispatchInfo), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(direct_dispatch_parse_handler);
 		
 		// store parse handler
@@ -129,8 +129,8 @@ CParseHandlerPlan::StartElement
 	m_plan_space_size = CDXLOperatorFactory::ConvertAttrValueToUllong(m_parse_handler_mgr->GetDXLMemoryManager(), xmlszPlanSpaceSize, EdxltokenPlanSpaceSize, EdxltokenPlan);
 
 	// create a parse handler for physical nodes and activate it
-	GPOS_ASSERT(NULL != m_memory_pool);
-	CParseHandlerBase *base_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenPhysical), m_parse_handler_mgr, this);
+	GPOS_ASSERT(NULL != m_mp);
+	CParseHandlerBase *base_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenPhysical), m_parse_handler_mgr, this);
 	m_parse_handler_mgr->ActivateParseHandler(base_parse_handler);
 	
 	// store parse handler

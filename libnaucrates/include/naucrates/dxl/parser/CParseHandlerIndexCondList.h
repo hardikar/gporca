@@ -59,7 +59,7 @@ namespace gpdxl
 			// ctor
 			CParseHandlerIndexCondList
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CParseHandlerManager *parse_handler_mgr,
 				CParseHandlerBase *parse_handler_root
 				);

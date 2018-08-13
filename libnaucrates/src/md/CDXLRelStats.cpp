@@ -31,21 +31,21 @@ using namespace gpmd;
 //---------------------------------------------------------------------------
 CDXLRelStats::CDXLRelStats
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CMDIdRelStats *rel_stats_mdid,
 	CMDName *mdname,
 	CDouble rows,
 	BOOL is_empty
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_rel_stats_mdid(rel_stats_mdid),
 	m_mdname(mdname),
 	m_rows(rows),
 	m_empty(is_empty)
 {
 	GPOS_ASSERT(rel_stats_mdid->IsValid());
-	m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 }
 
 //---------------------------------------------------------------------------
@@ -189,17 +189,17 @@ CDXLRelStats::DebugPrint
 CDXLRelStats *
 CDXLRelStats::CreateDXLDummyRelStats
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid
 	)
 {
 	CMDIdRelStats *rel_stats_mdid = CMDIdRelStats::CastMdid(mdid);
 	CAutoP<CWStringDynamic> str;
-	str = GPOS_NEW(memory_pool) CWStringDynamic(memory_pool, rel_stats_mdid->GetBuffer());
+	str = GPOS_NEW(mp) CWStringDynamic(mp, rel_stats_mdid->GetBuffer());
 	CAutoP<CMDName> mdname;
-	mdname = GPOS_NEW(memory_pool) CMDName(memory_pool, str.Value());
+	mdname = GPOS_NEW(mp) CMDName(mp, str.Value());
 	CAutoRef<CDXLRelStats> rel_stats_dxl;
-	rel_stats_dxl = GPOS_NEW(memory_pool) CDXLRelStats(memory_pool, rel_stats_mdid, mdname.Value(), CStatistics::DefaultColumnWidth, false /* is_empty */);
+	rel_stats_dxl = GPOS_NEW(mp) CDXLRelStats(mp, rel_stats_mdid, mdname.Value(), CStatistics::DefaultColumnWidth, false /* is_empty */);
 	mdname.Reset();
 	return rel_stats_dxl.Reset();
 }

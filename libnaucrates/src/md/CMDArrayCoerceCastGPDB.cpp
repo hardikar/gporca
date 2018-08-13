@@ -23,7 +23,7 @@ using namespace gpdxl;
 // ctor
 CMDArrayCoerceCastGPDB::CMDArrayCoerceCastGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	IMDId *mdid_src,
@@ -37,13 +37,13 @@ CMDArrayCoerceCastGPDB::CMDArrayCoerceCastGPDB
 	INT location
 	)
 	:
-	CMDCastGPDB(memory_pool, mdid, mdname, mdid_src, mdid_dest, is_binary_coercible, mdid_cast_func, path_type),
+	CMDCastGPDB(mp, mdid, mdname, mdid_src, mdid_dest, is_binary_coercible, mdid_cast_func, path_type),
 	m_type_modifier(type_modifier),
 	m_is_explicit(is_explicit),
 	m_dxl_coerce_format(dxl_coerce_format),
 	m_location(location)
 {
-	m_dxl_str = CDXLUtils::SerializeMDObj(memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 }
 
 // dtor

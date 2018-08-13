@@ -128,7 +128,7 @@ namespace gpmd
 
 			// construct a datum from a DXL datum
 			virtual 
-			IDatum* GetDatumForDXLDatum(IMemoryPool *memory_pool, const CDXLDatum *datum_dxl) const = 0;
+			IDatum* GetDatumForDXLDatum(IMemoryPool *mp, const CDXLDatum *datum_dxl) const = 0;
 
 			// is type fixed length
 			virtual
@@ -156,15 +156,15 @@ namespace gpmd
 
 			// generate the DXL scalar constant from IDatum
 			virtual
-			CDXLScalarConstValue* GetDXLOpScConst(IMemoryPool *memory_pool, IDatum *datum) const = 0;
+			CDXLScalarConstValue* GetDXLOpScConst(IMemoryPool *mp, IDatum *datum) const = 0;
 
 			// generate the DXL datum from IDatum
 			virtual
-			CDXLDatum* GetDatumVal(IMemoryPool *memory_pool, IDatum *datum) const = 0;
+			CDXLDatum* GetDatumVal(IMemoryPool *mp, IDatum *datum) const = 0;
 
 			// generate the DXL datum representing null m_bytearray_value
 			virtual
-			CDXLDatum* GetDXLDatumNull(IMemoryPool *memory_pool) const = 0;
+			CDXLDatum* GetDXLDatumNull(IMemoryPool *mp) const = 0;
 			
 			// is type an ambiguous one? e.g., AnyElement in GPDB
 			virtual

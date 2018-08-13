@@ -24,12 +24,12 @@ XERCES_CPP_NAMESPACE_USE
 
 CParseHandlerWindowOids::CParseHandlerWindowOids
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root),
 	m_window_oids(NULL)
 {
 }
@@ -58,7 +58,7 @@ CParseHandlerWindowOids::StartElement
 	OID row_number_oid = CDXLOperatorFactory::ExtractConvertAttrValueToOid(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenOidRowNumber, EdxltokenWindowOids);
 	OID rank_oid = CDXLOperatorFactory::ExtractConvertAttrValueToOid(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenOidRank, EdxltokenWindowOids);
 
-	m_window_oids = GPOS_NEW(m_memory_pool) CWindowOids(row_number_oid, rank_oid);
+	m_window_oids = GPOS_NEW(m_mp) CWindowOids(row_number_oid, rank_oid);
 }
 
 // invoked by Xerces to process a closing tag

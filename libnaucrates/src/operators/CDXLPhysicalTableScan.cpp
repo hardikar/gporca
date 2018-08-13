@@ -28,10 +28,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLPhysicalTableScan::CDXLPhysicalTableScan
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CDXLPhysical(memory_pool),
+	CDXLPhysical(mp),
 	m_table_descr_dxl(NULL)
 {
 }
@@ -47,10 +47,10 @@ CDXLPhysicalTableScan::CDXLPhysicalTableScan
 //---------------------------------------------------------------------------
 CDXLPhysicalTableScan::CDXLPhysicalTableScan
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CDXLTableDescr *table_descr
 	)
-	:CDXLPhysical(memory_pool),
+	:CDXLPhysical(mp),
 	 m_table_descr_dxl(table_descr)
 {
 }

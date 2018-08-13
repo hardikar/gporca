@@ -56,7 +56,7 @@ namespace gpdxl
 			// ctor
 			CDXLDatumGeneric
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *mdid_type,
 				INT type_modifier,
 				BOOL is_passed_by_value,

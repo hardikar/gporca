@@ -36,14 +36,14 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarCoerceBase::CDXLScalarCoerceBase
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_type,
 	INT type_modifier,
 	EdxlCoercionForm dxl_coerce_format,
 	INT location
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_result_type_mdid(mdid_type),
 	m_type_modifier(type_modifier),
 	m_dxl_coerce_format(dxl_coerce_format),

@@ -28,11 +28,11 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarAssertConstraint::CDXLScalarAssertConstraint
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CWStringBase *error_msg
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_error_msg(error_msg)
 {
 	GPOS_ASSERT(NULL != error_msg);

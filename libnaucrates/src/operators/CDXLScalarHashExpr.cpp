@@ -26,11 +26,11 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarHashExpr::CDXLScalarHashExpr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_type
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_mdid_type(mdid_type)
 {
 	GPOS_ASSERT(m_mdid_type->IsValid());

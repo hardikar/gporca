@@ -45,7 +45,7 @@ namespace gpmd
 		private:
 		
 			// memory pool
-			IMemoryPool *m_memory_pool;
+			IMemoryPool *m_mp;
 
 			// metadata id of the object
 			CMDIdRelStats *m_rel_stats_mdid;
@@ -69,7 +69,7 @@ namespace gpmd
 			
 			CDXLRelStats
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				CMDIdRelStats *rel_stats_mdid,
 				CMDName *mdname,
 				CDouble rows,
@@ -116,7 +116,7 @@ namespace gpmd
 			static
 			CDXLRelStats *CreateDXLDummyRelStats
 								(
-								IMemoryPool *memory_pool,
+								IMemoryPool *mp,
 								IMDId *mdid
 								);
 	};

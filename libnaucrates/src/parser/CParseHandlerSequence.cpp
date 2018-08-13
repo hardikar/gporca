@@ -36,12 +36,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerSequence::CParseHandlerSequence
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerPhysicalOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerPhysicalOp(mp, parse_handler_mgr, parse_handler_root),
 	m_is_inside_sequence(false)
 {
 }
@@ -69,12 +69,12 @@ CParseHandlerSequence::StartElement
 		// new sequence operator
 		// parse handler for the proj list
 		CParseHandlerBase *proj_list_parse_handler =
-				CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
+				CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenScalarProjList), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(proj_list_parse_handler);
 
 		//parse handler for the properties of the operator
 		CParseHandlerBase *prop_parse_handler =
-				CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
+				CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenProperties), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(prop_parse_handler);
 
 		// store child parse handlers in array
@@ -85,7 +85,7 @@ CParseHandlerSequence::StartElement
 	else
 	{
 		// child of the sequence operator
-		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, element_local_name, m_parse_handler_mgr, this);
+		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, element_local_name, m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 		this->Append(child_parse_handler);
 		child_parse_handler->startElement(element_uri, element_local_name, element_qname, attrs);
@@ -118,8 +118,8 @@ CParseHandlerSequence::EndElement
 	// construct node from the created child nodes
 	CParseHandlerProperties *prop_parse_handler = dynamic_cast<CParseHandlerProperties *>((*this)[0]);
 		
-	CDXLPhysicalSequence *dxl_op = GPOS_NEW(m_memory_pool) CDXLPhysicalSequence(m_memory_pool);
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);	
+	CDXLPhysicalSequence *dxl_op = GPOS_NEW(m_mp) CDXLPhysicalSequence(m_mp);
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);	
 
 	// set statistics and physical properties
 	CParseHandlerUtils::SetProperties(m_dxl_node, prop_parse_handler);

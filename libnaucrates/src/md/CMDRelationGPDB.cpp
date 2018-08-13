@@ -30,7 +30,7 @@ using namespace gpmd;
 //---------------------------------------------------------------------------
 CMDRelationGPDB::CMDRelationGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	BOOL fTemporary,
@@ -50,7 +50,7 @@ CMDRelationGPDB::CMDRelationGPDB
  	BOOL has_oids
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_is_temp_table(fTemporary),
@@ -83,10 +83,10 @@ CMDRelationGPDB::CMDRelationGPDB
 			IMDRelation::EreldistrHash == rel_distr_policy &&
 			"Converting hash distributed table to random only possible for hash distributed tables");
 	
-	m_colpos_nondrop_colpos_map = GPOS_NEW(m_memory_pool) UlongUlongHashMap(m_memory_pool);
-	m_attrno_nondrop_col_pos_map = GPOS_NEW(m_memory_pool) IntUlongHashMap(m_memory_pool);
-	m_nondrop_col_pos_array = GPOS_NEW(m_memory_pool) ULongPtrArray(m_memory_pool);
-	m_col_width_array = GPOS_NEW(memory_pool) CDoubleArray(memory_pool);
+	m_colpos_nondrop_colpos_map = GPOS_NEW(m_mp) UlongUlongHashMap(m_mp);
+	m_attrno_nondrop_col_pos_map = GPOS_NEW(m_mp) IntUlongHashMap(m_mp);
+	m_nondrop_col_pos_array = GPOS_NEW(m_mp) ULongPtrArray(m_mp);
+	m_col_width_array = GPOS_NEW(mp) CDoubleArray(mp);
 
 	const ULONG arity = mdcol_array->Size();
 	ULONG non_dropped_col_pos = 0;
@@ -101,8 +101,8 @@ CMDRelationGPDB::CMDRelationGPDB
 
 		(void) m_attrno_nondrop_col_pos_map->Insert
 									(
-									GPOS_NEW(m_memory_pool) INT(mdcol->AttrNum()),
-									GPOS_NEW(m_memory_pool) ULONG(ul)
+									GPOS_NEW(m_mp) INT(mdcol->AttrNum()),
+									GPOS_NEW(m_mp) ULONG(ul)
 									);
 
 		if (mdcol->IsDropped())
@@ -113,15 +113,15 @@ CMDRelationGPDB::CMDRelationGPDB
 		{
 			if (!is_system_col)
 			{
-				m_nondrop_col_pos_array->Append(GPOS_NEW(m_memory_pool) ULONG(ul));
+				m_nondrop_col_pos_array->Append(GPOS_NEW(m_mp) ULONG(ul));
 			}
-			(void) m_colpos_nondrop_colpos_map->Insert(GPOS_NEW(m_memory_pool) ULONG(ul), GPOS_NEW(m_memory_pool) ULONG(non_dropped_col_pos));
+			(void) m_colpos_nondrop_colpos_map->Insert(GPOS_NEW(m_mp) ULONG(ul), GPOS_NEW(m_mp) ULONG(non_dropped_col_pos));
 			non_dropped_col_pos++;
 		}
 
-		m_col_width_array->Append(GPOS_NEW(memory_pool) CDouble(mdcol->Length()));
+		m_col_width_array->Append(GPOS_NEW(mp) CDouble(mdcol->Length()));
 	}
-	m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+	m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 }
 
 //---------------------------------------------------------------------------
@@ -717,7 +717,7 @@ CMDRelationGPDB::Serialize
 		GPOS_ASSERT(NULL != m_distr_col_array);
 		
 		// serialize distribution columns
-		CWStringDynamic *distr_col_str_array = ColumnsToStr(m_memory_pool, m_distr_col_array);
+		CWStringDynamic *distr_col_str_array = ColumnsToStr(m_mp, m_distr_col_array);
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenDistrColumns), distr_col_str_array);
 		GPOS_DELETE(distr_col_str_array);
 	}
@@ -725,7 +725,7 @@ CMDRelationGPDB::Serialize
 	// serialize key sets
 	if (m_keyset_array != NULL && m_keyset_array->Size() > 0)
 	{
-		CWStringDynamic *keyset_str_array = CDXLUtils::Serialize(m_memory_pool, m_keyset_array);
+		CWStringDynamic *keyset_str_array = CDXLUtils::Serialize(m_mp, m_keyset_array);
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenKeys), keyset_str_array);
 		GPOS_DELETE(keyset_str_array);
 	}
@@ -733,7 +733,7 @@ CMDRelationGPDB::Serialize
 	if (IsPartitioned())
 	{
 		// serialize partition keys
-		CWStringDynamic *part_keys_str_array = CDXLUtils::Serialize(m_memory_pool, m_partition_cols_array);
+		CWStringDynamic *part_keys_str_array = CDXLUtils::Serialize(m_mp, m_partition_cols_array);
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenPartKeys), part_keys_str_array);
 		GPOS_DELETE(part_keys_str_array);
 	}
@@ -741,7 +741,7 @@ CMDRelationGPDB::Serialize
 	if (m_str_part_types_array)
 	{
 		// serialize partition types
-		CWStringDynamic *part_types_str_array = CDXLUtils::SerializeToCommaSeparatedString(m_memory_pool, m_str_part_types_array);
+		CWStringDynamic *part_types_str_array = CDXLUtils::SerializeToCommaSeparatedString(m_mp, m_str_part_types_array);
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenPartTypes), part_types_str_array);
 		GPOS_DELETE(part_types_str_array);
 	}

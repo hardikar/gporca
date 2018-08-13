@@ -49,7 +49,7 @@ namespace gpdxl
 		public:
 			CDXLScalarArrayCoerceExpr
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *coerce_func_mdid,
 				IMDId *result_type_mdid,
 				INT type_modifier,

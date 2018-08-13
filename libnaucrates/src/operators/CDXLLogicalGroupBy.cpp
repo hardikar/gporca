@@ -26,10 +26,10 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLLogicalGroupBy::CDXLLogicalGroupBy
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	CDXLLogical(memory_pool),
+	CDXLLogical(mp),
 	m_grouping_colid_array(NULL)
 {
 }
@@ -44,11 +44,11 @@ CDXLLogicalGroupBy::CDXLLogicalGroupBy
 //---------------------------------------------------------------------------
 CDXLLogicalGroupBy::CDXLLogicalGroupBy
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	ULongPtrArray *pdrgpulGrpColIds
 	)
 	:
-	CDXLLogical(memory_pool),
+	CDXLLogical(mp),
 	m_grouping_colid_array(pdrgpulGrpColIds)
 {
 	GPOS_ASSERT(NULL != pdrgpulGrpColIds);

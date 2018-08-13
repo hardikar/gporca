@@ -24,7 +24,7 @@ using namespace gpopt;
 IStatistics *
 CFilterStatsProcessor::MakeStatsFilterForScalarExpr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CExpressionHandle &exprhdl,
 	IStatistics *child_stats,
 	CExpression *local_scalar_expr, // filter expression on local columns only
@@ -44,10 +44,10 @@ CFilterStatsProcessor::MakeStatsFilterForScalarExpr
 	BOOL do_cap_NDVs = (1 == exprhdl.GetRelationalProperties()->JoinDepth());
 
 	// extract local filter
-	CStatsPred *pred_stats = CStatsPredUtils::ExtractPredStats(memory_pool, local_scalar_expr, outer_refs);
+	CStatsPred *pred_stats = CStatsPredUtils::ExtractPredStats(mp, local_scalar_expr, outer_refs);
 
 	// derive stats based on local filter
-	IStatistics *result_stats = CFilterStatsProcessor::MakeStatsFilter(memory_pool, dynamic_cast<CStatistics *>(child_stats), pred_stats, do_cap_NDVs);
+	IStatistics *result_stats = CFilterStatsProcessor::MakeStatsFilter(mp, dynamic_cast<CStatistics *>(child_stats), pred_stats, do_cap_NDVs);
 	pred_stats->Release();
 
 	if (exprhdl.HasOuterRefs() && 0 < all_outer_stats->Size())
@@ -55,7 +55,7 @@ CFilterStatsProcessor::MakeStatsFilterForScalarExpr
 		// derive stats based on outer references
 		IStatistics *stats = CJoinStatsProcessor::DeriveStatsWithOuterRefs
 													(
-													memory_pool,
+													mp,
 													exprhdl,
 													outer_refs_scalar_expr,
 													result_stats,
@@ -73,7 +73,7 @@ CFilterStatsProcessor::MakeStatsFilterForScalarExpr
 CStatistics *
 CFilterStatsProcessor::MakeStatsFilter
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CStatistics *input_stats,
 	CStatsPred *base_pred_stats,
 	BOOL do_cap_NDVs
@@ -87,13 +87,13 @@ CFilterStatsProcessor::MakeStatsFilter
 	CDouble rows_filter = CStatistics::MinRows;
 	UlongHistogramHashMap *histograms_new = NULL;
 
-	UlongHistogramHashMap *histograms_copy = input_stats->CopyHistograms(memory_pool);
+	UlongHistogramHashMap *histograms_copy = input_stats->CopyHistograms(mp);
 
 	CStatisticsConfig *stats_config = input_stats->GetStatsConfig();
 	if (input_stats->IsEmpty())
 	{
-		histograms_new = GPOS_NEW(memory_pool) UlongHistogramHashMap(memory_pool);
-		CHistogram::AddEmptyHistogram(memory_pool, histograms_new, histograms_copy);
+		histograms_new = GPOS_NEW(mp) UlongHistogramHashMap(mp);
+		CHistogram::AddEmptyHistogram(mp, histograms_new, histograms_copy);
 	}
 	else
 	{
@@ -103,7 +103,7 @@ CFilterStatsProcessor::MakeStatsFilter
 
 			histograms_new  = MakeHistHashMapDisjFilter
 								(
-								memory_pool,
+								mp,
 								stats_config,
 								histograms_copy,
 								input_rows,
@@ -118,7 +118,7 @@ CFilterStatsProcessor::MakeStatsFilter
 			num_predicates = pred_stats->GetNumPreds();
 			histograms_new = MakeHistHashMapConjFilter
 							(
-							memory_pool,
+							mp,
 							stats_config,
 							histograms_copy,
 							input_rows,
@@ -140,11 +140,11 @@ CFilterStatsProcessor::MakeStatsFilter
 		CStatistics::CapNDVs(rows_filter, histograms_new);
 	}
 
-	CStatistics *filter_stats = GPOS_NEW(memory_pool) CStatistics
+	CStatistics *filter_stats = GPOS_NEW(mp) CStatistics
 												(
-												memory_pool,
+												mp,
 												histograms_new,
-												input_stats->CopyWidths(memory_pool),
+												input_stats->CopyWidths(mp),
 												rows_filter,
 												input_stats->IsEmpty(),
 												input_stats->GetNumberOfPredicates() + num_predicates
@@ -153,7 +153,7 @@ CFilterStatsProcessor::MakeStatsFilter
 	// since the filter operation is reductive, we choose the bounding method that takes
 	// the minimum of the cardinality upper bound of the source column (in the input hash map)
 	// and estimated output cardinality
-	CStatisticsUtils::ComputeCardUpperBounds(memory_pool, input_stats, filter_stats, rows_filter, CStatistics::EcbmMin /* card_bounding_method */);
+	CStatisticsUtils::ComputeCardUpperBounds(mp, input_stats, filter_stats, rows_filter, CStatistics::EcbmMin /* card_bounding_method */);
 
 	return filter_stats;
 }
@@ -163,7 +163,7 @@ CFilterStatsProcessor::MakeStatsFilter
 UlongHistogramHashMap *
 CFilterStatsProcessor::MakeHistHashMapConjOrDisjFilter
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CStatisticsConfig *stats_config,
 	UlongHistogramHashMap *input_histograms,
 	CDouble input_rows,
@@ -182,7 +182,7 @@ CFilterStatsProcessor::MakeHistHashMapConjOrDisjFilter
 		CStatsPredConj *conjunctive_pred_stats = CStatsPredConj::ConvertPredStats(pred_stats);
 		return MakeHistHashMapConjFilter
 				(
-				memory_pool,
+				mp,
 				stats_config,
 				input_histograms,
 				input_rows,
@@ -194,7 +194,7 @@ CFilterStatsProcessor::MakeHistHashMapConjOrDisjFilter
 	CStatsPredDisj *disjunctive_pred_stats = CStatsPredDisj::ConvertPredStats(pred_stats);
 	result_histograms  = MakeHistHashMapDisjFilter
 						(
-						memory_pool,
+						mp,
 						stats_config,
 						input_histograms,
 						input_rows,
@@ -211,7 +211,7 @@ CFilterStatsProcessor::MakeHistHashMapConjOrDisjFilter
 UlongHistogramHashMap *
 CFilterStatsProcessor::MakeHistHashMapConjFilter
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CStatisticsConfig *stats_config,
 	UlongHistogramHashMap *input_histograms,
 	CDouble input_rows,
@@ -225,11 +225,11 @@ CFilterStatsProcessor::MakeHistHashMapConjFilter
 
 	conjunctive_pred_stats->Sort();
 
-	CBitSet *filter_col_ids = GPOS_NEW(memory_pool) CBitSet(memory_pool);
-	CDoubleArray *scale_factors = GPOS_NEW(memory_pool) CDoubleArray(memory_pool);
+	CBitSet *filter_col_ids = GPOS_NEW(mp) CBitSet(mp);
+	CDoubleArray *scale_factors = GPOS_NEW(mp) CDoubleArray(mp);
 
 	// create copy of the original hash map of colid -> histogram
-	UlongHistogramHashMap *result_histograms = CStatisticsUtils::CopyHistHashMap(memory_pool, input_histograms);
+	UlongHistogramHashMap *result_histograms = CStatisticsUtils::CopyHistHashMap(mp, input_histograms);
 
 	// properties of last seen column
 	CDouble last_scale_factor(1.0);
@@ -250,7 +250,7 @@ CFilterStatsProcessor::MakeHistHashMapConjFilter
 		{
 			// for example, (expression OP const) where expression is a defined column like (a+b)
 			CStatsPredUnsupported *unsupported_pred_stats = CStatsPredUnsupported::ConvertPredStats(child_pred_stats);
-			scale_factors->Append(GPOS_NEW(memory_pool) CDouble(unsupported_pred_stats->ScaleFactor()));
+			scale_factors->Append(GPOS_NEW(mp) CDouble(unsupported_pred_stats->ScaleFactor()));
 
 			continue;
 		}
@@ -259,18 +259,18 @@ CFilterStatsProcessor::MakeHistHashMapConjFilter
 		CHistogram *hist_before = NULL;
 		if (IsNewStatsColumn(col_id, last_col_id))
 		{
-			scale_factors->Append( GPOS_NEW(memory_pool) CDouble(last_scale_factor));
+			scale_factors->Append( GPOS_NEW(mp) CDouble(last_scale_factor));
 			last_scale_factor = CDouble(1.0);
 		}
 
 		if (CStatsPred::EsptDisj != child_pred_stats->GetPredStatsType())
 		{
 			GPOS_ASSERT(gpos::ulong_max != col_id);
-			hist_before = result_histograms->Find(&col_id)->CopyHistogram(memory_pool);
+			hist_before = result_histograms->Find(&col_id)->CopyHistogram(mp);
 			GPOS_ASSERT(NULL != hist_before);
 
 			CHistogram *result_histogram = NULL;
-			result_histogram = MakeHistSimpleFilter(memory_pool, child_pred_stats, filter_col_ids, hist_before, &last_scale_factor, &last_col_id);
+			result_histogram = MakeHistSimpleFilter(mp, child_pred_stats, filter_col_ids, hist_before, &last_scale_factor, &last_col_id);
 			GPOS_DELETE(hist_before);
 
 			GPOS_ASSERT(NULL != result_histogram);
@@ -284,7 +284,7 @@ CFilterStatsProcessor::MakeHistHashMapConjFilter
 				last_scale_factor = 1 / CHistogram::DefaultSelectivity;
 			}
 
-			CStatisticsUtils::AddHistogram(memory_pool, col_id, result_histogram, result_histograms, true /* fReplaceOld */);
+			CStatisticsUtils::AddHistogram(mp, col_id, result_histogram, result_histograms, true /* fReplaceOld */);
 			GPOS_DELETE(result_histogram);
 		}
 		else
@@ -312,7 +312,7 @@ CFilterStatsProcessor::MakeHistHashMapConjFilter
 
 			UlongHistogramHashMap *disjunctive_histograms_after = MakeHistHashMapDisjFilter
 											(
-											memory_pool,
+											mp,
 											stats_config,
 											result_histograms,
 											num_disj_input_rows,
@@ -324,7 +324,7 @@ CFilterStatsProcessor::MakeHistHashMapConjFilter
 			if (gpos::ulong_max != col_id)
 			{
 				CHistogram *result_histogram = disjunctive_histograms_after->Find(&col_id);
-				CStatisticsUtils::AddHistogram(memory_pool, col_id, result_histogram, result_histograms, true /* fReplaceOld */);
+				CStatisticsUtils::AddHistogram(mp, col_id, result_histogram, result_histograms, true /* fReplaceOld */);
 				disjunctive_histograms_after->Release();
 
 				last_scale_factor = last_scale_factor * disjunctive_scale_factor;
@@ -342,7 +342,7 @@ CFilterStatsProcessor::MakeHistHashMapConjFilter
 	}
 
 	// scaling factor of the last predicate
-	scale_factors->Append(GPOS_NEW(memory_pool) CDouble(last_scale_factor));
+	scale_factors->Append(GPOS_NEW(mp) CDouble(last_scale_factor));
 
 	GPOS_ASSERT(NULL != scale_factors);
 	CScaleFactorUtils::SortScalingFactor(scale_factors, true /* fDescending */);
@@ -360,7 +360,7 @@ CFilterStatsProcessor::MakeHistHashMapConjFilter
 UlongHistogramHashMap *
 CFilterStatsProcessor::MakeHistHashMapDisjFilter
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const CStatisticsConfig *stats_config,
 	UlongHistogramHashMap *input_histograms,
 	CDouble input_rows,
@@ -372,14 +372,14 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 	GPOS_ASSERT(NULL != input_histograms);
 	GPOS_ASSERT(NULL != disjunctive_pred_stats);
 
-	CBitSet *non_updatable_cols = CStatisticsUtils::GetColsNonUpdatableHistForDisj(memory_pool, disjunctive_pred_stats);
+	CBitSet *non_updatable_cols = CStatisticsUtils::GetColsNonUpdatableHistForDisj(mp, disjunctive_pred_stats);
 
 	disjunctive_pred_stats->Sort();
 
-	CBitSet *filter_col_ids = GPOS_NEW(memory_pool) CBitSet(memory_pool);
-	CDoubleArray *scale_factors = GPOS_NEW(memory_pool) CDoubleArray(memory_pool);
+	CBitSet *filter_col_ids = GPOS_NEW(mp) CBitSet(mp);
+	CDoubleArray *scale_factors = GPOS_NEW(mp) CDoubleArray(mp);
 
-	UlongHistogramHashMap *disjunctive_result_histograms = GPOS_NEW(memory_pool) UlongHistogramHashMap(memory_pool);
+	UlongHistogramHashMap *disjunctive_result_histograms = GPOS_NEW(mp) UlongHistogramHashMap(mp);
 
 	CHistogram *previous_histogram = NULL;
 	ULONG previous_col_id = gpos::ulong_max;
@@ -399,17 +399,17 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 		if (CStatsPredUtils::IsUnsupportedPredOnDefinedCol(child_pred_stats))
 		{
 			CStatsPredUnsupported *unsupported_pred_stats = CStatsPredUnsupported::ConvertPredStats(child_pred_stats);
-			scale_factors->Append(GPOS_NEW(memory_pool) CDouble(unsupported_pred_stats->ScaleFactor()));
+			scale_factors->Append(GPOS_NEW(mp) CDouble(unsupported_pred_stats->ScaleFactor()));
 
 			continue;
 		}
 
 		if (IsNewStatsColumn(col_id, previous_col_id))
 		{
-			scale_factors->Append(GPOS_NEW(memory_pool) CDouble(previous_scale_factor.Get()));
+			scale_factors->Append(GPOS_NEW(mp) CDouble(previous_scale_factor.Get()));
 			CStatisticsUtils::UpdateDisjStatistics
 								(
-								memory_pool,
+								mp,
 								non_updatable_cols,
 								input_rows,
 								cumulative_rows,
@@ -431,7 +431,7 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 		if (is_pred_simple)
 		{
 			GPOS_ASSERT(NULL != histogram);
-			disjunctive_child_col_histogram = MakeHistSimpleFilter(memory_pool, child_pred_stats, filter_col_ids, histogram, &child_scale_factor, &previous_col_id);
+			disjunctive_child_col_histogram = MakeHistSimpleFilter(mp, child_pred_stats, filter_col_ids, histogram, &child_scale_factor, &previous_col_id);
 
 			CHistogram *input_histogram = input_histograms->Find(&col_id);
 			GPOS_ASSERT(NULL != input_histogram);
@@ -446,7 +446,7 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 		{
 			child_histograms = MakeHistHashMapConjOrDisjFilter
 								(
-								memory_pool,
+								mp,
 								stats_config,
 								input_histograms,
 								input_rows,
@@ -460,7 +460,7 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 			if (is_col_id_present)
 			{
 				// conjunction or disjunction uses only a single column
-				disjunctive_child_col_histogram = child_histograms->Find(&col_id)->CopyHistogram(memory_pool);
+				disjunctive_child_col_histogram = child_histograms->Find(&col_id)->CopyHistogram(mp);
 			}
 		}
 
@@ -481,7 +481,7 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 			{
 				// statistics operation already conducted on this column
 				CDouble output_rows(0.0);
-				CHistogram *new_histogram = previous_histogram->MakeUnionHistogramNormalize(memory_pool, cumulative_rows, disjunctive_child_col_histogram, num_rows_disj_child, &output_rows);
+				CHistogram *new_histogram = previous_histogram->MakeUnionHistogramNormalize(mp, cumulative_rows, disjunctive_child_col_histogram, num_rows_disj_child, &output_rows);
 				cumulative_rows = output_rows;
 
 				GPOS_DELETE(previous_histogram);
@@ -502,7 +502,7 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 			CDouble current_rows_estimate = input_rows / CScaleFactorUtils::CalcScaleFactorCumulativeDisj(stats_config, scale_factors, input_rows);
 			UlongHistogramHashMap *merged_histograms = CStatisticsUtils::CreateHistHashMapAfterMergingDisjPreds
 													  	  (
-													  	  memory_pool,
+													  	  mp,
 													  	  non_updatable_cols,
 													  	  disjunctive_result_histograms,
 													  	  child_histograms,
@@ -523,7 +523,7 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 	// process the result and scaling factor of the last predicate
 	CStatisticsUtils::UpdateDisjStatistics
 						(
-						memory_pool,
+						mp,
 						non_updatable_cols,
 						input_rows,
 						cumulative_rows,
@@ -532,11 +532,11 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 						previous_col_id
 						);
 	previous_histogram = NULL;
-	scale_factors->Append(GPOS_NEW(memory_pool) CDouble(std::max(CStatistics::MinRows.Get(), previous_scale_factor.Get())));
+	scale_factors->Append(GPOS_NEW(mp) CDouble(std::max(CStatistics::MinRows.Get(), previous_scale_factor.Get())));
 
 	*scale_factor = CScaleFactorUtils::CalcScaleFactorCumulativeDisj(stats_config, scale_factors, input_rows);
 
-	CHistogram::AddHistograms(memory_pool, input_histograms, disjunctive_result_histograms);
+	CHistogram::AddHistograms(mp, input_histograms, disjunctive_result_histograms);
 
 	non_updatable_cols->Release();
 
@@ -552,7 +552,7 @@ CFilterStatsProcessor::MakeHistHashMapDisjFilter
 CHistogram *
 CFilterStatsProcessor::MakeHistSimpleFilter
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CStatsPred *pred_stats,
 	CBitSet *filter_col_ids,
 	CHistogram *hist_before,
@@ -563,26 +563,26 @@ CFilterStatsProcessor::MakeHistSimpleFilter
 	if (CStatsPred::EsptPoint == pred_stats->GetPredStatsType())
 	{
 		CStatsPredPoint *point_pred_stats = CStatsPredPoint::ConvertPredStats(pred_stats);
-		return MakeHistPointFilter(memory_pool, point_pred_stats, filter_col_ids, hist_before, last_scale_factor, target_last_col_id);
+		return MakeHistPointFilter(mp, point_pred_stats, filter_col_ids, hist_before, last_scale_factor, target_last_col_id);
 	}
 
 	if (CStatsPred::EsptLike == pred_stats->GetPredStatsType())
 	{
 		CStatsPredLike *like_pred_stats = CStatsPredLike::ConvertPredStats(pred_stats);
 
-		return MakeHistLikeFilter(memory_pool, like_pred_stats, filter_col_ids, hist_before, last_scale_factor, target_last_col_id);
+		return MakeHistLikeFilter(mp, like_pred_stats, filter_col_ids, hist_before, last_scale_factor, target_last_col_id);
 	}
 
 	CStatsPredUnsupported *unsupported_pred_stats = CStatsPredUnsupported::ConvertPredStats(pred_stats);
 
-	return MakeHistUnsupportedPred(memory_pool, unsupported_pred_stats, filter_col_ids, hist_before, last_scale_factor, target_last_col_id);
+	return MakeHistUnsupportedPred(mp, unsupported_pred_stats, filter_col_ids, hist_before, last_scale_factor, target_last_col_id);
 }
 
 // create a new histograms after applying the point filter
 CHistogram *
 CFilterStatsProcessor::MakeHistPointFilter
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CStatsPredPoint *pred_stats,
 	CBitSet *filter_col_ids,
 	CHistogram *hist_before,
@@ -603,7 +603,7 @@ CFilterStatsProcessor::MakeHistPointFilter
 	(void) filter_col_ids->ExchangeSet(col_id);
 
 	CDouble local_scale_factor(1.0);
-	CHistogram *result_histogram = hist_before->MakeHistogramFilterNormalize(memory_pool, pred_stats->GetCmpType(), point, &local_scale_factor);
+	CHistogram *result_histogram = hist_before->MakeHistogramFilterNormalize(mp, pred_stats->GetCmpType(), point, &local_scale_factor);
 
 	GPOS_ASSERT(DOUBLE(1.0) <= local_scale_factor.Get());
 
@@ -618,7 +618,7 @@ CFilterStatsProcessor::MakeHistPointFilter
 CHistogram *
 CFilterStatsProcessor::MakeHistUnsupportedPred
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CStatsPredUnsupported *pred_stats,
 	CBitSet *filter_col_ids,
 	CHistogram *hist_before,
@@ -636,7 +636,7 @@ CFilterStatsProcessor::MakeHistUnsupportedPred
 	(void) filter_col_ids->ExchangeSet(col_id);
 
 	// generate after histogram
-	CHistogram *result_histogram = hist_before->CopyHistogram(memory_pool);
+	CHistogram *result_histogram = hist_before->CopyHistogram(mp);
 	GPOS_ASSERT(NULL != result_histogram);
 
 	*last_scale_factor = *last_scale_factor * pred_stats->ScaleFactor();
@@ -649,7 +649,7 @@ CFilterStatsProcessor::MakeHistUnsupportedPred
 CHistogram *
 CFilterStatsProcessor::MakeHistLikeFilter
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CStatsPredLike *pred_stats,
 	CBitSet *filter_col_ids,
 	CHistogram *hist_before,
@@ -665,7 +665,7 @@ CFilterStatsProcessor::MakeHistLikeFilter
 
 	// note column id
 	(void) filter_col_ids->ExchangeSet(col_id);
-	CHistogram *result_histogram = hist_before->CopyHistogram(memory_pool);
+	CHistogram *result_histogram = hist_before->CopyHistogram(mp);
 
 	*last_scale_factor = *last_scale_factor * pred_stats->DefaultScaleFactor();
 	*target_last_col_id = col_id;

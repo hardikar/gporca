@@ -31,13 +31,13 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLDatumInt2::CDXLDatumInt2
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid_type,
 	BOOL is_null,
 	SINT val
 	)
 	:
-	CDXLDatum(memory_pool, mdid_type, default_type_modifier, is_null, 2 /*length*/ ),
+	CDXLDatum(mp, mdid_type, default_type_modifier, is_null, 2 /*length*/ ),
 	m_val(val)
 {
 }

@@ -32,15 +32,15 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerColDescr::CParseHandlerColDescr
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_base
 	)
 	:
-	CParseHandlerBase(memory_pool, parse_handler_mgr, parse_handler_base),
+	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_base),
 	m_current_column_descr(NULL)
 {
-	m_column_descr_dxl_array = GPOS_NEW(memory_pool) DXLColumnDescrArray(memory_pool);
+	m_column_descr_dxl_array = GPOS_NEW(mp) DXLColumnDescrArray(mp);
 }
 
 //---------------------------------------------------------------------------

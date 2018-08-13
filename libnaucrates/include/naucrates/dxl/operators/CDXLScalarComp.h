@@ -57,7 +57,7 @@ namespace gpdxl
 			// ctor/dtor		
 			CDXLScalarComp
 				(
-				IMemoryPool *memory_pool,
+				IMemoryPool *mp,
 				IMDId *operator_mdid,
 				const CWStringConst *comparison_operator_name
 				);

@@ -30,7 +30,7 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CMDAggregateGPDB::CMDAggregateGPDB
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	IMDId *mdid,
 	CMDName *mdname,
 	IMDId *result_type_mdid,
@@ -40,7 +40,7 @@ CMDAggregateGPDB::CMDAggregateGPDB
 	BOOL is_hash_agg_capable
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_mdid(mdid),
 	m_mdname(mdname),
 	m_mdid_type_result(result_type_mdid),
@@ -51,7 +51,7 @@ CMDAggregateGPDB::CMDAggregateGPDB
 	{
 		GPOS_ASSERT(mdid->IsValid());
 		
-		m_dxl_str = CDXLUtils::SerializeMDObj(m_memory_pool, this, false /*fSerializeHeader*/, false /*indentation*/);
+		m_dxl_str = CDXLUtils::SerializeMDObj(m_mp, this, false /*fSerializeHeader*/, false /*indentation*/);
 	}
 
 //---------------------------------------------------------------------------

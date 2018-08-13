@@ -28,11 +28,11 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLScalarBooleanTest::CDXLScalarBooleanTest
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	const EdxlBooleanTestType dxl_bool_test_type
 	)
 	:
-	CDXLScalar(memory_pool),
+	CDXLScalar(mp),
 	m_dxl_bool_test_type(dxl_bool_test_type)
 {
 

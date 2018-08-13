@@ -28,14 +28,14 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLWindowKey::CDXLWindowKey
 	(
-	IMemoryPool *memory_pool
+	IMemoryPool *mp
 	)
 	:
-	m_memory_pool(memory_pool),
+	m_mp(mp),
 	m_window_frame_dxl(NULL),
 	m_sort_col_list_dxl(NULL)
 {
-	GPOS_ASSERT(NULL != m_memory_pool);
+	GPOS_ASSERT(NULL != m_mp);
 }
 
 //---------------------------------------------------------------------------

@@ -72,7 +72,7 @@ class CDatumInt2GPDB : public IDatumInt2
 
 		// return string representation
 		virtual
-		const CWStringConst *GetStrRepr(IMemoryPool *memory_pool) const;
+		const CWStringConst *GetStrRepr(IMemoryPool *mp) const;
 
 		// hash function
 		virtual
@@ -84,7 +84,7 @@ class CDatumInt2GPDB : public IDatumInt2
 
 		// copy datum
 		virtual
-		IDatum *MakeCopy(IMemoryPool *memory_pool) const;
+		IDatum *MakeCopy(IMemoryPool *mp) const;
 		
 		// print function
 		virtual

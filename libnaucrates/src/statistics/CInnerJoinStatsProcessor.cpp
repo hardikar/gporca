@@ -18,7 +18,7 @@ using namespace gpmd;
 CStatistics *
 CInnerJoinStatsProcessor::CalcInnerJoinStatsStatic
 			(
-			IMemoryPool *memory_pool,
+			IMemoryPool *mp,
 			const IStatistics *outer_stats_input,
 			const IStatistics *inner_stats_input,
 			StatsPredJoinArray *join_preds_stats
@@ -31,7 +31,7 @@ CInnerJoinStatsProcessor::CalcInnerJoinStatsStatic
 
 	return CJoinStatsProcessor::SetResultingJoinStats
 			(
-			memory_pool,
+			mp,
 			outer_stats->GetStatsConfig(),
 			outer_stats_input,
 			inner_stats_input,

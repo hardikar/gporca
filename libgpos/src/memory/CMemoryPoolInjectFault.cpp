@@ -35,13 +35,13 @@ using namespace gpos;
 //---------------------------------------------------------------------------
 CMemoryPoolInjectFault::CMemoryPoolInjectFault
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	BOOL owns_underlying_memory_pool
 	)
 	:
-	CMemoryPool(memory_pool, owns_underlying_memory_pool, true /*fThreadSafe*/)
+	CMemoryPool(mp, owns_underlying_memory_pool, true /*fThreadSafe*/)
 {
-	GPOS_ASSERT(memory_pool != NULL);
+	GPOS_ASSERT(mp != NULL);
 }
 
 

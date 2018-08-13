@@ -35,12 +35,12 @@ XERCES_CPP_NAMESPACE_USE
 //---------------------------------------------------------------------------
 CParseHandlerLogicalSetOp::CParseHandlerLogicalSetOp
 	(
-	IMemoryPool *memory_pool,
+	IMemoryPool *mp,
 	CParseHandlerManager *parse_handler_mgr,
 	CParseHandlerBase *parse_handler_root
 	)
 	:
-	CParseHandlerLogicalOp(memory_pool, parse_handler_mgr, parse_handler_root),
+	CParseHandlerLogicalOp(mp, parse_handler_mgr, parse_handler_root),
 	m_setop_type(EdxlsetopSentinel),
 	m_input_colids_arrays(NULL),
 	m_cast_across_input_req(false)
@@ -96,7 +96,7 @@ CParseHandlerLogicalSetOp::StartElement
 		m_input_colids_arrays = CDXLOperatorFactory::ExtractConvertUlongTo2DArray(m_parse_handler_mgr->GetDXLMemoryManager(), input_colids_array_str, EdxltokenInputCols, EdxltokenLogicalSetOperation);
 
 		// install column descriptor parsers
-		CParseHandlerBase *col_descr_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenColumns), m_parse_handler_mgr, this);
+		CParseHandlerBase *col_descr_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenColumns), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(col_descr_parse_handler);
 
 		m_cast_across_input_req = CDXLOperatorFactory::ExtractConvertAttrValueToBool(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenCastAcrossInputs, EdxltokenLogicalSetOperation);
@@ -110,7 +110,7 @@ CParseHandlerLogicalSetOp::StartElement
 		GPOS_ASSERT(EdxlsetopSentinel != m_setop_type);
 
 		// create child node parsers
-		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenLogical), m_parse_handler_mgr, this);
+		CParseHandlerBase *child_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenLogical), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(child_parse_handler);
 
 		this->Append(child_parse_handler);
@@ -199,8 +199,8 @@ CParseHandlerLogicalSetOp::EndElement
 	DXLColumnDescrArray *cold_descr_dxl_array = col_descr_parse_handler->GetDXLColumnDescrArray();
 
 	cold_descr_dxl_array->AddRef();
-	CDXLLogicalSetOp *dxl_op = GPOS_NEW(m_memory_pool) CDXLLogicalSetOp(m_memory_pool, setop_type, cold_descr_dxl_array, m_input_colids_arrays, m_cast_across_input_req);
-	m_dxl_node = GPOS_NEW(m_memory_pool) CDXLNode(m_memory_pool, dxl_op);
+	CDXLLogicalSetOp *dxl_op = GPOS_NEW(m_mp) CDXLLogicalSetOp(m_mp, setop_type, cold_descr_dxl_array, m_input_colids_arrays, m_cast_across_input_req);
+	m_dxl_node = GPOS_NEW(m_mp) CDXLNode(m_mp, dxl_op);
 
 	for (ULONG idx = 1; idx < length; idx++)
 	{
