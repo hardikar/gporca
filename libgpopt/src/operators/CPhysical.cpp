@@ -105,7 +105,7 @@ CPhysical::UpdateOptRequests
 
 	CRefCount::SafeRelease(m_pdrgpulpOptReqsExpanded);
 	m_pdrgpulpOptReqsExpanded = NULL;
-	m_pdrgpulpOptReqsExpanded = GPOS_NEW(m_mp) ULONGPtrArray(m_mp);
+	m_pdrgpulpOptReqsExpanded = GPOS_NEW(m_mp) UlongPtrArray(m_mp);
 	for (ULONG ulOrder = 0; ulOrder < ulOrderRequests; ulOrder++)
 	{
 		for (ULONG ulDistr = 0; ulDistr < ulDistrRequests; ulDistr++)

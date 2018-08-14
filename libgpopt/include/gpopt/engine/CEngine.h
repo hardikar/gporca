@@ -72,10 +72,10 @@ namespace gpopt
 			CXformSet *m_xforms;
 
 			// number of calls to each xform
-			ULONGPtrArray *m_pdrgpulpXformCalls;
+			UlongPtrArray *m_pdrgpulpXformCalls;
 
 			// time consumed by each xform
-			ULONGPtrArray *m_pdrgpulpXformTimes;
+			UlongPtrArray *m_pdrgpulpXformTimes;
 
 			// mutex for locking shared data structures when updating optimization statistics
 			CMutex m_mutexOptStats;

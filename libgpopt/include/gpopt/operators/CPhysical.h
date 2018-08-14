@@ -35,7 +35,7 @@ namespace gpopt
 	using namespace gpos;
 
 	// arrays of unsigned integer arrays
-	typedef CDynamicPtrArray<ULONG_PTR, CleanupDeleteArray> ULONGPtrArray;
+	typedef CDynamicPtrArray<ULONG_PTR, CleanupDeleteArray> UlongPtrArray;
 
 	// forward declaration
 	class CPartIndexMap;
@@ -169,7 +169,7 @@ namespace gpopt
 			ULONG m_rgulOptReqs[GPOPT_PLAN_PROPS];
 
 			// array of expanded requests
-			ULONGPtrArray *m_pdrgpulpOptReqsExpanded;
+			UlongPtrArray *m_pdrgpulpOptReqsExpanded;
 
 			// total number of optimization requests
 			ULONG m_ulTotalOptRequests;

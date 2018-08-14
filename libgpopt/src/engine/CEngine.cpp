@@ -88,8 +88,8 @@ CEngine::CEngine
 	m_pmemo = GPOS_NEW(mp) CMemo(mp);
 	m_pexprEnforcerPattern = GPOS_NEW(mp) CExpression(mp, GPOS_NEW(mp) CPatternLeaf(mp));
 	m_xforms = GPOS_NEW(mp) CXformSet(mp);
-	m_pdrgpulpXformCalls = GPOS_NEW(mp) ULONGPtrArray(mp);
-	m_pdrgpulpXformTimes = GPOS_NEW(mp) ULONGPtrArray(mp);
+	m_pdrgpulpXformCalls = GPOS_NEW(mp) UlongPtrArray(mp);
+	m_pdrgpulpXformTimes = GPOS_NEW(mp) UlongPtrArray(mp);
 }
 
 
