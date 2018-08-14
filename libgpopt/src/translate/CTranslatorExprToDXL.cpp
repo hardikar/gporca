@@ -1609,7 +1609,7 @@ CTranslatorExprToDXL::PdxlnPartitionSelectorWithInlinedCondition
 		!CUtils::FScalarConstTrue(pexprScalar) &&	// condition is not const True
 		(
 		fTableScanChild || 	// child operator is TableScan
-		(fIndexChild && !pexprScalar->Matches((*pexprChild)[0]))	// OR, child operator is IndexScan and condition does not match index condition
+		(fIndexChild && (!pexprScalar->Matches((*pexprChild)[0]) || isGist))	// OR, child operator is IndexScan and condition does not match index condition
 		); // if it is of type GiST, inline the condition anyway as the recheck
 
 	CExpression *pexprCond = NULL;
