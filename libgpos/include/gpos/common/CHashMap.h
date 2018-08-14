@@ -133,8 +133,8 @@ namespace gpos
 			ULONG m_size;
 
 			// each hash chain is an array of hashmap elements
-		typedef CDynamicPtrArray<CHashMapElem, CleanupDelete> HashSetElemArray;
-		HashSetElemArray **const m_chains;
+		typedef CDynamicPtrArray<CHashMapElem, CleanupDelete> CHashSetElemArray;
+		CHashSetElemArray **const m_chains;
 
 			// array for keys
 			// We use CleanupNULL because the keys are owned by the hash table
@@ -148,7 +148,7 @@ namespace gpos
 			
 			// lookup appropriate hash chain in static table, may be NULL if
 			// no elements have been inserted yet
-      HashSetElemArray **GetChain(const K *key) const
+      CHashSetElemArray **GetChain(const K *key) const
 			{
 				GPOS_ASSERT(NULL != m_chains);
 				return &m_chains[HashFn(key) % m_num_chains];
@@ -171,7 +171,7 @@ namespace gpos
             {
                 CHashMapElem hme(const_cast<K*>(key), NULL /*T*/, false /*fOwn*/);
                 CHashMapElem *found_hme = NULL;
-			HashSetElemArray **chain = GetChain(key);
+			CHashSetElemArray **chain = GetChain(key);
                 if (NULL != *chain)
                 {
                     found_hme = (*chain)->Find(&hme);
@@ -189,12 +189,12 @@ namespace gpos
             m_mp(mp),
             m_num_chains(num_chains),
             m_size(0),
-            m_chains(GPOS_NEW_ARRAY(m_mp, HashSetElemArray*, m_num_chains)),
+            m_chains(GPOS_NEW_ARRAY(m_mp, CHashSetElemArray*, m_num_chains)),
             m_keys(GPOS_NEW(m_mp) Keys(m_mp)),
             m_filled_chains(GPOS_NEW(mp) IntPtrArray(mp))
             {
                 GPOS_ASSERT(m_num_chains > 0);
-                (void) clib::Memset(m_chains, 0, m_num_chains * sizeof(HashSetElemArray*));
+                (void) clib::Memset(m_chains, 0, m_num_chains * sizeof(CHashSetElemArray*));
             }
 
 			// dtor
@@ -216,10 +216,10 @@ namespace gpos
                     return false;
                 }
 
-			HashSetElemArray **chain = GetChain(key);
+			CHashSetElemArray **chain = GetChain(key);
                 if (NULL == *chain)
                 {
-				*chain = GPOS_NEW(m_mp) HashSetElemArray(m_mp);
+				*chain = GPOS_NEW(m_mp) CHashSetElemArray(m_mp);
                     INT chain_idx = HashFn(key) % m_num_chains;
                     m_filled_chains->Append(GPOS_NEW(m_mp) INT(chain_idx));
                 }
