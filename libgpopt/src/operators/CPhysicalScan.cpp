@@ -324,7 +324,7 @@ CPhysicalScan::PpimDeriveFromDynamicScan
 	IMemoryPool *mp,
 	ULONG part_idx_id,
 	IMDId *rel_mdid,
-	CColRefArrays *pdrgpdrgpcrPart,
+	CColRef2dArray *pdrgpdrgpcrPart,
 	ULONG ulSecondaryPartIndexId,
 	CPartConstraint *ppartcnstr,
 	CPartConstraint *ppartcnstrRel,

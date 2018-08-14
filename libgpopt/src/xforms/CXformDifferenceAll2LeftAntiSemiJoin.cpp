@@ -75,12 +75,12 @@ CXformDifferenceAll2LeftAntiSemiJoin::Transform
 	CExpression *pexprRightChild = (*pexpr)[1];
 
 	CLogicalDifferenceAll *popDifferenceAll = CLogicalDifferenceAll::PopConvert(pexpr->Pop());
-	CColRefArrays *pdrgpdrgpcrInput = popDifferenceAll->PdrgpdrgpcrInput();
+	CColRef2dArray *pdrgpdrgpcrInput = popDifferenceAll->PdrgpdrgpcrInput();
 
 	CExpression *pexprLeftWindow = CXformUtils::PexprWindowWithRowNumber(mp, pexprLeftChild, (*pdrgpdrgpcrInput)[0]);
 	CExpression *pexprRightWindow = CXformUtils::PexprWindowWithRowNumber(mp, pexprRightChild, (*pdrgpdrgpcrInput)[1]);
 
-	CColRefArrays *pdrgpdrgpcrInputNew = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrInputNew = GPOS_NEW(mp) CColRef2dArray(mp);
 	CColRefArray *pdrgpcrLeftNew = CUtils::PdrgpcrExactCopy(mp, (*pdrgpdrgpcrInput)[0]);
 	pdrgpcrLeftNew->Append(CXformUtils::PcrProjectElement(pexprLeftWindow, 0 /* row_number window function*/));
 

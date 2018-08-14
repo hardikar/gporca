@@ -142,7 +142,7 @@ CXformExpandFullOuterJoin::Transform
 	pdrgpcrOutput->AppendArray(pdrgpcrOutB);
 
 	// input columns of the union
-	CColRefArrays *pdrgdrgpcrInput = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgdrgpcrInput = GPOS_NEW(mp) CColRef2dArray(mp);
 
 	// inputs from the first child (LOJ)
 	pdrgpcrOutput->AddRef();

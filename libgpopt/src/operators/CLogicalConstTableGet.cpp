@@ -55,7 +55,7 @@ CLogicalConstTableGet::CLogicalConstTableGet
 	(
 	IMemoryPool *mp,
 	CColumnDescriptorArray *pdrgpcoldesc,
-	IDatumArrays *pdrgpdrgpdatum
+	IDatum2dArray *pdrgpdrgpdatum
 	)
 	:
 	CLogical(mp),
@@ -90,7 +90,7 @@ CLogicalConstTableGet::CLogicalConstTableGet
 	(
 	IMemoryPool *mp,
 	CColRefArray *pdrgpcrOutput,
-	IDatumArrays *pdrgpdrgpdatum
+	IDatum2dArray *pdrgpdrgpdatum
 	)
 	:
 	CLogical(mp),
@@ -142,7 +142,7 @@ CLogicalConstTableGet::HashValue() const
 	ULONG ulHash = gpos::CombineHashes(COperator::HashValue(),
 								gpos::CombineHashes(
 										gpos::HashPtr<CColumnDescriptorArray>(m_pdrgpcoldesc),
-										gpos::HashPtr<IDatumArrays>(m_pdrgpdrgpdatum)));
+										gpos::HashPtr<IDatum2dArray>(m_pdrgpdrgpdatum)));
 	ulHash = gpos::CombineHashes(ulHash, CUtils::UlHashColArray(m_pdrgpcrOutput));
 
 	return ulHash;

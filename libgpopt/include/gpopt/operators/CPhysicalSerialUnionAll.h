@@ -35,7 +35,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CColRefArray *pdrgpcrOutput,
-				CColRefArrays *pdrgpdrgpcrInput,
+				CColRef2dArray *pdrgpdrgpcrInput,
 				ULONG ulScanIdPartialIndex
 				);
 
@@ -62,7 +62,7 @@ namespace gpopt
 				(
 				CReqdPropPlan *prppInput,
 				ULONG , // child_index
-				CDrvdPropArrays *, //pdrgpdpCtxt
+				CDrvdProp2dArray *, //pdrgpdpCtxt
 				ULONG ulOptReq
 				)
 			{
@@ -85,7 +85,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CDistributionSpec *pdsRequired,
 					ULONG child_index,
-					CDrvdPropArrays *pdrgpdpCtxt,
+					CDrvdProp2dArray *pdrgpdpCtxt,
 					ULONG ulOptReq
 				)
 				const;

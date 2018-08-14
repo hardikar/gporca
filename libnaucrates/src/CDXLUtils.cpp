@@ -1802,7 +1802,7 @@ CWStringDynamic *
 CDXLUtils::Serialize
 	(
 	IMemoryPool *mp,
-	const ULongPtrArray2D *array_2D
+	const ULongPtr2dArray *array_2D
 	)
 {
 	const ULONG len = array_2D->Size();

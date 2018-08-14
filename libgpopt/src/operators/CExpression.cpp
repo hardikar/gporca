@@ -832,7 +832,7 @@ CExpression::PrppDecorate
 		exprhdl.InitReqdProps(prppInput);
 
 		// create array of child derived properties
-		CDrvdPropArrays *pdrgpdp = GPOS_NEW(m_mp) CDrvdPropArrays(m_mp);
+		CDrvdProp2dArray *pdrgpdp = GPOS_NEW(m_mp) CDrvdProp2dArray(m_mp);
 
 		const ULONG arity =  Arity();
 		for (ULONG ul = 0; ul < arity; ul++)

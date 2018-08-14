@@ -59,7 +59,7 @@ CLogicalDynamicGet::CLogicalDynamicGet
 	CTableDescriptor *ptabdesc,
 	ULONG ulPartIndex,
 	CColRefArray *pdrgpcrOutput,
-	CColRefArrays *pdrgpdrgpcrPart,
+	CColRef2dArray *pdrgpdrgpcrPart,
 	ULONG ulSecondaryPartIndexId,
 	BOOL is_partial,
 	CPartConstraint *ppartcnstr, 
@@ -165,7 +165,7 @@ CLogicalDynamicGet::PopCopyWithRemappedColumns
 	{
 		pdrgpcrOutput = CUtils::PdrgpcrRemap(mp, m_pdrgpcrOutput, colref_mapping, must_exist);
 	}
-	CColRefArrays *pdrgpdrgpcrPart = PdrgpdrgpcrCreatePartCols(mp, pdrgpcrOutput, m_ptabdesc->PdrgpulPart());
+	CColRef2dArray *pdrgpdrgpcrPart = PdrgpdrgpcrCreatePartCols(mp, pdrgpcrOutput, m_ptabdesc->PdrgpulPart());
 	CName *pnameAlias = GPOS_NEW(mp) CName(mp, *m_pnameAlias);
 	m_ptabdesc->AddRef();
 

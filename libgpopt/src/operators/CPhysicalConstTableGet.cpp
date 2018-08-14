@@ -34,7 +34,7 @@ CPhysicalConstTableGet::CPhysicalConstTableGet
 	(
 	IMemoryPool *mp,
 	CColumnDescriptorArray *pdrgpcoldesc,
-	IDatumArrays *pdrgpdrgpdatum,
+	IDatum2dArray *pdrgpdrgpdatum,
 	CColRefArray *pdrgpcrOutput
 	)
 	:
@@ -105,7 +105,7 @@ CPhysicalConstTableGet::PcrsRequired
 	CExpressionHandle &, // exprhdl,
 	CColRefSet *, // pcrsRequired,
 	ULONG , // child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 {
@@ -129,7 +129,7 @@ CPhysicalConstTableGet::PosRequired
 	CExpressionHandle &, // exprhdl,
 	COrderSpec *, // posRequired,
 	ULONG ,// child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -153,7 +153,7 @@ CPhysicalConstTableGet::PdsRequired
 	CExpressionHandle &, // exprhdl,
 	CDistributionSpec *, // pdsRequired,
 	ULONG , //child_index
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -178,7 +178,7 @@ CPhysicalConstTableGet::PrsRequired
 	CExpressionHandle &, // exprhdl,
 	CRewindabilitySpec *, // prsRequired,
 	ULONG , // child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -202,7 +202,7 @@ CPhysicalConstTableGet::PcteRequired
 	CExpressionHandle &, //exprhdl,
 	CCTEReq *, //pcter,
 	ULONG , //child_index,
-	CDrvdPropArrays *, //pdrgpdpCtxt,
+	CDrvdProp2dArray *, //pdrgpdpCtxt,
 	ULONG //ulOptReq
 	)
 	const

@@ -10,7 +10,7 @@ CStrictHashedDistributions::CStrictHashedDistributions
 (
 IMemoryPool *mp,
 CColRefArray *pdrgpcrOutput,
-CColRefArrays *pdrgpdrgpcrInput
+CColRef2dArray *pdrgpdrgpcrInput
 )
 :
 CDistributionSpecArray(mp)

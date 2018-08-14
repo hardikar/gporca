@@ -73,7 +73,7 @@ CPhysicalFilter::PcrsRequired
 	CExpressionHandle &exprhdl,
 	CColRefSet *pcrsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 {
@@ -98,7 +98,7 @@ CPhysicalFilter::PosRequired
 	CExpressionHandle &exprhdl,
 	COrderSpec *posRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -124,7 +124,7 @@ CPhysicalFilter::PdsRequired
 	CExpressionHandle &exprhdl,
 	CDistributionSpec *pdsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG ulOptReq
 	)
 	const
@@ -159,7 +159,7 @@ CPhysicalFilter::PrsRequired
 	CExpressionHandle &exprhdl,
 	CRewindabilitySpec *prsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -199,7 +199,7 @@ CPhysicalFilter::PppsRequired
 	child_index
 #endif
 	,
-	CDrvdPropArrays *, //pdrgpdpCtxt,
+	CDrvdProp2dArray *, //pdrgpdpCtxt,
 	ULONG // ulOptReq
 	)
 {
@@ -242,7 +242,7 @@ CPhysicalFilter::PppsRequired
 		for (ULONG ulKey = 0; NULL == pexprCmp && ulKey < ulKeysets; ulKey++)
 		{
 			// get partition key
-			CColRefArrays *pdrgpdrgpcrPartKeys = (*pdrgppartkeys)[ulKey]->Pdrgpdrgpcr();
+			CColRef2dArray *pdrgpdrgpcrPartKeys = (*pdrgppartkeys)[ulKey]->Pdrgpdrgpcr();
 
 			// try to generate a request with dynamic partition selection		
 			pexprCmp = CPredicateUtils::PexprExtractPredicatesOnPartKeys
@@ -300,7 +300,7 @@ CPhysicalFilter::PcteRequired
 	child_index
 #endif
 	,
-	CDrvdPropArrays *, //pdrgpdpCtxt,
+	CDrvdProp2dArray *, //pdrgpdpCtxt,
 	ULONG //ulOptReq
 	)
 	const

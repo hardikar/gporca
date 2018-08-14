@@ -739,7 +739,7 @@ CNormalizer::PushThruSetOp
 	CLogicalSetOp *popSetOp = CLogicalSetOp::PopConvert(pexprSetOp->Pop());
 	CColRefArray *pdrgpcrOutput = popSetOp->PdrgpcrOutput();
 	CColRefSet *pcrsOutput = GPOS_NEW(mp) CColRefSet(mp, pdrgpcrOutput);
-	CColRefArrays *pdrgpdrgpcrInput = popSetOp->PdrgpdrgpcrInput();
+	CColRef2dArray *pdrgpdrgpcrInput = popSetOp->PdrgpdrgpcrInput();
 	CExpressionArray *pdrgpexprNewChildren = GPOS_NEW(mp) CExpressionArray(mp);
 	const ULONG arity = pexprSetOp->Arity();
 	for (ULONG ul = 0; ul < arity; ul++)

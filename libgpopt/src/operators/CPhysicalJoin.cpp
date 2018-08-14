@@ -119,7 +119,7 @@ CPhysicalJoin::PcrsRequired
 	CExpressionHandle &exprhdl,
 	CColRefSet *pcrsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 {
@@ -144,7 +144,7 @@ CPhysicalJoin::PppsRequired
 	CExpressionHandle &exprhdl,
 	CPartitionPropagationSpec *pppsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, //pdrgpdpCtxt,
+	CDrvdProp2dArray *, //pdrgpdpCtxt,
 	ULONG //ulOptReq
 	)
 {
@@ -168,7 +168,7 @@ CPhysicalJoin::PcteRequired
 	CExpressionHandle &exprhdl,
 	CCTEReq *pcter,
 	ULONG child_index,
-	CDrvdPropArrays *pdrgpdpCtxt,
+	CDrvdProp2dArray *pdrgpdpCtxt,
 	ULONG //ulOptReq
 	)
 	const
@@ -285,7 +285,7 @@ CPhysicalJoin::PdsRequired
 	CExpressionHandle &exprhdl,
 	CDistributionSpec *pdsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *pdrgpdpCtxt,
+	CDrvdProp2dArray *pdrgpdpCtxt,
 	ULONG // ulOptReq
 	)
 	const
@@ -825,7 +825,7 @@ CPhysicalJoin::PexprJoinPredOnPartKeys
 	for (ULONG ulKey = 0; NULL == pexprPred && ulKey < ulKeysets; ulKey++)
 	{
 		// get partition key
-		CColRefArrays *pdrgpdrgpcrPartKeys = (*pdrgppartkeys)[ulKey]->Pdrgpdrgpcr();
+		CColRef2dArray *pdrgpdrgpcrPartKeys = (*pdrgppartkeys)[ulKey]->Pdrgpdrgpcr();
 
 		// try to generate a request with dynamic partition selection
 		pexprPred = CPredicateUtils::PexprExtractPredicatesOnPartKeys
@@ -901,7 +901,7 @@ CPhysicalJoin::PrsRequiredCorrelatedJoin
 	CExpressionHandle &exprhdl,
 	CRewindabilitySpec *prsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, //pdrgpdpCtxt
+	CDrvdProp2dArray *, //pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -949,7 +949,7 @@ CPhysicalJoin::PdsRequiredCorrelatedJoin
 	CExpressionHandle &exprhdl,
 	CDistributionSpec *pdsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *pdrgpdpCtxt,
+	CDrvdProp2dArray *pdrgpdpCtxt,
 	ULONG  ulOptReq
 	)
 	const
@@ -1001,7 +1001,7 @@ CPhysicalJoin::Edm
 	(
 	CReqdPropPlan *, // prppInput
 	ULONG child_index,
-	CDrvdPropArrays *pdrgpdpCtxt,
+	CDrvdProp2dArray *pdrgpdpCtxt,
 	ULONG // ulOptReq
 	)
 {
@@ -1195,7 +1195,7 @@ CPhysicalJoin::PppsRequiredJoinChild
 	CExpressionHandle &exprhdl,
 	CPartitionPropagationSpec *pppsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, //pdrgpdpCtxt,
+	CDrvdProp2dArray *, //pdrgpdpCtxt,
 	BOOL fNLJoin
 	)
 {

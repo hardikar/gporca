@@ -62,7 +62,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CExpression *pexprScalar,
-				CColRefArrays *pdrgpdrgpcrKeys,
+				CColRef2dArray *pdrgpdrgpcrKeys,
 				UlongToExprMap *phmulexprEqFilter,
 				UlongToExprMap *phmulexprFilter,
 				CExpression **ppexprResidual
@@ -89,7 +89,7 @@ namespace gpopt
 				);
 
 			// return a colrefset containing all the part keys
-			CColRefSet *PcrsKeys(IMemoryPool *mp, CColRefArrays *pdrgpdrgpcrKeys);
+			CColRefSet *PcrsKeys(IMemoryPool *mp, CColRef2dArray *pdrgpdrgpcrKeys);
 
 			// return the filter expression for the given Scan Id
 			CExpression *PexprFilter(IMemoryPool *mp, ULONG scan_id);

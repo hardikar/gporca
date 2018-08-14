@@ -196,7 +196,7 @@ CPartialPlan::CostCompute
 	exprhdl.InitReqdProps(m_prpp);
 
 	// create array of child derived properties
-	CDrvdPropArrays *pdrgpdp = GPOS_NEW(mp) CDrvdPropArrays(mp);
+	CDrvdProp2dArray *pdrgpdp = GPOS_NEW(mp) CDrvdProp2dArray(mp);
 	const ULONG arity =  m_pgexpr->Arity();
 	for (ULONG ul = 0; ul < arity; ul++)
 	{

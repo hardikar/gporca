@@ -38,7 +38,7 @@ namespace gpopt
 			IMDId *m_mdid;
 
 			// partition keys
-			CColRefArrays *m_pdrgpdrgpcr;
+			CColRef2dArray *m_pdrgpdrgpcr;
 
 			// part constraint map
 			UlongToPartConstraintMap *m_ppartcnstrmap;
@@ -94,7 +94,7 @@ namespace gpopt
 				IMemoryPool *mp,
 				ULONG scan_id,
 				IMDId *mdid,
-				CColRefArrays *pdrgpdrgpcr,
+				CColRef2dArray *pdrgpdrgpcr,
 				UlongToPartConstraintMap *ppartcnstrmap,
 				CPartConstraint *ppartcnstr,
 				UlongToExprMap *phmulexprEqPredicates,
@@ -133,7 +133,7 @@ namespace gpopt
 			}
 
 			// partition keys
-			CColRefArrays *Pdrgpdrgpcr() const
+			CColRef2dArray *Pdrgpdrgpcr() const
 			{
 				return m_pdrgpdrgpcr;
 			}
@@ -191,7 +191,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CColRefSet *pcrsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 
@@ -203,7 +203,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CCTEReq *pcter,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -216,7 +216,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				COrderSpec *posRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -229,7 +229,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CDistributionSpec *pdsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -242,7 +242,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CPartitionPropagationSpec *pppsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 
@@ -254,7 +254,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CRewindabilitySpec *prsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;

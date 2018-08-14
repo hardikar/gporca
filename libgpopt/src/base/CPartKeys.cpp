@@ -26,7 +26,7 @@ using namespace gpopt;
 //---------------------------------------------------------------------------
 CPartKeys::CPartKeys
 	(
-	CColRefArrays *pdrgpdrgpcr
+	CColRef2dArray *pdrgpdrgpcr
 	)
 	:
 	m_pdrgpdrgpcr(pdrgpdrgpcr)
@@ -109,7 +109,7 @@ CPartKeys::PpartkeysCopy
 	IMemoryPool *mp
 	)
 {
-	CColRefArrays *pdrgpdrgpcrCopy = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrCopy = GPOS_NEW(mp) CColRef2dArray(mp);
 
 	const ULONG length = m_pdrgpdrgpcr->Size();
 	for (ULONG ul = 0; ul < length; ul++)
@@ -172,7 +172,7 @@ CPartKeys::PpartkeysRemap
 	const
 {
 	GPOS_ASSERT(NULL != colref_mapping);
-	CColRefArrays *pdrgpdrgpcr = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcr = GPOS_NEW(mp) CColRef2dArray(mp);
 
 	for (ULONG ul = 0; ul < m_num_of_part_levels; ul++)
 	{

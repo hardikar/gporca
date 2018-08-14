@@ -456,7 +456,7 @@ namespace gpopt
 
 			// extract the nth partition key from the given array of partition keys
 			static
-			CColRef *PcrExtractPartKey(CColRefArrays *pdrgpdrgpcr, ULONG ulLevel);
+			CColRef *PcrExtractPartKey(CColRef2dArray *pdrgpdrgpcr, ULONG ulLevel);
 
 			//-------------------------------------------------------------------
 			// Helpers for comparisons
@@ -900,7 +900,7 @@ namespace gpopt
 			// create an array of column arrays corresponding to the given array
 			// and based on the given mapping
 			static
-			CColRefArrays *PdrgpdrgpcrRemap(IMemoryPool *mp, CColRefArrays *pdrgpdrgpcr, UlongToColRefMap *colref_mapping, BOOL must_exist);
+			CColRef2dArray *PdrgpdrgpcrRemap(IMemoryPool *mp, CColRef2dArray *pdrgpdrgpcr, UlongToColRefMap *colref_mapping, BOOL must_exist);
 
 			// remap given array of expressions with provided column mappings
 			static
@@ -941,7 +941,7 @@ namespace gpopt
 			// construct the join condition (AND-tree of INDF operators)
 			// from the array of input columns reference arrays (aligned)
 			static
-			CExpression *PexprConjINDFCond(IMemoryPool *mp, CColRefArrays *pdrgpdrgpcrInput);
+			CExpression *PexprConjINDFCond(IMemoryPool *mp, CColRef2dArray *pdrgpdrgpcrInput);
 
 			// check whether a colref array contains repeated items
 			static
@@ -977,7 +977,7 @@ namespace gpopt
 			UlongToConstraintMap *PhmulcnstrBoolConstOnPartKeys
 				(
 				IMemoryPool *mp,
-				CColRefArrays *pdrgpdrgpcrPartKey,
+				CColRef2dArray *pdrgpdrgpcrPartKey,
 				BOOL value
 				);
 
@@ -989,7 +989,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
-				CColRefArrays *pdrgpdrgpcrPartKey,
+				CColRef2dArray *pdrgpdrgpcrPartKey,
 				const IMDPartConstraint *mdpart_constraint,
 				CColRefArray *pdrgpcrOutput,
 				BOOL fDummyConstraint = false

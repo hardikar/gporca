@@ -607,7 +607,7 @@ CTestUtils::PexprLogicalSelectPartitioned
 
 	// extract first partition key
 	CLogicalGet *popGet = CLogicalGet::PopConvert(pexprGet->Pop());
-	const CColRefArrays *pdrgpdrgpcr = popGet->PdrgpdrgpcrPartColumns();
+	const CColRef2dArray *pdrgpdrgpcr = popGet->PdrgpdrgpcrPartColumns();
 
 	GPOS_ASSERT(pdrgpdrgpcr != NULL);
 	GPOS_ASSERT(0 < pdrgpdrgpcr->Size());
@@ -1897,7 +1897,7 @@ CTestUtils::PexprConstTableGet
 	pdrgpcoldesc->Append(pcoldescInt);
 
 	// generate values
-	IDatumArrays *pdrgpdrgpdatum = GPOS_NEW(mp) IDatumArrays(mp);
+	IDatum2dArray *pdrgpdrgpdatum = GPOS_NEW(mp) IDatum2dArray(mp);
 	
 	for (ULONG ul = 0; ul < ulElements; ul++)
 	{
@@ -2110,7 +2110,7 @@ CTestUtils::PexprLogicalSelectWithEqPredicateOverDynamicGet
 	
 	// construct scalar comparison
 	CLogicalDynamicGet *popDynamicGet = CLogicalDynamicGet::PopConvert(pexprDynamicGet->Pop());
-	CColRefArrays *pdrgpdrgpcr = popDynamicGet->PdrgpdrgpcrPart();
+	CColRef2dArray *pdrgpdrgpcr = popDynamicGet->PdrgpdrgpcrPart();
 	CColRef *colref = CUtils::PcrExtractPartKey(pdrgpdrgpcr, 0 /*ulLevel*/);
 	CExpression *pexprScalarIdent = CUtils::PexprScalarIdent(mp, colref);
 	
@@ -2144,7 +2144,7 @@ CTestUtils::PexprLogicalSelectWithLTPredicateOverDynamicGet
 	
 	// construct scalar comparison
 	CLogicalDynamicGet *popDynamicGet = CLogicalDynamicGet::PopConvert(pexprDynamicGet->Pop());
-	CColRefArrays *pdrgpdrgpcr = popDynamicGet->PdrgpdrgpcrPart();
+	CColRef2dArray *pdrgpdrgpcr = popDynamicGet->PdrgpdrgpcrPart();
 	CColRef *colref = CUtils::PcrExtractPartKey(pdrgpdrgpcr, 0 /*ulLevel*/);
 	CExpression *pexprScalarIdent = CUtils::PexprScalarIdent(mp, colref);
 	
@@ -2437,7 +2437,7 @@ CTestUtils::PexprLogicalUnion
 	{
 		// recursive case, generate union w/ 3 children
 		CExpressionArray *pdrgpexprInput = GPOS_NEW(mp) CExpressionArray(mp, 3);
-		CColRefArrays *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRefArrays(mp);
+		CColRef2dArray *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRef2dArray(mp);
 
 		for (ULONG i = 0; i < 3; i++)
 		{

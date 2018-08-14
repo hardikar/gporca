@@ -141,7 +141,7 @@ CPartitionPropagationSpec::AppendEnforcers
 		CExpression *pexprResolver = NULL;
 
 		IMDId *mdid = m_ppim->GetRelMdId(scan_id);
-		CColRefArrays *pdrgpdrgpcrKeys = NULL;
+		CColRef2dArray *pdrgpdrgpcrKeys = NULL;
 		CPartKeysArray *pdrgppartkeys = m_ppim->Pdrgppartkeys(scan_id);
 		CPartConstraint *ppartcnstr = m_ppim->PpartcnstrRel(scan_id);
 		UlongToPartConstraintMap *ppartcnstrmap = m_ppim->Ppartcnstrmap(scan_id);
@@ -316,7 +316,7 @@ CPartitionPropagationSpec::SplitPartPredicates
 	(
 	IMemoryPool *mp,
 	CExpression *pexprScalar,
-	CColRefArrays *pdrgpdrgpcrKeys,
+	CColRef2dArray *pdrgpdrgpcrKeys,
 	UlongToExprMap *phmulexprEqFilter,	// output
 	UlongToExprMap *phmulexprFilter,		// output
 	CExpression **ppexprResidual	// output
@@ -399,7 +399,7 @@ CColRefSet *
 CPartitionPropagationSpec::PcrsKeys
 	(
 	IMemoryPool *mp,
-	CColRefArrays *pdrgpdrgpcrKeys
+	CColRef2dArray *pdrgpdrgpcrKeys
 	)
 {
 	CColRefSet *pcrs = GPOS_NEW(mp) CColRefSet(mp);

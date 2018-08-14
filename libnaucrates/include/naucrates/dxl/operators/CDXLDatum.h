@@ -128,7 +128,7 @@ namespace gpdxl
 	typedef CDynamicPtrArray<CDXLDatum, CleanupRelease> CDXLDatumArray;
 
 	// dynamic array of datum arrays -- array owns elements
-	typedef CDynamicPtrArray<CDXLDatumArray, CleanupRelease> DXLDatumArrays;
+	typedef CDynamicPtrArray<CDXLDatumArray, CleanupRelease> CDXLDatum2dArray;
 }
 
 #endif // !GPDXL_CDXLDatum_H

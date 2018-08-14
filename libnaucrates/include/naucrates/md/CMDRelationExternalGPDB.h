@@ -70,7 +70,7 @@ namespace gpmd
 			BOOL m_convert_hash_to_random;
 
 			// array of key sets
-			ULongPtrArray2D *m_keyset_array;
+			ULongPtr2dArray *m_keyset_array;
 
 			// array of index infos
 		CMDIndexInfoArray *m_mdindex_info_array;
@@ -124,7 +124,7 @@ namespace gpmd
 								CMDColumnArray *mdcol_array,
 				ULongPtrArray *distr_col_array,
 				BOOL convert_hash_to_random,
-				ULongPtrArray2D *keyset_array,
+				ULongPtr2dArray *keyset_array,
 								CMDIndexInfoArray *md_index_info_array,
 								IMdIdArray *mdid_triggers_array,
 								IMdIdArray *mdid_check_constraint_array,

@@ -79,7 +79,7 @@ namespace gpopt
 					const;
 
 			// initialize the array of partition columns
-			CColRefArrays *
+			CColRef2dArray *
 			PdrgpdrgpcrCreatePartCols(IMemoryPool *mp, CColRefArray *colref_array, const ULongPtrArray *pdrgpulPart);
 
 			// derive dummy statistics

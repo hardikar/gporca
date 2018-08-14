@@ -85,7 +85,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CColRefSet *pcrsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *, //pdrgpdpCtxt,
+				CDrvdProp2dArray *, //pdrgpdpCtxt,
 				ULONG //ulOptReq
 				)
 			{
@@ -100,7 +100,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CDistributionSpec *pdsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *, //pdrgpdpCtxt,
+				CDrvdProp2dArray *, //pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const

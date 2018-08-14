@@ -68,7 +68,7 @@ CParseHandlerLogicalConstTable::StartElement
 		GPOS_ASSERT(NULL == m_const_tuples_datum_array);
 
 		// initialize the array of const tuples (datum arrays)
-		m_const_tuples_datum_array = GPOS_NEW(m_mp) DXLDatumArrays(m_mp);
+		m_const_tuples_datum_array = GPOS_NEW(m_mp) CDXLDatum2dArray(m_mp);
 
 		// install a parse handler for the columns
 		CParseHandlerBase *col_desc_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenColumns), m_parse_handler_mgr, this);

@@ -51,7 +51,7 @@ CPhysicalLeftAntiSemiHashJoinNotIn::PdsRequired
 	CExpressionHandle &exprhdl,
 	CDistributionSpec *pdsInput,
 	ULONG child_index,
-	CDrvdPropArrays *pdrgpdpCtxt,
+	CDrvdProp2dArray *pdrgpdpCtxt,
 	ULONG ulOptReq // identifies which optimization request should be created
 	)
 	const

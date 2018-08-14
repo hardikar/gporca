@@ -78,7 +78,7 @@ namespace gpopt
 			CReqdProp *m_prp;
 
 			// array of children's derived properties
-			CDrvdPropArrays *m_pdrgpdp;
+			CDrvdProp2dArray *m_pdrgpdp;
 
 			// array of children's derived stats
 			IStatisticsArray *m_pdrgpstat;
@@ -154,13 +154,13 @@ namespace gpopt
 			void InitReqdProps(CReqdProp *prpInput);
 
 			// compute required properties of the n-th child
-			void ComputeChildReqdProps(ULONG child_index, CDrvdPropArrays *pdrgpdpCtxt, ULONG ulOptReq);
+			void ComputeChildReqdProps(ULONG child_index, CDrvdProp2dArray *pdrgpdpCtxt, ULONG ulOptReq);
 
 			// copy required properties of the n-th child
 			void CopyChildReqdProps(ULONG child_index, CReqdProp *prp);
 
 			// compute required columns of the n-th child
-			void ComputeChildReqdCols(ULONG child_index, CDrvdPropArrays *pdrgpdpCtxt);
+			void ComputeChildReqdCols(ULONG child_index, CDrvdProp2dArray *pdrgpdpCtxt);
 
 			// required properties computation of all children
 			void ComputeReqdProps(CReqdProp *prpInput, ULONG ulOptReq);

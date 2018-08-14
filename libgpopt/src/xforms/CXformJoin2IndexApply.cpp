@@ -624,7 +624,7 @@ CXformJoin2IndexApply::CreatePartialIndexApplyPlan
 
 	CColRefArray *pdrgpcrOutput = NULL;
 	CExpressionArray *pdrgpexprInput = GPOS_NEW(mp) CExpressionArray(mp);
-	CColRefArrays *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRef2dArray(mp);
 
 	for (ULONG ul = 0; ul < ulPartialIndexes; ul++)
 	{
@@ -922,7 +922,7 @@ CXformJoin2IndexApply::PexprConstructUnionAll
 	ULONG scan_id
 	) const
 {
-	CColRefArrays *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRef2dArray(mp);
 	pdrgpdrgpcrInput->Append(pdrgpcrLeftSchema);
 	pdrgpdrgpcrInput->Append(pdrgpcrRightSchema);
 	pdrgpcrLeftSchema->AddRef();
@@ -963,7 +963,7 @@ CXformJoin2IndexApply::AddUnionPlanForPartialIndexes
 
 	// if scalar expression involves the partitioning key, keep a SELECT node
 	// on top for the purposes of partition selection
-	CColRefArrays *pdrgpdrgpcrPartKeys = popDynamicGet->PdrgpdrgpcrPart();
+	CColRef2dArray *pdrgpdrgpcrPartKeys = popDynamicGet->PdrgpdrgpcrPart();
 	CExpression *pexprPredOnPartKey = CPredicateUtils::PexprExtractPredicatesOnPartKeys
 										(
 										mp,

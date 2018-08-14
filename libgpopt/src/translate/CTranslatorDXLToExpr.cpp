@@ -647,7 +647,7 @@ CTranslatorDXLToExpr::PexprLogicalSetOp
 	GPOS_ASSERT(arity == dxl_op->ChildCount());
 
 	// array of input column reference
-	CColRefArrays *pdrgdrgpcrInput = GPOS_NEW(m_mp) CColRefArrays(m_mp);
+	CColRef2dArray *pdrgdrgpcrInput = GPOS_NEW(m_mp) CColRef2dArray(m_mp);
 		// array of output column descriptors
 	ULongPtrArray *pdrgpulOutput = GPOS_NEW(m_mp) ULongPtrArray(m_mp);
 	
@@ -900,7 +900,7 @@ CExpressionArray *
 CTranslatorDXLToExpr::PdrgpexprPreprocessSetOpInputs
 	(
 	const CDXLNode *dxlnode,
-	CColRefArrays *pdrgdrgpcrInput,
+	CColRef2dArray *pdrgdrgpcrInput,
 	ULongPtrArray *pdrgpulOutput
 	)
 {
@@ -2234,7 +2234,7 @@ CTranslatorDXLToExpr::RegisterMDRelationCtas
 			pdxlopCTAS->Ereldistrpolicy(),
 			mdcol_array,
 			pdxlopCTAS->GetDistrColPosArray(),
-			GPOS_NEW(m_mp) ULongPtrArray2D(m_mp), // keyset_array,
+			GPOS_NEW(m_mp) ULongPtr2dArray(m_mp), // keyset_array,
 			pdxlopCTAS->GetDxlCtasStorageOption(),
 			vartypemod_array
 			);
@@ -2433,7 +2433,7 @@ CTranslatorDXLToExpr::PexprLogicalConstTableGet
 	}
 
 	// translate values
-	IDatumArrays *pdrgpdrgpdatum = GPOS_NEW(m_mp) IDatumArrays(m_mp);
+	IDatum2dArray *pdrgpdrgpdatum = GPOS_NEW(m_mp) IDatum2dArray(m_mp);
 	
 	const ULONG ulValues = pdxlopConstTable->GetConstTupleCount();
 	for (ULONG ul = 0; ul < ulValues; ul++)

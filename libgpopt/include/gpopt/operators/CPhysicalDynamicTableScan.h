@@ -45,7 +45,7 @@ namespace gpopt
 				ULONG ulOriginOpId,
 				ULONG scan_id,
 				CColRefArray *colref_array,
-				CColRefArrays *pdrgpdrgpcrParts,
+				CColRef2dArray *pdrgpdrgpcrParts,
 				ULONG ulSecondaryScanId,
 				CPartConstraint *ppartcnstr,
 				CPartConstraint *ppartcnstrRel

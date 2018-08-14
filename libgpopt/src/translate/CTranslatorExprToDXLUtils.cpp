@@ -109,7 +109,7 @@ CTranslatorExprToDXLUtils::PdxlnPartialScanTest
 	CMDAccessor *md_accessor, 
 	CColumnFactory *col_factory,
 	const CPartConstraint *ppartcnstr,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	CharPtrArray *pdrgszPartTypes
 	)
 {	
@@ -119,7 +119,7 @@ CTranslatorExprToDXLUtils::PdxlnPartialScanTest
 	for (ULONG ul = 0; ul < ulLevels; ul++)
 	{
 		CConstraint *pcnstr = ppartcnstr->Pcnstr(ul);
-		CColRefArrays *pdrgpdrgpcr = ppartcnstr->Pdrgpdrgpcr();
+		CColRef2dArray *pdrgpdrgpcr = ppartcnstr->Pdrgpdrgpcr();
 		BOOL fRangePart = (IMDRelation::ErelpartitionRange == *(*pdrgszPartTypes)[ul]);
 		CDXLNode *pdxlnPartialScanTest = PdxlnPartialScanTest(mp, md_accessor, col_factory, pcnstr, pdrgpdrgpcr, fRangePart);
 
@@ -218,7 +218,7 @@ CTranslatorExprToDXLUtils::PdxlnPartialScanTest
 	CMDAccessor *md_accessor, 
 	CColumnFactory *col_factory,
 	CConstraint *pcnstr,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	BOOL fRangePart
 	)
 {
@@ -271,7 +271,7 @@ CTranslatorExprToDXLUtils::PdxlnPartialScanTestConjDisj
 	CColumnFactory *col_factory,
 	CConstraintArray *pdrgpcnstr,
 	BOOL fConjunction,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	BOOL fRangePart
 	)
 {	
@@ -329,7 +329,7 @@ CTranslatorExprToDXLUtils::PdxlnPropagationExpressionForPartConstraints
 	CMDAccessor *md_accessor, 
 	CColumnFactory *col_factory,
 	UlongToPartConstraintMap *ppartcnstrmap,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	CharPtrArray *pdrgszPartTypes
 	)
 {	
@@ -413,7 +413,7 @@ CTranslatorExprToDXLUtils::PdxlnPartialScanTestConjunction
 	CMDAccessor *md_accessor, 
 	CColumnFactory *col_factory,
 	CConstraint *pcnstr,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	BOOL fRangePart
 	)
 {	
@@ -441,7 +441,7 @@ CTranslatorExprToDXLUtils::PdxlnPartialScanTestDisjunction
 	CMDAccessor *md_accessor, 
 	CColumnFactory *col_factory,
 	CConstraint *pcnstr,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	BOOL fRangePart
 	)
 {	
@@ -469,7 +469,7 @@ CTranslatorExprToDXLUtils::PdxlnPartialScanTestNegation
 	CMDAccessor *md_accessor, 
 	CColumnFactory *col_factory,
 	CConstraint *pcnstr,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	BOOL fRangePart
 	)
 {	
@@ -499,7 +499,7 @@ CTranslatorExprToDXLUtils::PdxlnPartialScanTestInterval
 	IMemoryPool *mp, 
 	CMDAccessor *md_accessor, 
 	CConstraint *pcnstr,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	BOOL fRangePart
 	)
 {	
@@ -546,7 +546,7 @@ ULONG
 CTranslatorExprToDXLUtils::UlPartKeyLevel
 	(
 	const CColRef *colref,
-	CColRefArrays *pdrgpdrgpcr
+	CColRef2dArray *pdrgpdrgpcr
 	)
 {
 	GPOS_ASSERT(0 < pdrgpdrgpcr->Size() && "No partitioning keys found");
@@ -1465,7 +1465,7 @@ CTranslatorExprToDXLUtils::PdxlnPropExprPartitionSelector
 	CColumnFactory *col_factory,
 	BOOL fConditional,
 	UlongToPartConstraintMap *ppartcnstrmap,
-	CColRefArrays *pdrgpdrgpcrKeys,
+	CColRef2dArray *pdrgpdrgpcrKeys,
 	ULONG scan_id,
 	CharPtrArray *pdrgszPartTypes
 	)
@@ -1808,7 +1808,7 @@ CTranslatorExprToDXLUtils::PdxlnValuesScan
 	IMemoryPool *mp,
 	CDXLPhysicalProperties *dxl_properties,
 	CDXLNode *pdxlnPrL,
-	IDatumArrays *pdrgpdrgdatum
+	IDatum2dArray *pdrgpdrgdatum
 	)
 {
 	CDXLPhysicalValuesScan *dxl_op = GPOS_NEW(mp) CDXLPhysicalValuesScan(mp);
@@ -2126,7 +2126,7 @@ CTranslatorExprToDXLUtils::GetDXLDirectDispatchInfo
 		return NULL;
 	}
 	
-	DXLDatumArrays *pdrgpdrgpdxldatum = GPOS_NEW(mp) DXLDatumArrays(mp);
+	CDXLDatum2dArray *pdrgpdrgpdxldatum = GPOS_NEW(mp) CDXLDatum2dArray(mp);
 	pdrgpdrgpdxldatum->Append(pdrgpdxldatum);
 	return GPOS_NEW(mp) CDXLDirectDispatchInfo(pdrgpdrgpdxldatum);
 }
@@ -2159,7 +2159,7 @@ CTranslatorExprToDXLUtils::PdxlddinfoSingleDistrKey
 	
 	CConstraint *pcnstrDistrCol = pcnstr->Pcnstr(mp, pcrDistrCol);
 	
-	DXLDatumArrays *pdrgpdrgpdxldatum = NULL;
+	CDXLDatum2dArray *pdrgpdrgpdxldatum = NULL;
 	
 	if (CPredicateUtils::FConstColumn(pcnstrDistrCol, pcrDistrCol))
 	{
@@ -2173,7 +2173,7 @@ CTranslatorExprToDXLUtils::PdxlddinfoSingleDistrKey
 			dxl_datum->AddRef();
 			pdrgpdxldatum->Append(dxl_datum);
 		
-			pdrgpdrgpdxldatum = GPOS_NEW(mp) DXLDatumArrays(mp);
+			pdrgpdrgpdxldatum = GPOS_NEW(mp) CDXLDatum2dArray(mp);
 			pdrgpdrgpdxldatum->Append(pdrgpdxldatum);
 		}
 
@@ -2279,7 +2279,7 @@ CTranslatorExprToDXLUtils::PdxldatumFromPointConstraint
 //		Returns NULL if this is not possible
 //
 //---------------------------------------------------------------------------
-DXLDatumArrays *
+CDXLDatum2dArray *
 CTranslatorExprToDXLUtils::PdrgpdrgpdxldatumFromDisjPointConstraint
 	(
 	IMemoryPool *mp, 
@@ -2291,7 +2291,7 @@ CTranslatorExprToDXLUtils::PdrgpdrgpdxldatumFromDisjPointConstraint
 	GPOS_ASSERT(NULL != pcnstrDistrCol);
 	if (CPredicateUtils::FConstColumn(pcnstrDistrCol, pcrDistrCol))
 	{
-		DXLDatumArrays *pdrgpdrgpdxldatum = NULL;
+		CDXLDatum2dArray *pdrgpdrgpdxldatum = NULL;
 
 		CDXLDatum *dxl_datum = PdxldatumFromPointConstraint(mp, md_accessor, pcrDistrCol, pcnstrDistrCol);
 
@@ -2302,7 +2302,7 @@ CTranslatorExprToDXLUtils::PdrgpdrgpdxldatumFromDisjPointConstraint
 			dxl_datum->AddRef();
 			pdrgpdxldatum->Append(dxl_datum);
 
-			pdrgpdrgpdxldatum = GPOS_NEW(mp) DXLDatumArrays(mp);
+			pdrgpdrgpdxldatum = GPOS_NEW(mp) CDXLDatum2dArray(mp);
 			pdrgpdrgpdxldatum->Append(pdrgpdxldatum);
 		}
 
@@ -2319,7 +2319,7 @@ CTranslatorExprToDXLUtils::PdrgpdrgpdxldatumFromDisjPointConstraint
 	CRangeArray *pdrgprng = pcnstrInterval->Pdrgprng();
 
 	const ULONG ulRanges = pdrgprng->Size();
-	DXLDatumArrays *pdrgpdrgpdxdatum = GPOS_NEW(mp) DXLDatumArrays(mp);
+	CDXLDatum2dArray *pdrgpdrgpdxdatum = GPOS_NEW(mp) CDXLDatum2dArray(mp);
 	
 	for (ULONG ul = 0; ul < ulRanges; ul++)
 	{

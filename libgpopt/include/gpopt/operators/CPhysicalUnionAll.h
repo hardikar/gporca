@@ -21,7 +21,7 @@ namespace gpopt
 			CColRefArray *const m_pdrgpcrOutput;
 
 			// input column array
-			CColRefArrays *const m_pdrgpdrgpcrInput;
+			CColRef2dArray *const m_pdrgpdrgpcrInput;
 
 			// if this union is needed for partial indexes then store the scan
 			// id, otherwise this will be gpos::ulong_max
@@ -59,7 +59,7 @@ namespace gpopt
 				(
 					IMemoryPool *mp,
 					CColRefArray *pdrgpcrOutput,
-					CColRefArrays *pdrgpdrgpcrInput,
+					CColRef2dArray *pdrgpdrgpcrInput,
 					ULONG ulScanIdPartialIndex
 				);
 
@@ -85,7 +85,7 @@ namespace gpopt
 			CColRefArray *PdrgpcrOutput() const;
 
 			// accessor of input column array
-			CColRefArrays *PdrgpdrgpcrInput() const;
+			CColRef2dArray *PdrgpdrgpcrInput() const;
 
 			// if this unionall is needed for partial indexes then return the scan
 			// id, otherwise return gpos::ulong_max
@@ -111,7 +111,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CColRefSet *pcrsRequired,
 					ULONG child_index,
-					CDrvdPropArrays *pdrgpdpCtxt,
+					CDrvdProp2dArray *pdrgpdpCtxt,
 					ULONG ulOptReq
 				);
 
@@ -123,7 +123,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CCTEReq *pcter,
 					ULONG child_index,
-					CDrvdPropArrays *pdrgpdpCtxt,
+					CDrvdProp2dArray *pdrgpdpCtxt,
 					ULONG ulOptReq
 				)
 			const;
@@ -136,7 +136,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					COrderSpec *posRequired,
 					ULONG child_index,
-					CDrvdPropArrays *pdrgpdpCtxt,
+					CDrvdProp2dArray *pdrgpdpCtxt,
 					ULONG ulOptReq
 				)
 			const;
@@ -149,7 +149,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CRewindabilitySpec *prsRequired,
 					ULONG child_index,
-					CDrvdPropArrays *pdrgpdpCtxt,
+					CDrvdProp2dArray *pdrgpdpCtxt,
 					ULONG ulOptReq
 				)
 			const;
@@ -162,7 +162,7 @@ namespace gpopt
 					CExpressionHandle &exprhdl,
 					CPartitionPropagationSpec *pppsRequired,
 					ULONG child_index,
-					CDrvdPropArrays *pdrgpdpCtxt,
+					CDrvdProp2dArray *pdrgpdpCtxt,
 					ULONG ulOptReq
 				);
 

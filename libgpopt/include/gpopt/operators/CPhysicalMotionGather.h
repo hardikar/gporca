@@ -122,7 +122,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CColRefSet *pcrsInput,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 
@@ -134,7 +134,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				COrderSpec *posInput,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;

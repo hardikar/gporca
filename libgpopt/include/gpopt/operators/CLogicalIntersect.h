@@ -44,7 +44,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CColRefArray *pdrgpcrOutput,
-				CColRefArrays *pdrgpdrgpcrInput
+				CColRef2dArray *pdrgpdrgpcrInput
 				);
 
 			// dtor

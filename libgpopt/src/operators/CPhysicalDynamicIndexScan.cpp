@@ -44,7 +44,7 @@ CPhysicalDynamicIndexScan::CPhysicalDynamicIndexScan
 	const CName *pnameAlias,
 	CColRefArray *pdrgpcrOutput,
 	ULONG scan_id,
-	CColRefArrays *pdrgpdrgpcrPart,
+	CColRef2dArray *pdrgpdrgpcrPart,
 	ULONG ulSecondaryScanId,
 	CPartConstraint *ppartcnstr,
 	CPartConstraint *ppartcnstrRel,

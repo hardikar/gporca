@@ -193,7 +193,7 @@ CXformSelect2PartialDynamicIndexGet::CreatePartialIndexGetPlan
 	
 	const ULONG ulPartialIndexes = pdrgppartdig->Size();
 	
-	CColRefArrays *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRef2dArray(mp);
 	CExpressionArray *pdrgpexprInput = GPOS_NEW(mp) CExpressionArray(mp);
 	for (ULONG ul = 0; ul < ulPartialIndexes; ul++)
 	{
@@ -280,7 +280,7 @@ CXformSelect2PartialDynamicIndexGet::CreatePartialIndexGetPlan
 
 		// if scalar expression involves the partitioning key, keep a SELECT node
 		// on top for the purposes of partition selection
-		CColRefArrays *pdrgpdrgpcrPartKeys = popGet->PdrgpdrgpcrPart();
+		CColRef2dArray *pdrgpdrgpcrPartKeys = popGet->PdrgpdrgpcrPart();
 		CExpression *pexprPredOnPartKey = CPredicateUtils::PexprExtractPredicatesOnPartKeys
 											(
 											mp,

@@ -807,7 +807,7 @@ namespace gpdxl
 			// long numbers into a dynamc array of unsigned integer arrays
 			// will raise an exception if list is not well-formed
 			static
-			ULongPtrArray2D *ExtractConvertUlongTo2DArray
+			ULongPtr2dArray *ExtractConvertUlongTo2DArray
 				(
 				CDXLMemoryManager *dxl_memory_manager,
 				const XMLCh *xml_val,

@@ -28,7 +28,7 @@ namespace gpopt
 	class CReqdPropPlan;
 	
 	// dynamic array for properties
-	typedef CDynamicPtrArray<DrvdPropArray, CleanupRelease> CDrvdPropArrays;
+	typedef CDynamicPtrArray<DrvdPropArray, CleanupRelease> CDrvdProp2dArray;
 
 	//---------------------------------------------------------------------------
 	//	@class:

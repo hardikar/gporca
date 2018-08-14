@@ -66,7 +66,7 @@ CLogicalDynamicIndexGet::CLogicalDynamicIndexGet
 	const CName *pnameAlias,
 	ULONG part_idx_id,
 	CColRefArray *pdrgpcrOutput,
-	CColRefArrays *pdrgpdrgpcrPart,
+	CColRef2dArray *pdrgpdrgpcrPart,
 	ULONG ulSecondaryPartIndexId,
 	CPartConstraint *ppartcnstr,
 	CPartConstraint *ppartcnstrRel
@@ -182,7 +182,7 @@ CLogicalDynamicIndexGet::PopCopyWithRemappedColumns
 		pdrgpcrOutput = CUtils::PdrgpcrRemap(mp, m_pdrgpcrOutput, colref_mapping, must_exist);
 	}
 
-	CColRefArrays *pdrgpdrgpcrPart = CUtils::PdrgpdrgpcrRemap(mp, m_pdrgpdrgpcrPart, colref_mapping, must_exist);
+	CColRef2dArray *pdrgpdrgpcrPart = CUtils::PdrgpdrgpcrRemap(mp, m_pdrgpdrgpcrPart, colref_mapping, must_exist);
 	CPartConstraint *ppartcnstr = m_part_constraint->PpartcnstrCopyWithRemappedColumns(mp, colref_mapping, must_exist);
 	CPartConstraint *ppartcnstrRel = m_ppartcnstrRel->PpartcnstrCopyWithRemappedColumns(mp, colref_mapping, must_exist);
 

@@ -1893,7 +1893,7 @@ CTranslatorExprToDXL::PdxlnAppend
 	pdxlnAppend->AddChild(filter_dxlnode);
 
 	// translate children
-	CColRefArrays *pdrgpdrgpcrInput = popUnionAll->PdrgpdrgpcrInput();
+	CColRef2dArray *pdrgpdrgpcrInput = popUnionAll->PdrgpdrgpcrInput();
 	GPOS_ASSERT(NULL != pdrgpdrgpcrInput);
 	const ULONG length = pexprUnionAll->Arity();
 	GPOS_ASSERT(length == pdrgpdrgpcrInput->Size());
@@ -2090,7 +2090,7 @@ CTranslatorExprToDXL::PdxlnResultFromConstTableGet
 	
 	// construct project list from the const table get values
 	CColRefArray *pdrgpcrCTGOutput = popCTG->PdrgpcrOutput();
-	IDatumArrays *pdrgpdrgdatum = popCTG->Pdrgpdrgpdatum();
+	IDatum2dArray *pdrgpdrgdatum = popCTG->Pdrgpdrgpdatum();
 	
 	const ULONG ulRows = pdrgpdrgdatum->Size();
 	CDXLNode *pdxlnPrL = NULL;
@@ -4793,7 +4793,7 @@ CTranslatorExprToDXL::ConstructLevelFilters4PartitionSelector
 	const ULONG ulPartLevels = popSelector->UlPartLevels();
 	GPOS_ASSERT(1 <= ulPartLevels);
 
-	CColRefArrays *pdrgpdrgpcrPartKeys = popSelector->Pdrgpdrgpcr();
+	CColRef2dArray *pdrgpdrgpcrPartKeys = popSelector->Pdrgpdrgpcr();
 	CBitSet *pbsDefaultParts = NULL;
 	IMDPartConstraint *mdpart_constraint = m_pmda->RetrieveRel(popSelector->MDId())->MDPartConstraint();
 	if (NULL != mdpart_constraint)
@@ -5590,7 +5590,7 @@ CTranslatorExprToDXL::GetDXLDirectDispatchInfo
 
 	pcnstrDistrCol->Release();
 
-	DXLDatumArrays *pdrgpdrgpdxldatum = GPOS_NEW(m_mp) DXLDatumArrays(m_mp);
+	CDXLDatum2dArray *pdrgpdrgpdxldatum = GPOS_NEW(m_mp) CDXLDatum2dArray(m_mp);
 	pdrgpdrgpdxldatum->Append(pdrgpdxldatum);
 	return GPOS_NEW(m_mp) CDXLDirectDispatchInfo(pdrgpdrgpdxldatum);
 }

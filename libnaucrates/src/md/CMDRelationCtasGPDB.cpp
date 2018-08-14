@@ -38,7 +38,7 @@ CMDRelationCtasGPDB::CMDRelationCtasGPDB
 	Ereldistrpolicy rel_distr_policy,
 										 CMDColumnArray *mdcol_array,
 	ULongPtrArray *distr_col_array,
-	ULongPtrArray2D *keyset_array,
+	ULongPtr2dArray *keyset_array,
 	CDXLCtasStorageOptions *dxl_ctas_storage_options,
 	IntPtrArray *vartypemod_array
 	)

@@ -64,7 +64,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CDistributionSpec *pdsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;

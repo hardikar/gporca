@@ -18,7 +18,7 @@ namespace gpopt
 			CDistributionSpecArray *const m_pdrgpds;
 
 		public:
-			CPhysicalParallelUnionAll(IMemoryPool *mp, CColRefArray *pdrgpcrOutput, CColRefArrays *pdrgpdrgpcrInput,
+			CPhysicalParallelUnionAll(IMemoryPool *mp, CColRefArray *pdrgpcrOutput, CColRef2dArray *pdrgpdrgpcrInput,
 									  ULONG ulScanIdPartialIndex);
 
 			virtual EOperatorId Eopid() const;
@@ -27,14 +27,14 @@ namespace gpopt
 
 			virtual CDistributionSpec *
 			PdsRequired(IMemoryPool *mp, CExpressionHandle &exprhdl, CDistributionSpec *pdsRequired,
-						ULONG child_index, CDrvdPropArrays *pdrgpdpCtxt, ULONG ulOptReq) const;
+						ULONG child_index, CDrvdProp2dArray *pdrgpdpCtxt, ULONG ulOptReq) const;
 
 			virtual
 			CEnfdDistribution::EDistributionMatching Edm
 				(
 				CReqdPropPlan *, // prppInput
 				ULONG,  // child_index
-				CDrvdPropArrays *, //pdrgpdpCtxt
+				CDrvdProp2dArray *, //pdrgpdpCtxt
 				ULONG // ulOptReq
 				);
 

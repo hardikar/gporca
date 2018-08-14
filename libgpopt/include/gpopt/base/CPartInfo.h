@@ -156,7 +156,7 @@ namespace gpopt
 				IMemoryPool *mp,
 				ULONG scan_id,
 				IMDId *mdid,
-				CColRefArrays *pdrgpdrgpcrPart,
+				CColRef2dArray *pdrgpdrgpcrPart,
 				CPartConstraint *ppartcnstrRel
 				);
 

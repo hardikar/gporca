@@ -82,7 +82,7 @@ CXformDynamicIndexGet2DynamicIndexScan::Transform
 	GPOS_ASSERT(NULL != pdrgpcrOutput);
 	pdrgpcrOutput->AddRef();
 	
-	CColRefArrays *pdrgpdrgpcrPart = popIndexGet->PdrgpdrgpcrPart();
+	CColRef2dArray *pdrgpdrgpcrPart = popIndexGet->PdrgpdrgpcrPart();
 	pdrgpdrgpcrPart->AddRef();
 	
 	CPartConstraint *ppartcnstr = popIndexGet->Ppartcnstr();

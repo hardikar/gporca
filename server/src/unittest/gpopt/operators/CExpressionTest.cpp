@@ -1102,7 +1102,7 @@ CExpressionTest::EresCheckCachedReqdCols
 	exprhdl.InitReqdProps(prppInput);
 
 	// create array of child derived properties
-	CDrvdPropArrays *pdrgpdp = GPOS_NEW(mp) CDrvdPropArrays(mp);
+	CDrvdProp2dArray *pdrgpdp = GPOS_NEW(mp) CDrvdProp2dArray(mp);
 
 	GPOS_RESULT eres = GPOS_OK;
 	const ULONG arity =  pexpr->Arity();
@@ -1301,7 +1301,7 @@ CExpressionTest::EresUnittest_InvalidSetOp()
 		pdrgpcrOutput->Append(pcrsOutput1->PcrFirst());
 
 		// create input columns of SetOp while including an outer reference in inner child
-		CColRefArrays *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRefArrays(mp);
+		CColRef2dArray *pdrgpdrgpcrInput = GPOS_NEW(mp) CColRef2dArray(mp);
 
 		CColRefArray *pdrgpcr1 = GPOS_NEW(mp) CColRefArray(mp);
 		pdrgpcr1->Append(pcrsOutput1->PcrFirst());

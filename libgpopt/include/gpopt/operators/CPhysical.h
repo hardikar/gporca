@@ -230,7 +230,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CCTEReq *pcter,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt
+				CDrvdProp2dArray *pdrgpdpCtxt
 				)
 				const;
 
@@ -344,7 +344,7 @@ namespace gpopt
 			CCTEMap *PcmCombine
 				(
 				IMemoryPool *mp,
-				CDrvdPropArrays *pdrgpdpCtxt
+				CDrvdProp2dArray *pdrgpdpCtxt
 				);
 
 			// helper for common case of sort order derivation
@@ -442,7 +442,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CColRefSet *pcrsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				) = 0;
 
@@ -454,7 +454,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CCTEReq *pcter,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const = 0;
@@ -467,7 +467,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				COrderSpec *posRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const = 0;
@@ -480,7 +480,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CDistributionSpec *pdsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const = 0;
@@ -493,7 +493,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CRewindabilitySpec *prsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const = 0;
@@ -506,7 +506,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CPartitionPropagationSpec *pppsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				) = 0;
 			
@@ -590,7 +590,7 @@ namespace gpopt
 				(
 				CReqdPropPlan *prppInput,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 
@@ -600,7 +600,7 @@ namespace gpopt
 				(
 				CReqdPropPlan *prppInput,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 			
@@ -610,7 +610,7 @@ namespace gpopt
 				(
 				CReqdPropPlan *prppInput,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 

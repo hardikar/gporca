@@ -434,7 +434,7 @@ namespace gpdxl
 			CWStringDynamic *Serialize
 				(
 				IMemoryPool *mp,
-				const ULongPtrArray2D *pdrgpul
+				const ULongPtr2dArray *pdrgpul
 				);
 
 			// serialize a list of chars into a comma-separate string

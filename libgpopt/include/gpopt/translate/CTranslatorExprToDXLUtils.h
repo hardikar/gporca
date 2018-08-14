@@ -87,7 +87,7 @@ namespace gpopt
 			// find the partitioning level of the given part key, given the whole
 			// array of part keys
 			static
-			ULONG UlPartKeyLevel(const CColRef *colref, CColRefArrays *pdrgpdrgpcr);
+			ULONG UlPartKeyLevel(const CColRef *colref, CColRef2dArray *pdrgpdrgpcr);
 
 			// construct a test for a partial scan given a part constraint
 			static 
@@ -97,7 +97,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				CConstraint *pcnstr,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -110,7 +110,7 @@ namespace gpopt
 				CColumnFactory *col_factory,
 				CConstraintArray *pdrgpcnstr,
 				BOOL fConjunction,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -122,7 +122,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				CConstraint *pcnstr,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -134,7 +134,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				CConstraint *pcnstr,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -146,7 +146,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				CConstraint *pcnstr,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 			
@@ -157,7 +157,7 @@ namespace gpopt
 				IMemoryPool *mp, 
 				CMDAccessor *md_accessor, 
 				CConstraint *pcnstr,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				BOOL fRangePart
 				);
 
@@ -237,7 +237,7 @@ namespace gpopt
 			
 			// compute an array of DXL datum arrays from a disjunction of point constraints
 			static
-			DXLDatumArrays *PdrgpdrgpdxldatumFromDisjPointConstraint
+			CDXLDatum2dArray *PdrgpdrgpdxldatumFromDisjPointConstraint
 				(
 				IMemoryPool *mp, 
 				CMDAccessor *md_accessor,
@@ -378,7 +378,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				const CPartConstraint *ppartcnstr,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				CharPtrArray *pdrgszPartTypes
 				);
 			
@@ -391,7 +391,7 @@ namespace gpopt
 				CMDAccessor *md_accessor, 
 				CColumnFactory *col_factory,
 				UlongToPartConstraintMap *ppartcnstrmap,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				CharPtrArray *pdrgszPartTypes
 				);
 			
@@ -443,7 +443,7 @@ namespace gpopt
 				CColumnFactory *col_factory,
 				BOOL fConditional,
 				UlongToPartConstraintMap *ppartcnstrmap,
-				CColRefArrays *pdrgpdrgpcrKeys,
+				CColRef2dArray *pdrgpdrgpcrKeys,
 				ULONG scan_id,
 				CharPtrArray *pdrgszPartTypes
 				);
@@ -514,7 +514,7 @@ namespace gpopt
 				IMemoryPool *mp,
 				CDXLPhysicalProperties *dxl_properties,
 				CDXLNode *pdxlnPrL,
-				IDatumArrays *pdrgpdrgdatum
+				IDatum2dArray *pdrgpdrgdatum
 				);
 
 			// build hashmap based on a column array, where the key is the column

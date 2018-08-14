@@ -91,7 +91,7 @@ CPhysicalUnionAll::CPhysicalUnionAll
 	(
 		IMemoryPool *mp,
 		CColRefArray *pdrgpcrOutput,
-		CColRefArrays *pdrgpdrgpcrInput,
+		CColRef2dArray *pdrgpdrgpcrInput,
 		ULONG ulScanIdPartialIndex
 	)
 	:
@@ -131,7 +131,7 @@ CPhysicalUnionAll::PdrgpcrOutput() const
 }
 
 // accessor of input column array
-CColRefArrays *
+CColRef2dArray *
 CPhysicalUnionAll::PdrgpdrgpcrInput() const
 {
 	return m_pdrgpdrgpcrInput;
@@ -209,7 +209,7 @@ CPhysicalUnionAll::PcrsRequired
 		CExpressionHandle &,//exprhdl,
 		CColRefSet *, //pcrsRequired,
 		ULONG child_index,
-		CDrvdPropArrays *, // pdrgpdpCtxt
+		CDrvdProp2dArray *, // pdrgpdpCtxt
 		ULONG // ulOptReq
 	)
 {
@@ -238,7 +238,7 @@ CPhysicalUnionAll::PosRequired
 	child_index
 #endif // GPOS_DEBUG
 	,
-		CDrvdPropArrays *, // pdrgpdpCtxt
+		CDrvdProp2dArray *, // pdrgpdpCtxt
 		ULONG // ulOptReq
 )
 const
@@ -265,7 +265,7 @@ CPhysicalUnionAll::PrsRequired
 		CExpressionHandle &exprhdl,
 		CRewindabilitySpec *prsRequired,
 		ULONG child_index,
-		CDrvdPropArrays *, // pdrgpdpCtxt
+		CDrvdProp2dArray *, // pdrgpdpCtxt
 		ULONG // ulOptReq
 	)
 const
@@ -290,7 +290,7 @@ CPhysicalUnionAll::PppsRequired
 		CExpressionHandle &exprhdl,
 		CPartitionPropagationSpec *pppsRequired,
 		ULONG child_index,
-		CDrvdPropArrays *, //pdrgpdpCtxt,
+		CDrvdProp2dArray *, //pdrgpdpCtxt,
 		ULONG //ulOptReq
 	)
 {
@@ -325,7 +325,7 @@ CPhysicalUnionAll::PcteRequired
 		CExpressionHandle &exprhdl,
 		CCTEReq *pcter,
 		ULONG child_index,
-		CDrvdPropArrays *pdrgpdpCtxt,
+		CDrvdProp2dArray *pdrgpdpCtxt,
 		ULONG //ulOptReq
 	)
 const

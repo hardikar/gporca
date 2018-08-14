@@ -55,7 +55,7 @@ namespace gpopt
 				const CName *pnameTableAlias,
 				ULONG ulPartIndex,
 				CColRefArray *pdrgpcrOutput,
-				CColRefArrays *pdrgpdrgpcrPart,
+				CColRef2dArray *pdrgpdrgpcrPart,
 				ULONG ulSecondaryPartIndexId,
 				BOOL is_partial,
 				CPartConstraint *ppartcnstr,

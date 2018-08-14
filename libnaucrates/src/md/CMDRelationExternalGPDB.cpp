@@ -33,7 +33,7 @@ CMDRelationExternalGPDB::CMDRelationExternalGPDB
 												 CMDColumnArray *mdcol_array,
 	ULongPtrArray *distr_col_array,
 	BOOL convert_hash_to_random,
-	ULongPtrArray2D *keyset_array,
+	ULongPtr2dArray *keyset_array,
 												 CMDIndexInfoArray *md_index_info_array,
 												 IMdIdArray *mdid_triggers_array,
 												 IMdIdArray *mdid_check_constraint_array,

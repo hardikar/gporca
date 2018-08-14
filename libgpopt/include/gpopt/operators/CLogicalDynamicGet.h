@@ -51,7 +51,7 @@ namespace gpopt
 				CTableDescriptor *ptabdesc,
 				ULONG ulPartIndex,
 				CColRefArray *colref_array,
-				CColRefArrays *pdrgpdrgpcrPart,
+				CColRef2dArray *pdrgpdrgpcrPart,
 				ULONG ulSecondaryPartIndexId,
 				BOOL is_partial,
 				CPartConstraint *ppartcnstr,

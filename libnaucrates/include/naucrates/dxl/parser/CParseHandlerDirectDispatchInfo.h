@@ -40,7 +40,7 @@ namespace gpdxl
 		CDXLDatumArray *m_dxl_datum_array;
 			
 			// array of datum combinations
-			DXLDatumArrays *m_datum_array_combination;
+			CDXLDatum2dArray *m_datum_array_combination;
 		
 			// direct dispatch spec
 			CDXLDirectDispatchInfo *m_direct_dispatch_info;

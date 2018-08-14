@@ -35,7 +35,7 @@ CPhysicalPartitionSelector::CPhysicalPartitionSelector
 	IMemoryPool *mp,
 	ULONG scan_id,
 	IMDId *mdid,
-	CColRefArrays *pdrgpdrgpcr,
+	CColRef2dArray *pdrgpdrgpcr,
 	UlongToPartConstraintMap *ppartcnstrmap,
 	CPartConstraint *ppartcnstr,
 	UlongToExprMap *phmulexprEqPredicates,
@@ -470,7 +470,7 @@ CPhysicalPartitionSelector::PcrsRequired
 	CExpressionHandle &exprhdl,
 	CColRefSet *pcrsInput,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 {
@@ -499,7 +499,7 @@ CPhysicalPartitionSelector::PosRequired
 	CExpressionHandle &exprhdl,
 	COrderSpec *posRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -524,7 +524,7 @@ CPhysicalPartitionSelector::PdsRequired
 	CExpressionHandle &exprhdl,
 	CDistributionSpec *pdsInput,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -561,7 +561,7 @@ CPhysicalPartitionSelector::PrsRequired
 	CExpressionHandle &exprhdl,
 	CRewindabilitySpec *prsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *, // pdrgpdpCtxt
+	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
@@ -590,7 +590,7 @@ CPhysicalPartitionSelector::PppsRequired
 	child_index
 #endif // GPOS_DEBUG
 	,
-	CDrvdPropArrays *, //pdrgpdpCtxt,
+	CDrvdProp2dArray *, //pdrgpdpCtxt,
 	ULONG //ulOptReq
 	)
 {
@@ -665,7 +665,7 @@ CPhysicalPartitionSelector::PcteRequired
 	child_index
 #endif
 	,
-	CDrvdPropArrays *, //pdrgpdpCtxt,
+	CDrvdProp2dArray *, //pdrgpdpCtxt,
 	ULONG //ulOptReq
 	)
 	const

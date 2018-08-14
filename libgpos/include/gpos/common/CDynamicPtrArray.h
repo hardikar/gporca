@@ -56,7 +56,7 @@ namespace gpos
 	// arrays of unsigned integers
 	typedef CDynamicPtrArray<ULONG, CleanupDelete> ULongPtrArray;
 	// array of unsigned integer arrays
-	typedef CDynamicPtrArray<ULongPtrArray, CleanupRelease> ULongPtrArray2D;
+	typedef CDynamicPtrArray<ULongPtrArray, CleanupRelease> ULongPtr2dArray;
 
 	// arrays of integers
 	typedef CDynamicPtrArray<INT, CleanupDelete> IntPtrArray;

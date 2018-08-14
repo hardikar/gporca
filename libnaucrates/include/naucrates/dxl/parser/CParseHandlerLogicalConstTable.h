@@ -37,7 +37,7 @@ namespace gpdxl
 		private:
 
 			// array of datum arrays
-			DXLDatumArrays *m_const_tuples_datum_array;
+			CDXLDatum2dArray *m_const_tuples_datum_array;
 
 			// array of datums
 		CDXLDatumArray *m_dxl_datum_array;

@@ -70,7 +70,7 @@ CXformImplementConstTableGet::Transform
 	CColumnDescriptorArray *pdrgpcoldesc = popConstTableGet->Pdrgpcoldesc();
 	pdrgpcoldesc->AddRef();
 	
-	IDatumArrays *pdrgpdrgpdatum = popConstTableGet->Pdrgpdrgpdatum();
+	IDatum2dArray *pdrgpdrgpdatum = popConstTableGet->Pdrgpdrgpdatum();
 	pdrgpdrgpdatum->AddRef();
 	
 	CColRefArray *pdrgpcrOutput = popConstTableGet->PdrgpcrOutput();

@@ -328,7 +328,7 @@ CParseHandlerMDRelation::ParseRelationAttributes
 	else
 	{
 		// construct an empty keyset
-		m_key_sets_arrays = GPOS_NEW(m_mp) ULongPtrArray2D(m_mp);
+		m_key_sets_arrays = GPOS_NEW(m_mp) ULongPtr2dArray(m_mp);
 	}
 
 	m_num_of_partitions = CDXLOperatorFactory::ExtractConvertAttrValueToUlong(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenNumLeafPartitions, dxl_token_element,

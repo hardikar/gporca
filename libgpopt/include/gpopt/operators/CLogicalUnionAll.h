@@ -47,7 +47,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CColRefArray *pdrgpcrOutput,
-				CColRefArrays *pdrgpdrgpcrInput,
+				CColRef2dArray *pdrgpdrgpcrInput,
 				ULONG ulScanIdPartialIndex = gpos::ulong_max
 				);
 

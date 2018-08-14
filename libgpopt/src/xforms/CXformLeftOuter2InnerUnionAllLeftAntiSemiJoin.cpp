@@ -267,7 +267,7 @@ CXformLeftOuter2InnerUnionAllLeftAntiSemiJoin::Transform
 											);
 	GPOS_ASSERT(NULL != pdrgpcrProjectOutput);
 
-	CColRefArrays *pdrgpdrgpcrUnionInput = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrUnionInput = GPOS_NEW(mp) CColRef2dArray(mp);
 	pdrgpcrJoinOutput->AddRef();
 	pdrgpdrgpcrUnionInput->Append(pdrgpcrJoinOutput);
 	pdrgpdrgpcrUnionInput->Append(pdrgpcrProjectOutput);
@@ -386,7 +386,7 @@ CXformLeftOuter2InnerUnionAllLeftAntiSemiJoin::PexprLeftAntiSemiJoinWithInnerGro
 	CColRefArray *pdrgpcrKeysInOuterCopy =
 			CXformUtils::PdrgpcrReorderedSubsequence(mp, pdrgpcrOuterCopy, pdrgpulIndexesOfOuterKeys);
 
-	CColRefArrays *pdrgpdrgpcrLASJInput = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrLASJInput = GPOS_NEW(mp) CColRef2dArray(mp);
 	pdrgpdrgpcrLASJInput->Append(pdrgpcrKeysInOuterCopy);
 	pdrgpcrGbyKeys->AddRef();
 	pdrgpdrgpcrLASJInput->Append(pdrgpcrGbyKeys);

@@ -78,7 +78,7 @@ namespace gpmd
 			ULongPtrArray *m_distr_col_array;
 			
 			// array of key sets
-			ULongPtrArray2D *m_keyset_array;
+			ULongPtr2dArray *m_keyset_array;
 
 			// number of system columns
 			ULONG m_system_columns;
@@ -117,7 +117,7 @@ namespace gpmd
 				Ereldistrpolicy rel_distr_policy,
 							CMDColumnArray *mdcol_array,
 				ULongPtrArray *distr_col_array,
-				ULongPtrArray2D *keyset_array,
+				ULongPtr2dArray *keyset_array,
 				CDXLCtasStorageOptions *dxl_ctas_storage_options,
 				IntPtrArray *vartypemod_array
 				);

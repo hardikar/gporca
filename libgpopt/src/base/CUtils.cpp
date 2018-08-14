@@ -982,7 +982,7 @@ CUtils::FUsesNullableCol
 CColRef *
 CUtils::PcrExtractPartKey
 	(
-	CColRefArrays *pdrgpdrgpcr,
+	CColRef2dArray *pdrgpdrgpcr,
 	ULONG ulLevel
 	)
 {
@@ -3801,11 +3801,11 @@ CUtils::PdrgpcrRemapAndCreate
 
 // create an array of column arrays corresponding to the given array
 // and based on the given mapping
-CColRefArrays *
+CColRef2dArray *
 CUtils::PdrgpdrgpcrRemap
 	(
 	IMemoryPool *mp,
-	CColRefArrays *pdrgpdrgpcr,
+	CColRef2dArray *pdrgpdrgpcr,
 	UlongToColRefMap *colref_mapping,
 	BOOL must_exist
 	)
@@ -3813,7 +3813,7 @@ CUtils::PdrgpdrgpcrRemap
 	GPOS_ASSERT(NULL != pdrgpdrgpcr);
 	GPOS_ASSERT(NULL != colref_mapping);
 
-	CColRefArrays *pdrgpdrgpcrNew = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrNew = GPOS_NEW(mp) CColRef2dArray(mp);
 
 	const ULONG arity = pdrgpdrgpcr->Size();
 	for (ULONG ul = 0; ul < arity; ul++)
@@ -4049,7 +4049,7 @@ CExpression *
 CUtils::PexprConjINDFCond
 	(
 	IMemoryPool *mp,
-	CColRefArrays *pdrgpdrgpcrInput
+	CColRef2dArray *pdrgpdrgpcrInput
 	)
 {
 	GPOS_ASSERT(NULL != pdrgpdrgpcrInput);
@@ -4278,7 +4278,7 @@ UlongToConstraintMap *
 CUtils::PhmulcnstrBoolConstOnPartKeys
 	(
 	IMemoryPool *mp,
-	CColRefArrays *pdrgpdrgpcrPartKey,
+	CColRef2dArray *pdrgpdrgpcrPartKey,
 	BOOL value
 	)
 {
@@ -4358,7 +4358,7 @@ CUtils::PpartcnstrFromMDPartCnstr
 	(
 	IMemoryPool *mp,
 	CMDAccessor *md_accessor,
-	CColRefArrays *pdrgpdrgpcrPartKey,
+	CColRef2dArray *pdrgpdrgpcrPartKey,
 	const IMDPartConstraint *mdpart_constraint,
 	CColRefArray *pdrgpcrOutput,
 	BOOL fDummyConstraint
@@ -4442,7 +4442,7 @@ CUtils::PexprLogicalCTGDummy
 	IDatumArray *pdrgpdatum = GPOS_NEW(mp) IDatumArray(mp);
 	IDatumBool *datum =  pmdtypebool->CreateBoolDatum(mp, false /*value*/, false /*is_null*/);
 	pdrgpdatum->Append(datum);
-	IDatumArrays *pdrgpdrgpdatum = GPOS_NEW(mp) IDatumArrays(mp);
+	IDatum2dArray *pdrgpdrgpdatum = GPOS_NEW(mp) IDatum2dArray(mp);
 	pdrgpdrgpdatum->Append(pdrgpdatum);
 
 	return GPOS_NEW(mp) CExpression(mp, GPOS_NEW(mp) CLogicalConstTableGet(mp, pdrgpcrCTG, pdrgpdrgpdatum));

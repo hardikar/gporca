@@ -17,7 +17,7 @@
 namespace gpopt
 {
 	// dynamic array of datum arrays -- array owns elements
-	typedef CDynamicPtrArray<IDatumArray, CleanupRelease> IDatumArrays;
+	typedef CDynamicPtrArray<IDatumArray, CleanupRelease> IDatum2dArray;
 
 	//---------------------------------------------------------------------------
 	//	@class:
@@ -35,7 +35,7 @@ namespace gpopt
 			CColumnDescriptorArray *m_pdrgpcoldesc;
 		
 			// array of datum arrays
-			IDatumArrays *m_pdrgpdrgpdatum;
+			IDatum2dArray *m_pdrgpdrgpdatum;
 			
 			// output columns
 			CColRefArray *m_pdrgpcrOutput;
@@ -56,14 +56,14 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CColumnDescriptorArray *pdrgpcoldesc,
-				IDatumArrays *pdrgpdrgpdatum
+				IDatum2dArray *pdrgpdrgpdatum
 				);
 
 			CLogicalConstTableGet
 				(
 				IMemoryPool *mp,
 				CColRefArray *pdrgpcrOutput,
-				IDatumArrays *pdrgpdrgpdatum
+				IDatum2dArray *pdrgpdrgpdatum
 				);
 
 			// dtor
@@ -91,7 +91,7 @@ namespace gpopt
 			}
 			
 			// const table values accessor
-			IDatumArrays *Pdrgpdrgpdatum () const
+			IDatum2dArray *Pdrgpdrgpdatum () const
 			{
 				return m_pdrgpdrgpdatum;
 			}

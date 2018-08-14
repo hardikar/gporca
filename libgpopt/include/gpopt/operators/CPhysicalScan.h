@@ -60,7 +60,7 @@ namespace gpopt
 				IMemoryPool *mp,
 				ULONG part_idx_id,
 				IMDId *rel_mdid,
-				CColRefArrays *pdrgpdrgpcrPart,
+				CColRef2dArray *pdrgpdrgpcrPart,
 				ULONG ulSecondaryPartIndexId,
 				CPartConstraint *ppartcnstr,
 				CPartConstraint *ppartcnstrRel,
@@ -130,7 +130,7 @@ namespace gpopt
 				CExpressionHandle &, // exprhdl
 				CColRefSet *, // pcrsRequired
 				ULONG, // child_index
-				CDrvdPropArrays *, // pdrgpdpCtxt
+				CDrvdProp2dArray *, // pdrgpdpCtxt
 				ULONG // ulOptReq
 				)
 			{
@@ -146,7 +146,7 @@ namespace gpopt
 				CExpressionHandle &, //exprhdl,
 				CCTEReq *, //pcter,
 				ULONG , //child_index,
-				CDrvdPropArrays *, //pdrgpdpCtxt,
+				CDrvdProp2dArray *, //pdrgpdpCtxt,
 				ULONG //ulOptReq
 				)
 				const
@@ -163,7 +163,7 @@ namespace gpopt
 				CExpressionHandle &, // exprhdl
 				COrderSpec *, // posRequired
 				ULONG, // child_index
-				CDrvdPropArrays *, // pdrgpdpCtxt
+				CDrvdProp2dArray *, // pdrgpdpCtxt
 				ULONG // ulOptReq
 				)
 				const
@@ -180,7 +180,7 @@ namespace gpopt
 				CExpressionHandle &, // exprhdl
 				CDistributionSpec *, // pdsRequired
 				ULONG, // child_index
-				CDrvdPropArrays *, // pdrgpdpCtxt
+				CDrvdProp2dArray *, // pdrgpdpCtxt
 				ULONG // ulOptReq
 				)
 				const
@@ -197,7 +197,7 @@ namespace gpopt
 				CExpressionHandle &, //exprhdl
 				CRewindabilitySpec *, //prsRequired
 				ULONG, // child_index
-				CDrvdPropArrays *, // pdrgpdpCtxt
+				CDrvdProp2dArray *, // pdrgpdpCtxt
 				ULONG // ulOptReq
 				)
 				const
@@ -215,7 +215,7 @@ namespace gpopt
 				CExpressionHandle &, //exprhdl,
 				CPartitionPropagationSpec *, //pppsRequired,
 				ULONG , //child_index,
-				CDrvdPropArrays *, //pdrgpdpCtxt,
+				CDrvdProp2dArray *, //pdrgpdpCtxt,
 				ULONG // ulOptReq
 				)
 			{

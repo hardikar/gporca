@@ -35,7 +35,7 @@ namespace gpopt
 			CColumnDescriptorArray *m_pdrgpcoldesc;
 		
 			// array of datum arrays
-			IDatumArrays *m_pdrgpdrgpdatum;
+			IDatum2dArray *m_pdrgpdrgpdatum;
 			
 			// output columns
 			CColRefArray *m_pdrgpcrOutput;
@@ -50,7 +50,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CColumnDescriptorArray *pdrgpcoldesc,
-				IDatumArrays *pdrgpdrgpconst,
+				IDatum2dArray *pdrgpdrgpconst,
 				CColRefArray *pdrgpcrOutput
 				);
 
@@ -78,7 +78,7 @@ namespace gpopt
 			}
 			
 			// const table values accessor
-			IDatumArrays *Pdrgpdrgpdatum () const
+			IDatum2dArray *Pdrgpdrgpdatum () const
 			{
 				return m_pdrgpdrgpdatum;
 			}
@@ -114,7 +114,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CColRefSet *pcrsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				);
 		
@@ -126,7 +126,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CCTEReq *pcter,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -139,7 +139,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				COrderSpec *posRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -152,7 +152,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CDistributionSpec *pdsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -165,7 +165,7 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				CRewindabilitySpec *prsRequired,
 				ULONG child_index,
-				CDrvdPropArrays *pdrgpdpCtxt,
+				CDrvdProp2dArray *pdrgpdpCtxt,
 				ULONG ulOptReq
 				)
 				const;
@@ -178,7 +178,7 @@ namespace gpopt
 				CExpressionHandle &, //exprhdl,
 				CPartitionPropagationSpec *, //pppsRequired,
 				ULONG , //child_index,
-				CDrvdPropArrays *, //pdrgpdpCtxt,
+				CDrvdProp2dArray *, //pdrgpdpCtxt,
 				ULONG //ulOptReq
 				)
 			{

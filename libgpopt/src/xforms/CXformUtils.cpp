@@ -668,7 +668,7 @@ CXformUtils::FCanPushGbAggBelowJoin
 BOOL
 CXformUtils::FSameDatatype
 	(
-	CColRefArrays *pdrgpdrgpcrInput
+	CColRef2dArray *pdrgpdrgpcrInput
 	)
 {
 	GPOS_ASSERT(1 < pdrgpdrgpcrInput->Size());
@@ -2799,7 +2799,7 @@ CXformUtils::PexprBuildIndexPlan
 	CColRefArray *pdrgpcrOutput = NULL;
 	CWStringConst *alias = NULL;
 	ULONG ulPartIndex = gpos::ulong_max;
-	CColRefArrays *pdrgpdrgpcrPart = NULL;
+	CColRef2dArray *pdrgpdrgpcrPart = NULL;
 	BOOL fPartialIndex = pmdrel->IsPartialIndex(pmdindex->MDId());
 	ULONG ulSecondaryPartIndex = gpos::ulong_max;
 	CPartConstraint *ppartcnstrRel = NULL;
@@ -4025,7 +4025,7 @@ CXformUtils::PdrgpdrgppartdigCandidates
 	IMemoryPool *mp,
 	CMDAccessor *md_accessor,
 	CExpressionArray *pdrgpexprScalar,
-	CColRefArrays *pdrgpdrgpcrPartKey,
+	CColRef2dArray *pdrgpdrgpcrPartKey,
 	const IMDRelation *pmdrel,
 	CPartConstraint *ppartcnstrRel,
 	CColRefArray *pdrgpcrOutput,
@@ -4306,7 +4306,7 @@ CXformUtils::PexprPartialDynamicIndexGet
 
 	CWStringConst strTableAliasName(mp, popGet->Name().Pstr()->GetBuffer());
 
-	CColRefArrays *pdrgpdrgpcrPart = NULL;
+	CColRef2dArray *pdrgpdrgpcrPart = NULL;
 	CPartConstraint *ppartcnstrDIG = NULL;
 	CExpressionArray *pdrgpexprIndexRemapped = NULL;
 	CExpressionArray *pdrgpexprResidualRemapped = NULL;

@@ -35,7 +35,7 @@ namespace gpopt
 			CColRefArray *m_pdrgpcrOutput;
 			
 			// input column array
-			CColRefArrays *m_pdrgpdrgpcrInput;
+			CColRef2dArray *m_pdrgpdrgpcrInput;
 
 			// set representation of output columns
 			CColRefSet *m_pcrsOutput;
@@ -102,7 +102,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CColRefArray *pdrgpcrOutput,
-				CColRefArrays *pdrgpdrgpcrInput
+				CColRef2dArray *pdrgpdrgpcrInput
 				);
 
 			// dtor
@@ -124,7 +124,7 @@ namespace gpopt
 			}
 			
 			// accessor of input column array
-			CColRefArrays *PdrgpdrgpcrInput() const
+			CColRef2dArray *PdrgpdrgpcrInput() const
 			{
 				GPOS_ASSERT(NULL != m_pdrgpdrgpcrInput);
 				return m_pdrgpdrgpcrInput;

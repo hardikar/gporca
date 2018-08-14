@@ -32,7 +32,7 @@ using namespace gpdxl;
 //---------------------------------------------------------------------------
 CDXLDirectDispatchInfo::CDXLDirectDispatchInfo
 	(
-	DXLDatumArrays *dispatch_identifer_datum_array
+	CDXLDatum2dArray *dispatch_identifer_datum_array
 	)
 	:
 	m_dispatch_identifer_datum_array(dispatch_identifer_datum_array)

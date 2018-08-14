@@ -43,7 +43,7 @@ CPhysicalDynamicTableScan::CPhysicalDynamicTableScan
 	ULONG ulOriginOpId,
 	ULONG scan_id,
 	CColRefArray *pdrgpcrOutput,
-	CColRefArrays *pdrgpdrgpcrParts,
+	CColRef2dArray *pdrgpdrgpcrParts,
 	ULONG ulSecondaryScanId,
 	CPartConstraint *ppartcnstr,
 	CPartConstraint *ppartcnstrRel

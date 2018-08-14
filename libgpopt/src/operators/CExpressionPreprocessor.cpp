@@ -922,8 +922,8 @@ CExpressionPreprocessor::PexprCollapseUnionUnionAll
 
 	// array of input children and its column references
 	CExpressionArray *pdrgpexprNew = GPOS_NEW(mp) CExpressionArray(mp);
-	CColRefArrays *pdrgdrgpcrOrig = CLogicalSetOp::PopConvert(pop)->PdrgpdrgpcrInput();
-	CColRefArrays *pdrgdrgpcrNew = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgdrgpcrOrig = CLogicalSetOp::PopConvert(pop)->PdrgpdrgpcrInput();
+	CColRef2dArray *pdrgdrgpcrNew = GPOS_NEW(mp) CColRef2dArray(mp);
 
 	BOOL fCollapsed = false;
 	for (ULONG ul = 0; ul < arity; ul++)
@@ -1517,7 +1517,7 @@ CExpressionPreprocessor::PexprPruneEmptySubtrees
 			CColRefArray *colref_array = pdprel->PcrsOutput()->Pdrgpcr(mp);
 
 			// empty output data
-			IDatumArrays *pdrgpdrgpdatum = GPOS_NEW(mp) IDatumArrays(mp);
+			IDatum2dArray *pdrgpdrgpdatum = GPOS_NEW(mp) IDatum2dArray(mp);
 
 			COperator *popCTG = GPOS_NEW(mp) CLogicalConstTableGet(mp, colref_array, pdrgpdrgpdatum);
 			return GPOS_NEW(mp) CExpression(mp, popCTG);

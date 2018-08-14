@@ -46,7 +46,7 @@ CPhysicalSerialUnionAll::CPhysicalSerialUnionAll
 	(
 	IMemoryPool *mp,
 	CColRefArray *pdrgpcrOutput,
-	CColRefArrays *pdrgpdrgpcrInput,
+	CColRef2dArray *pdrgpdrgpcrInput,
 	ULONG ulScanIdPartialIndex
 	)
 	:
@@ -82,7 +82,7 @@ CPhysicalSerialUnionAll::PdsRequired
 	CExpressionHandle &exprhdl,
 	CDistributionSpec *pdsRequired,
 	ULONG child_index,
-	CDrvdPropArrays *pdrgpdpCtxt,
+	CDrvdProp2dArray *pdrgpdpCtxt,
 	ULONG ulOptReq
 	)
 	const

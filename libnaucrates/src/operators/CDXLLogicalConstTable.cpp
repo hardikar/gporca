@@ -32,7 +32,7 @@ CDXLLogicalConstTable::CDXLLogicalConstTable
 	(
 	IMemoryPool *mp,		
 	CDXLColDescrArray *col_descr_array,
-	DXLDatumArrays *const_tuples_datum_array
+	CDXLDatum2dArray *const_tuples_datum_array
 	)
 	:
 	CDXLLogical(mp),

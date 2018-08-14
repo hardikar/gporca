@@ -3416,7 +3416,7 @@ CDXLOperatorFactory::ExtractConvertPartitionTypeToArray
 //		Will raise an exception if list is not well-formed
 //
 //---------------------------------------------------------------------------
-ULongPtrArray2D *
+ULongPtr2dArray *
 CDXLOperatorFactory::ExtractConvertUlongTo2DArray
 	(
 	CDXLMemoryManager *dxl_memory_manager,
@@ -3428,7 +3428,7 @@ CDXLOperatorFactory::ExtractConvertUlongTo2DArray
 	// get the memory pool from the memory manager
 	IMemoryPool *mp = dxl_memory_manager->Pmp();
 		
-	ULongPtrArray2D *array_2D = GPOS_NEW(mp) ULongPtrArray2D(mp);
+	ULongPtr2dArray *array_2D = GPOS_NEW(mp) ULongPtr2dArray(mp);
 	
 	XMLStringTokenizer mdid_components(xml_val, CDXLTokens::XmlstrToken(EdxltokenSemicolon));
 	const ULONG num_tokens = mdid_components.countTokens();

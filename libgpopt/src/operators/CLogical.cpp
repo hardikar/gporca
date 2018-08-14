@@ -121,7 +121,7 @@ CLogical::PdrgpcrCreateMapping
 //		Initialize array of partition columns from the array with their indexes
 //
 //---------------------------------------------------------------------------
-CColRefArrays *
+CColRef2dArray *
 CLogical::PdrgpdrgpcrCreatePartCols
 	(
 	IMemoryPool *mp,
@@ -132,7 +132,7 @@ CLogical::PdrgpdrgpcrCreatePartCols
 	GPOS_ASSERT(NULL != colref_array && "Output columns cannot be NULL");
 	GPOS_ASSERT(NULL != pdrgpulPart);
 	
-	CColRefArrays *pdrgpdrgpcrPart = GPOS_NEW(mp) CColRefArrays(mp);
+	CColRef2dArray *pdrgpdrgpcrPart = GPOS_NEW(mp) CColRef2dArray(mp);
 	
 	const ULONG ulPartCols = pdrgpulPart->Size();
 	GPOS_ASSERT(0 < ulPartCols);

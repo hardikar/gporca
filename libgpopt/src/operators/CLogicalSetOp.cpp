@@ -55,7 +55,7 @@ CLogicalSetOp::CLogicalSetOp
 	(
 	IMemoryPool *mp,
 	CColRefArray *pdrgpcrOutput,
-	CColRefArrays *pdrgpdrgpcrInput
+	CColRef2dArray *pdrgpdrgpcrInput
 	)
 	:
 	CLogical(mp),
@@ -95,7 +95,7 @@ CLogicalSetOp::CLogicalSetOp
 	GPOS_ASSERT(NULL != pdrgpcrLeft);
 	GPOS_ASSERT(NULL != pdrgpcrRight);
 
-	m_pdrgpdrgpcrInput = GPOS_NEW(mp) CColRefArrays(mp, 2);
+	m_pdrgpdrgpcrInput = GPOS_NEW(mp) CColRef2dArray(mp, 2);
 
 	m_pdrgpdrgpcrInput->Append(pdrgpcrLeft);
 	m_pdrgpdrgpcrInput->Append(pdrgpcrRight);
@@ -273,7 +273,7 @@ CLogicalSetOp::Matches
 	}
 
 	CLogicalSetOp *popSetOp = CLogicalSetOp::PopConvert(pop);
-	CColRefArrays *pdrgpdrgpcrInput = popSetOp->PdrgpdrgpcrInput();
+	CColRef2dArray *pdrgpdrgpcrInput = popSetOp->PdrgpdrgpcrInput();
 	const ULONG arity = pdrgpdrgpcrInput->Size();
 
 	if (arity != m_pdrgpdrgpcrInput->Size() ||

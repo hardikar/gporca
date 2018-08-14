@@ -58,7 +58,7 @@ namespace gpdxl
 		CDXLColDescrArray *m_col_descr_array;
 
 			// array of input colid arrays
-			ULongPtrArray2D *m_input_colids_arrays;
+			ULongPtr2dArray *m_input_colids_arrays;
 			
 			// do the columns need to be casted accross inputs
 			BOOL m_cast_across_input_req;
@@ -70,7 +70,7 @@ namespace gpdxl
 				IMemoryPool *mp,
 				EdxlSetOpType edxlsetoptype,
 						 CDXLColDescrArray *pdrgdxlcd,
-				ULongPtrArray2D *array_2D,
+				ULongPtr2dArray *array_2D,
 				BOOL fCastAcrossInput
 				);
 

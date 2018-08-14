@@ -74,7 +74,7 @@ namespace gpdxl
 			ULONG m_num_of_partitions;
 			
 			// key sets
-			ULongPtrArray2D *m_key_sets_arrays;
+			ULongPtr2dArray *m_key_sets_arrays;
 
 			// part constraint
 			CMDPartConstraintGPDB *m_part_constraint;

@@ -309,7 +309,7 @@ CExpressionHandle::CopyGroupProps()
 
 	// add-ref child groups' properties
 	const ULONG arity = Arity();
-	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdPropArrays(m_mp, arity);
+	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdProp2dArray(m_mp, arity);
 	for (ULONG ul = 0; ul < arity; ul++)
 	{
 		DrvdPropArray *pdpChild = (*m_pgexpr)[ul]->Pdp();
@@ -340,7 +340,7 @@ CExpressionHandle::CopyExprProps()
 
 	// add-ref child expressions' properties
 	const ULONG arity = Arity();
-	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdPropArrays(m_mp, arity);
+	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdProp2dArray(m_mp, arity);
 	for (ULONG ul = 0; ul < arity; ul++)
 	{
 		DrvdPropArray *pdpChild = (*m_pexpr)[ul]->PdpDerive();
@@ -372,7 +372,7 @@ CExpressionHandle::CopyCostCtxtProps()
 
 	// add-ref child group expressions' properties
 	const ULONG arity = Arity();
-	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdPropArrays(m_mp, arity);
+	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdProp2dArray(m_mp, arity);
 	for (ULONG ul = 0; ul < arity; ul++)
 	{
 		CGroup *pgroupChild = (*m_pgexpr)[ul];
@@ -435,7 +435,7 @@ CExpressionHandle::DeriveProps
 	CopyStats();
 
 	// extract children's properties
-	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdPropArrays(m_mp);
+	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdProp2dArray(m_mp);
 	const ULONG arity = m_pexpr->Arity();
 	for (ULONG ul = 0; ul < arity; ul++)
 	{
@@ -830,7 +830,7 @@ CExpressionHandle::DerivePlanProps
 	GPOS_ASSERT(NULL != pdpctxtplan);
 
 	// extract children's properties
-	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdPropArrays(m_mp);
+	m_pdrgpdp = GPOS_NEW(m_mp) CDrvdProp2dArray(m_mp);
 	const ULONG arity = m_pcc->Pdrgpoc()->Size();
 	for (ULONG ul = 0; ul < arity; ul++)
 	{
@@ -948,7 +948,7 @@ void
 CExpressionHandle::ComputeChildReqdProps
 	(
 	ULONG child_index,
-	CDrvdPropArrays *pdrgpdpCtxt,
+	CDrvdProp2dArray *pdrgpdpCtxt,
 	ULONG ulOptReq
 	)
 {
@@ -1014,7 +1014,7 @@ void
 CExpressionHandle::ComputeChildReqdCols
 	(
 	ULONG child_index,
-	CDrvdPropArrays *pdrgpdpCtxt
+	CDrvdProp2dArray *pdrgpdpCtxt
 	)
 {
 	GPOS_ASSERT(NULL != m_prp);

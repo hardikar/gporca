@@ -36,7 +36,7 @@ namespace gpdxl
 		CDXLColDescrArray *m_col_descr_array;
 
 			// array of datum arrays (const tuples)
-			DXLDatumArrays *m_const_tuples_datum_array;
+			CDXLDatum2dArray *m_const_tuples_datum_array;
 
 			// private copy ctor
 			CDXLLogicalConstTable(CDXLLogicalConstTable&);
@@ -47,7 +47,7 @@ namespace gpdxl
 				(
 				IMemoryPool *mp,
 				CDXLColDescrArray *dxl_col_descr_array,
-				DXLDatumArrays *pdrgpdrgpdxldatum
+				CDXLDatum2dArray *pdrgpdrgpdxldatum
 				);
 
 			//dtor

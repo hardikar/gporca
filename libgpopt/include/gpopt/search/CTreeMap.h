@@ -63,7 +63,7 @@ namespace gpopt
 
 			// arrays of internal nodes
 			typedef CDynamicPtrArray<CTreeNode, CleanupNULL> CTreeNodeArray;
-			typedef CDynamicPtrArray<CTreeNodeArray, CleanupRelease> CTreeNodeArrays;
+			typedef CDynamicPtrArray<CTreeNodeArray, CleanupRelease> CTreeNode2dArray;
 
 			//---------------------------------------------------------------------------
 			//	@class:
@@ -174,7 +174,7 @@ namespace gpopt
 					const T *m_value;
 					
 					// array of children arrays
-					CTreeNodeArrays *m_pdrgdrgptn;
+					CTreeNode2dArray *m_pdrgdrgptn;
 					
 					// number of trees rooted in this node
 					ULLONG m_ullCount;
@@ -246,7 +246,7 @@ namespace gpopt
                         m_ulIncoming(0),
                         m_ens(EnsUncounted)
                     {
-                        m_pdrgdrgptn = GPOS_NEW(mp) CTreeNodeArrays(mp);
+                        m_pdrgdrgptn = GPOS_NEW(mp) CTreeNode2dArray(mp);
                     }
 					
 					// dtor

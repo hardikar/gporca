@@ -1578,7 +1578,7 @@ CPredicateUtils::PexprExtractPredicatesOnPartKeys
 	(
 	IMemoryPool *mp,
 	CExpression *pexprScalar,
-	CColRefArrays *pdrgpdrgpcrPartKeys,
+	CColRef2dArray *pdrgpdrgpcrPartKeys,
 	CColRefSet *pcrsAllowedRefs,
 	BOOL fUseConstraints
 	)
@@ -2648,7 +2648,7 @@ CPredicateUtils::CollectGrandChildrenUnionUnionAll
 	CExpression *pexpr,
 	ULONG child_index,
 	CExpressionArray *pdrgpexprResult,
-	CColRefArrays *pdrgdrgpcrResult
+	CColRef2dArray *pdrgdrgpcrResult
 	)
 {
 	GPOS_ASSERT(NULL != pexpr);
@@ -2667,7 +2667,7 @@ CPredicateUtils::CollectGrandChildrenUnionUnionAll
 	// the parent setop's expected input columns and the child setop's output columns
 	// may have different size or order or both. We need to ensure that the new
 	// n-ary setop has the right order of the input columns from its grand children
-	CColRefArrays *pdrgpdrgpcrInput = pop->PdrgpdrgpcrInput();
+	CColRef2dArray *pdrgpdrgpcrInput = pop->PdrgpdrgpcrInput();
 	CColRefArray *pdrgpcrInputExpected = (*pdrgpdrgpcrInput)[child_index];
 
 	const ULONG num_cols = pdrgpcrInputExpected->Size();
@@ -2684,7 +2684,7 @@ CPredicateUtils::CollectGrandChildrenUnionUnionAll
 		pdrgpul->Append(GPOS_NEW(mp) ULONG(ulPos));
 	}
 
-	CColRefArrays *pdrgdrgpcrChild = popChild->PdrgpdrgpcrInput();
+	CColRef2dArray *pdrgdrgpcrChild = popChild->PdrgpdrgpcrInput();
 	const ULONG ulArityChild = pexprChild->Arity();
 	GPOS_ASSERT(pdrgdrgpcrChild->Size() == ulArityChild);
 

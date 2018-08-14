@@ -119,7 +119,7 @@ namespace gpopt
 						CName *pname,
 						ULONG ulPartIndex,
 						CColRefArray *pdrgpcrOutput,
-						CColRefArrays *pdrgpdrgpcrPart,
+						CColRef2dArray *pdrgpdrgpcrPart,
 						ULONG ulSecondaryPartIndexId,
 						CPartConstraint *ppartcnstr,
 						CPartConstraint *ppartcnstrRel
@@ -337,7 +337,7 @@ namespace gpopt
 				CName *pname,
 				ULONG ulPartIndex,
 				CColRefArray *pdrgpcrOutput,
-				CColRefArrays *pdrgpdrgpcrPart,
+				CColRef2dArray *pdrgpdrgpcrPart,
 				ULONG ulSecondaryPartIndexId,
 				CPartConstraint *ppartcnstr,
 				CPartConstraint *ppartcnstrRel
@@ -597,7 +597,7 @@ namespace gpopt
 
 			// check if the the array of aligned input columns are of the same type
 			static
-			BOOL FSameDatatype(CColRefArrays *pdrgpdrgpcrInput);
+			BOOL FSameDatatype(CColRef2dArray *pdrgpdrgpcrInput);
 
 			// helper function to separate subquery predicates in a top Select node
 			static
@@ -1005,7 +1005,7 @@ namespace gpopt
 				IMemoryPool *mp,
 				CMDAccessor *md_accessor,
 				CExpressionArray *pdrgpexprScalar,
-				CColRefArrays *pdrgpdrgpcrPartKey,
+				CColRef2dArray *pdrgpdrgpcrPartKey,
 				const IMDRelation *pmdrel,
 				CPartConstraint *ppartcnstrRel,
 				CColRefArray *pdrgpcrOutput,

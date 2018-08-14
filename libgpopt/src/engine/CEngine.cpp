@@ -929,7 +929,7 @@ CEngine::PocChild
 	COptimizationContext *pocOrigin, // optimization context of parent operator
 	CExpressionHandle &exprhdlPlan, // handle to compute required plan properties
 	CExpressionHandle &exprhdlRel, // handle to compute required relational properties
-	CDrvdPropArrays *pdrgpdpChildren, // derived plan properties of optimized children
+	CDrvdProp2dArray *pdrgpdpChildren, // derived plan properties of optimized children
 	IStatisticsArray *pdrgpstatCurrentCtxt,
 	ULONG child_index,
 	ULONG ulOptReq
@@ -994,7 +994,7 @@ CEngine::PccOptimizeChild
 	CExpressionHandle &exprhdl, // initialized with required properties
 	CExpressionHandle &exprhdlRel,
 	COptimizationContext *pocOrigin, // optimization context of parent operator
-	CDrvdPropArrays *pdrgpdp,
+	CDrvdProp2dArray *pdrgpdp,
 	IStatisticsArray *pdrgpstatCurrentCtxt,
 	ULONG child_index,
 	ULONG ulOptReq
@@ -1071,7 +1071,7 @@ CEngine::PdrgpocOptimizeChildren
 	}
 
 	// create array of child derived properties
-	CDrvdPropArrays *pdrgpdp = GPOS_NEW(m_mp) CDrvdPropArrays(m_mp);
+	CDrvdProp2dArray *pdrgpdp = GPOS_NEW(m_mp) CDrvdProp2dArray(m_mp);
 
 	// initialize current stats context with input stats context
 	IStatisticsArray *pdrgpstatCurrentCtxt = GPOS_NEW(m_mp) IStatisticsArray(m_mp);

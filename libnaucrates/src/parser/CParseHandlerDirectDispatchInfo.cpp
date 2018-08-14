@@ -81,7 +81,7 @@ CParseHandlerDirectDispatchInfo::StartElement
 {
 	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenDirectDispatchInfo), element_local_name))
 	{
-		m_datum_array_combination = GPOS_NEW(m_mp) DXLDatumArrays(m_mp);
+		m_datum_array_combination = GPOS_NEW(m_mp) CDXLDatum2dArray(m_mp);
 	}
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenDirectDispatchKeyValue), element_local_name))
 	{

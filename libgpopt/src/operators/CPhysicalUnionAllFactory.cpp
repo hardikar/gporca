@@ -22,7 +22,7 @@ namespace gpopt
 	{
 
 		CColRefArray *pdrgpcrOutput = m_popLogicalUnionAll->PdrgpcrOutput();
-		CColRefArrays *pdrgpdrgpcrInput = m_popLogicalUnionAll->PdrgpdrgpcrInput();
+		CColRef2dArray *pdrgpdrgpcrInput = m_popLogicalUnionAll->PdrgpdrgpcrInput();
 
 		// TODO:  May 2nd 2012; support compatible types
 		if (!CXformUtils::FSameDatatype(pdrgpdrgpcrInput))

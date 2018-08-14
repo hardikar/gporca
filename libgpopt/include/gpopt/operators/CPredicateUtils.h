@@ -316,7 +316,7 @@ namespace gpopt
 					CExpression *pexpr,
 					ULONG child_index,
 					CExpressionArray *pdrgpexprResult,
-					CColRefArrays *pdrgdrgpcrResult
+					CColRef2dArray *pdrgdrgpcrResult
 					);
 
 			// extract conjuncts from a scalar tree
@@ -420,7 +420,7 @@ namespace gpopt
 				(
 				IMemoryPool *mp,
 				CExpression *pexprScalar,
-				CColRefArrays *pdrgpdrgpcrPartKeys,
+				CColRef2dArray *pdrgpdrgpcrPartKeys,
 				CColRefSet *pcrsAllowedRefs,
 				BOOL fUseConstraints
 				);
