@@ -192,19 +192,19 @@ CScalarFunc::Matches
 
 	// match if func ids are identical
 	return popScFunc->FuncMdId()->Equals(m_func_mdid) &&
-			popScFunc->MDIdType()->Equals(m_return_type_mdid);
+			popScFunc->MdidType()->Equals(m_return_type_mdid);
 }
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarFunc::MDIdType
+//		CScalarFunc::MdidType
 //
 //	@doc:
 //		Expression type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarFunc::MDIdType() const
+CScalarFunc::MdidType() const
 {
 	return m_return_type_mdid;
 }

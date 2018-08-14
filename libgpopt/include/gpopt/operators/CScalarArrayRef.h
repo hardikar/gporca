@@ -119,7 +119,7 @@ namespace gpopt
 
 			// type of expression's result
 			virtual
-			IMDId *MDIdType() const
+			IMDId *MdidType() const
 			{
 				return m_mdid_type;
 			}

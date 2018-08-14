@@ -82,14 +82,14 @@ CDXLScalarSwitch::GetOpNameStr() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLScalarSwitch::MDIdType
+//		CDXLScalarSwitch::MdidType
 //
 //	@doc:
 //		Return type id
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLScalarSwitch::MDIdType() const
+CDXLScalarSwitch::MdidType() const
 {
 	return m_mdid_type;
 }

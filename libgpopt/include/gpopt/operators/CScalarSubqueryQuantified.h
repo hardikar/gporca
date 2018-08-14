@@ -87,7 +87,7 @@ namespace gpopt
 
 			// return the type of the scalar expression
 			virtual 
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			// operator specific hash function
 			ULONG HashValue() const;

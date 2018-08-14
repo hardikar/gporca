@@ -187,8 +187,8 @@ CPhysicalScan::PexprMatchEqualitySide
 		CExpression *pexprPredOuter = (*pexprPred)[0];
 		CExpression *pexprPredInner = (*pexprPred)[1];
 
-		IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MDIdType();
-		IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MDIdType();
+		IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MdidType();
+		IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
 		if (!pmdidTypeOuter->Equals(pmdidTypeInner))
 		{
 			// only consider equality of identical types

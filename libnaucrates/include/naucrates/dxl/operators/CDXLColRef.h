@@ -78,7 +78,7 @@ namespace gpdxl
 			// accessors
 			const CMDName *MdName() const;
 
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			INT TypeModifier() const;
 

@@ -74,14 +74,14 @@ CDXLScalarBitmapBoolOp::GetDXLOperator() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLScalarBitmapBoolOp::MDIdType
+//		CDXLScalarBitmapBoolOp::MdidType
 //
 //	@doc:
 //		Return type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLScalarBitmapBoolOp::MDIdType() const
+CDXLScalarBitmapBoolOp::MdidType() const
 {
 	return m_mdid_type;
 }

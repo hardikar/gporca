@@ -104,14 +104,14 @@ CScalarBoolOp::FCommutative
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarBoolOp::MDIdType
+//		CScalarBoolOp::MdidType
 //
 //	@doc:
 //		Expression type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarBoolOp::MDIdType() const
+CScalarBoolOp::MdidType() const
 {
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 	return md_accessor->PtMDType<IMDTypeBool>()->MDId();

@@ -45,7 +45,7 @@ namespace gpmd
 			
 			// id of attribute type
 			virtual 
-			IMDId *MDIdType() const = 0;
+			IMDId *MdidType() const = 0;
 
 			virtual
 			INT TypeModifier() const = 0;

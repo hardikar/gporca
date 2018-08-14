@@ -62,7 +62,7 @@ namespace gpopt
 
 			// the type of the scalar expression
 			virtual 
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			virtual
 			EOperatorId Eopid() const

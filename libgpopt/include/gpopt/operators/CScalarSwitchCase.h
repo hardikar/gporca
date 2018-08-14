@@ -85,9 +85,9 @@ namespace gpopt
 			}
 
 			virtual
-			IMDId *MDIdType() const
+			IMDId *MdidType() const
 			{
-				GPOS_ASSERT(!"Invalid function call: CScalarSwitchCase::MDIdType()");
+				GPOS_ASSERT(!"Invalid function call: CScalarSwitchCase::MdidType()");
 				return NULL;
 			}
 

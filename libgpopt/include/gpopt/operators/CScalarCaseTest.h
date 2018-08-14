@@ -63,7 +63,7 @@ namespace gpopt
 
 			// the type of the scalar expression
 			virtual
-			IMDId *MDIdType() const
+			IMDId *MdidType() const
 			{
 				return m_mdid_type;
 			}

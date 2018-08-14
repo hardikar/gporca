@@ -107,7 +107,7 @@ CScalarArrayRef::Matches
 
 	CScalarArrayRef *popArrayRef = CScalarArrayRef::PopConvert(pop);
 
-	return m_mdid_type->Equals(popArrayRef->MDIdType()) &&
+	return m_mdid_type->Equals(popArrayRef->MdidType()) &&
 			m_pmdidElem->Equals(popArrayRef->PmdidElem()) &&
 			m_pmdidArray->Equals(popArrayRef->PmdidArray());
 }

@@ -109,7 +109,7 @@ CScalarBitmapBoolOp::Matches
 	CScalarBitmapBoolOp *popBitmapBoolOp = PopConvert(pop);
 
 	return popBitmapBoolOp->Ebitmapboolop() == Ebitmapboolop() &&
-		popBitmapBoolOp->MDIdType()->Equals(m_pmdidBitmapType);
+		popBitmapBoolOp->MdidType()->Equals(m_pmdidBitmapType);
 }
 
 //---------------------------------------------------------------------------

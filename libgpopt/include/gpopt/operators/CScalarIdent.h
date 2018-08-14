@@ -121,7 +121,7 @@ namespace gpopt
 			
 			// the type of the scalar expression
 			virtual 
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			// the type modifier of the scalar expression
 			virtual

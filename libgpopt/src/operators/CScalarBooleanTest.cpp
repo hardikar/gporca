@@ -99,14 +99,14 @@ CScalarBooleanTest::Matches
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarBooleanTest::MDIdType
+//		CScalarBooleanTest::MdidType
 //
 //	@doc:
 //		Expression type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarBooleanTest::MDIdType() const
+CScalarBooleanTest::MdidType() const
 {
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 

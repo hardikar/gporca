@@ -121,7 +121,7 @@ namespace gpopt
 			}
 
 			virtual
-			IMDId *MDIdType() const
+			IMDId *MdidType() const
 			{
 				GPOS_ASSERT(!"Invalid function call: CScalarProjectElemet::MdidType()");
 				return NULL;

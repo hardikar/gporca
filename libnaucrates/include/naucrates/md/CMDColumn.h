@@ -90,7 +90,7 @@ namespace gpmd
 			
 			// column type
 			virtual 
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			virtual
 			INT TypeModifier() const;

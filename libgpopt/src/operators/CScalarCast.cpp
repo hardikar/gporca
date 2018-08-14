@@ -79,7 +79,7 @@ CScalarCast::Matches
 		CScalarCast *pscop = CScalarCast::PopConvert(pop);
 
 		// match if the return type oids are identical
-		return pscop->MDIdType()->Equals(m_return_type_mdid) &&
+		return pscop->MdidType()->Equals(m_return_type_mdid) &&
 				((!IMDId::IsValid(pscop->FuncMdId()) && !IMDId::IsValid(m_func_mdid)) || pscop->FuncMdId()->Equals(m_func_mdid));
 	}
 

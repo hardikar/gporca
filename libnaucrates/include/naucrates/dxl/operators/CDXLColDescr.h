@@ -98,7 +98,7 @@ namespace gpdxl
 			BOOL IsDropped() const;
 
 			// column type
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			INT TypeModifier() const;
 

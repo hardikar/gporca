@@ -68,7 +68,7 @@ namespace gpdxl
 			EdxlBitmapBoolOp GetDXLBitmapOpType() const;
 			
 			// return type
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			// name of the DXL operator name
 			virtual

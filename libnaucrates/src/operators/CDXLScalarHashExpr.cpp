@@ -80,14 +80,14 @@ CDXLScalarHashExpr::GetOpNameStr() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLScalarHashExpr::MDIdType
+//		CDXLScalarHashExpr::MdidType
 //
 //	@doc:
 //		Hash expression type from the catalog
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLScalarHashExpr::MDIdType() const
+CDXLScalarHashExpr::MdidType() const
 {
 	return m_mdid_type;
 }

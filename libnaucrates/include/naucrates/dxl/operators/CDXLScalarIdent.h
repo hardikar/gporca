@@ -58,7 +58,7 @@ namespace gpdxl
 			// accessors
 			const CDXLColRef *GetDXLColRef() const;
 
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			INT TypeModifier() const;
 

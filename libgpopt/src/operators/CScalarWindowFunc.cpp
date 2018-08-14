@@ -139,7 +139,7 @@ CScalarWindowFunc::Matches
 				&& (popFunc->IsSimpleAgg() ==  m_is_simple_agg)
 				&& (popFunc->FAgg() == m_fAgg)
 				&& m_func_mdid->Equals(popFunc->FuncMdId())
-				&& m_return_type_mdid->Equals(popFunc->MDIdType())
+				&& m_return_type_mdid->Equals(popFunc->MdidType())
 				&& (popFunc->Ews() == m_ewinstage));
 	}
 

@@ -121,14 +121,14 @@ CScalarIdent::PopCopyWithRemappedColumns
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarIdent::MDIdType
+//		CScalarIdent::MdidType
 //
 //	@doc:
 //		Expression type
 //
 //---------------------------------------------------------------------------
 IMDId*
-CScalarIdent::MDIdType() const
+CScalarIdent::MdidType() const
 {
 	return m_pcr->RetrieveType()->MDId();
 }

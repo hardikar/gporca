@@ -460,9 +460,9 @@ CTranslatorDXLToExpr::PexprLogicalTVF
 	for (ULONG ul = 0; ul < ulColumns; ul++)
 	{
 		const CDXLColDescr *pdxlcoldesc = dxl_op->GetColumnDescrAt(ul);
-		GPOS_ASSERT(pdxlcoldesc->MDIdType()->IsValid());
+		GPOS_ASSERT(pdxlcoldesc->MdidType()->IsValid());
 
-		const IMDType *pmdtype = m_pmda->RetrieveType(pdxlcoldesc->MDIdType());
+		const IMDType *pmdtype = m_pmda->RetrieveType(pdxlcoldesc->MdidType());
 
 		GPOS_ASSERT(NULL != pdxlcoldesc->MdName()->GetMDName()->GetBuffer());
 		CWStringConst strColName(m_mp, pdxlcoldesc->MdName()->GetMDName()->GetBuffer());
@@ -819,7 +819,7 @@ CTranslatorDXLToExpr::BuildSetOpChild
 
 		// check if a cast function needs to be introduced
 		IMDId *pmdidSource = colref->RetrieveType()->MDId();
-		IMDId *mdid_dest = pdxlcdOutput->MDIdType();
+		IMDId *mdid_dest = pdxlcdOutput->MdidType();
 
 		if (FCastingUnknownType(pmdidSource, mdid_dest))
 		{
@@ -1061,7 +1061,7 @@ CTranslatorDXLToExpr::Pdrgpcr
 	for (ULONG ul = 0; ul < ulOutputCols; ul++)
 	{
 		CDXLColDescr *pdxlcd = (*dxl_col_descr_array)[ul];
-		IMDId *mdid = pdxlcd->MDIdType();
+		IMDId *mdid = pdxlcd->MdidType();
 		const IMDType *pmdtype = m_pmda->RetrieveType(mdid);
 
 		CName name(pdxlcd->MdName()->GetMDName());
@@ -1715,7 +1715,7 @@ CTranslatorDXLToExpr::PexprLogicalSeqPr
 			CExpression *pexprScWindowFunc = Pexpr(pdxlnPrElChild); 
 
 			CScalar *popScalar = CScalar::PopConvert(pexprScWindowFunc->Pop());
-			IMDId *mdid = popScalar->MDIdType();
+			IMDId *mdid = popScalar->MdidType();
 			const IMDType *pmdtype = m_pmda->RetrieveType(mdid);
 
 			CName name(pdxlopPrEl->GetMdNameAlias()->GetMDName());
@@ -2116,8 +2116,8 @@ CTranslatorDXLToExpr::Ptabdesc
 
 		BOOL is_nullable = pmdcolNext->IsNullable();
 
-		GPOS_ASSERT(pdxlcoldesc->MDIdType()->IsValid());
-		const IMDType *pmdtype = m_pmda->RetrieveType(pdxlcoldesc->MDIdType());
+		GPOS_ASSERT(pdxlcoldesc->MdidType()->IsValid());
+		const IMDType *pmdtype = m_pmda->RetrieveType(pdxlcoldesc->MdidType());
 
 		GPOS_ASSERT(NULL != pdxlcoldesc->MdName()->GetMDName()->GetBuffer());
 		CWStringConst strColName(m_mp, pdxlcoldesc->MdName()->GetMDName()->GetBuffer());
@@ -2198,13 +2198,13 @@ CTranslatorDXLToExpr::RegisterMDRelationCtas
 	for (ULONG ul = 0; ul < length; ul++)
 	{
 		CDXLColDescr *pdxlcd = (*dxl_col_descr_array)[ul];
-		pdxlcd->MDIdType()->AddRef();
+		pdxlcd->MdidType()->AddRef();
 		
 		CMDColumn *pmdcol = GPOS_NEW(m_mp) CMDColumn
 				(
 				GPOS_NEW(m_mp) CMDName(m_mp, pdxlcd->MdName()->GetMDName()),
 				pdxlcd->AttrNum(),
-				pdxlcd->MDIdType(),
+				pdxlcd->MdidType(),
 				pdxlcd->TypeModifier(),
 				true, // is_nullable,
 				pdxlcd->IsDropped(),
@@ -2319,8 +2319,8 @@ CTranslatorDXLToExpr::PtabdescFromCTAS
 
 		const CDXLColDescr *pdxlcoldesc = (*dxl_col_descr_array)[ul];
 
-		GPOS_ASSERT(pdxlcoldesc->MDIdType()->IsValid());
-		const IMDType *pmdtype = m_pmda->RetrieveType(pdxlcoldesc->MDIdType());
+		GPOS_ASSERT(pdxlcoldesc->MdidType()->IsValid());
+		const IMDType *pmdtype = m_pmda->RetrieveType(pdxlcoldesc->MdidType());
 
 		GPOS_ASSERT(NULL != pdxlcoldesc->MdName()->GetMDName()->GetBuffer());
 		CWStringConst strColName(m_mp, pdxlcoldesc->MdName()->GetMDName()->GetBuffer());
@@ -2415,7 +2415,7 @@ CTranslatorDXLToExpr::PexprLogicalConstTableGet
 	for (ULONG ulColIdx = 0; ulColIdx < ulColumns; ulColIdx++)
 	{
 		CDXLColDescr *pdxlcd = (*dxl_col_descr_array)[ulColIdx];
-		const IMDType *pmdtype = m_pmda->RetrieveType(pdxlcd->MDIdType());
+		const IMDType *pmdtype = m_pmda->RetrieveType(pdxlcd->MdidType());
 		CName name(m_mp, pdxlcd->MdName()->GetMDName());
 
 		const ULONG ulWidth = pdxlcd->Width();
@@ -2805,7 +2805,7 @@ CTranslatorDXLToExpr::PexprScalarNullIf
 	IMDId *mdid_op = dxl_op->MdIdOp();
 	mdid_op->AddRef();
 
-	IMDId *mdid_type = dxl_op->MDIdType();
+	IMDId *mdid_type = dxl_op->MdidType();
 	mdid_type->AddRef();
 
 	return GPOS_NEW(m_mp) CExpression(m_mp, GPOS_NEW(m_mp) CScalarNullIf(m_mp, mdid_op, mdid_type), pexprLeft, pexprRight);
@@ -2897,7 +2897,7 @@ CTranslatorDXLToExpr::PexprScalarFunc
 			COperator *popFirstChild = pexprFirstChild->Pop();
 			if (popFirstChild->FScalar())
 			{
-				pmdidInput = CScalar::PopConvert(popFirstChild)->MDIdType();
+				pmdidInput = CScalar::PopConvert(popFirstChild)->MdidType();
 			}
 		}
 	}
@@ -3053,7 +3053,7 @@ CTranslatorDXLToExpr::PexprScalarCoalesce
 
 	CExpressionArray *pdrgpexprChildren = PdrgpexprChildren(pdxlnCoalesce);
 
-	IMDId *mdid = dxl_op->MDIdType();
+	IMDId *mdid = dxl_op->MdidType();
 	mdid->AddRef();
 
 	return GPOS_NEW(m_mp) CExpression(m_mp, GPOS_NEW(m_mp) CScalarCoalesce(m_mp, mdid), pdrgpexprChildren);
@@ -3089,7 +3089,7 @@ CTranslatorDXLToExpr::PexprScalarMinMax
 		esmmt = CScalarMinMax::EsmmtMax;
 	}
 
-	IMDId *mdid = dxl_op->MDIdType();
+	IMDId *mdid = dxl_op->MdidType();
 	mdid->AddRef();
 
 	return GPOS_NEW(m_mp) CExpression(m_mp, GPOS_NEW(m_mp) CScalarMinMax(m_mp, mdid, esmmt), pdrgpexprChildren);
@@ -3435,7 +3435,7 @@ CTranslatorDXLToExpr::PexprScalarSwitch
 
 	CExpressionArray *pdrgpexprChildren = PdrgpexprChildren(pdxlnSwitch);
 
-	IMDId *mdid = dxl_op->MDIdType();
+	IMDId *mdid = dxl_op->MdidType();
 	mdid->AddRef();
 	CScalarSwitch *pop = GPOS_NEW(m_mp) CScalarSwitch(m_mp, mdid);
 
@@ -3485,7 +3485,7 @@ CTranslatorDXLToExpr::PexprScalarCaseTest
 	CDXLScalarCaseTest *dxl_op =
 			CDXLScalarCaseTest::Cast(pdxlnCaseTest->GetOperator());
 
-	IMDId *mdid = dxl_op->MDIdType();
+	IMDId *mdid = dxl_op->MdidType();
 	mdid->AddRef();
 	CScalarCaseTest *pop = GPOS_NEW(m_mp) CScalarCaseTest(m_mp, mdid);
 
@@ -3595,13 +3595,13 @@ CTranslatorDXLToExpr::PexprScalarCast
 	CDXLNode *child_dxlnode = (*pdxlnCast)[0];
 	CExpression *pexprChild = Pexpr(child_dxlnode);
 
-	IMDId *mdid_type = dxl_op->MDIdType();
+	IMDId *mdid_type = dxl_op->MdidType();
 	IMDId *mdid_func = dxl_op->FuncMdId();
 	mdid_type->AddRef();
 	mdid_func->AddRef();
 	
 	COperator *popChild = pexprChild->Pop();
-	IMDId *pmdidInput = CScalar::PopConvert(popChild)->MDIdType();
+	IMDId *pmdidInput = CScalar::PopConvert(popChild)->MdidType();
 	const IMDCast *pmdcast = m_pmda->Pmdcast(pmdidInput, mdid_type);
 	BOOL fRelabel = pmdcast->IsBinaryCoercible();
 
@@ -3857,7 +3857,7 @@ CTranslatorDXLToExpr::PexprScalarProjElem
 
 	CScalar *popScalar = CScalar::PopConvert(pexprChild->Pop());
 
-	IMDId *mdid = popScalar->MDIdType();
+	IMDId *mdid = popScalar->MdidType();
 	const IMDType *pmdtype = m_pmda->RetrieveType(mdid);
 
 	CName name(pdxlopPrEl->GetMdNameAlias()->GetMDName());

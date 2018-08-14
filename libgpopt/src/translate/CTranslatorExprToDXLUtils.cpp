@@ -801,7 +801,7 @@ CTranslatorExprToDXLUtils::PdxlnListFilterPartKey
 {
 	GPOS_ASSERT(NULL != pexprPartKey);
 	GPOS_ASSERT(NULL != pmdidTypePartKey);
-	GPOS_ASSERT(CScalar::PopConvert(pexprPartKey->Pop())->MDIdType()->Equals(pmdidTypePartKey));
+	GPOS_ASSERT(CScalar::PopConvert(pexprPartKey->Pop())->MdidType()->Equals(pmdidTypePartKey));
 
 	CDXLNode *pdxlnPartKey = NULL;
 
@@ -828,11 +828,11 @@ CTranslatorExprToDXLUtils::PdxlnListFilterPartKey
 	{
 		// ScalarCast(ScalarIdent) - create an ArrayCoerceExpr over a ScalarPartListValues
 		CScalarCast *pexprScalarCast = CScalarCast::PopConvert(pexprPartKey->Pop());
-		IMDId *pmdidDestElem = pexprScalarCast->MDIdType();
+		IMDId *pmdidDestElem = pexprScalarCast->MdidType();
 		IMDId *pmdidDestArray = md_accessor->RetrieveType(pmdidDestElem)->GetArrayTypeMdid();
 
 		CScalarIdent *pexprScalarIdent = CScalarIdent::PopConvert((*pexprPartKey)[0]->Pop());
-		IMDId *pmdidSrcElem = pexprScalarIdent->MDIdType();
+		IMDId *pmdidSrcElem = pexprScalarIdent->MdidType();
 		IMDId *pmdidSrcArray = md_accessor->RetrieveType(pmdidSrcElem)->GetArrayTypeMdid();
 
 		IMDId *pmdidArrayCastFunc = NULL;
@@ -2428,7 +2428,7 @@ CTranslatorExprToDXLUtils::ExtractCastMdids
 	}
 
 	CScalarCast *popCast = CScalarCast::PopConvert(pop);
-	*ppmdidType = popCast->MDIdType();
+	*ppmdidType = popCast->MdidType();
 	*ppmdidCastFunc = popCast->FuncMdId();
 }
 

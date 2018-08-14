@@ -95,14 +95,14 @@ CScalarSubqueryQuantified::MdIdOp() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarSubqueryQuantified::MDIdType
+//		CScalarSubqueryQuantified::MdidType
 //
 //	@doc:
 //		Type of scalar's value
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarSubqueryQuantified::MDIdType() const
+CScalarSubqueryQuantified::MdidType() const
 {
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 	IMDId *mdid_type = md_accessor->RetrieveScOp(m_scalar_op_mdid)->GetResultTypeMdid();

@@ -88,14 +88,14 @@ CDXLScalarCast::GetOpNameStr() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLScalarCast::MDIdType
+//		CDXLScalarCast::MdidType
 //
 //	@doc:
 //		Return the oid of the type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLScalarCast::MDIdType() const
+CDXLScalarCast::MdidType() const
 {
 	return m_mdid_type;
 }

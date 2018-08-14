@@ -588,7 +588,7 @@ CExpressionPreprocessor::FConvert2InIsConvertable(CExpression *pexpr, CScalarBoo
 	{
 		GPOS_ASSERT(0 < pexpr->Arity());
 		CScalarIdent *pscid = CScalarIdent::PopConvert((*pexpr)[0]->Pop());
-		if (!CUtils::FConstrainableType(pscid->MDIdType()))
+		if (!CUtils::FConstrainableType(pscid->MdidType()))
 		{
 			fConvertableExpression = false;
 		}

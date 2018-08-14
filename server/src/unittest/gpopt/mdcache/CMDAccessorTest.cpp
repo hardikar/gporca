@@ -505,7 +505,7 @@ CMDAccessorTest::EresUnittest_CheckConstraint()
 	for (ULONG ul = 0; ul < num_cols; ul++)
 	{
 		const IMDColumn *pmdcol = pmdrel->GetMdCol(ul);
-		const IMDType *pmdtype = mda.RetrieveType(pmdcol->MDIdType());
+		const IMDType *pmdtype = mda.RetrieveType(pmdcol->MdidType());
 		CColRef *colref = col_factory->PcrCreate(pmdtype, pmdcol->TypeModifier());
 		colref_array->Append(colref);
 	}
@@ -581,7 +581,7 @@ CMDAccessorTest::EresUnittest_IndexPartConstraint()
 	for (ULONG ul = 0; ul < num_cols; ul++)
 	{
 		const IMDColumn *pmdcol = pmdrel->GetMdCol(ul);
-		const IMDType *pmdtype = mda.RetrieveType(pmdcol->MDIdType());
+		const IMDType *pmdtype = mda.RetrieveType(pmdcol->MdidType());
 		CColRef *colref = col_factory->PcrCreate(pmdtype, pmdcol->TypeModifier());
 		colref_array->Append(colref);
 	}

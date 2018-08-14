@@ -110,7 +110,7 @@ CScalarMinMax::Matches
 
 	// match if return types are identical
 	return popScMinMax->Esmmt() == m_esmmt &&
-			popScMinMax->MDIdType()->Equals(m_mdid_type);
+			popScMinMax->MdidType()->Equals(m_mdid_type);
 }
 
 //---------------------------------------------------------------------------

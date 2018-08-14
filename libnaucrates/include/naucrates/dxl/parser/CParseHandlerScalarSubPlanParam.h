@@ -80,7 +80,7 @@ namespace gpdxl
 			IMDId *MDId(void)
 			const
 			{
-				return m_dxl_colref->MDIdType();
+				return m_dxl_colref->MdidType();
 			}
 	};
 

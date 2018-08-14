@@ -202,7 +202,7 @@ CDXLScalarSubPlan::SerializeToDXL
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenColId), ulid);
 
 		const CMDName *mdname = (*m_dxl_colref_array)[ul]->MdName();
-		const IMDId *mdid_type = (*m_dxl_colref_array)[ul]->MDIdType();
+		const IMDId *mdid_type = (*m_dxl_colref_array)[ul]->MdidType();
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenColName), mdname->GetMDName());
 		mdid_type->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenTypeId));
 

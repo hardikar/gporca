@@ -64,7 +64,7 @@ namespace gpdxl
 			// ident accessors
 			Edxlopid GetDXLOperator() const;
 
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 			IMDId *FuncMdId() const;
 
 			// name of the DXL operator name

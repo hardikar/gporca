@@ -144,14 +144,14 @@ CScalarOp::GetReturnTypeMdId() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarOp::MDIdType
+//		CScalarOp::MdidType
 //
 //	@doc:
 //		Expression type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarOp::MDIdType() const
+CScalarOp::MdidType() const
 {
 	if (NULL != m_return_type_mdid)
 	{

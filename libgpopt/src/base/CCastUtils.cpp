@@ -255,8 +255,8 @@ CCastUtils::PexprAddCast
     CExpression *pexprLeft = (*pexprChild)[0];
     CExpression *pexprRight = (*pexprChild)[1];
 
-    IMDId *mdid_type_left = CScalar::PopConvert(pexprLeft->Pop())->MDIdType();
-    IMDId *mdid_type_right = CScalar::PopConvert(pexprRight->Pop())->MDIdType();
+    IMDId *mdid_type_left = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
+    IMDId *mdid_type_right = CScalar::PopConvert(pexprRight->Pop())->MdidType();
 
     CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 
@@ -311,7 +311,7 @@ CCastUtils::PexprCast
 	IMDId *mdid_dest
 	)
 {
-    IMDId *mdid_src = CScalar::PopConvert(pexpr->Pop())->MDIdType();
+    IMDId *mdid_src = CScalar::PopConvert(pexpr->Pop())->MdidType();
     const IMDCast *pmdcast = md_accessor->Pmdcast(mdid_src, mdid_dest);
 
     mdid_dest->AddRef();

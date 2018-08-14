@@ -63,7 +63,7 @@ CScalarCoerceViaIO::Matches
 	{
 		CScalarCoerceViaIO *popCoerce = CScalarCoerceViaIO::PopConvert(pop);
 
-		return popCoerce->MDIdType()->Equals(MDIdType()) &&
+		return popCoerce->MdidType()->Equals(MdidType()) &&
 				popCoerce->TypeModifier() == TypeModifier() &&
 				popCoerce->Ecf() == Ecf() &&
 				popCoerce->Location() == Location();

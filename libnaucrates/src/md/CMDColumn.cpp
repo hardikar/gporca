@@ -95,14 +95,14 @@ CMDColumn::AttrNum() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CMDColumn::MDIdType
+//		CMDColumn::MdidType
 //
 //	@doc:
 //		Attribute type id
 //
 //---------------------------------------------------------------------------
 IMDId *
-CMDColumn::MDIdType() const
+CMDColumn::MdidType() const
 {
 	return m_mdid_type;
 }
@@ -215,7 +215,7 @@ CMDColumn::DebugPrint
 	
 	os << "Column name: " << (Mdname()).GetMDName()->GetBuffer() << std::endl;
 	os << "Column type: ";
-	MDIdType()->OsPrint(os);
+	MdidType()->OsPrint(os);
 	os << std::endl;
 
 	const CWStringConst *pstrNullsAllowed = IsNullable() ?

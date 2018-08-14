@@ -175,14 +175,14 @@ CScalarArray::Matches
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarArray::MDIdType
+//		CScalarArray::MdidType
 //
 //	@doc:
 //		Type of expression's result
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarArray::MDIdType() const
+CScalarArray::MdidType() const
 {
 	return m_pmdidArray;
 }

@@ -100,16 +100,16 @@ CDXLScalarIdent::GetDXLColRef() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLScalarIdent::MDIdType
+//		CDXLScalarIdent::MdidType
 //
 //	@doc:
 //		Return the id of the column type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLScalarIdent::MDIdType() const
+CDXLScalarIdent::MdidType() const
 {
-	return m_dxl_colref->MDIdType();
+	return m_dxl_colref->MdidType();
 }
 
 INT
@@ -143,7 +143,7 @@ CDXLScalarIdent::SerializeToDXL
 
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenColId), m_dxl_colref->Id());
 	xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenColName), colname);
-	m_dxl_colref->MDIdType()->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenTypeId));
+	m_dxl_colref->MdidType()->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenTypeId));
 
 	if (default_type_modifier != TypeModifier())
 	{
@@ -170,7 +170,7 @@ CDXLScalarIdent::HasBoolResult
 	)
 	const
 {
-	return (IMDType::EtiBool == md_accessor->RetrieveType(m_dxl_colref->MDIdType())->GetDatumType());
+	return (IMDType::EtiBool == md_accessor->RetrieveType(m_dxl_colref->MdidType())->GetDatumType());
 }
 
 #ifdef GPOS_DEBUG
@@ -191,7 +191,7 @@ CDXLScalarIdent::AssertValid
 	const
 {
 	GPOS_ASSERT(0 == node->Arity());
-	GPOS_ASSERT(m_dxl_colref->MDIdType()->IsValid());
+	GPOS_ASSERT(m_dxl_colref->MdidType()->IsValid());
 	GPOS_ASSERT(NULL != m_dxl_colref);
 }
 #endif // GPOS_DEBUG

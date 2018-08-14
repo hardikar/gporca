@@ -345,7 +345,7 @@ CExpressionTest::EresUnittest_BitmapGet()
 
 	// create an index on the first column
 	const IMDColumn *pmdcol = pmdrel->GetMdCol(0);
-	const IMDType *pmdtype = mda.RetrieveType(pmdcol->MDIdType());
+	const IMDType *pmdtype = mda.RetrieveType(pmdcol->MdidType());
 	CColRef *pcrFirst = col_factory->PcrCreate(pmdtype, pmdcol->TypeModifier());
 
 	CExpression *pexprIndexCond = CUtils::PexprScalarEqCmp
@@ -369,7 +369,7 @@ CExpressionTest::EresUnittest_BitmapGet()
 	for (ULONG ul = 0; ul < num_cols; ++ul)
 	{
 		const IMDColumn *pmdcol = pmdrel->GetMdCol(ul);
-		const IMDType *pmdtype = mda.RetrieveType(pmdcol->MDIdType());
+		const IMDType *pmdtype = mda.RetrieveType(pmdcol->MdidType());
 		CColRef *colref = col_factory->PcrCreate(pmdtype, pmdcol->TypeModifier());
 		pdrgpcrTable->Append(colref);
 	}

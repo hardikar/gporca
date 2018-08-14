@@ -98,14 +98,14 @@ CScalarAssertConstraint::OsPrint
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarAssertConstraint::MDIdType
+//		CScalarAssertConstraint::MdidType
 //
 //	@doc:
 //		Type of expression's result
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarAssertConstraint::MDIdType() const
+CScalarAssertConstraint::MdidType() const
 {
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 	return md_accessor->PtMDType<IMDTypeBool>()->MDId();

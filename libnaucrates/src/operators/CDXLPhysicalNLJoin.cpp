@@ -143,7 +143,7 @@ const
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenColId), id);
 
 		const CMDName *md_name = (*m_nest_params_col_refs)[ul]->MdName();
-		const IMDId *mdid_type = (*m_nest_params_col_refs)[ul]->MDIdType();
+		const IMDId *mdid_type = (*m_nest_params_col_refs)[ul]->MdidType();
 		xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenColName), md_name->GetMDName());
 		mdid_type->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenTypeId));
 

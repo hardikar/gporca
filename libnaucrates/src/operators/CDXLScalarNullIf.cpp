@@ -85,14 +85,14 @@ CDXLScalarNullIf::MdIdOp() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLScalarNullIf::MDIdType
+//		CDXLScalarNullIf::MdidType
 //
 //	@doc:
 //		Return type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLScalarNullIf::MDIdType() const
+CDXLScalarNullIf::MdidType() const
 {
 	return m_mdid_type;
 }

@@ -189,7 +189,7 @@ CSubqueryTestUtils::PexprProjectWithAggSubquery
 
 	// generate a computed column
 	CScalarSubquery *popSubquery = CScalarSubquery::PopConvert(pexprSubq->Pop());
-	const IMDType *pmdtype = md_accessor->RetrieveType(popSubquery->MDIdType());
+	const IMDType *pmdtype = md_accessor->RetrieveType(popSubquery->MdidType());
 	CColRef *pcrComputed = col_factory->PcrCreate(pmdtype, popSubquery->TypeModifier());
 
 	// generate a scalar project list
@@ -1589,7 +1589,7 @@ CSubqueryTestUtils::PexprProjectWithSubqueryQuantified
 
 	// generate a computed column
 	CScalarSubqueryQuantified *pop = CScalarSubqueryQuantified::PopConvert(pexprSubqueryQuantified->Pop());
-	const IMDType *pmdtype = md_accessor->RetrieveType(pop->MDIdType());
+	const IMDType *pmdtype = md_accessor->RetrieveType(pop->MdidType());
 	CColRef *pcrComputed = col_factory->PcrCreate(pmdtype, pop->TypeModifier());
 
 	// generate a scalar project list
@@ -1716,7 +1716,7 @@ CSubqueryTestUtils::PexprProjectWithSubqueryExistential
 
 	// generate a computed column
 	CScalarSubqueryExistential *pop = CScalarSubqueryExistential::PopConvert(pexprSubqueryExistential->Pop());
-	const IMDType *pmdtype = md_accessor->RetrieveType(pop->MDIdType());
+	const IMDType *pmdtype = md_accessor->RetrieveType(pop->MdidType());
 	CColRef *pcrComputed = col_factory->PcrCreate(pmdtype, pop->TypeModifier());
 
 	// generate a scalar project list

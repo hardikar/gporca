@@ -70,7 +70,7 @@ namespace gpopt
 
 			// the type of the scalar expression
 			virtual
-			IMDId *MDIdType() const;
+			IMDId *MdidType() const;
 
 			// return type modifier
 			INT TypeModifier() const;

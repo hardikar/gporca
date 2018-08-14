@@ -1754,7 +1754,7 @@ CTestUtils::PexprPrjElemWithSum
 
 	// map a computed column to SUM expression
 	CScalar *pop = CScalar::PopConvert(pexprScalarAgg->Pop());
-	IMDId *mdid_type = pop->MDIdType();
+	IMDId *mdid_type = pop->MdidType();
 	const IMDType *pmdtype = md_accessor->RetrieveType(mdid_type);
 	CWStringConst str(GPOS_WSZ_LIT("sum_col"));
 	CName name(mp, &str);

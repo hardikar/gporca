@@ -103,14 +103,14 @@ CScalarConst::Matches
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarConst::MDIdType
+//		CScalarConst::MdidType
 //
 //	@doc:
 //		Expression type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarConst::MDIdType() const
+CScalarConst::MdidType() const
 {
 	return m_pdatum->MDId();
 }

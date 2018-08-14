@@ -109,14 +109,14 @@ CDXLColDescr::AttrNum() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLColDescr::MDIdType
+//		CDXLColDescr::MdidType
 //
 //	@doc:
 //		Returns the type id for this column
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLColDescr::MDIdType() const
+CDXLColDescr::MdidType() const
 {
 	return m_column_mdid_type;
 }

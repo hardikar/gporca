@@ -309,7 +309,7 @@ CUtils::PexprScalarCmp
 	if (IMDType::EcmptOther != cmp_type)
 	{
 		IMDId *left_mdid = pcrLeft->RetrieveType()->MDId();
-		IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MDIdType();
+		IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MdidType();
 
 		if (FCmpOrCastedCmpExists(left_mdid, right_mdid, cmp_type))
 		{
@@ -404,7 +404,7 @@ CUtils::PexprScalarCmp
 	IMDType::ECmpType cmp_type = ParseCmpType(mdid_op);
 	if (IMDType::EcmptOther != cmp_type)
 	{
-		IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MDIdType();
+		IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
 		IMDId *right_mdid = pcrRight->RetrieveType()->MDId();
 
 		if (FCmpOrCastedCmpExists(left_mdid, right_mdid, cmp_type))
@@ -442,8 +442,8 @@ CUtils::PexprScalarCmp
 	IMDType::ECmpType cmp_type = ParseCmpType(mdid_op);
 	if (IMDType::EcmptOther != cmp_type)
 	{
-		IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MDIdType();
-		IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MDIdType();
+		IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
+		IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MdidType();
 
 		if (FCmpOrCastedCmpExists(left_mdid, right_mdid, cmp_type))
 		{
@@ -479,8 +479,8 @@ CUtils::PexprScalarCmp
 	
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 
-	IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MDIdType();
-	IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MDIdType();
+	IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
+	IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MdidType();
 
 	CExpression *pexprNewLeft = pexprLeft;
 	CExpression *pexprNewRight = pexprRight;
@@ -846,8 +846,8 @@ CUtils::PexprIDF
 	GPOS_ASSERT(NULL != pexprLeft);
 	GPOS_ASSERT(NULL != pexprRight);
 
-	IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MDIdType();
-	IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MDIdType();
+	IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
+	IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MdidType();
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 
@@ -1995,7 +1995,7 @@ CUtils::PexprCountStar
 
 	// generate a computed column with count(*) type
 	CScalarAggFunc *popScalarAggFunc = CScalarAggFunc::PopConvert(pexprCountStar->Pop());
-	IMDId *mdid_type = popScalarAggFunc->MDIdType();
+	IMDId *mdid_type = popScalarAggFunc->MdidType();
 	INT type_modifier = popScalarAggFunc->TypeModifier();
 	const IMDType *pmdtype = md_accessor->RetrieveType(mdid_type);
 	CColRef *pcrComputed = col_factory->PcrCreate(pmdtype, type_modifier);
@@ -2026,7 +2026,7 @@ CUtils::PexprCountStarAndSum
 
 	// generate a computed column with count(*) type
 	CScalarAggFunc *popScalarAggFunc = CScalarAggFunc::PopConvert(pexprCountStar->Pop());
-	IMDId *mdid_type = popScalarAggFunc->MDIdType();
+	IMDId *mdid_type = popScalarAggFunc->MdidType();
 	INT type_modifier = popScalarAggFunc->TypeModifier();
 	const IMDType *pmdtype = md_accessor->RetrieveType(mdid_type);
 	CColRef *pcrComputed = col_factory->PcrCreate(pmdtype, type_modifier);
@@ -2035,7 +2035,7 @@ CUtils::PexprCountStarAndSum
 	// generate sum(col) expression
 	CExpression *pexprSum = PexprSum(mp, colref);
 	CScalarAggFunc *popScalarSumFunc = CScalarAggFunc::PopConvert(pexprSum->Pop());
-	const IMDType *pmdtypeSum = md_accessor->RetrieveType(popScalarSumFunc->MDIdType());
+	const IMDType *pmdtypeSum = md_accessor->RetrieveType(popScalarSumFunc->MdidType());
 	CColRef *pcrSum = col_factory->PcrCreate(pmdtypeSum, popScalarSumFunc->TypeModifier());
 	CExpression *pexprPrjElemSum = PexprScalarProjectElement(mp, pcrSum, pexprSum);
 	CExpression *pexprPrjList = GPOS_NEW(mp) CExpression(mp, GPOS_NEW(mp) CScalarProjectList(mp), pexprPrjElemCount, pexprPrjElemSum);
@@ -2185,7 +2185,7 @@ CUtils::PexprGbAggSum
 		CColRef *colref = (*pdrgpcrSum)[ul];
 		CExpression *pexprSum = PexprSum(mp, colref);
 		CScalarAggFunc *popScalarAggFunc = CScalarAggFunc::PopConvert(pexprSum->Pop());
-		const IMDType *pmdtypeSum = md_accessor->RetrieveType(popScalarAggFunc->MDIdType());
+		const IMDType *pmdtypeSum = md_accessor->RetrieveType(popScalarAggFunc->MdidType());
 		CColRef *pcrSum = col_factory->PcrCreate(pmdtypeSum, popScalarAggFunc->TypeModifier());
 		CExpression *pexprPrjElemSum = PexprScalarProjectElement(mp, pcrSum, pexprSum);
 		pdrgpexpr->Append(pexprPrjElemSum);
@@ -2505,7 +2505,7 @@ CUtils::PexprAddProjection
 
 		// generate a computed column with scalar expression type
 		CScalar *popScalar = CScalar::PopConvert(pexprProjected->Pop());
-		const IMDType *pmdtype = md_accessor->RetrieveType(popScalar->MDIdType());
+		const IMDType *pmdtype = md_accessor->RetrieveType(popScalar->MdidType());
 		CColRef *colref = col_factory->PcrCreate(pmdtype, popScalar->TypeModifier());
 
 		pexprProjected->AddRef();
@@ -4122,7 +4122,7 @@ CUtils::PexprCast
 	)
 {
 	GPOS_ASSERT(NULL != mdid_dest);
-	IMDId *mdid_src = CScalar::PopConvert(pexpr->Pop())->MDIdType();
+	IMDId *mdid_src = CScalar::PopConvert(pexpr->Pop())->MdidType();
 	GPOS_ASSERT(CMDAccessorUtils::FCastExists(md_accessor, mdid_src, mdid_dest));
 	
 	const IMDCast *pmdcast = md_accessor->Pmdcast(mdid_src, mdid_dest);

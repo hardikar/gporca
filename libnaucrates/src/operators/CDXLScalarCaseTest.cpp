@@ -82,14 +82,14 @@ CDXLScalarCaseTest::GetOpNameStr() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLScalarCaseTest::MDIdType
+//		CDXLScalarCaseTest::MdidType
 //
 //	@doc:
 //		Return type id
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLScalarCaseTest::MDIdType() const
+CDXLScalarCaseTest::MdidType() const
 {
 	return m_mdid_type;
 }

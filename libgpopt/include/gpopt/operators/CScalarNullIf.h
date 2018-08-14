@@ -72,7 +72,7 @@ namespace gpopt
 
 			// return type
 			virtual
-			IMDId *MDIdType() const
+			IMDId *MdidType() const
 			{
 				return m_mdid_type;
 			}

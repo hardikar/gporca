@@ -109,7 +109,7 @@ CScalarNullIf::Matches
 
 	// match if operators and return types are identical
 	return m_mdid_op->Equals(popScNullIf->MdIdOp()) &&
-			m_mdid_type->Equals(popScNullIf->MDIdType());
+			m_mdid_type->Equals(popScNullIf->MdidType());
 }
 
 

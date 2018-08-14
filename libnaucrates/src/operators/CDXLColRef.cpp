@@ -72,14 +72,14 @@ CDXLColRef::MdName() const
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CDXLColRef::MDIdType
+//		CDXLColRef::MdidType
 //
 //	@doc:
 //		Returns column's type md id
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLColRef::MDIdType() const
+CDXLColRef::MdidType() const
 {
 	return m_mdid_type;
 }

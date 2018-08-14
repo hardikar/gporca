@@ -44,14 +44,14 @@ CScalarNullTest::Matches
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CScalarNullTest::MDIdType
+//		CScalarNullTest::MdidType
 //
 //	@doc:
 //		Expression type
 //
 //---------------------------------------------------------------------------
 IMDId *
-CScalarNullTest::MDIdType() const
+CScalarNullTest::MdidType() const
 {
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 	

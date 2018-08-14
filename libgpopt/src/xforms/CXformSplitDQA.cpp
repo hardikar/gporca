@@ -642,7 +642,7 @@ CXformSplitDQA::PcrAggFuncArgument
 
 	CScalar *popScalar = CScalar::PopConvert(pexprArg->Pop());
 	// computed argument to the input
-	const IMDType *pmdtype = md_accessor->RetrieveType(popScalar->MDIdType());
+	const IMDType *pmdtype = md_accessor->RetrieveType(popScalar->MdidType());
 	CColRef *pcrAdditionalGrpCol = col_factory->PcrCreate(pmdtype, popScalar->TypeModifier());
 
 	pexprArg->AddRef();
