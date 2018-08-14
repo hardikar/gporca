@@ -4111,7 +4111,7 @@ CDXLOperatorFactory::ParseIndexType
 	{
 		return IMDIndex::EmdindBitmap;
 	}
-	else if (0 == XMLString::compareString(xmlsz, CDXLTokens::XmlstrToken(EdxltokenIndexTypeGist)))
+	else if (0 == XMLString::compareString(xml_val, CDXLTokens::XmlstrToken(EdxltokenIndexTypeGist)))
 	{
 		return IMDIndex::EmdindGist;
 	}

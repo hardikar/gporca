@@ -33,7 +33,7 @@ CIndexDescriptor::CIndexDescriptor
 	const CName &name,
 	CColumnDescriptorArray *pdrgcoldescKeyCols,
 	CColumnDescriptorArray *pdrgcoldescIncludedCols,
-	BOOL is_clustered
+	BOOL is_clustered,
 	IMDIndex::EmdindexType index_type
 	)
 	:

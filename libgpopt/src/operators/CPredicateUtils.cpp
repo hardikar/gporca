@@ -1951,8 +1951,8 @@ CPredicateUtils::PexprIndexLookup
 
 	if (cmptype == IMDType::EcmptNEq ||
 		cmptype == IMDType::EcmptIDF ||
-		(cmptype == IMDType::EcmptOther && pmdindex->Emdindt() != IMDIndex::EmdindGist) || // only GiST indexes with a comparison type other are ok
-		(pmdindex->Emdindt() == IMDIndex::EmdindGist && pexprScalar->UlArity() < 2)) // we do not support index expressions for GiST indexes
+		(cmptype == IMDType::EcmptOther && pmdindex->IndexType() != IMDIndex::EmdindGist) || // only GiST indexes with a comparison type other are ok
+		(pmdindex->IndexType() == IMDIndex::EmdindGist && pexprScalar->Arity() < 2)) // we do not support index expressions for GiST indexes
 	{
 		return NULL;
 	}

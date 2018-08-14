@@ -1398,15 +1398,15 @@ CTranslatorExprToDXL::PdxlnIndexScanWithInlinedCondition
 
 	// check if index is of type GiST
 	BOOL isGist = false;
-	if (COperator::EopPhysicalIndexScan == eopid)
+	if (COperator::EopPhysicalIndexScan == op_id)
 	{
 		CPhysicalIndexScan *indexScan = CPhysicalIndexScan::PopConvert(pexprIndexScan->Pop());
-		isGist = (indexScan->Pindexdesc()->Emdindt() == IMDIndex::EmdindGist);
+		isGist = (indexScan->Pindexdesc()->IndexType() == IMDIndex::EmdindGist);
 	}
 	else
 	{
 		CPhysicalDynamicIndexScan *indexScan = CPhysicalDynamicIndexScan::PopConvert(pexprIndexScan->Pop());
-		isGist = (indexScan->Pindexdesc()->Emdindt() == IMDIndex::EmdindGist);
+		isGist = (indexScan->Pindexdesc()->IndexType() == IMDIndex::EmdindGist);
 	}
 
 	// inline scalar condition in index scan, if it is not the same as index lookup condition
@@ -1414,7 +1414,7 @@ CTranslatorExprToDXL::PdxlnIndexScanWithInlinedCondition
 	// condition as a scalar condition. For now, all GiST indexes are treated as lossy
 	CExpression *pexprIndexLookupCond = (*pexprIndexScan)[0];
 	CDXLNode *pdxlnIndexScan = NULL;
-	if (!CUtils::FScalarConstTrue(pexprScalarCond) && !pexprScalarCond->Matches(pexprIndexLookupCond)
+	if ((!CUtils::FScalarConstTrue(pexprScalarCond) && !pexprScalarCond->Matches(pexprIndexLookupCond))
 	|| isGist)
 	{
 		// combine scalar condition with existing index conditions, if any
@@ -1597,10 +1597,10 @@ CTranslatorExprToDXL::PdxlnPartitionSelectorWithInlinedCondition
 
 	// if we are a dynamic GiST index scan, we need to do a recheck condition since GiST indexes are lossy
 	BOOL isGist = false;
-	if (COperator::EopPhysicalDynamicIndexScan == eopid)
+	if (COperator::EopPhysicalDynamicIndexScan == op_id)
 	{
 		CPhysicalDynamicIndexScan *indexScan = CPhysicalDynamicIndexScan::PopConvert(pexprChild->Pop());
-		isGist = indexScan->Pindexdesc()->Emdindt() == IMDIndex::EmdindGist;
+		isGist = indexScan->Pindexdesc()->IndexType() == IMDIndex::EmdindGist;
 	}
 
 	// inline condition in child operator if the following conditions are met:

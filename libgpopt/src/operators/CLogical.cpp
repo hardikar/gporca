@@ -176,7 +176,7 @@ CLogical::PosFromIndex
 	if (pmdindex->IndexType() == IMDIndex::EmdindGist)
 		return pos;
 
-	const ULONG ulLenKeys = pmdindex->UlKeys();
+	const ULONG ulLenKeys = pmdindex->Keys();
 
 	// get relation from the metadata accessor using metadata id
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();

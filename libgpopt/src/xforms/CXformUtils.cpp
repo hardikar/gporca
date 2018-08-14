@@ -2286,14 +2286,14 @@ CXformUtils::FIndexApplicable
 	// GiST can match with either Btree or Bitmap indexes
 	if (pmdindex->IndexType() == IMDIndex::EmdindGist)
 	{
-		if (pmdrel->FPartialIndex(pmdindex->Mdid()))
+		if (pmdrel->IsPartialIndex(pmdindex->MDId()))
 		{
 			// partial indexes not supported for GiST
 			return false;
 		}
 	}
 	else if (emdindtype != pmdindex->IndexType() || // otherwise make sure the index matches the given type
-		0 == pcrsScalar->Elements()) // no columns to match index against
+		0 == pcrsScalar->Size()) // no columns to match index against
 	{
 		return false;
 	}
@@ -2796,7 +2796,7 @@ CXformUtils::PexprBuildIndexPlan
 	GPOS_ASSERT_IMP(!fDynamicGet, NULL == ppartcnstrIndex);
 
 	CTableDescriptor *ptabdesc = CLogical::PtabdescFromTableGet(pexprGet->Pop());
-	ColRefArray *pdrgpcrOutput = NULL;
+	CColRefArray *pdrgpcrOutput = NULL;
 	CWStringConst *alias = NULL;
 	ULONG ulPartIndex = gpos::ulong_max;
 	CColRefArrays *pdrgpdrgpcrPart = NULL;
@@ -2812,8 +2812,8 @@ CXformUtils::PexprBuildIndexPlan
 		return NULL;
 	}
 
-	if (ptabdesc->Erelstorage() != IMDRelation::ErelstorageHeap &&
-		pmdindex->Emdindt() == IMDIndex::EmdindGist)
+	if (ptabdesc->RetrieveRelStorageType() != IMDRelation::ErelstorageHeap &&
+		pmdindex->IndexType() == IMDIndex::EmdindGist)
 	{
 		CRefCount::SafeRelease(ppartcnstrIndex);
 
@@ -2825,7 +2825,7 @@ CXformUtils::PexprBuildIndexPlan
 	{
 		CLogicalDynamicGet *popDynamicGet = CLogicalDynamicGet::PopConvert(pexprGet->Pop());
 
-		ulPartIndex = popDynamicGet->UlScanId();
+		ulPartIndex = popDynamicGet->ScanId();
 		pdrgpcrOutput = popDynamicGet->PdrgpcrOutput();
 		GPOS_ASSERT(NULL != pdrgpcrOutput);
 		alias = GPOS_NEW(mp) CWStringConst(mp, popDynamicGet->Name().Pstr()->GetBuffer());
