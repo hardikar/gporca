@@ -37,7 +37,7 @@ namespace gpdxl
 			BOOL m_is_param_list;
 
 			// array of outer column references
-			DXLColRefArray *m_nest_params_colrefs_array;
+			CDXLColRefArray *m_nest_params_colrefs_array;
 
 			// private copy ctor
 			CParseHandlerNLJIndexParamList(const CParseHandlerNLJIndexParamList &);
@@ -73,7 +73,7 @@ namespace gpdxl
 			~CParseHandlerNLJIndexParamList();
 
 			// return param column references
-			DXLColRefArray *GetNLParamsColRefs()
+			CDXLColRefArray *GetNLParamsColRefs()
 			const
 			{
 				return m_nest_params_colrefs_array;

@@ -3184,7 +3184,7 @@ CXformUtils::PexprBitmapFromChildren
 	CExpression **ppexprResidual
 	)
 {
-	ExpressionArray *pdrgpexpr = NULL;
+	CExpressionArray *pdrgpexpr = NULL;
 	BOOL fConjunction =  CPredicateUtils::FAnd(pexprPred);
 
 	if (fConjunction)
@@ -3346,10 +3346,10 @@ CXformUtils::PexprBitmap
 									))
 		{
 			// found an applicable index
-			ExpressionArray *pdrgpexprScalar = CPredicateUtils::PdrgpexprConjuncts(memory_pool, pexprPred);
-			ColRefArray *pdrgpcrIndexCols = PdrgpcrIndexKeys(memory_pool, pdrgpcrOutput, pmdindex, pmdrel);
-			ExpressionArray *pdrgpexprIndex = GPOS_NEW(memory_pool) ExpressionArray(memory_pool);
-			ExpressionArray *pdrgpexprResidual = GPOS_NEW(memory_pool) ExpressionArray(memory_pool);
+			CExpressionArray *pdrgpexprScalar = CPredicateUtils::PdrgpexprConjuncts(mp, pexprPred);
+			CColRefArray *pdrgpcrIndexCols = PdrgpcrIndexKeys(mp, pdrgpcrOutput, pmdindex, pmdrel);
+			CExpressionArray *pdrgpexprIndex = GPOS_NEW(mp) CExpressionArray(mp);
+			CExpressionArray *pdrgpexprResidual = GPOS_NEW(mp) CExpressionArray(mp);
 
 			CPredicateUtils::ExtractIndexPredicates
 				(
@@ -3385,7 +3385,7 @@ CXformUtils::PexprBitmap
 				continue;
 			}
 
-			ColRefArray *indexColumns = CXformUtils::PdrgpcrIndexKeys(memory_pool,pdrgpcrOutput, pmdindex, pmdrel);
+			CColRefArray *indexColumns = CXformUtils::PdrgpcrIndexKeys(mp,pdrgpcrOutput, pmdindex, pmdrel);
 
 			// make sure the first key of index is included in the scalar predicate
 			const CColRef *pcrFirstIndexKey = (*indexColumns)[0];
@@ -3405,7 +3405,7 @@ CXformUtils::PexprBitmap
 			{
 				CRefCount::SafeRelease((*ppexprResidual));
 				pdrgpexprResidual->AddRef();
-				(*ppexprResidual) = CPredicateUtils::PexprConjDisj(memory_pool, pdrgpexprResidual, true /* fConjunction */);
+				(*ppexprResidual) = CPredicateUtils::PexprConjDisj(mp, pdrgpexprResidual, true /* fConjunction */);
 
 				// if the index covers all the columns in the predicate, the residual generated is a trivial
 				// constant true filter. Stop the search as this is an optimal index and discard the residual.
@@ -3419,7 +3419,7 @@ CXformUtils::PexprBitmap
 				minResidual = ulResidualLength;
 				pdrgpexprIndex->AddRef();
 				CRefCount::SafeRelease(pexprIndexFinal);
-				pexprIndexFinal = CPredicateUtils::PexprConjunction(memory_pool, pdrgpexprIndex);
+				pexprIndexFinal = CPredicateUtils::PexprConjunction(mp, pdrgpexprIndex);
 			}
 
 			pdrgpexprIndex->Release();
@@ -3432,15 +3432,15 @@ CXformUtils::PexprBitmap
 	if (NULL != pexprIndexFinal)
 	{
 		const IMDIndex *pmdindex = md_accessor->RetrieveIndex(pmdrel->IndexMDidAt(ulBestIndex));
-		CIndexDescriptor *pindexdesc = CIndexDescriptor::Pindexdesc(memory_pool, ptabdesc, pmdindex);
+		CIndexDescriptor *pindexdesc = CIndexDescriptor::Pindexdesc(mp, ptabdesc, pmdindex);
 		pmdindex->GetIndexRetItemTypeMdid()->AddRef();
 		pexprIndexFinal->AddRef();
 		(*ppexprRecheck) = pexprIndexFinal;
 
-		return 	GPOS_NEW(memory_pool) CExpression
+		return 	GPOS_NEW(mp) CExpression
 			(
-			 memory_pool,
-			 GPOS_NEW(memory_pool) CScalarBitmapIndexProbe(memory_pool, pindexdesc, pmdindex->GetIndexRetItemTypeMdid()),
+			 mp,
+			 GPOS_NEW(mp) CScalarBitmapIndexProbe(mp, pindexdesc, pmdindex->GetIndexRetItemTypeMdid()),
 			 pexprIndexFinal
 			 );
 	}
@@ -3570,12 +3570,12 @@ CXformUtils::CreateBitmapIndexProbeOps
 	{
 		CExpression *pexprPred = (*pdrgpexprPreds)[ul];
 
-		ExpressionArray *pdrgpexprBitmapTemp = GPOS_NEW(memory_pool) ExpressionArray(memory_pool);
-		ExpressionArray *pdrgpexprRecheckTemp = GPOS_NEW(memory_pool) ExpressionArray(memory_pool);
+		CExpressionArray *pdrgpexprBitmapTemp = GPOS_NEW(mp) CExpressionArray(mp);
+		CExpressionArray *pdrgpexprRecheckTemp = GPOS_NEW(mp) CExpressionArray(mp);
 
 		CreateBitmapIndexProbes
 		(
-		 memory_pool,
+		 mp,
 		 md_accessor,
 		 pexprOriginalPred,
 		 pexprPred,
@@ -3599,7 +3599,7 @@ CXformUtils::CreateBitmapIndexProbeOps
 		{
 			CExpression *pexprBitmapFinal = NULL;
 			CExpression *pexprRecheckFinal = NULL;
-			JoinBitmapIndexProbes(memory_pool, pdrgpexprBitmapTemp, pdrgpexprRecheckTemp, true /*fConjunction*/, &pexprBitmapFinal, &pexprRecheckFinal);
+			JoinBitmapIndexProbes(mp, pdrgpexprBitmapTemp, pdrgpexprRecheckTemp, true /*fConjunction*/, &pexprBitmapFinal, &pexprRecheckFinal);
 
 			pdrgpexprBitmap->Append(pexprBitmapFinal);
 			pdrgpexprRecheck->Append(pexprRecheckFinal);
@@ -3622,15 +3622,15 @@ CXformUtils::CreateBitmapIndexProbes
 	CExpression *pexprPred,
 	CTableDescriptor *ptabdesc,
 	const IMDRelation *pmdrel,
-	ColRefArray *pdrgpcrOutput,
+	CColRefArray *pdrgpcrOutput,
 	CColRefSet *pcrsOuterRefs,
 	CColRefSet *pcrsReqd,
 	BOOL fConjunction,
-	ExpressionArray *pdrgpexprBitmap,
-	ExpressionArray *pdrgpexprRecheck,
-	ExpressionArray *pdrgpexprBitmapResult,
-	ExpressionArray *pdrgpexprRecheckResult,
-	ExpressionArray *pdrgpexprResidualResult
+	CExpressionArray *pdrgpexprBitmap,
+	CExpressionArray *pdrgpexprRecheck,
+	CExpressionArray *pdrgpexprBitmapResult,
+	CExpressionArray *pdrgpexprRecheckResult,
+	CExpressionArray *pdrgpexprResidualResult
 	)
 {
 	CExpression *pexprRecheck, *pexprResidual, *pexprBitmap;
@@ -3751,8 +3751,8 @@ void
 CXformUtils::JoinBitmapIndexProbes
 	(
 		IMemoryPool *pmp,
-		ExpressionArray *pdrgpexprBitmap,
-		ExpressionArray *pdrgpexprRecheck,
+		CExpressionArray *pdrgpexprBitmap,
+		CExpressionArray *pdrgpexprRecheck,
 		BOOL fConjunction,
 		CExpression **ppexprBitmap,
 		CExpression **ppexprRecheck
@@ -3919,7 +3919,7 @@ CXformUtils::PexprBitmapTableGet
 
 	BOOL fConjunction = CPredicateUtils::FAnd(pexprScalar);
 
-	CExpressionArray *pdrgpexpr = GPOS_NEW(memory_pool) CExpressionArray(mp);
+	CExpressionArray *pdrgpexpr = GPOS_NEW(mp) CExpressionArray(mp);
 	pexprScalar->AddRef();
 	pdrgpexpr->Append(pexprScalar);
 

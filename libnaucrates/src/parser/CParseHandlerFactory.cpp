@@ -1680,11 +1680,7 @@ CParseHandlerFactory::CreateCostParseHandler
 	CParseHandlerBase *parse_handler_root
 	)
 {
-<<<<<<< HEAD
-	return GPOS_NEW(memory_pool) CParseHandlerCost(memory_pool, parse_handler_mgr, parse_handler_root);
-=======
-	return GPOS_NEW(mp) CParseHandlerCost(mp, parse_handler_mgr, parse_handler_root);	
->>>>>>> m_memory_pool or memory_pool => m_mp or mp
+	return GPOS_NEW(mp) CParseHandlerCost(mp, parse_handler_mgr, parse_handler_root);
 }
 
 // creates a parse handler for parsing a table descriptor

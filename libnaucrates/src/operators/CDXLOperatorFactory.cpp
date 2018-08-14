@@ -188,7 +188,7 @@ CDXLOperatorFactory::MakeDXLNLJoin
 	{
 		nest_params_exists = ConvertAttrValueToBool
 						(
-						memory_manager_dxl,
+						dxl_memory_manager,
 						nest_param_exists_xml,
 						EdxltokenNLJIndexOuterRefAsParam,
 						EdxltokenPhysicalNLJoin
@@ -197,7 +197,7 @@ CDXLOperatorFactory::MakeDXLNLJoin
 
 	EdxlJoinType join_type = ParseJoinType(join_type_xml, CDXLTokens::GetDXLTokenStr(EdxltokenPhysicalNLJoin));
 	
-	return GPOS_NEW(mp) CDXLPhysicalNLJoin(mp, join_type, is_index_nlj, nest_params_exists););
+	return GPOS_NEW(mp) CDXLPhysicalNLJoin(mp, join_type, is_index_nlj, nest_params_exists);
 }
 
 //---------------------------------------------------------------------------

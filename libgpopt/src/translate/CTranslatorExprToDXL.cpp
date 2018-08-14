@@ -3662,7 +3662,7 @@ CTranslatorExprToDXL::PdxlnNLJoin
 
 	EdxlJoinType join_type = EdxljtSentinel;
 	BOOL is_index_nlj = false;
-	ColRefArray *outer_refs = NULL;
+	CColRefArray *outer_refs = NULL;
 	switch (pop->Eopid())
 	{
 		case COperator::EopPhysicalInnerNLJoin:
@@ -3715,11 +3715,11 @@ CTranslatorExprToDXL::PdxlnNLJoin
 	}
 
 	BOOL nest_params_exists = false;
-	DXLColRefArray *col_refs = NULL;
+	CDXLColRefArray *col_refs = NULL;
 	if (is_index_nlj && GPOS_FTRACE(EopttraceIndexedNLJOuterRefAsParams))
 	{
 		nest_params_exists = true;
-		col_refs = GPOS_NEW(m_mp) DXLColRefArray(m_mp);
+		col_refs = GPOS_NEW(m_mp) CDXLColRefArray(m_mp);
 		for (ULONG ul = 0; ul < outer_refs->Size(); ul++)
 		{
 			CColRef *col_ref = (*outer_refs)[ul];

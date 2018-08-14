@@ -964,7 +964,7 @@ namespace gpopt
 						 CExpression *pexprPred,
 						 CTableDescriptor *ptabdesc,
 						 const IMDRelation *pmdrel,
-						 ColRefArray *pdrgpcrOutput,
+						 CColRefArray *pdrgpcrOutput,
 						 CColRefSet *pcrsOuterRefs,
 						 CColRefSet *pcrsReqd,
 						 CExpression **ppexprRecheck,

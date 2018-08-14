@@ -33,7 +33,7 @@ CParseHandlerNLJIndexParamList::CParseHandlerNLJIndexParamList
 	:
 	CParseHandlerBase(mp, parse_handler_mgr, parse_handler_root)
 {
-	m_nest_params_colrefs_array = GPOS_NEW(mp) DXLColRefArray(mp);
+	m_nest_params_colrefs_array = GPOS_NEW(mp) CDXLColRefArray(mp);
 	m_is_param_list = false;
 }
 
@@ -67,7 +67,7 @@ CParseHandlerNLJIndexParamList::StartElement
 		GPOS_ASSERT(m_is_param_list);
 
 		// start new param
-		CParseHandlerBase *nest_param_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenNLJIndexParam), m_parse_handler_mgr, this);
+		CParseHandlerBase *nest_param_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenNLJIndexParam), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(nest_param_parse_handler);
 
 		// store parse handler

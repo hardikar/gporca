@@ -78,7 +78,7 @@ CParseHandlerNLJoin::StartElement
 	CParseHandlerBase *nest_params_parse_handler = NULL;
 	if (m_dxl_op->NestParamsExists())
 	{
-		nest_params_parse_handler = CParseHandlerFactory::GetParseHandler(m_memory_pool, CDXLTokens::XmlstrToken(EdxltokenNLJIndexParamList), m_parse_handler_mgr, this);
+		nest_params_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenNLJIndexParamList), m_parse_handler_mgr, this);
 		m_parse_handler_mgr->ActivateParseHandler(nest_params_parse_handler);
 	}
 
@@ -158,7 +158,7 @@ CParseHandlerNLJoin::EndElement
 	{
 		CParseHandlerNLJIndexParamList *nest_params_parse_handler = dynamic_cast<CParseHandlerNLJIndexParamList*>((*this)[EdxlParseHandlerNLJIndexNestLoopParams]);
 		GPOS_ASSERT(nest_params_parse_handler);
-		DXLColRefArray *nest_params_colrefs = nest_params_parse_handler->GetNLParamsColRefs();
+		CDXLColRefArray *nest_params_colrefs = nest_params_parse_handler->GetNLParamsColRefs();
 		nest_params_colrefs->AddRef();
 		m_dxl_op->SetNestLoopParamsColRefs(nest_params_colrefs);
 	}
