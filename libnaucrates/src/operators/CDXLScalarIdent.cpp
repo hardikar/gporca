@@ -93,7 +93,7 @@ CDXLScalarIdent::GetOpNameStr() const
 //
 //---------------------------------------------------------------------------
 const CDXLColRef *
-CDXLScalarIdent::MakeDXLColRef() const
+CDXLScalarIdent::GetDXLColRef() const
 {
 	return m_dxl_colref;
 }

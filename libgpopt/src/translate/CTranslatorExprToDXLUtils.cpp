@@ -2522,7 +2522,7 @@ CTranslatorExprToDXLUtils::ExtractIdentColIds
 {
 	if (dxlnode->GetOperator()->GetDXLOperator() == EdxlopScalarIdent)
 	{
-		const CDXLColRef *dxl_colref = CDXLScalarIdent::Cast(dxlnode->GetOperator())->MakeDXLColRef();
+		const CDXLColRef *dxl_colref = CDXLScalarIdent::Cast(dxlnode->GetOperator())->GetDXLColRef();
 		pbs->ExchangeSet(dxl_colref->Id());
 	}
 

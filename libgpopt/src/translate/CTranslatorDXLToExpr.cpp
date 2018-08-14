@@ -268,7 +268,7 @@ CTranslatorDXLToExpr::Pexpr
 		CDXLScalarIdent *pdxlopIdent = CDXLScalarIdent::Cast(pdxlnIdent->GetOperator());
 
 		// get the dxl column reference
-		const CDXLColRef *dxl_colref = pdxlopIdent->MakeDXLColRef();
+		const CDXLColRef *dxl_colref = pdxlopIdent->GetDXLColRef();
 		GPOS_ASSERT(NULL != dxl_colref);
 		const ULONG colid = dxl_colref->Id();
 
@@ -3346,7 +3346,7 @@ CTranslatorDXLToExpr::PexprScalarIdent
 	CDXLScalarIdent *dxl_op = CDXLScalarIdent::Cast(pdxlnIdent->GetOperator());
 
 	// get the dxl column reference
-	const CDXLColRef *dxl_colref = dxl_op->MakeDXLColRef();
+	const CDXLColRef *dxl_colref = dxl_op->GetDXLColRef();
 	const ULONG colid = dxl_colref->Id();
 
 	// get its column reference from the hash map
