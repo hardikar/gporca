@@ -137,6 +137,9 @@ CPhysicalInnerIndexNLJoin::PdsRequired
 			pdshashedEquiv->Pdrgpexpr()->AddRef();
 			return GPOS_NEW(mp) CDistributionSpecHashed(pdshashedEquiv->Pdrgpexpr(), pdshashedEquiv->FNullsColocated());
 		}
+		CDistributionSpec *t = PdsRequiredEquivHashed(mp, exprhdl, pdshashed);
+		if (t != NULL)
+			return t;
 	}
 
 	// otherwise, require outer child to be replicated

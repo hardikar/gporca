@@ -91,6 +91,14 @@ namespace gpopt
 				return dynamic_cast<CPhysicalInnerNLJoin*>(pop);
 			}
 
+			static
+			CDistributionSpec *PdsRequiredEquivHashed
+				(
+				IMemoryPool *mp,
+				CExpressionHandle &exprhdl,
+				CDistributionSpecHashed *pdshashed
+				);
+
 					
 	}; // class CPhysicalInnerNLJoin
 

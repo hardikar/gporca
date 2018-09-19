@@ -117,42 +117,9 @@ CPhysicalInnerNLJoin::PdsRequired
 			CDistributionSpec *pdsOuter = CDrvdPropPlan::Pdpplan((*pdrgpdpCtxt)[0])->Pds();
 			if(CDistributionSpec::EdtHashed == pdsOuter->Edt())
 			{
-				// require inner child to have matching hashed distribution
-				CExpression *pexprScPredicate = exprhdl.PexprScalarChild(2);
-				CExpressionArray *pdrgpexpr = CPredicateUtils::PdrgpexprConjuncts(mp, pexprScPredicate);
-
-				CExpressionArray *pdrgpexprMatching = GPOS_NEW(mp) CExpressionArray(mp);
-				CDistributionSpecHashed *pdshashed = CDistributionSpecHashed::PdsConvert(pdsOuter);
-				CExpressionArray *pdrgpexprHashed = pdshashed->Pdrgpexpr();
-				const ULONG ulSize = pdrgpexprHashed->Size();
-
-				BOOL fSuccess = true;
-				for (ULONG ul = 0; fSuccess && ul < ulSize; ul++)
-				{
-					CExpression *pexpr = (*pdrgpexprHashed)[ul];
-					// get matching expression from predicate for the corresponding outer child
-					// to create CDistributionSpecHashed for inner child
-					CExpression *pexprMatching = PexprMatchEqualitySide(pexpr, pdrgpexpr);
-					fSuccess = (NULL != pexprMatching);
-					if (fSuccess)
-					{
-						pexprMatching->AddRef();
-						pdrgpexprMatching->Append(pexprMatching);
-					}
-				}
-				pdrgpexpr->Release();
-
-				if (fSuccess)
-				{
-					GPOS_ASSERT(pdrgpexprMatching->Size() == pdrgpexprHashed->Size());
-
-					// create a matching hashed distribution request
-					BOOL fNullsColocated = pdshashed->FNullsColocated();
-					CDistributionSpecHashed *pdshashedEquiv = GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexprMatching, fNullsColocated);
-
-					return pdshashedEquiv;
-				}
-				pdrgpexprMatching->Release();
+				CDistributionSpec *pdsHashed = PdsRequiredEquivHashed(mp, exprhdl, CDistributionSpecHashed::PdsConvert(pdsOuter));
+				if (NULL != pdsHashed)
+					return pdsHashed;
 			}
 		}
 		return CPhysicalJoin::PdsRequired(mp, exprhdl, pdsRequired, child_index, pdrgpdpCtxt, ulOptReq);
@@ -225,6 +192,55 @@ CPhysicalInnerNLJoin::PexprMatchEqualitySide
 	}
 
 	return pexprMatching;
+}
+
+
+CDistributionSpec *
+CPhysicalInnerNLJoin::PdsRequiredEquivHashed
+	(
+	IMemoryPool *mp,
+	CExpressionHandle &exprhdl,
+	CDistributionSpecHashed *pdshashed
+	)
+{
+	// require inner child to have matching hashed distribution
+	CExpression *pexprScPredicate = exprhdl.PexprScalarChild(2);
+	CExpressionArray *pdrgpexpr = CPredicateUtils::PdrgpexprConjuncts(mp, pexprScPredicate);
+
+	CExpressionArray *pdrgpexprMatching = GPOS_NEW(mp) CExpressionArray(mp);
+	//CDistributionSpecHashed *pdshashed = CDistributionSpecHashed::PdsConvert(pdsOuter);
+	CExpressionArray *pdrgpexprHashed = pdshashed->Pdrgpexpr();
+	const ULONG ulSize = pdrgpexprHashed->Size();
+
+	BOOL fSuccess = true;
+	for (ULONG ul = 0; fSuccess && ul < ulSize; ul++)
+	{
+		CExpression *pexpr = (*pdrgpexprHashed)[ul];
+		// get matching expression from predicate for the corresponding outer child
+		// to create CDistributionSpecHashed for inner child
+		CExpression *pexprMatching = PexprMatchEqualitySide(pexpr, pdrgpexpr);
+		fSuccess = (NULL != pexprMatching);
+		if (fSuccess)
+		{
+			pexprMatching->AddRef();
+			pdrgpexprMatching->Append(pexprMatching);
+		}
+	}
+	pdrgpexpr->Release();
+
+	if (fSuccess)
+	{
+		GPOS_ASSERT(pdrgpexprMatching->Size() == pdrgpexprHashed->Size());
+
+		// create a matching hashed distribution request
+		BOOL fNullsColocated = pdshashed->FNullsColocated();
+		CDistributionSpecHashed *pdshashedEquiv = GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexprMatching, fNullsColocated);
+
+		return pdshashedEquiv;
+	}
+	pdrgpexprMatching->Release();
+
+	return NULL;
 }
 
 // EOF
