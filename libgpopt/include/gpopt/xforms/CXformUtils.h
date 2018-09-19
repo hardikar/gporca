@@ -986,7 +986,8 @@ namespace gpopt
 				CTableDescriptor *ptabdesc,
 				CExpression *pexprScalar,
 				CColRefSet *outer_refs,
-				CColRefSet *pcrsReqd
+				CColRefSet *pcrsReqd,
+				CExpression **pexprResidual
 				);
 
 			// transform a Select over a (dynamic) table get into a bitmap table scan

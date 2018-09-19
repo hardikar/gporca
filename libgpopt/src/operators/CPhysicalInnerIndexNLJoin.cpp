@@ -97,7 +97,7 @@ CDistributionSpec *
 CPhysicalInnerIndexNLJoin::PdsRequired
 	(
 	IMemoryPool *mp,
-	CExpressionHandle &,//exprhdl,
+	CExpressionHandle &exprhdl,
 	CDistributionSpec *,//pdsRequired,
 	ULONG child_index,
 	CDrvdProp2dArray *pdrgpdpCtxt,
@@ -114,7 +114,7 @@ CPhysicalInnerIndexNLJoin::PdsRequired
 		// to refer to columns in join's outer child
 		return GPOS_NEW(mp) CDistributionSpecAny(this->Eopid(), true /*fAllowOuterRefs*/);
 	}
-
+	GPOS_ASSERT(exprhdl.Pgexpr() != NULL);
 	// we need to match distribution of inner
 	CDistributionSpec *pdsInner = CDrvdPropPlan::Pdpplan((*pdrgpdpCtxt)[0])->Pds();
 	CDistributionSpec::EDistributionType edtInner = pdsInner->Edt();

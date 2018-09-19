@@ -3881,6 +3881,7 @@ CXformUtils::PexprSelect2BitmapBoolOp
 	pcrsReqd->Include(pcrsOutput);
 	pcrsReqd->Include(pcrsScalarExpr);
 
+	CExpression *pexprResidual = NULL;
 	CExpression *pexprResult = PexprBitmapTableGet
 								(
 								mp,
@@ -3889,8 +3890,21 @@ CXformUtils::PexprSelect2BitmapBoolOp
 								ptabdesc,
 								pexprScalar,
 								NULL,  // outer_refs
-								pcrsReqd
+								pcrsReqd,
+								&pexprResidual
 								);
+
+	if (NULL != pexprResidual)
+	{
+		// add a selection on top with the residual condition
+		pexprResult = GPOS_NEW(mp) CExpression
+						(
+						mp,
+						GPOS_NEW(mp) CLogicalSelect(mp),
+						pexprResult,
+						pexprResidual
+						);
+	}
 	pcrsReqd->Release();
 
 	return pexprResult;
@@ -3914,7 +3928,8 @@ CXformUtils::PexprBitmapTableGet
 	CTableDescriptor *ptabdesc,
 	CExpression *pexprScalar,
 	CColRefSet *outer_refs,
-	CColRefSet *pcrsReqd
+	CColRefSet *pcrsReqd,
+	CExpression **pexprResidual
 	)
 {
 	GPOS_ASSERT(COperator::EopLogicalGet == popGet->Eopid() || 
@@ -3941,7 +3956,7 @@ CXformUtils::PexprBitmapTableGet
 	GPOS_ASSERT(NULL != pdrgpcrOutput);
 	
 	CExpression *pexprRecheck = NULL;
-	CExpression *pexprResidual = NULL;
+	//CExpression *pexprResidual = NULL;
 	CExpression *pexprBitmap = PexprScalarBitmapBoolOp
 				(
 				mp,
@@ -3955,7 +3970,7 @@ CXformUtils::PexprBitmapTableGet
 				pcrsReqd,
 				fConjunction,
 				&pexprRecheck,
-				&pexprResidual
+				pexprResidual
 				);
 	CExpression *pexprResult = NULL;
 
@@ -4003,18 +4018,6 @@ CXformUtils::PexprBitmapTableGet
 						pexprRecheck,
 						pexprBitmap
 						);
-		
-		if (NULL != pexprResidual)
-		{
-			// add a selection on top with the residual condition
-			pexprResult = GPOS_NEW(mp) CExpression
-							(
-							mp,
-							GPOS_NEW(mp) CLogicalSelect(mp),
-							pexprResult,
-							pexprResidual
-							);				
-		}
 	}
 	
 	// cleanup
