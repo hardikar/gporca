@@ -117,7 +117,7 @@ CPhysicalInnerNLJoin::PdsRequired
 			CDistributionSpec *pdsOuter = CDrvdPropPlan::Pdpplan((*pdrgpdpCtxt)[0])->Pds();
 			if(CDistributionSpec::EdtHashed == pdsOuter->Edt())
 			{
-				// require inner child to have matching hashed distribution
+				// require inner child to have G
 				CExpression *pexprScPredicate = exprhdl.PexprScalarChild(2);
 				CExpressionArray *pdrgpexpr = CPredicateUtils::PdrgpexprConjuncts(mp, pexprScPredicate);
 
@@ -132,7 +132,7 @@ CPhysicalInnerNLJoin::PdsRequired
 					CExpression *pexpr = (*pdrgpexprHashed)[ul];
 					// get matching expression from predicate for the corresponding outer child
 					// to create CDistributionSpecHashed for inner child
-					CExpression *pexprMatching = PexprMatchEqualitySide(pexpr, pdrgpexpr);
+					CExpression *pexprMatching = CUtils::PexprMatchEqualitySide(pexpr, pdrgpexpr);
 					fSuccess = (NULL != pexprMatching);
 					if (fSuccess)
 					{
@@ -173,58 +173,6 @@ CPhysicalInnerNLJoin::PdsRequired
 	}
 
 	return GPOS_NEW(mp) CDistributionSpecNonSingleton();
-}
-
-// search the given array of predicates for an equality predicate
-// that has one side equal to the given expression,
-// if found, return the other side of equality, otherwise return NULL
-CExpression *
-CPhysicalInnerNLJoin::PexprMatchEqualitySide
-(
-	CExpression *pexprToMatch,
-	CExpressionArray *pdrgpexpr // array of predicates to inspect
-)
-{
-	GPOS_ASSERT(NULL != pexprToMatch);
-	GPOS_ASSERT(NULL != pdrgpexpr);
-
-	CExpression *pexprMatching = NULL;
-	const ULONG ulSize = pdrgpexpr->Size();
-	for (ULONG ul = 0; ul < ulSize; ul++)
-	{
-		CExpression *pexprPred = (*pdrgpexpr)[ul];
-		if (!CPredicateUtils::IsEqualityOp(pexprPred))
-		{
-			continue;
-		}
-
-		// extract equality sides
-		CExpression *pexprPredOuter = (*pexprPred)[0];
-		CExpression *pexprPredInner = (*pexprPred)[1];
-
-		IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MdidType();
-		IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
-		if (!pmdidTypeOuter->Equals(pmdidTypeInner))
-		{
-			// only consider equality of identical types
-			continue;
-		}
-
-		pexprToMatch = CCastUtils::PexprWithoutBinaryCoercibleCasts(pexprToMatch);
-		if (CUtils::Equals(CCastUtils::PexprWithoutBinaryCoercibleCasts(pexprPredOuter), pexprToMatch))
-		{
-			pexprMatching = pexprPredInner;
-			break;
-		}
-
-		if (CUtils::Equals(CCastUtils::PexprWithoutBinaryCoercibleCasts(pexprPredInner), pexprToMatch))
-		{
-			pexprMatching = pexprPredOuter;
-			break;
-		}
-	}
-
-	return pexprMatching;
 }
 
 // EOF
