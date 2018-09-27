@@ -692,7 +692,7 @@ CCostContext::OsPrint
 
 IOstream &gpopt::operator << (IOstream &os, const CCostContext &pcc)
 {
-	os << pcc.Poc()->Id() << "." << pcc.UlOptReq();
+	os << pcc.Pgexpr()->Pgroup()->Id() << "." << pcc.Pgexpr()->Id() << ":" << pcc.Poc()->Id() << "." << pcc.UlOptReq();
 	return os;
 }
 

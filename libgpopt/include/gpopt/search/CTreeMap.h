@@ -382,26 +382,46 @@ namespace gpopt
                     {
                         ULONG ulChildren = m_pdrgdrgptn->Size();
 
-                        os
-                        << "=== Node " << m_ul << " [" << *Value() << "] ===" << std::endl
-                        << "# children: " << ulChildren << std::endl
-                        << "# count: " << this->UllCount() << std::endl;
+//                        os
+//                        << "// === Node " << m_ul << " [" << *Value() << "] ===" << std::endl
+//                        << "// # children: " << ulChildren << std::endl
+//                        << "// # count: " << this->UllCount() << std::endl;
+
+
 
                         for (ULONG ul = 0; ul < ulChildren; ul++)
                         {
-                            os << "--- child: #" << ul << " ---" << std::endl;
+                            // os << "// --- child: #" << ul << " ---" << std::endl;
                             ULONG ulAlt = (*m_pdrgdrgptn)[ul]->Size();
 
+							CWStringDynamic str(m_mp);
+							COstreamString stros(&str);
+
+							if (ulAlt > 0)
+								os << "subgraph cluster_" << m_ul << "_" << ul << " {" << std::endl;
+								
                             for (ULONG ulChild = 0; ulChild < ulAlt; ulChild++)
                             {
                                 CTreeNode *ptn = (*(*m_pdrgdrgptn)[ul])[ulChild];
-                                os
-                                << "  -> " << ptn->m_ul
-                                << " [" << *ptn->Value() << "]"
-                                << std::endl;
-                            }
-                        }
 
+								if (ulChild == 0)
+								{
+									stros
+									<< "\""<< m_ul << " " << *Value() << "\""
+									<< "  -> "
+									<< " \"" << ptn->m_ul << " " << *ptn->Value() << "\";"
+									<< std::endl;
+								}
+
+
+								os << " \"" << ptn->m_ul << " " << *ptn->Value() << "\";" << std::endl;
+                            }
+
+							if (ulAlt > 0)
+								os <<  "}" << std::endl;
+
+							os << str.GetBuffer();
+                        }
                         return os;
                     }
 					
@@ -587,6 +607,7 @@ namespace gpopt
 			// debug print of entire map
 			IOstream &OsPrint(IOstream &os)
             {
+				os << "digraph { " << std::endl;
                 TMapIter mi(m_ptmap);
                 ULONG ulNodes = 0;
                 for (ulNodes = 0; mi.Advance(); ulNodes++)
@@ -594,6 +615,7 @@ namespace gpopt
                     CTreeNode *ptn = const_cast<CTreeNode*>(mi.Value());
                     (void) ptn->OsPrint(os);
                 }
+				os << "}" << std::endl;
 
                 os << "total number of nodes: " << ulNodes << std::endl;
 
