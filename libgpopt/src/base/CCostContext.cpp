@@ -690,6 +690,12 @@ CCostContext::OsPrint
 	return os << std::endl;
 }
 
+IOstream &gpopt::operator << (IOstream &os, const CCostContext &pcc)
+{
+	os << pcc.Poc()->Id() << "." << pcc.UlOptReq();
+	return os;
+}
+
 #ifdef GPOS_DEBUG
 void
 CCostContext::DbgPrint() const

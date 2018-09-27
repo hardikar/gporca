@@ -1930,6 +1930,9 @@ CEngine::PexprExtractPlan()
 		ULLONG ullCount = Pmemotmap()->UllCount();
 		at.Os() << "[OPT]: Number of plan alternatives: " << ullCount << std::endl;
 
+		at.Os() << "[OPT]: TreeMap: " << ullCount << std::endl;
+		Pmemotmap()->OsPrint(at.Os());
+
 		if (0 < pec->GetPlanId())
 		{
 

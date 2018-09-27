@@ -315,6 +315,8 @@ namespace gpopt
 
 	}; // class CCostContext
 
+
+	IOstream &operator << (IOstream &os, const CCostContext &pcc);
 }
 
 
