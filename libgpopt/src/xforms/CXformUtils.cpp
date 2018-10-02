@@ -2778,8 +2778,7 @@ CXformUtils::PexprBuildIndexPlan
 	CPartConstraint *ppartcnstrIndex,
 	IMDIndex::EmdindexType emdindtype,
 	PDynamicIndexOpConstructor pdiopc,
-	PStaticIndexOpConstructor psiopc,
-	PRewrittenIndexPath prip
+	PStaticIndexOpConstructor psiopc
 	)
 {
 	GPOS_ASSERT(NULL != pexprGet);
@@ -2937,7 +2936,8 @@ CXformUtils::PexprBuildIndexPlan
 	CExpression *pexprIndexCond = CPredicateUtils::PexprConjunction(mp, pdrgpexprIndex);
 	CExpression *pexprResidualCond = CPredicateUtils::PexprConjunction(mp, pdrgpexprResidual);
 
-	return (*prip)(mp, pexprIndexCond, pexprResidualCond, pmdindex, ptabdesc, popLogicalGet);
+	// create the expression containing the logical index get operator
+	return CUtils::PexprSafeSelect(mp, GPOS_NEW(mp) CExpression(mp, popLogicalGet, pexprIndexCond), pexprResidualCond);
 }
 
 //---------------------------------------------------------------------------

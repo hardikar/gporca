@@ -135,16 +135,6 @@ namespace gpopt
 						CColRefArray *pdrgpcrOutput
 						);
 
-			typedef CExpression *(PRewrittenIndexPath)
-						(
-						IMemoryPool *mp,
-						CExpression *pexprIndexCond,
-						CExpression *pexprResidualCond,
-						const IMDIndex *pmdindex,
-						CTableDescriptor *ptabdesc,
-						COperator *popLogical
-						);
-
 			// private copy ctor
 			CXformUtils(const CXformUtils &);
 
@@ -321,8 +311,7 @@ namespace gpopt
 				CPartConstraint *ppcForPartialIndexes,
 				IMDIndex::EmdindexType emdindtype,
 				PDynamicIndexOpConstructor pdiopc,
-				PStaticIndexOpConstructor psiopc,
-				PRewrittenIndexPath prip
+				PStaticIndexOpConstructor psiopc
 				);
 
 			// create a dynamic operator for a btree index plan
@@ -382,24 +371,6 @@ namespace gpopt
 						pdrgpcrOutput
 						);
 			}
-
-			//	produce an expression representing a new btree index path
-			static
-			CExpression *
-			PexprRewrittenBtreeIndexPath
-				(
-				IMemoryPool *mp,
-				CExpression *pexprIndexCond,
-				CExpression *pexprResidualCond,
-				const IMDIndex *,  // pmdindex
-				CTableDescriptor *,  // ptabdesc
-				COperator *popLogical
-				)
-			{
-				// create the expression containing the logical index get operator
-				return CUtils::PexprSafeSelect(mp, GPOS_NEW(mp) CExpression(mp, popLogical, pexprIndexCond), pexprResidualCond);
-			}
-
 			// create a candidate dynamic get scan to suplement the partial index scans
 			static
 			SPartDynamicIndexGetInfo *PpartdigDynamicGet
@@ -880,8 +851,7 @@ namespace gpopt
 						ppcartcnstrIndex,
 						IMDIndex::EmdindBtree,
 						PopDynamicBtreeIndexOpConstructor,
-						PopStaticBtreeIndexOpConstructor,
-						PexprRewrittenBtreeIndexPath
+						PopStaticBtreeIndexOpConstructor
 						);
 			}
 			
