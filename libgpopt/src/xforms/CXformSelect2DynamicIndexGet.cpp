@@ -139,6 +139,7 @@ CXformSelect2DynamicIndexGet::Transform
 								pmdindex->MDPartConstraint(),
 								popDynamicGet->PdrgpcrOutput()
 								);
+		CExpression *pexprResidual = NULL;
 		CExpression *pexprDynamicIndexGet = CXformUtils::PexprLogicalIndexGet
 							(
 							mp,
@@ -152,10 +153,24 @@ CXformSelect2DynamicIndexGet::Transform
 							pmdindex,
 							pmdrel,
 							false /*fAllowPartialIndex*/,
-							ppartcnstrIndex
+							ppartcnstrIndex,
+							&pexprResidual
 							);
+
 		if (NULL != pexprDynamicIndexGet)
 		{
+
+			if (NULL != pexprResidual)
+			{
+				// add a selection on top with the residual condition
+				pexprDynamicIndexGet = GPOS_NEW(mp) CExpression
+											(
+											mp,
+											GPOS_NEW(mp) CLogicalSelect(mp),
+											pexprDynamicIndexGet,
+											pexprResidual
+											);
+			}
 			// create a redundant SELECT on top of DynamicIndexGet to be able to use predicate in partition elimination
 
 			CExpression *pexprRedundantSelect = CXformUtils::PexprRedundantSelectForDynamicIndex(mp, pexprDynamicIndexGet);

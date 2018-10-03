@@ -2778,7 +2778,8 @@ CXformUtils::PexprBuildIndexPlan
 	CPartConstraint *ppartcnstrIndex,
 	IMDIndex::EmdindexType emdindtype,
 	PDynamicIndexOpConstructor pdiopc,
-	PStaticIndexOpConstructor psiopc
+	PStaticIndexOpConstructor psiopc,
+	CExpression **ppexprResidual
 	)
 {
 	GPOS_ASSERT(NULL != pexprGet);
@@ -2852,6 +2853,9 @@ CXformUtils::PexprBuildIndexPlan
 	CExpressionArray *pdrgpexprIndex = GPOS_NEW(mp) CExpressionArray(mp);
 	CExpressionArray *pdrgpexprResidual = GPOS_NEW(mp) CExpressionArray(mp);
 	CPredicateUtils::ExtractIndexPredicates(mp, md_accessor, pdrgpexprConds, pmdindex, pdrgppcrIndexCols, pdrgpexprIndex, pdrgpexprResidual, outer_refs);
+
+	GPOS_ASSERT(pdrgpexprConds->Size() == pdrgpexprResidual->Size() + pdrgpexprIndex->Size());
+
 	CColRefSet *outer_refs_in_index_get = CUtils::PcrsExtractColumns(mp, pdrgpexprIndex);
 	outer_refs_in_index_get->Intersection(outer_refs);
 
@@ -2874,21 +2878,6 @@ CXformUtils::PexprBuildIndexPlan
 		outer_refs_in_index_get->Release();
 
 		return NULL;
-	}
-
-	// most GiST indexes are lossy, so conservatively re-add all the index quals to the residual so that they can be rechecked
-	if (pmdindex->IndexType() == IMDIndex::EmdindGist)
-	{
-		for (ULONG ul = 0; ul < pdrgpexprIndex->Size(); ul++)
-		{
-			CExpression *pexprPred = (*pdrgpexprIndex)[ul];
-			pexprPred->AddRef();
-			pdrgpexprResidual->Append(pexprPred);
-		}
-	}
-	else
-	{
-		GPOS_ASSERT(pdrgpexprConds->Size() == pdrgpexprResidual->Size() + pdrgpexprIndex->Size());
 	}
 
 	ptabdesc->AddRef();
@@ -2933,11 +2922,19 @@ CXformUtils::PexprBuildIndexPlan
 	pdrgppcrIndexCols->Release();
 	outer_refs_in_index_get->Release();
 
+	*ppexprResidual = CPredicateUtils::PexprConjunction(mp, pdrgpexprResidual);
 	CExpression *pexprIndexCond = CPredicateUtils::PexprConjunction(mp, pdrgpexprIndex);
-	CExpression *pexprResidualCond = CPredicateUtils::PexprConjunction(mp, pdrgpexprResidual);
+	CExpression *pexprToReturn = GPOS_NEW(mp) CExpression(mp, popLogicalGet, pexprIndexCond);
 
-	// create the expression containing the logical index get operator
-	return CUtils::PexprSafeSelect(mp, GPOS_NEW(mp) CExpression(mp, popLogicalGet, pexprIndexCond), pexprResidualCond);
+	// most GiST indexes are lossy, so conservatively re-add all the index quals to the residual
+	// so that they can be rechecked
+	if (pmdindex->IndexType() == IMDIndex::EmdindGist)
+	{
+		pexprIndexCond->AddRef();
+		pexprToReturn = CUtils::PexprSafeSelect(mp, pexprToReturn, pexprIndexCond);
+	}
+
+	return pexprToReturn;
 }
 
 //---------------------------------------------------------------------------

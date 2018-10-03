@@ -294,6 +294,7 @@ CXformJoin2IndexApply::CreateAlternativesForBtreeIndex
 	CXformResult *pxfres
 	) const
 {
+	CExpression *pexprResidual = NULL;
 	CExpression *pexprLogicalIndexGet = CXformUtils::PexprLogicalIndexGet
 						(
 						 mp,
@@ -307,7 +308,8 @@ CXformJoin2IndexApply::CreateAlternativesForBtreeIndex
 						 pmdindex,
 						 pmdrel,
 						 false /*fAllowPartialIndex*/,
-						 ppartcnstrIndex
+						 ppartcnstrIndex,
+						 &pexprResidual
 						);
 	if (NULL != pexprLogicalIndexGet)
 	{
@@ -315,6 +317,12 @@ CXformJoin2IndexApply::CreateAlternativesForBtreeIndex
 		// and add it to xform results
 		CColRefArray *colref_array = outer_refs->Pdrgpcr(mp);
 		pexprOuter->AddRef();
+
+		if (NULL == pexprResidual)
+		{
+			pexprResidual = CUtils::PexprScalarConstBool(mp, true);
+		}
+
 		CExpression *pexprIndexApply =
 			GPOS_NEW(mp) CExpression
 				(
@@ -322,7 +330,7 @@ CXformJoin2IndexApply::CreateAlternativesForBtreeIndex
 				PopLogicalApply(mp, colref_array),
 				pexprOuter,
 				pexprLogicalIndexGet,
-				CPredicateUtils::PexprConjunction(mp, NULL /*pdrgpexpr*/)
+				pexprResidual
 				);
 		pxfres->Add(pexprIndexApply);
 	}

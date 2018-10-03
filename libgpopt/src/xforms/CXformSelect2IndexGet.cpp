@@ -126,6 +126,7 @@ CXformSelect2IndexGet::Transform
 	{
 		IMDId *pmdidIndex = pmdrel->IndexMDidAt(ul);
 		const IMDIndex *pmdindex = md_accessor->RetrieveIndex(pmdidIndex);
+		CExpression *pexprResidual;
 		CExpression *pexprIndexGet = CXformUtils::PexprLogicalIndexGet
 						(
 						 mp,
@@ -139,10 +140,24 @@ CXformSelect2IndexGet::Transform
 						 pmdindex,
 						 pmdrel,
 						 false /*fAllowPartialIndex*/,
-						 NULL /*ppartcnstrIndex*/
+						 NULL /*ppartcnstrIndex*/,
+						 &pexprResidual
 						);
+
+
 		if (NULL != pexprIndexGet)
 		{
+			if (NULL != pexprResidual)
+			{
+				// add a selection on top with the residual condition
+				pexprIndexGet = GPOS_NEW(mp) CExpression
+											(
+											mp,
+											GPOS_NEW(mp) CLogicalSelect(mp),
+											pexprIndexGet,
+											pexprResidual
+											);
+			}
 			pxfres->Add(pexprIndexGet);
 		}
 	}

@@ -311,7 +311,8 @@ namespace gpopt
 				CPartConstraint *ppcForPartialIndexes,
 				IMDIndex::EmdindexType emdindtype,
 				PDynamicIndexOpConstructor pdiopc,
-				PStaticIndexOpConstructor psiopc
+				PStaticIndexOpConstructor psiopc,
+				CExpression **ppexprResidual
 				);
 
 			// create a dynamic operator for a btree index plan
@@ -832,7 +833,8 @@ namespace gpopt
 				const IMDIndex *pmdindex,
 				const IMDRelation *pmdrel,
 				BOOL fAllowPartialIndex,
-				CPartConstraint *ppcartcnstrIndex
+				CPartConstraint *ppcartcnstrIndex,
+				CExpression **ppexprResidual
 				)
 			{
 				return PexprBuildIndexPlan
@@ -851,7 +853,8 @@ namespace gpopt
 						ppcartcnstrIndex,
 						IMDIndex::EmdindBtree,
 						PopDynamicBtreeIndexOpConstructor,
-						PopStaticBtreeIndexOpConstructor
+						PopStaticBtreeIndexOpConstructor,
+						ppexprResidual
 						);
 			}
 			
