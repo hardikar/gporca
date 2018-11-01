@@ -16,6 +16,7 @@
 #include "gpos/types.h"
 #include "gpos/error/CException.h"
 #include "gpos/error/CErrorHandler.h"
+#include "gpos/common/IPrinter.h"
 #include "gpos/error/IErrorContext.h"
 #include "gpos/error/ILogger.h"
 #include "gpos/memory/IMemoryPool.h"

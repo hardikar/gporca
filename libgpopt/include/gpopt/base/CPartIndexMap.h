@@ -42,7 +42,7 @@ namespace gpopt
 	//		Mapping of partition index to a manipulator type
 	//
 	//---------------------------------------------------------------------------
-	class CPartIndexMap : public CRefCount
+	class CPartIndexMap : public CRefCount, public IPrinter
 	{
 		public:
 			// types of partition index id manipulators
@@ -73,7 +73,7 @@ namespace gpopt
 			//		Partition index map entry
 			//
 			//---------------------------------------------------------------------------
-			class CPartTableInfo : public CRefCount
+			class CPartTableInfo : public CRefCount, public IPrinter
 			{
 				private:
 
@@ -201,11 +201,6 @@ namespace gpopt
 					void AddPartConstraints(IMemoryPool *mp, UlongToPartConstraintMap *ppartcnstrmap);
 
 					IOstream &OsPrint(IOstream &os) const;
-
-#ifdef GPOS_DEBUG
-					// debug print for interactive debugging sessions only
-					void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 			}; // CPartTableInfo
 
@@ -362,11 +357,6 @@ namespace gpopt
 			// combine the two given maps and return the resulting map
 			static
 			CPartIndexMap *PpimCombine(IMemoryPool *mp, const CPartIndexMap &pimFst, const CPartIndexMap &pimSnd);
-
-#ifdef GPOS_DEBUG
-			// debug print for interactive debugging sessions only
-			void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 	}; // class CPartIndexMap
 

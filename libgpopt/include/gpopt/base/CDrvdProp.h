@@ -62,7 +62,7 @@ namespace gpopt
 	//		CExpressionHandle::DeriveProps().
 	//
 	//---------------------------------------------------------------------------
-	class DrvdPropArray : public CRefCount
+	class DrvdPropArray : public CRefCount, public IPrinter
 	{
 
 		public:
@@ -107,11 +107,6 @@ namespace gpopt
 			// print
 			virtual
 			IOstream &OsPrint(IOstream &os) const = 0;
-
-#ifdef GPOS_DEBUG
-			// debug print for interactive debugging sessions only
-			void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 	}; // class DrvdPropArray
 

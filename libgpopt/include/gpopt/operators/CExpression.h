@@ -52,7 +52,7 @@ namespace gpopt
 	//		Simply dynamic array for pointer types
 	//
 	//---------------------------------------------------------------------------
-	class CExpression : public CRefCount
+	class CExpression : public CRefCount, public IPrinter
 	{
 		private:
 		
@@ -269,12 +269,14 @@ namespace gpopt
 			// check for outer references
 			BOOL HasOuterRefs();
 
-			// print driver
+			IOstream &OsPrint(IOstream &os) const;
+
+			// print driver TODO make private
 			IOstream &OsPrint
 						(
 						IOstream &os,
-						const CPrintPrefix * = NULL,
-						BOOL fLast = true
+						const CPrintPrefix *,
+						BOOL fLast
 						)
 						const;
 			
@@ -296,9 +298,6 @@ namespace gpopt
 			
 			// compare entire expression rooted here
 			BOOL FMatchDebug(CExpression *pexpr) const;
-
-			// debug print; for interactive debugging sessions only
-			void DbgPrint() const;
 
 			// debug print; for interactive debugging sessions only
 			// prints expression properties as well

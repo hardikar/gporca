@@ -2072,15 +2072,9 @@ CGroup::PstatsCompute
 }
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CGroup::OsPrint
-//
-//	@doc:
-//		Print function;
-//		printing is not thread-safe
-//
-//---------------------------------------------------------------------------
+
+// Print function; printing is not thread-safe
+// TODO: Inherit IPrinter interface after making this method const
 IOstream &
 CGroup::OsPrint
 	(

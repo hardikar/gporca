@@ -1176,14 +1176,8 @@ CGroupExpression::OsPrintCostContexts
 }
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CGroupExpression::OsPrint
-//
-//	@doc:
-//		Print function
-//
-//---------------------------------------------------------------------------
+// Print function
+// TODO: Inherit IPrinter interface after making this method const
 IOstream &
 CGroupExpression::OsPrint
 	(

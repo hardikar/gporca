@@ -28,7 +28,7 @@ namespace gpos
 	//		Linked list of CBitSetLink's
 	//
 	//---------------------------------------------------------------------------
-	class CBitSet : public CRefCount
+	class CBitSet : public CRefCount, public IPrinter
 	{
 		// bitset iter needs to access internals
 		friend class CBitSetIter;
@@ -159,11 +159,6 @@ namespace gpos
 			
 			// print function
 			IOstream &OsPrint(IOstream &os) const;
-
-#ifdef GPOS_DEBUG
-			// debug print for interactive debugging sessions only
-			void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 	}; // class CBitSet
 

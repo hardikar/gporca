@@ -47,7 +47,7 @@ namespace gpopt
 	//		Optimization context
 	//
 	//---------------------------------------------------------------------------
-	class COptimizationContext : public CRefCount
+	class COptimizationContext : public CRefCount, public IPrinter
 	{
 
 		public:
@@ -272,8 +272,9 @@ namespace gpopt
 
 			// debug print
 			virtual
-			IOstream &OsPrint(IOstream &os,
-					const CHAR *szPrefix) const;
+			IOstream &OsPrint(IOstream &os) const;
+
+			IOstream &OsPrint(IOstream &os, const CHAR *szPrefix) const;
 
 			// check equality of optimization contexts
 			static
@@ -368,12 +369,6 @@ namespace gpopt
 			// invalid optimization context pointer, needed for cost contexts hash table iteration
 			static
 			const OPTCTXT_PTR m_pocInvalid;
-
-#ifdef GPOS_DEBUG
-			// debug print; for interactive debugging sessions only
-			void DbgPrint();
-#endif // GPOS_DEBUG
-
 
 	}; // class COptimizationContext
 }

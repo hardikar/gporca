@@ -381,8 +381,7 @@ CColRefSet::HashValue()
 IOstream &
 CColRefSet::OsPrint
 	(
-	IOstream &os,
-	ULONG ulLenMax
+	IOstream &os
 	)
 	const
 {
@@ -390,7 +389,7 @@ CColRefSet::OsPrint
 	ULONG ul = 0;
 	
 	CColRefSetIter crsi(*this);
-	while(crsi.Advance() && ul < std::min(length, ulLenMax))
+	while(crsi.Advance())
 	{
 		CColRef *colref = crsi.Pcr();
 		colref->OsPrint(os);
@@ -399,11 +398,6 @@ CColRefSet::OsPrint
 			os << ", ";
 		}
 		ul++;
-	}
-	
-	if (ulLenMax < length)
-	{
-		os << "...";
 	}
 
 	return os;

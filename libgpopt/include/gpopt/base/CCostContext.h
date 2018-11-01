@@ -51,7 +51,7 @@ namespace gpopt
 	//		Cost context
 	//
 	//---------------------------------------------------------------------------
-	class CCostContext : public CRefCount
+	class CCostContext : public CRefCount, public IPrinter
 	{
 
 		public:
@@ -306,12 +306,6 @@ namespace gpopt
 			// debug print
 			virtual
 			IOstream &OsPrint(IOstream &os) const;
-
-#ifdef GPOS_DEBUG
-			// debug print; for interactive debugging sessions only
-			void DbgPrint() const;
-#endif
-
 
 	}; // class CCostContext
 

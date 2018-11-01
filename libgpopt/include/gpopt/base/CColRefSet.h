@@ -123,7 +123,7 @@ namespace gpopt
 
 			// debug print
 			IOstream &
-			OsPrint(IOstream &os, ULONG ulLenMax = gpos::ulong_max) const;
+			OsPrint(IOstream &os) const;
 
 			// extract all column ids
 			void ExtractColIds(IMemoryPool *mp, ULongPtrArray *colids) const;

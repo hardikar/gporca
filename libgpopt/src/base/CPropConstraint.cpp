@@ -193,13 +193,5 @@ CPropConstraint::OsPrint
 
 	return os;
 }
-
-void
-CPropConstraint::DbgPrint() const
-{
-	IMemoryPool *mp = COptCtxt::PoctxtFromTLS()->Pmp();
-	CAutoTrace at(mp);
-	(void) this->OsPrint(at.Os());
-}
 // EOF
 

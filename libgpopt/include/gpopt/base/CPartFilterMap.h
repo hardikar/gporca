@@ -39,7 +39,7 @@ namespace gpopt
 	//		Partitioned table filter map used in required and derived properties
 	//
 	//---------------------------------------------------------------------------
-	class CPartFilterMap : public CRefCount
+	class CPartFilterMap : public CRefCount, public IPrinter
 	{
 		private:
 
@@ -51,7 +51,7 @@ namespace gpopt
 			//		Single entry of CPartFilterMap
 			//
 			//-------------------------------------------------------------------
-			class CPartFilter : public CRefCount
+			class CPartFilter : public CRefCount, public IPrinter
 			{
 				private:
 
@@ -185,11 +185,6 @@ namespace gpopt
 
 			// print function
 			IOstream &OsPrint(IOstream &os) const;
-
-#ifdef GPOS_DEBUG
-			// debug print for interactive debugging sessions only
-			void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 	}; // class CPartFilterMap
 

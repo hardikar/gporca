@@ -262,16 +262,6 @@ CQueryContext::PqcGenerate
 	return GPOS_NEW(mp) CQueryContext(mp, pexprResult, prpp, colref_array, pdrgpmdname, fDeriveStats);
 }
 
-#ifdef GPOS_DEBUG
-
-//---------------------------------------------------------------------------
-//	@function:
-//		CQueryContext::OsPrint
-//
-//	@doc:
-//		Debug print
-//
-//---------------------------------------------------------------------------
 IOstream &
 CQueryContext::OsPrint
 	(
@@ -281,15 +271,6 @@ CQueryContext::OsPrint
 {
 	return os << *m_pexpr << std::endl << *m_prpp;
 }
-
-void
-CQueryContext::DbgPrint() const
-{
-	CAutoTrace at(m_mp);
-	(void) this->OsPrint(at.Os());
-}
-#endif // GPOS_DEBUG
-
 
 //---------------------------------------------------------------------------
 //	@function:

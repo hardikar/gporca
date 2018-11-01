@@ -33,7 +33,7 @@ namespace gpopt
 	//		Representation of constraint property
 	//
 	//---------------------------------------------------------------------------
-	class CPropConstraint : public CRefCount
+	class CPropConstraint : public CRefCount, public IPrinter
 	{
 		private:
 
@@ -92,9 +92,6 @@ namespace gpopt
 
 			// print
 			IOstream &OsPrint(IOstream &) const;
-
-			// debug print
-			void DbgPrint() const;
 
 	}; // class CPropConstraint
 

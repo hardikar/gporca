@@ -459,15 +459,6 @@ COptimizationContext::PrppCTEProducer
 	return prppProducer;
 }
 
-
-//---------------------------------------------------------------------------
-//	@function:
-//		COptimizationContext::OsPrint
-//
-//	@doc:
-//		Debug print
-//
-//---------------------------------------------------------------------------
 IOstream &
 COptimizationContext::OsPrint
 	(
@@ -487,15 +478,15 @@ COptimizationContext::OsPrint
 	return os;
 }
 
-#ifdef GPOS_DEBUG
-void
-COptimizationContext::DbgPrint()
+IOstream &
+COptimizationContext::OsPrint
+	(
+	IOstream &os
+	)
+	const
 {
-	CAutoTraceFlag atf(EopttracePrintOptimizationContext, true);
-	CAutoTrace at(m_mp);
-	(void) this->OsPrint(at.Os(), " ");
+	return this->OsPrint(os, " ");
 }
-#endif // GPOS_DEBUG
 
 // EOF
 
