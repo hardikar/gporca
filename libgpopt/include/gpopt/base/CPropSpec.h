@@ -31,7 +31,7 @@ namespace gpopt
 	//		Property specification
 	//
 	//---------------------------------------------------------------------------
-	class CPropSpec : public CRefCount
+	class CPropSpec : public CRefCount, public IPrinter
 	{
 		public:
 
@@ -78,15 +78,6 @@ namespace gpopt
 			// property type
 			virtual
 			EPropSpecType Epst() const = 0;
-
-			// print
-			virtual
-			IOstream &OsPrint(IOstream &os) const = 0;
-		
-#ifdef GPOS_DEBUG
-			// debug print for interactive debugging sessions only
-			void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 	}; // class CPropSpec
 

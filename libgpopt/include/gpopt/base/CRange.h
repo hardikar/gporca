@@ -45,7 +45,7 @@ namespace gpopt
 	//		Representation of a range of values
 	//
 	//---------------------------------------------------------------------------
-	class CRange : public CRefCount
+	class CRange : public CRefCount, public IPrinter
 	{
 		public:
 
@@ -212,9 +212,6 @@ namespace gpopt
 
 			// print
 			IOstream &OsPrint(IOstream &os) const;
-
-			// debug print
-			void DbgPrint() const;
 
 	}; // class CRange
 

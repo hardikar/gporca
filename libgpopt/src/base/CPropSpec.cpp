@@ -18,14 +18,4 @@
 
 using namespace gpopt;
 
-#ifdef GPOS_DEBUG
-// print distribution spec
-void
-CPropSpec::DbgPrint() const
-{
-	IMemoryPool *mp = COptCtxt::PoctxtFromTLS()->Pmp();
-	CAutoTrace at(mp);
-	at.Os() << *this;
-}
-#endif // GPOS_DEBUG
 // EOF

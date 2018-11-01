@@ -1188,14 +1188,6 @@ CExpression::PrintProperties
 //	always prints to stderr.
 // ----------------------------------------------------------------
 
-// prints expression only
-void
-CExpression::DbgPrint() const
-{
-	CAutoTrace at(m_mp);
-	(void) this->OsPrint(at.Os());
-}
-
 // Prints expression along with it's properties
 void
 CExpression::DbgPrintWithProperties() const
@@ -1206,6 +1198,12 @@ CExpression::DbgPrintWithProperties() const
 }
 
 #endif // GPOS_DEBUG
+
+IOstream &
+CExpression::OsPrint(IOstream &os) const
+{
+	return OsPrint(os, NULL, true);
+}
 
 //---------------------------------------------------------------------------
 //	@function:

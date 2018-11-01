@@ -48,7 +48,7 @@ namespace gpopt
 	//		factory object
 	//
 	//---------------------------------------------------------------------------
-	class CColRef
+	class CColRef: public IPrinter
 	{
 		private:
 			
@@ -176,10 +176,6 @@ namespace gpopt
 			// invalid key
 			static
 			const ULONG m_ulInvalid;
-
-#ifdef GPOS_DEBUG
-			void DbgPrint() const;
-#endif  // GPOS_DEBUG
 
 	}; // class CColRef
 

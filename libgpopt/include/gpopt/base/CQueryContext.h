@@ -47,7 +47,7 @@ namespace gpopt
 	//
 	//
 	//---------------------------------------------------------------------------
-	class CQueryContext
+	class CQueryContext: public IPrinter
 	{
 
 		private:
@@ -146,13 +146,8 @@ namespace gpopt
 							BOOL fDeriveStats
 							);
 
-#ifdef GPOS_DEBUG
-			// debug print
 			virtual
 			IOstream &OsPrint(IOstream &) const;
-
-			void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 			// walk the expression and add the mapping between computed column
 			// and their corresponding used column(s)

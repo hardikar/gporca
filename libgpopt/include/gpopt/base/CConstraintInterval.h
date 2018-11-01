@@ -307,10 +307,6 @@ namespace gpopt
 				CColRef *colref
 				);
 
-
-#ifdef GPOS_DEBUG
-			void DbgPrint() const;
-#endif  // GPOS_DEBUG
 	}; // class CConstraintInterval
 
 	// shorthand for printing, reference

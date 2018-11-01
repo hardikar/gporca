@@ -396,16 +396,5 @@ CPartFilterMap::OsPrint
 	return os;
 }
 
-
-#ifdef GPOS_DEBUG
-void
-CPartFilterMap::DbgPrint() const
-{
-	IMemoryPool *mp = COptCtxt::PoctxtFromTLS()->Pmp();
-	CAutoTrace at(mp);
-	(void) this->OsPrint(at.Os());
-}
-#endif // GPOS_DEBUG
-
 // EOF
 

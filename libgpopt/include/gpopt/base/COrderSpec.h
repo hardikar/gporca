@@ -116,11 +116,6 @@ namespace gpopt
 					
 					// print
 					IOstream &OsPrint(IOstream &os) const;
-
-#ifdef GPOS_DEBUG
-					// debug print for interactive debugging sessions only
-					void DbgPrint() const;
-#endif // GPOS_DEBUG
 				
 			}; // class COrderExpression
 

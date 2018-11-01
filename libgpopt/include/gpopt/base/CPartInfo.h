@@ -37,7 +37,7 @@ namespace gpopt
 	//		Derived partition information at the logical level
 	//
 	//---------------------------------------------------------------------------
-	class CPartInfo : public CRefCount
+	class CPartInfo : public CRefCount, public IPrinter
 	{
 		private:
 
@@ -49,7 +49,7 @@ namespace gpopt
 			//		A single entry of the CPartInfo
 			//
 			//---------------------------------------------------------------------------
-			class CPartInfoEntry : public CRefCount
+			class CPartInfoEntry : public CRefCount, public IPrinter
 			{
 
 				private:
@@ -114,11 +114,6 @@ namespace gpopt
 
 					// copy part info entry into given memory pool
 					CPartInfoEntry *PpartinfoentryCopy(IMemoryPool *mp);
-
-#ifdef GPOS_DEBUG
-					// debug print for interactive debugging sessions only
-					void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 			}; // CPartInfoEntry
 
@@ -198,11 +193,6 @@ namespace gpopt
 				CPartInfo *ppartinfoFst,
 				CPartInfo *ppartinfoSnd
 				);
-
-#ifdef GPOS_DEBUG
-			// debug print for interactive debugging sessions only
-			void DbgPrint() const;
-#endif // GPOS_DEBUG
 
 	}; // CPartInfo
 

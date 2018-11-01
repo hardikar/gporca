@@ -33,7 +33,7 @@ namespace gpopt
 	//		A collection of partitioning keys for a partitioned table
 	//
 	//---------------------------------------------------------------------------
-	class CPartKeys : public CRefCount
+	class CPartKeys : public CRefCount, public IPrinter
 	{
 		private:
 
@@ -86,11 +86,6 @@ namespace gpopt
 			// copy array of part keys into given memory pool
 			static
 			CPartKeysArray *PdrgppartkeysCopy(IMemoryPool *mp, const CPartKeysArray *pdrgppartkeys);
-
-#ifdef GPOS_DEBUG
-			// debug print for interactive debugging sessions only
-			void DbgPrint() const;
-#endif // GPOS_DEBUG
 	}; // CPartKeys
 
 	// shorthand for printing

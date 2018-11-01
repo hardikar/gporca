@@ -1506,13 +1506,4 @@ CConstraintInterval::PciRangeFromColConstCmp
 	return pdrgprng;
 }
 
-#ifdef GPOS_DEBUG
-void
-CConstraintInterval::DbgPrint() const
-{
-	CAutoTrace at(m_mp);
-	(void) this->OsPrint(at.Os());
-}
-#endif  // GPOS_DEBUG
-
 // EOF
