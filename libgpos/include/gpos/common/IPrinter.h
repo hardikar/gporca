@@ -46,6 +46,7 @@ namespace gpos
 
 #ifdef GPOS_DEBUG
 			// debug print; for interactive debugging sessions only
+			// use `setting set escape-non-printables false` in lldb to see the string fully formatted
 			const WCHAR *DbgPrint() const;
 #endif  // GPOS_DEBUG
 
