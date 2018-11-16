@@ -51,11 +51,11 @@ namespace gpopt
 
 			// check whether the given expression is a binary coercible cast of something
 			static
-			BOOL FBinaryCoercibleCast(CExpression *pexpr);
+			BOOL FBinaryCoercibleCast(const CExpression *pexpr);
 
 			// check whether the given expression is a cast of something
 			static
-			BOOL FScalarCast(CExpression *pexpr);
+			BOOL FScalarCast(const CExpression *pexpr);
 
 			// return the given expression without any binary coercible casts
 			// that exist on the top

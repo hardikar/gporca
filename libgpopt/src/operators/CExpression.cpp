@@ -32,6 +32,7 @@
 #include "gpopt/operators/CExpressionHandle.h"
 #include "gpopt/search/CGroupExpression.h"
 #include "naucrates/traceflags/traceflags.h"
+#include "gpopt/base/CCastUtils.h"
 
 
 using namespace gpnaucrates;
@@ -1327,7 +1328,17 @@ CExpression::UlHashDedup
 {
 	GPOS_CHECK_STACK_SIZE;
 
-	ULONG ulHash = pexpr->Pop()->HashValue();
+	ULONG ulHash;
+	if (CCastUtils::FBinaryCoercibleCast(pexpr))
+	{
+		ulHash = UlHashDedup((*pexpr)[0]);
+		return ulHash;
+	}
+	else
+	{
+		ulHash = pexpr->Pop()->HashValue();
+	}
+
 
 	const ULONG arity = pexpr->Arity();
 	for (ULONG ul = 0; ul < arity; ul++)
@@ -1339,7 +1350,7 @@ CExpression::UlHashDedup
 			// same, hash function puts two different expressions into separate
 			// buckets.
 			// e.g logically a < b is not equal to b < a
-			ulHash = CombineHashes(ulHash, HashValue((*pexpr)[ul]));
+			ulHash = CombineHashes(ulHash, UlHashDedup((*pexpr)[ul]));
 		}
 		else
 		{
@@ -1347,7 +1358,7 @@ CExpression::UlHashDedup
 			// inputs are the same, the expressions are considered as equal
 			// and fall into the same bucket in the hash map.
 			//  e.g logically a = b is equal to b = a
-			ulHash ^= HashValue((*pexpr)[ul]);
+			ulHash ^= UlHashDedup((*pexpr)[ul]);
 		}
 	}
 

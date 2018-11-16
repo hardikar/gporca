@@ -1629,6 +1629,25 @@ CUtils::Equals
 		return true;
 	}
 
+	// check local operator
+	if (!pexprLeft->Pop()->Matches(pexprRight->Pop()))
+	{
+		if (CCastUtils::FBinaryCoercibleCast(pexprLeft))
+		{
+			// something special
+			return CUtils::Equals((*pexprLeft)[0], pexprRight);
+		}
+		else if (CCastUtils::FBinaryCoercibleCast(pexprRight))
+		{
+			// something special
+			return CUtils::Equals(pexprLeft, (*pexprRight)[0]);
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	// compare number of children and root operators
 	if (pexprLeft->Arity() != pexprRight->Arity() ||
 		!pexprLeft->Pop()->Matches(pexprRight->Pop())	)

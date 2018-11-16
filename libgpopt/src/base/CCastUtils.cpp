@@ -170,7 +170,7 @@ CCastUtils::PexprCast
 BOOL
 CCastUtils::FBinaryCoercibleCast
     (
-	CExpression *pexpr
+	const CExpression *pexpr
 	)
 {
 	GPOS_ASSERT(NULL != pexpr);
@@ -183,7 +183,7 @@ CCastUtils::FBinaryCoercibleCast
 BOOL
 CCastUtils::FScalarCast
 	(
-	CExpression *pexpr
+	const CExpression *pexpr
 	)
 {
 	GPOS_ASSERT(NULL != pexpr);
