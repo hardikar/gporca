@@ -472,6 +472,7 @@ CDXLTokens::Init
 			{EdxltokenOid, GPOS_WSZ_LIT("Oid")},
 			{EdxltokenVersion, GPOS_WSZ_LIT("Version")},
 			{EdxltokenMdid, GPOS_WSZ_LIT("Mdid")},
+			{EdxltokenInputMdid, GPOS_WSZ_LIT("InputMdid")},
 			{EdxltokenMDTypeRequest, GPOS_WSZ_LIT("TypeRequest")},
 			{EdxltokenTypeInfo, GPOS_WSZ_LIT("TypeInfo")},
 			{EdxltokenFuncInfo, GPOS_WSZ_LIT("FuncInfo")},

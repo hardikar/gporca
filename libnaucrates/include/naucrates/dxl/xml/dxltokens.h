@@ -438,6 +438,7 @@ namespace gpdxl
 		EdxltokenOid,
 		EdxltokenVersion,
 		EdxltokenMdid,
+		EdxltokenInputMdid,
 		EdxltokenMDTypeRequest,
 		EdxltokenTypeInfo,
 		EdxltokenFuncInfo,

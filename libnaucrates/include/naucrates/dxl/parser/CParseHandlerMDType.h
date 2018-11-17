@@ -47,6 +47,7 @@ namespace gpdxl
 			
 			// id and version of the type
 			IMDId *m_mdid;
+			IMDId *m_input_mdid;
 			
 			// type name
 			CMDName *m_mdname;

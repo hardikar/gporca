@@ -52,6 +52,8 @@
 #include "naucrates/md/CMDIdScCmp.h"
 #include "naucrates/traceflags/traceflags.h"
 
+#include "naucrates/base/CDatumGenericGPDB.h"
+
 using namespace gpopt;
 using namespace gpmd;
 
@@ -481,6 +483,23 @@ CUtils::PexprScalarCmp
 
 	IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
 	IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MdidType();
+
+	const CMDTypeGenericGPDB *pmdtypeLeft = dynamic_cast<const CMDTypeGenericGPDB*>(md_accessor->RetrieveType(left_mdid));
+	const CMDTypeGenericGPDB *pmdtypeRight = dynamic_cast<const CMDTypeGenericGPDB*>(md_accessor->RetrieveType(right_mdid));
+
+	if (!pmdtypeLeft->GetInputMdid()->Equals(pmdtypeLeft->MDId()))
+	{
+		IMDId *new_mdid = pmdtypeLeft->GetInputMdid();
+		pexprLeft = PexprCast(mp, md_accessor, pexprLeft, new_mdid);
+		left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
+	}
+
+	if (!pmdtypeRight->GetInputMdid()->Equals(pmdtypeRight->MDId()))
+	{
+		IMDId *new_mdid = pmdtypeRight->GetInputMdid();
+		pexprRight = PexprCast(mp, md_accessor, pexprRight, new_mdid);
+		right_mdid = CScalar::PopConvert(pexprRight->Pop())->MdidType();
+	}
 
 	CExpression *pexprNewLeft = pexprLeft;
 	CExpression *pexprNewRight = pexprRight;

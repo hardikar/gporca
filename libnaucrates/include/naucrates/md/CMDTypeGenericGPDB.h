@@ -48,6 +48,8 @@ namespace gpmd
 			
 			// metadata id
 			IMDId *m_mdid;
+
+			IMDId *m_input_mdid;
 			
 			// type name
 			CMDName *m_mdname;
@@ -127,6 +129,7 @@ namespace gpmd
 				(
 				IMemoryPool *mp,
 				IMDId *mdid,
+				IMDId *input_mdid,
 				CMDName *mdname,
 				BOOL is_redistributable,
 				BOOL is_fixed_length,
@@ -197,6 +200,12 @@ namespace gpmd
 			BOOL IsPassedByValue() const
 			{
 				return m_is_passed_by_value;
+			}
+
+			virtual
+			IMDId *GetInputMdid() const
+			{
+				return m_input_mdid;
 			}
 			
 			// id of specified comparison operator type

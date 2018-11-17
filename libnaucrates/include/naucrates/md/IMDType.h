@@ -93,6 +93,12 @@ namespace gpmd
 			// md id of cache object
 			virtual 
 			IMDId *MDId() const = 0;
+
+			virtual
+			IMDId *GetInputMdid() const
+			{
+				return this->MDId();
+			}
 			
 			// id of specified specified comparison operator type
 			virtual 

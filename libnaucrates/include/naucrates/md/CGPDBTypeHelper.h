@@ -36,6 +36,7 @@ namespace gpmd
                                      CDXLTokens::GetDXLTokenStr(EdxltokenMDType));
 
                 mdtype->MDId()->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenMdid));
+				mdtype->GetInputMdid()->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenInputMdid));
 
                 xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenName), mdtype->Mdname().GetMDName());
                 xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenMDTypeRedistributable), mdtype->IsRedistributable());

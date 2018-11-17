@@ -121,7 +121,8 @@ CParseHandlerMDType::StartElement
 	{
 		// parse metadata id info
 		m_mdid = CDXLOperatorFactory::ExtractConvertAttrValueToMdId(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenMdid, EdxltokenMDType);
-		
+		m_input_mdid = CDXLOperatorFactory::ExtractConvertAttrValueToMdId(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenInputMdid, EdxltokenMDType);
+
 		if (!IsBuiltInType(m_mdid))
 		{
 			// parse type name
@@ -408,6 +409,7 @@ CParseHandlerMDType::EndElement
 
 			default:
 				m_mdid->AddRef();
+				m_input_mdid->AddRef();
 				m_mdid_eq_op->AddRef();
 				m_mdid_neq_op->AddRef();
 				m_mdid_lt_op->AddRef();
@@ -435,6 +437,7 @@ CParseHandlerMDType::EndElement
 										(
 										m_mp,
 										m_mdid,
+										m_input_mdid,
 										m_mdname,
 										m_is_redistributable,
 										m_istype_fixed_Length,

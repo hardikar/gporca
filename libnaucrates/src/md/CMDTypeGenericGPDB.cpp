@@ -48,6 +48,7 @@ CMDTypeGenericGPDB::CMDTypeGenericGPDB
 	(
 	IMemoryPool *mp,
 	IMDId *mdid,
+	IMDId *input_mdid,
 	CMDName *mdname,
 	BOOL is_redistributable,
 	BOOL is_fixed_length,
@@ -74,6 +75,7 @@ CMDTypeGenericGPDB::CMDTypeGenericGPDB
 	:
 	m_mp(mp),
 	m_mdid(mdid),
+	m_input_mdid(input_mdid),
 	m_mdname(mdname),
 	m_is_redistributable(is_redistributable),
 	m_is_fixed_length(is_fixed_length),
@@ -117,6 +119,7 @@ CMDTypeGenericGPDB::CMDTypeGenericGPDB
 CMDTypeGenericGPDB::~CMDTypeGenericGPDB()
 {
 	m_mdid->Release();
+	m_input_mdid->Release();
 	m_mdid_op_eq->Release();
 	m_mdid_op_neq->Release();
 	m_mdid_op_lt->Release();
