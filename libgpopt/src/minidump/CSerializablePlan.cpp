@@ -83,7 +83,7 @@ CSerializablePlan::Serialize
 				m_plan_id,
 				m_plan_space_size,
 				false /*fSerializeHeaders*/,
-				false /*indentation*/
+				true /*indentation*/
 				);
 }
 

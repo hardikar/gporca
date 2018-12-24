@@ -119,7 +119,7 @@ CMiniDumperDXL::SerializeEntryHeader()
 //
 //---------------------------------------------------------------------------
 void
-CMiniDumperDXL::SerializeEntryFooter	()
+CMiniDumperDXL::SerializeEntryFooter()
 {
 	*m_oos << CDXLSections::m_wszThreadFooter;
 }

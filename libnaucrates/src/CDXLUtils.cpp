@@ -1346,7 +1346,7 @@ CDXLUtils::SerializeMDObj
 	IMemoryPool *mp,
 	const IMDCacheObject *imd_cache_obj,
 	BOOL serialize_header_footer,
-	BOOL indentation
+	BOOL //indentation
 	)
 {
 	GPOS_ASSERT(NULL != mp);
@@ -1358,7 +1358,7 @@ CDXLUtils::SerializeMDObj
 	// create a string stream to hold the result of serialization
 	COstreamString oss(string_var.Value());
 
-	CXMLSerializer xml_serializer(mp, oss, indentation);
+	CXMLSerializer xml_serializer(mp, oss, true);
 	
 	if (serialize_header_footer)
 	{
