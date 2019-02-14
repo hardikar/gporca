@@ -325,7 +325,8 @@ CPhysicalSequence::PrsRequired
 	const
 {
 	// no rewindability required on the children
-	return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtNotRewindable, prsRequired->Emht());
+	// XXX
+	return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtNone, prsRequired->Emht());
 }
 
 //---------------------------------------------------------------------------
@@ -414,7 +415,8 @@ CPhysicalSequence::PrsDerive
 	}
 
 	// no rewindability by sequence
-	return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtNotRewindable, motion_hazard);
+	// XXX
+	return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtNone, motion_hazard);
 }
 
 
