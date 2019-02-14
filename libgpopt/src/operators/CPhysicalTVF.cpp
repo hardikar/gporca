@@ -396,12 +396,6 @@ CPhysicalTVF::EpetRewindability
 	 	return CEnfdProp::EpetUnnecessary;
 	}
 
-	if (exprhdl.HasOuterRefs())
-	{
-		// a TVF should not have a materialize on top of it if it has an outer ref
-		return CEnfdProp::EpetProhibited;
-	}
-
 	return CEnfdProp::EpetRequired;
 }
 
