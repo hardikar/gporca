@@ -278,7 +278,7 @@ CPhysicalComputeScalar::PrsRequired
 	GPOS_ASSERT(0 == child_index);
 
 	// if there are outer references, then we need a materialize
-	if (exprhdl.HasOuterRefs())
+	if (exprhdl.HasOuterRefs() && !exprhdl.HasOuterRefs(0))
 	{
 		return GPOS_NEW(mp) CRewindabilitySpec(CRewindabilitySpec::ErtRewindable, prsRequired->Emht());
 	}
