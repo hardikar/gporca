@@ -192,7 +192,7 @@ CRewindabilitySpec *
 CPhysicalSpool::PrsRequired
 	(
 	IMemoryPool *mp,
-	CExpressionHandle &, // exprhdl,
+	CExpressionHandle &exprhdl,
 	CRewindabilitySpec *prsRequired,
 	ULONG
 #ifdef GPOS_DEBUG
@@ -210,6 +210,9 @@ CPhysicalSpool::PrsRequired
 	CRewindabilitySpec::EMotionHazardType motion_hazard = (prsRequired->HasMotionHazard() && !FEager()) ?
 														  CRewindabilitySpec::EmhtMotion :
 														  CRewindabilitySpec::EmhtNoMotion;
+
+	if (exprhdl.HasOuterRefs())
+		return GPOS_NEW(mp) CRewindabilitySpec(CRewindabilitySpec::ErtRewindable, motion_hazard);
 	return GPOS_NEW(mp) CRewindabilitySpec(CRewindabilitySpec::ErtNotRewindable, motion_hazard);
 }
 
