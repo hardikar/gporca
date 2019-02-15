@@ -185,7 +185,7 @@ CRewindabilitySpec *
 CPhysicalSort::PrsRequired
 	(
 	IMemoryPool *mp,
-	CExpressionHandle &,// exprhdl,
+	CExpressionHandle &exprhdl,
 	CRewindabilitySpec *,//prsRequired,
 	ULONG
 #ifdef GPOS_DEBUG
@@ -198,6 +198,9 @@ CPhysicalSort::PrsRequired
 	const
 {
 	GPOS_ASSERT(0 == child_index);
+
+	if (exprhdl.HasOuterRefs())
+		return GPOS_NEW(mp) CRewindabilitySpec(CRewindabilitySpec::ErtRewindable, CRewindabilitySpec::EmhtNoMotion);
 
 	// sort establishes rewindability on its own.
 	// Also it does not require motion hazard handling since it is inherently blocking.
