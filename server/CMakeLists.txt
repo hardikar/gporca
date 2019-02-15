@@ -36,9 +36,9 @@ function(add_orca_test TEST_NAME)
   # Unit tests have many hard-coded paths to test data in optimizer/data. We
   # explicitly set the WORKING_DIRECTORY so that the files can be found
   # properly.
-  add_test(NAME gporca_test_${TEST_NAME}
-           COMMAND gporca_test -U ${TEST_NAME}
-           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+	# add_test(NAME gporca_test_${TEST_NAME}
+  #          COMMAND gporca_test -U ${TEST_NAME}
+  #          WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endfunction()
 
 # minidump tests must follow rule:
