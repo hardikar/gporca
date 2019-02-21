@@ -254,6 +254,12 @@ CPhysicalLimit::PrsRequired
 {
 	GPOS_ASSERT(0 == child_index);
 
+	if (exprhdl.HasOuterRefs())
+	{
+		// XXX Write a nice comment here
+		return GPOS_NEW(mp) CRewindabilitySpec(prsRequired->Ert(), CRewindabilitySpec::EmhtMotion);
+	}
+
 	return PrsPassThru(mp, exprhdl, prsRequired, child_index);
 }
 
