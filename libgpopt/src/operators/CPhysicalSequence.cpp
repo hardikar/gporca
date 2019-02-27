@@ -315,18 +315,16 @@ CPhysicalSequence::PosRequired
 CRewindabilitySpec *
 CPhysicalSequence::PrsRequired
 	(
-	IMemoryPool *, // mp,
-	CExpressionHandle &, // exprhdl,
+	IMemoryPool *mp,
+	CExpressionHandle &exprhdl,
 	CRewindabilitySpec *prsRequired,
-	ULONG , // child_index,
+	ULONG child_index,
 	CDrvdProp2dArray *, // pdrgpdpCtxt
 	ULONG // ulOptReq
 	)
 	const
 {
-	// no rewindability required on the children
-	// XXX
-	return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtNone, prsRequired->Emht());
+	return PrsPassThru(mp, exprhdl, prsRequired, child_index /*child_index*/);
 }
 
 //---------------------------------------------------------------------------
@@ -404,19 +402,39 @@ CPhysicalSequence::PrsDerive
 	GPOS_ASSERT(1 <= arity);
 
 	CRewindabilitySpec::EMotionHazardType motion_hazard = CRewindabilitySpec::EmhtNoMotion;
+	BOOL all_rewindable = true;
+	BOOL any_none = false;
 	for (ULONG ul = 0; ul < arity; ul++)
 	{
 		CRewindabilitySpec *prs = exprhdl.Pdpplan(ul)->Prs();
+		if (!prs->IsRewindable())
+		{
+			all_rewindable = false;
+			if (prs->Ert() == CRewindabilitySpec::ErtNone)
+			{
+				any_none = true;
+			}
+		}
 		if (prs->HasMotionHazard())
 		{
 			motion_hazard = CRewindabilitySpec::EmhtMotion;
-			break;
 		}
 	}
 
 	// no rewindability by sequence
 	// XXX
-	return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtNone, motion_hazard);
+	if (all_rewindable)
+	{
+		return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtRewindable, motion_hazard);
+	}
+	else if (any_none)
+	{
+		return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtNone, motion_hazard);
+	}
+	else
+	{
+		return GPOS_NEW(m_mp) CRewindabilitySpec(CRewindabilitySpec::ErtRescannable, motion_hazard);
+	}
 }
 
 
@@ -463,12 +481,20 @@ CPhysicalSequence::EpetOrder
 CEnfdProp::EPropEnforcingType
 CPhysicalSequence::EpetRewindability
 	(
-	CExpressionHandle &, // exprhdl
-	const CEnfdRewindability * // per
+	CExpressionHandle &exprhdl,
+	const CEnfdRewindability *per
 	)
 	const
 {
-	// rewindability must be enforced on operator's output
+	// get rewindability delivered by the sequence node
+	CRewindabilitySpec *prs = CDrvdPropPlan::Pdpplan(exprhdl.Pdp())->Prs();
+
+	if (per->FCompatible(prs))
+	{
+		return CEnfdProp::EpetUnnecessary;
+	}
+
+	// required rewindability will be enforced on sequence's output
 	return CEnfdProp::EpetRequired;
 }
 

@@ -269,12 +269,15 @@ CPhysicalCTEProducer::PdsDerive
 CRewindabilitySpec *
 CPhysicalCTEProducer::PrsDerive
 	(
-	IMemoryPool *, // mp
+	IMemoryPool *mp,
 	CExpressionHandle &exprhdl
 	)
 	const
 {
-	return PrsDerivePassThruOuter(exprhdl);
+	CRewindabilitySpec *prsChild = PrsDerivePassThruOuter(exprhdl);
+	CRewindabilitySpec::EMotionHazardType hazard_type = prsChild->Emht();
+	prsChild->Release();
+	return GPOS_NEW(mp) CRewindabilitySpec(CRewindabilitySpec::ErtRewindable, hazard_type);
 }
 
 //---------------------------------------------------------------------------
