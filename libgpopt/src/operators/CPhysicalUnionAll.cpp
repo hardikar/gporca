@@ -407,6 +407,7 @@ CPhysicalUnionAll::PrsDerive
 	)
 const
 {
+	// XXX What if the outer side is not rewindable/rescannable?
 	return PrsDerivePassThruOuter(exprhdl);
 }
 
