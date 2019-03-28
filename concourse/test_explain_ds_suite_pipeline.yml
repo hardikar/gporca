@@ -51,7 +51,7 @@ resources:
     - LICENSE
     - COPYRIGHT
     - .gitignore
-    uri: https://github.com/hardikar/gpdb
+    uri: https://github.com/greenplum-db/gpdb
 - name: gpdb_baseline_src  # used for baseline build
   type: git
   source:
@@ -67,6 +67,14 @@ resources:
     region_name: us-west-2
     secret_access_key: {{s3_secret_access_key}}
     versioned_file: gpdb_src.tar.gz
+- name: gpdb_baseline_tarball
+  type: s3
+  source:
+    access_key_id: {{s3_access_key_id}}
+    bucket: {{gporca-concourse-bucket-dev}}
+    region_name: us-west-2
+    secret_access_key: {{s3_secret_access_key}}
+    versioned_file: gpdb_baseline_src.tar.gz
 - name: bin_orca_centos5_release
   type: s3
   source:
@@ -259,10 +267,30 @@ jobs:
     file: gpdb_main_src/concourse/tasks/build_with_orca.yml
   - task: package_tarball
     file: gpdb_main_src/concourse/tasks/package_tarball.yml
+  - task: package_gpdb_baseline_src
+    config:
+      platform: linux
+      image_resource:
+          type: docker-image
+          source:
+            repository: yolo/orcadev
+            tag: centos6
+      inputs:
+        - name: gpdb_src
+      outputs:
+        - name: package_gpdb_baseline_src
+      run:
+        path: bash
+        args:
+          - -ec
+          - |
+            tar czf "package_gpdb_baseline_src/gpdb_src.tar.gz" -C gpdb_src .
   - put: bin_gpdb_baseline_centos6
     params:
       file: package_tarball/bin_gpdb.tar.gz
-
+  - put: gpdb_baseline_tarball
+    params:
+      file: package_gpdb_baseline_src/gpdb_src.tar.gz
 - name: test_explain_suite
   max_in_flight: 1
   plan:
@@ -300,10 +328,12 @@ jobs:
   - put: explain_output
     params:
       file: icg_output/explain_ouput.tar.gz
-
 - name: test_explain_suite_baseline
   plan:
   - aggregate:
+    - get: gporca-commits-to-test
+      passed:
+      - build_gpdb
     - get: bin_orca
       resource: bin_orca_baseline_centos5_release
       params:
@@ -320,21 +350,22 @@ jobs:
       passed:
       - build_gpdb_baseline
       trigger: true
-    - get: gpdb_src
-      resource: gpdb_baseline_src
-      passed:
-      - build_gpdb_baseline
-      params:
-        submodules: none
     - get: gpdb_main_src
       passed:
       - build_gpdb_baseline
       params:
         submodules: none
+    - get: gpdb_tarball
+      resource: gpdb_baseline_tarball
+      passed:
+      - build_gpdb_baseline
     - get: explain_test_suite
-  - task: explain_suite_baseline
+  - task: run_explain_suite_baseline
     timeout: 64m
-    file: gpdb_main_src/concourse/tasks/test_explain_suite_with_orca.yml
+    file: gpdb_main_src/concourse/tasks/untar_test_with_orca.yml
+    params:
+      ACTION: test_explain_suite
+    timeout: 90m
   - put: explain_output_baseline
     params:
       file: icg_output/explain_ouput.tar.gz
