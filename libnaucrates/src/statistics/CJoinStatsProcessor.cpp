@@ -477,9 +477,9 @@ CJoinStatsProcessor::DeriveJoinStats
 	join_pred_expr->Release();
 
 	COperator::EOperatorId op_id = exprhdl.Pop()->Eopid();
-	GPOS_ASSERT(COperator::EopLogicalLeftOuterJoin == op_id ||
-				COperator::EopLogicalInnerJoin == op_id ||
-				COperator::EopLogicalNAryJoin == op_id);
+//	GPOS_ASSERT(COperator::EopLogicalLeftOuterJoin == op_id ||
+//				COperator::EopLogicalInnerJoin == op_id ||
+//				COperator::EopLogicalNAryJoin == op_id);
 
 	// we use Inner Join semantics here except in the case of Left Outer Join
 	IStatistics::EStatsJoinType join_type = IStatistics::EsjtInnerJoin;

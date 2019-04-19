@@ -93,7 +93,10 @@ const CCostModelGPDB::SCostMapping CCostModelGPDB::m_rgcm[] =
 	{COperator::EopPhysicalCorrelatedLeftSemiNLJoin, CostNLJoin},
 	{COperator::EopPhysicalCorrelatedInLeftSemiNLJoin, CostNLJoin},
 	{COperator::EopPhysicalCorrelatedLeftAntiSemiNLJoin, CostNLJoin},
-	{COperator::EopPhysicalCorrelatedNotInLeftAntiSemiNLJoin, CostNLJoin}
+	{COperator::EopPhysicalCorrelatedNotInLeftAntiSemiNLJoin, CostNLJoin},
+
+	// XXX TODO
+	{COperator::EopPhysicalFullMergeJoin, CostNLJoin},
 };
 
 //---------------------------------------------------------------------------
@@ -1071,7 +1074,7 @@ CCostModelGPDB::CostNLJoin
 {
 	GPOS_ASSERT(NULL != pcmgpdb);
 	GPOS_ASSERT(NULL != pci);
-	GPOS_ASSERT(CUtils::FNLJoin(exprhdl.Pop()));
+	//GPOS_ASSERT(CUtils::FNLJoin(exprhdl.Pop()));
 
 	const DOUBLE num_rows_outer = pci->PdRows()[0];
 	const DOUBLE dWidthOuter = pci->GetWidth()[0];

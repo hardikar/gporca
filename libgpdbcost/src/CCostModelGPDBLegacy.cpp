@@ -80,7 +80,9 @@ const CCostModelGPDBLegacy::SCostMapping CCostModelGPDBLegacy::m_rgcm[] =
 	{COperator::EopPhysicalCorrelatedLeftSemiNLJoin, CostNLJoin},
 	{COperator::EopPhysicalCorrelatedInLeftSemiNLJoin, CostNLJoin},
 	{COperator::EopPhysicalCorrelatedLeftAntiSemiNLJoin, CostNLJoin},
-	{COperator::EopPhysicalCorrelatedNotInLeftAntiSemiNLJoin, CostNLJoin}
+	{COperator::EopPhysicalCorrelatedNotInLeftAntiSemiNLJoin, CostNLJoin},
+
+	{COperator::EopPhysicalFullMergeJoin, CostNLJoin},
 };
 
 //---------------------------------------------------------------------------
@@ -797,7 +799,7 @@ CCostModelGPDBLegacy::CostNLJoin
 	IMemoryPool *, // mp
 	CExpressionHandle &
 #ifdef GPOS_DEBUG
-	 exprhdl
+	 //exprhdl
 #endif // GPOS_DEBUG
 	,
 	const CCostModelGPDBLegacy *pcmgpdb,
@@ -806,7 +808,7 @@ CCostModelGPDBLegacy::CostNLJoin
 {
 	GPOS_ASSERT(NULL != pcmgpdb);
 	GPOS_ASSERT(NULL != pci);
-	GPOS_ASSERT(CUtils::FNLJoin(exprhdl.Pop()));
+	// GPOS_ASSERT(CUtils::FNLJoin(exprhdl.Pop()));
 
 	DOUBLE num_rows_outer = pci->PdRows()[0];
 	DOUBLE dWidthOuter = pci->GetWidth()[0];

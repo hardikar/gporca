@@ -155,6 +155,7 @@
 #include "gpopt/xforms/CXformSequenceProject2Apply.h"
 #include "gpopt/xforms/CXformImplementSequenceProject.h"
 #include "gpopt/xforms/CXformExpandFullOuterJoin.h"
+#include "gpopt/xforms/CXformImplementFullOuterJoin.h"
 #include "gpopt/xforms/CXformLeftOuter2InnerUnionAllLeftAntiSemiJoin.h"
 #include "gpopt/xforms/CXformCollapseProject.h"
 #include "gpopt/xforms/CXformSplitLimit.h"
