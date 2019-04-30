@@ -55,32 +55,7 @@ CXformImplementFullOuterJoin::Transform
 	GPOS_ASSERT(FPromising(pxfctxt->Pmp(), this, pexpr));
 	GPOS_ASSERT(FCheckPattern(pexpr));
 
-
-	// This only supports equijoins oh no!
-
-	IMemoryPool *mp = pxfctxt->Pmp();
-
-	// extract components
-	CExpression *pexprLeft = (*pexpr)[0];
-	CExpression *pexprRight = (*pexpr)[1];
-	CExpression *pexprScalar = (*pexpr)[2];
-
-	pexprLeft->AddRef();
-	pexprRight->AddRef();
-	pexprScalar->AddRef();
-
-	CExpression *pexprFOJ =
-		GPOS_NEW(mp) CExpression
-					(
-					mp,
-					GPOS_NEW(mp) CPhysicalFullMergeJoin(mp),
-					pexprLeft,
-					pexprRight,
-					pexprScalar
-					);
-
-	// add alternative to xform result
-	pxfres->Add(pexprFOJ);
+	CXformUtils::ImplementMergeJoin<CPhysicalFullMergeJoin>(pxfctxt, pxfres, pexpr);
 }
 
 // EOF

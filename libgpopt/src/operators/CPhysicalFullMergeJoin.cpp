@@ -30,61 +30,58 @@ using namespace gpopt;
 // ctor
 CPhysicalFullMergeJoin::CPhysicalFullMergeJoin
 	(
-	IMemoryPool *mp
+	IMemoryPool *mp,
+	CExpressionArray *outer_merge_clauses,
+	CExpressionArray *inner_merge_clauses
 	)
 	:
-	CPhysicalJoin(mp)
-{}
+	CPhysicalJoin(mp),
+	m_outer_merge_clauses(outer_merge_clauses),
+	m_inner_merge_clauses(inner_merge_clauses)
+{
+	GPOS_ASSERT(NULL != mp);
+	GPOS_ASSERT(NULL != outer_merge_clauses);
+	GPOS_ASSERT(NULL != inner_merge_clauses);
+	GPOS_ASSERT(outer_merge_clauses->Size() == inner_merge_clauses->Size());
+
+	SetDistrRequests(2);
+}
 
 
 // dtor
 CPhysicalFullMergeJoin::~CPhysicalFullMergeJoin()
-{}
+{
+	m_outer_merge_clauses->Release();
+	m_inner_merge_clauses->Release();
+}
 
 CDistributionSpec *
 CPhysicalFullMergeJoin::PdsRequired
 	(
 	IMemoryPool *mp,
 	CExpressionHandle &exprhdl,
-	CDistributionSpec *, //pdsRequired,
+	CDistributionSpec *pdsRequired,
 	ULONG child_index,
 	CDrvdProp2dArray *, //pdrgpdpCtxt,
-	ULONG //ulOptReq
+	ULONG ulOptReq
 	)
 	const
 {
 	GPOS_ASSERT(2 > child_index);
 
 	// if expression has to execute on a single host then we need a gather
-//	if (exprhdl.NeedsSingletonExecution())
-//	{
-//		return PdsRequireSingleton(mp, exprhdl, pdsRequired, child_index);
-//	}
-
-	if (exprhdl.HasOuterRefs())
+	if (ulOptReq == 0 || exprhdl.NeedsSingletonExecution() || exprhdl.HasOuterRefs())
 	{
-		// XXX TODO Do something here
-//		if (CDistributionSpec::EdtSingleton == pdsRequired->Edt() ||
-//			CDistributionSpec::EdtReplicated == pdsRequired->Edt())
-//		{
-//			return PdsPassThru(mp, exprhdl, pdsRequired, child_index);
-//		}
-//		return GPOS_NEW(mp) CDistributionSpecReplicated();
+		return PdsRequireSingleton(mp, exprhdl, pdsRequired, child_index);
 	}
 
-	CExpression *pexprScalarChild = exprhdl.PexprScalarChild(2);
-	CExpression *pexprLHS = (*pexprScalarChild)[0];
-	CExpression *pexprRHS = (*pexprScalarChild)[1];
-	GPOS_ASSERT(CPredicateUtils::FComparison(pexprScalarChild, IMDType::EcmptEq));
-	GPOS_ASSERT(CUtils::FScalarIdent(pexprLHS));
-	GPOS_ASSERT(CUtils::FScalarIdent(pexprRHS));
+	GPOS_ASSERT(ulOptReq == 1);
 
-	CExpressionArray *pdrgpexpr = GPOS_NEW(mp) CExpressionArray(mp);
-	CExpression *pexpr = (*pexprScalarChild)[child_index];
-	pexpr->AddRef();
-	pdrgpexpr->Append(pexpr);
+	CExpressionArray *clauses = (child_index == 0) ? m_outer_merge_clauses: m_inner_merge_clauses;
+	clauses->AddRef();
 
-	CDistributionSpecHashed *pds = GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexpr, true /* fNullsCollocated */);
+	CDistributionSpecHashed *pds =
+		GPOS_NEW(mp) CDistributionSpecHashed(clauses, true /* fNullsCollocated */);
 	return pds;
 }
 
@@ -93,7 +90,7 @@ COrderSpec *
 CPhysicalFullMergeJoin::PosRequired
 	(
 	IMemoryPool *mp,
-	CExpressionHandle &exprhdl,
+	CExpressionHandle &, //exprhdl,
 	COrderSpec *, //posInput
 	ULONG child_index,
 	CDrvdProp2dArray *, //pdrgpdpCtxt
@@ -106,29 +103,31 @@ CPhysicalFullMergeJoin::PosRequired
 	// to predict the order of the output of the merge join. (This may not be true). In that
 	// case, it is better to not push down any order requests from above.
 
-	// This is complex. We need to sort each side depending on the join filter
-	// but also we need to include any order specs from above.
-
-	// For now, ignore required orders
-	// For now, not cache cache
-	// For now, assume that scalar expr is ident = ident ONLY
-
-	CExpression *pexprScalarChild = exprhdl.PexprScalarChild(2);
-	CExpression *pexprLHS = (*pexprScalarChild)[0];
-	CExpression *pexprRHS = (*pexprScalarChild)[1];
-	GPOS_ASSERT(CPredicateUtils::FComparison(pexprScalarChild, IMDType::EcmptEq));
-	GPOS_ASSERT(CUtils::FScalarIdent(pexprLHS));
-	GPOS_ASSERT(CUtils::FScalarIdent(pexprRHS));
-
 	COrderSpec *os = GPOS_NEW(mp) COrderSpec(mp);
-	CExpression *pexpr = (*pexprScalarChild)[child_index];
-	CScalarIdent *popScId = CScalarIdent::PopConvert(pexpr->Pop());
-	const CColRef *colref = popScId->Pcr();
-	// XXX TODO can be > depending on posInput
-	gpmd::IMDId *mdid = colref->RetrieveType()->GetMdidForCmpType(IMDType::EcmptL);
-	mdid->AddRef();
-	
-	os->Append(mdid, colref, COrderSpec::EntLast);
+
+	CExpressionArray *clauses;
+	if (child_index == 0)
+	{
+		clauses = m_outer_merge_clauses;
+	}
+	else
+	{
+		GPOS_ASSERT(child_index == 1);
+		clauses = m_inner_merge_clauses;
+	}
+
+	for (ULONG ul = 0; ul < clauses->Size(); ++ul)
+	{
+		CExpression *expr = (*clauses)[ul];
+
+		GPOS_ASSERT(CUtils::FScalarIdent(expr));
+
+		const CColRef *colref = CCastUtils::PcrExtractFromScIdOrCastScId(expr);
+		// XXX TODO: We're forcing a asc sort order - can we be smarter (by using posInput)?
+		gpmd::IMDId *mdid = colref->RetrieveType()->GetMdidForCmpType(IMDType::EcmptL);
+		mdid->AddRef();
+		os->Append(mdid, colref, COrderSpec::EntLast);
+	}
 
 	return os;
 }
@@ -149,7 +148,7 @@ CPhysicalFullMergeJoin::PrsRequired
 				"Required rewindability can be computed on the relational child only");
 
 	// if there are outer references, then we need a materialize on both children
-	if (exprhdl.HasOuterRefs())
+	if (exprhdl.HasOuterRefs() || child_index == 1)
 	{
 		return GPOS_NEW(mp) CRewindabilitySpec(CRewindabilitySpec::ErtRewindable, prsRequired->Emht());
 	}
@@ -177,5 +176,15 @@ CPhysicalFullMergeJoin::EpetOrder
 	return CEnfdProp::EpetRequired;
 }
 
-// EOF
+CEnfdDistribution::EDistributionMatching
+CPhysicalFullMergeJoin::Edm
+	(
+	CReqdPropPlan *, // prppInput
+	ULONG , // child_index,
+	CDrvdProp2dArray *, // pdrgpdpCtxt,
+	ULONG // ulOptReq
+	)
+{
+	return CEnfdDistribution::EdmSubset;
+}
 

@@ -18,11 +18,17 @@ namespace gpopt
 			// private copy ctor
 			CPhysicalFullMergeJoin(const CPhysicalFullMergeJoin &);
 
+			CExpressionArray *m_outer_merge_clauses;
+
+			CExpressionArray *m_inner_merge_clauses;
+
 		public:
 
 			// ctor
 			explicit
-			CPhysicalFullMergeJoin(IMemoryPool *mp);
+			CPhysicalFullMergeJoin(IMemoryPool *mp,
+								   CExpressionArray *outer_merge_clauses,
+								   CExpressionArray *inner_merge_clauses);
 
 			// dtor
 			virtual
@@ -98,6 +104,15 @@ namespace gpopt
 				CExpressionHandle &exprhdl,
 				const CEnfdOrder *peo
 				) const;
+
+			virtual
+			CEnfdDistribution::EDistributionMatching Edm
+				(
+				CReqdPropPlan *, // prppInput
+				ULONG , //child_index,
+				CDrvdProp2dArray *, // pdrgpdpCtxt,
+				ULONG // ulOptReq
+				);
 
 	}; // class CPhysicalFullMergeJoin
 

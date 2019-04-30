@@ -527,6 +527,46 @@ CPhysicalJoin::FHashJoinCompatible
 	return fCompatible;
 }
 
+BOOL
+CPhysicalJoin::FMergeJoinCompatible
+	(
+	CExpression *pexprPred,		// predicate in question
+	CExpression *pexprOuter,	// outer child of the join
+	CExpression* pexprInner		// inner child of the join
+	)
+{
+	GPOS_ASSERT(NULL != pexprPred);
+	GPOS_ASSERT(NULL != pexprOuter);
+	GPOS_ASSERT(NULL != pexprInner);
+	GPOS_ASSERT(pexprOuter != pexprInner);
+
+	CExpression *pexprPredOuter = NULL;
+	CExpression *pexprPredInner = NULL;
+	if (CPredicateUtils::IsEqualityOp(pexprPred))
+	{
+		pexprPredOuter = (*pexprPred)[0];
+		pexprPredInner = (*pexprPred)[1];
+	}
+	else
+	{
+		return false;
+	}
+
+	IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MdidType();
+	IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
+
+	BOOL fPredKeysSeparated = FPredKeysSeparated(pexprInner, pexprOuter,
+												 pexprPredInner, pexprPredOuter);
+
+	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
+
+	BOOL fCompatible = fPredKeysSeparated &&
+		md_accessor->RetrieveType(pmdidTypeOuter)->IsMergeJoinable() &&
+		md_accessor->RetrieveType(pmdidTypeInner)->IsMergeJoinable();
+
+	return fCompatible;
+}
+
 void
 CPhysicalJoin::AlignJoinKeyOuterInner
 	(

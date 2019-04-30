@@ -424,6 +424,10 @@ namespace gpopt
 			static
 			BOOL FHashJoinCompatible(CExpression *pexprPred, CExpression *pexprOuter, CExpression* pexprInner);
 
+			// is given predicate hash-join compatible
+			static
+			BOOL FMergeJoinCompatible(CExpression *pexprPred, CExpression *pexprOuter, CExpression* pexprInner);
+
 			// return number of distribution requests for correlated join
 			static
 			ULONG UlDistrRequestsForCorrelatedJoin();
