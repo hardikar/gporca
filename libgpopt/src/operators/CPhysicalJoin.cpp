@@ -553,133 +553,54 @@ CPhysicalJoin::ExtractHashJoinExpressions
 	*ppexprRight = (*pexpr)[1];
 }
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CPhysicalJoin::AddHashKeys
-//
-//	@doc:
-//		Helper for adding a pair of hash join keys to given arrays
-//
-//---------------------------------------------------------------------------
 void
-CPhysicalJoin::AddHashKeys
+CPhysicalJoin::AlignJoinKeyOuterInner
 	(
-	CExpression *pexprPred,	// equality predicate in the form (ColRef1 = ColRef2) or
-							// in the form (ColRef1 is not distinct from ColRef2)
+	CExpression *pexprPred,
 	CExpression *pexprOuter,
-	CExpression *
 #ifdef GPOS_DEBUG
-		pexprInner
+	CExpression *pexprInner,
+#else
+	CExpression *,
 #endif // GPOS_DEBUG
-	,
-	CExpressionArray *pdrgpexprOuter,	// array of outer hash keys
-	CExpressionArray *pdrgpexprInner	// array of inner hash keys
+	CExpression **ppexprKeyOuter,
+	CExpression **ppexprKeyInner
 	)
 {
-	GPOS_ASSERT(FHashJoinCompatible(pexprPred, pexprOuter, pexprInner));
+	// we should not be here if there are outer references
+	GPOS_ASSERT(NULL != ppexprKeyOuter);
+	GPOS_ASSERT(NULL != ppexprKeyInner);
 
-	// output of outer side
-	CColRefSet *outer_refs = CDrvdPropRelational::GetRelationalProperties(pexprOuter->PdpDerive())->PcrsOutput();
-
-#ifdef GPOS_DEBUG
-	// output of inner side
-	CColRefSet *pcrsInner = CDrvdPropRelational::GetRelationalProperties(pexprInner->PdpDerive())->PcrsOutput();
-#endif // GPOS_DEBUG
-
-	// extract outer and inner columns from predicate
 	CExpression *pexprPredOuter = NULL;
 	CExpression *pexprPredInner = NULL;
 	ExtractHashJoinExpressions(pexprPred, &pexprPredOuter, &pexprPredInner);
+
 	GPOS_ASSERT(NULL != pexprPredOuter);
 	GPOS_ASSERT(NULL != pexprPredInner);
 
+	CColRefSet *pcrsOuter = CDrvdPropRelational::GetRelationalProperties(pexprOuter->Pdp(DrvdPropArray::EptRelational))->PcrsOutput();
 	CColRefSet *pcrsPredOuter = CDrvdPropScalar::GetDrvdScalarProps(pexprPredOuter->PdpDerive())->PcrsUsed();
+
 #ifdef GPOS_DEBUG
+	CColRefSet *pcrsInner = CDrvdPropRelational::GetRelationalProperties(pexprInner->Pdp(DrvdPropArray::EptRelational))->PcrsOutput();
 	CColRefSet *pcrsPredInner = CDrvdPropScalar::GetDrvdScalarProps(pexprPredInner->PdpDerive())->PcrsUsed();
 #endif // GPOS_DEBUG
 
-	// determine outer and inner hash keys
-	CExpression *pexprKeyOuter = NULL;
-	CExpression *pexprKeyInner = NULL;
-	if (outer_refs->ContainsAll(pcrsPredOuter))
+	if (pcrsOuter->ContainsAll(pcrsPredOuter))
 	{
-		pexprKeyOuter = pexprPredOuter;
+		*ppexprKeyOuter = pexprPredOuter;
 		GPOS_ASSERT(pcrsInner->ContainsAll(pcrsPredInner));
 
-		pexprKeyInner = pexprPredInner;
+		*ppexprKeyInner = pexprPredInner;
 	}
 	else
 	{
-		GPOS_ASSERT(outer_refs->ContainsAll(pcrsPredInner));
-		pexprKeyOuter = pexprPredInner;
+		GPOS_ASSERT(pcrsOuter->ContainsAll(pcrsPredInner));
+		*ppexprKeyOuter = pexprPredInner;
 
 		GPOS_ASSERT(pcrsInner->ContainsAll(pcrsPredOuter));
-		pexprKeyInner = pexprPredOuter;
+		*ppexprKeyInner = pexprPredOuter;
 	}
-	pexprKeyOuter->AddRef();
-	pexprKeyInner->AddRef();
-
-	pdrgpexprOuter->Append(pexprKeyOuter);
-	pdrgpexprInner->Append(pexprKeyInner);
-
-	GPOS_ASSERT(pdrgpexprInner->Size() == pdrgpexprOuter->Size());
-}
-
-
-//---------------------------------------------------------------------------
-//	@function:
-//		CPhysicalJoin::FHashJoinPossible
-//
-//	@doc:
-//		Check if predicate is hashjoin-able and extract arrays of hash keys
-//
-//---------------------------------------------------------------------------
-BOOL
-CPhysicalJoin::FHashJoinPossible
-	(
-	IMemoryPool *mp,
-	CExpression *pexpr,
-	CExpressionArray *pdrgpexprOuter,
-	CExpressionArray *pdrgpexprInner,
-	CExpression **ppexprResult // output : join expression to be transformed to hash join
-	)
-{
-	GPOS_ASSERT(COperator::EopLogicalNAryJoin != pexpr->Pop()->Eopid() &&
-		CUtils::FLogicalJoin(pexpr->Pop()));
-
-	// we should not be here if there are outer references
-	GPOS_ASSERT(!CUtils::HasOuterRefs(pexpr));
-	GPOS_ASSERT(NULL != ppexprResult);
-
-	// introduce explicit casting, if needed
-	CExpressionArray *pdrgpexpr = CCastUtils::PdrgpexprCastEquality(mp,  (*pexpr)[2]);
-
-	// identify hashkeys
-	ULONG ulPreds = pdrgpexpr->Size();
-	for (ULONG ul = 0; ul < ulPreds; ul++)
-	{
-		CExpression *pexprPred = (*pdrgpexpr)[ul];
-		if (FHashJoinCompatible(pexprPred, (*pexpr)[0], (*pexpr)[1]))
-		{
-			AddHashKeys(pexprPred, (*pexpr)[0], (*pexpr)[1], pdrgpexprOuter, pdrgpexprInner);
-		}
-	}
-	
-	// construct output join expression
-	pexpr->Pop()->AddRef();
-	(*pexpr)[0]->AddRef();
-	(*pexpr)[1]->AddRef();
-	*ppexprResult =
-		GPOS_NEW(mp) CExpression
-			(
-			mp,
-			pexpr->Pop(),
-			(*pexpr)[0],
-			(*pexpr)[1],
-			CPredicateUtils::PexprConjunction(mp, pdrgpexpr)
-			);
-
-	return (0 != pdrgpexprInner->Size());
 }
 
 
