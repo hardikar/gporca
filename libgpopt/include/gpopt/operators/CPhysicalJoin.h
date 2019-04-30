@@ -269,9 +269,11 @@ namespace gpopt
 				CColRefSet *pcrsAllowedRefs
 				);
 
-			// are the given predicate parts hash-join compatible?
+			// Do each of the given predicate children use columns from a different
+			// join child?
 			static
-			BOOL FHashJoinCompatible(CExpression *pexprOuter, CExpression* pexprInner, CExpression *pexprPredOuter, CExpression *pexprPredInner);
+			BOOL FPredKeysSeparated(CExpression *pexprOuter, CExpression* pexprInner,
+									CExpression *pexprPredOuter, CExpression *pexprPredInner);
 
 		public:
 

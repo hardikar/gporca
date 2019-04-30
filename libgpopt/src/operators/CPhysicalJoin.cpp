@@ -432,33 +432,25 @@ CPhysicalJoin::EpetRewindability
 	return CEnfdProp::EpetRequired;
 }
 
-
-//---------------------------------------------------------------------------
-//	@function:
-//		CPhysicalJoin::FHashJoinCompatible
-//
-//	@doc:
-//		Are the given predicate parts hash join compatible?
-//		predicate parts are obtained by splitting equality into outer
-//		and inner expressions
-//
-//---------------------------------------------------------------------------
+// Do each of the given predicate children use columns from a different
+// join child? For this method to return true, either:
+//   - pexprPredInner uses columns from pexprInner and pexprPredOuter uses
+//     columns from pexprOuter; or
+//   - pexprPredInner uses columns from pexprOuter and pexprPredOuter uses
+//     columns from pexprInner
 BOOL
-CPhysicalJoin::FHashJoinCompatible
+CPhysicalJoin::FPredKeysSeparated
 	(
-	CExpression *pexprOuter,	// outer child of the join
-	CExpression* pexprInner,	// inner child of the join
-	CExpression *pexprPredOuter,// outer part of join predicate
-	CExpression *pexprPredInner // inner part of join predicate
+	 CExpression *pexprInner,
+	 CExpression *pexprOuter,
+	 CExpression *pexprPredInner,
+	 CExpression *pexprPredOuter
 	)
 {
 	GPOS_ASSERT(NULL != pexprOuter);
 	GPOS_ASSERT(NULL != pexprInner);
 	GPOS_ASSERT(NULL != pexprPredOuter);
 	GPOS_ASSERT(NULL != pexprPredInner);
-
-	IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MdidType();
-	IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
 
 	CColRefSet *pcrsUsedPredOuter = CDrvdPropScalar::GetDrvdScalarProps(pexprPredOuter->PdpDerive())->PcrsUsed();
 	CColRefSet *pcrsUsedPredInner = CDrvdPropScalar::GetDrvdScalarProps(pexprPredInner->PdpDerive())->PcrsUsed();
@@ -473,17 +465,9 @@ CPhysicalJoin::FHashJoinCompatible
 	BOOL fPredInnerUsesJoinOuterChild = (0 < pcrsUsedPredInner->Size()) && outer_refs->ContainsAll(pcrsUsedPredInner);
 	BOOL fPredInnerUsesJoinInnerChild = (0 < pcrsUsedPredInner->Size()) && pcrsInner->ContainsAll(pcrsUsedPredInner);
 
-	BOOL fHashJoinCompatiblePred =
-		(fPredOuterUsesJoinOuterChild && fPredInnerUsesJoinInnerChild) ||
+	return (fPredOuterUsesJoinOuterChild && fPredInnerUsesJoinInnerChild) ||
 		(fPredOuterUsesJoinInnerChild && fPredInnerUsesJoinOuterChild);
-
-	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-
-	return fHashJoinCompatiblePred &&
-					md_accessor->RetrieveType(pmdidTypeOuter)->IsHashable() &&
-					md_accessor->RetrieveType(pmdidTypeInner)->IsHashable();
 }
-
 
 //---------------------------------------------------------------------------
 //	@function:
@@ -515,7 +499,20 @@ CPhysicalJoin::FHashJoinCompatible
 		CExpression *pexprPredOuter = NULL;
 		CExpression *pexprPredInner = NULL;
 		ExtractHashJoinExpressions(pexprPred, &pexprPredOuter, &pexprPredInner);
-		fCompatible = FHashJoinCompatible(pexprOuter, pexprInner, pexprPredOuter, pexprPredInner);
+
+		IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MdidType();
+		IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
+
+		BOOL fPredKeysSeparated = FPredKeysSeparated(pexprInner,
+														  pexprOuter,
+														  pexprPredInner,
+														  pexprPredOuter);
+
+		CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
+
+		fCompatible = fPredKeysSeparated &&
+			md_accessor->RetrieveType(pmdidTypeOuter)->IsHashable() &&
+			md_accessor->RetrieveType(pmdidTypeInner)->IsHashable();
 	}
 
 	return fCompatible;
