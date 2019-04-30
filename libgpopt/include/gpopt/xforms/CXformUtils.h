@@ -538,8 +538,7 @@ namespace gpopt
 				(
 				CXformContext *pxfctxt,
 				CXformResult *pxfres,
-				CExpression *pexpr,
-				BOOL fAntiSemiJoin = false
+				CExpression *pexpr
 				);
 
 			// helper function for implementation of nested loops joins
@@ -1242,8 +1241,7 @@ namespace gpopt
 		(
 		CXformContext *pxfctxt,
 		CXformResult *pxfres,
-		CExpression *pexpr,
-		BOOL fAntiSemiJoin // is the target hash join type an anti-semi join?
+		CExpression *pexpr
 		)
 	{
 		GPOS_ASSERT(NULL != pxfctxt);
@@ -1304,17 +1302,6 @@ namespace gpopt
 		}
 
 		pexprInnerJoin->Release();
-
-		if (!fHashJoinPossible && fAntiSemiJoin)
-		{
-			CExpression *pexprProcessed = NULL;
-			if (FProcessGPDBAntiSemiHashJoin(mp, pexpr, &pexprProcessed))
-			{
-				// try again after simplifying join predicate
-				ImplementHashJoin<T>(pxfctxt, pxfres, pexprProcessed, false /*fAntiSemiJoin*/);
-				pexprProcessed->Release();
-			}
-		}
 	}
 
 	//---------------------------------------------------------------------------
