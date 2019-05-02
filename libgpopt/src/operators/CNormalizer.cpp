@@ -499,28 +499,26 @@ CNormalizer::PushThruSelect
 	}
 
 	COperator::EOperatorId op_id = pexprLogicalChild->Pop()->Eopid();
+	CExpression *pexprSimplified = NULL;
+	if (COperator::EopLogicalLeftOuterJoin == op_id &&
+		FSimplifySelectOnOuterJoin(mp, pexprLogicalChild, pexprPred, &pexprSimplified))
 	{
-		CExpression *pexprSimplified = NULL;
-		if (COperator::EopLogicalLeftOuterJoin == op_id &&
-			FSimplifySelectOnOuterJoin(mp, pexprLogicalChild, pexprPred, &pexprSimplified))
-		{
-			// simplification succeeded, normalize resulting expression
-			*ppexprResult = PexprNormalize(mp, pexprSimplified);
-			pexprPred->Release();
-			pexprSimplified->Release();
+		// simplification succeeded, normalize resulting expression
+		*ppexprResult = PexprNormalize(mp, pexprSimplified);
+		pexprPred->Release();
+		pexprSimplified->Release();
 
-			return;
-		}
-		if (COperator::EopLogicalFullOuterJoin == op_id &&
-			FSimplifySelectOnFullJoin(mp, pexprLogicalChild, pexprPred, &pexprSimplified))
-		{
-			// simplification succeeded, normalize resulting expression
-			*ppexprResult = PexprNormalize(mp, pexprSimplified);
-			pexprPred->Release();
-			pexprSimplified->Release();
+		return;
+	}
+	if (COperator::EopLogicalFullOuterJoin == op_id &&
+		FSimplifySelectOnFullJoin(mp, pexprLogicalChild, pexprPred, &pexprSimplified))
+	{
+		// simplification succeeded, normalize resulting expression
+		*ppexprResult = PexprNormalize(mp, pexprSimplified);
+		pexprPred->Release();
+		pexprSimplified->Release();
 
-			return;
-		}
+		return;
 	}
 
 	if (FPushThruOuterChild(pexprLogicalChild))
