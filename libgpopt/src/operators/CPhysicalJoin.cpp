@@ -10,6 +10,7 @@
 //---------------------------------------------------------------------------
 
 #include "gpos/base.h"
+#include "gpopt/exception.h"
 
 #include "gpopt/base/CUtils.h"
 #include "gpopt/base/CCastUtils.h"
@@ -493,64 +494,37 @@ CPhysicalJoin::FHashJoinCompatible
 	GPOS_ASSERT(NULL != pexprInner);
 	GPOS_ASSERT(pexprOuter != pexprInner);
 
-	BOOL fCompatible = false;
-	if (CPredicateUtils::IsEqualityOp(pexprPred) || CPredicateUtils::FINDF(pexprPred))
+	CExpression *pexprPredOuter = NULL;
+	CExpression *pexprPredInner = NULL;
+	if (CPredicateUtils::IsEqualityOp(pexprPred))
 	{
-		CExpression *pexprPredOuter = NULL;
-		CExpression *pexprPredInner = NULL;
-		ExtractHashJoinExpressions(pexprPred, &pexprPredOuter, &pexprPredInner);
-
-		IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MdidType();
-		IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
-
-		BOOL fPredKeysSeparated = FPredKeysSeparated(pexprInner,
-														  pexprOuter,
-														  pexprPredInner,
-														  pexprPredOuter);
-
-		CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
-
-		fCompatible = fPredKeysSeparated &&
-			md_accessor->RetrieveType(pmdidTypeOuter)->IsHashable() &&
-			md_accessor->RetrieveType(pmdidTypeInner)->IsHashable();
+		pexprPredOuter = (*pexprPred)[0];
+		pexprPredInner = (*pexprPred)[1];
 	}
+	else if (CPredicateUtils::FINDF(pexprPred))
+	{
+		CExpression *pexpr = (*pexprPred)[0];
+		pexprPredOuter = (*pexpr)[0];
+		pexprPredInner = (*pexpr)[1];
+	}
+	else
+	{
+		return false;
+	}
+
+	IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MdidType();
+	IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
+
+	BOOL fPredKeysSeparated = FPredKeysSeparated(pexprInner, pexprOuter,
+												 pexprPredInner, pexprPredOuter);
+
+	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
+
+	BOOL fCompatible = fPredKeysSeparated &&
+		md_accessor->RetrieveType(pmdidTypeOuter)->IsHashable() &&
+		md_accessor->RetrieveType(pmdidTypeInner)->IsHashable();
 
 	return fCompatible;
-}
-
-
-//---------------------------------------------------------------------------
-//	@function:
-//		CPhysicalJoin::ExtractHashJoinExpressions
-//
-//	@doc:
-//		Extract expressions that can be used in hash-join from the given predicate
-//
-//---------------------------------------------------------------------------
-void
-CPhysicalJoin::ExtractHashJoinExpressions
-	(
-	CExpression *pexprPred,
-	CExpression **ppexprLeft,
-	CExpression **ppexprRight
-	)
-{
-	GPOS_ASSERT(NULL != ppexprLeft);
-	GPOS_ASSERT(NULL != ppexprRight);
-
-	*ppexprLeft = NULL;
-	*ppexprRight = NULL;
-
-	// extract outer and inner expressions from predicate
-	CExpression *pexpr = pexprPred;
-	if (!CPredicateUtils::IsEqualityOp(pexprPred))
-	{
-		GPOS_ASSERT(CPredicateUtils::FINDF(pexpr));
-		pexpr = (*pexprPred)[0];
-	}
-
-	*ppexprLeft = (*pexpr)[0];
-	*ppexprRight = (*pexpr)[1];
 }
 
 void
@@ -573,7 +547,24 @@ CPhysicalJoin::AlignJoinKeyOuterInner
 
 	CExpression *pexprPredOuter = NULL;
 	CExpression *pexprPredInner = NULL;
-	ExtractHashJoinExpressions(pexprPred, &pexprPredOuter, &pexprPredInner);
+
+	// extract left & right children from pexprPred for all supported ops
+	if (CPredicateUtils::IsEqualityOp(pexprPred))
+	{
+		pexprPredOuter = (*pexprPred)[0];
+		pexprPredInner = (*pexprPred)[1];
+	}
+	else if (CPredicateUtils::FINDF(pexprPred))
+	{
+		CExpression *pexpr = (*pexprPred)[0];
+		pexprPredOuter = (*pexpr)[0];
+		pexprPredInner = (*pexpr)[1];
+	}
+	else
+	{
+		GPOS_RAISE(gpopt::ExmaGPOPT, gpopt::ExmiUnsupportedOp,
+				   GPOS_WSZ_LIT("Invalid join expression in AlignJoinKeyOuterInner"));
+	}
 
 	GPOS_ASSERT(NULL != pexprPredOuter);
 	GPOS_ASSERT(NULL != pexprPredInner);
