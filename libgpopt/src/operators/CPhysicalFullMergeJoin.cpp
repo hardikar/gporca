@@ -14,6 +14,7 @@
 #include "gpopt/base/CDistributionSpecNonSingleton.h"
 #include "gpopt/base/CDistributionSpecHashed.h"
 #include "gpopt/base/CCastUtils.h"
+#include "gpopt/base/CColRefSetIter.h"
 
 #include "gpopt/base/CUtils.h"
 
@@ -116,6 +117,7 @@ CPhysicalFullMergeJoin::PosRequired
 		clauses = m_inner_merge_clauses;
 	}
 
+	CColRefSet *ordering_cols = GPOS_NEW(mp) CColRefSet(mp);
 	for (ULONG ul = 0; ul < clauses->Size(); ++ul)
 	{
 		CExpression *expr = (*clauses)[ul];
@@ -123,11 +125,19 @@ CPhysicalFullMergeJoin::PosRequired
 		GPOS_ASSERT(CUtils::FScalarIdent(expr));
 
 		const CColRef *colref = CCastUtils::PcrExtractFromScIdOrCastScId(expr);
-		// XXX TODO: We're forcing a asc sort order - can we be smarter (by using posInput)?
+		ordering_cols->Include(colref);
+	}
+
+	CColRefSetIter iter(*ordering_cols);
+	while (iter.Advance())
+	{
+		CColRef *colref = iter.Pcr();
 		gpmd::IMDId *mdid = colref->RetrieveType()->GetMdidForCmpType(IMDType::EcmptL);
 		mdid->AddRef();
 		os->Append(mdid, colref, COrderSpec::EntLast);
 	}
+
+	ordering_cols->Release();
 
 	return os;
 }
