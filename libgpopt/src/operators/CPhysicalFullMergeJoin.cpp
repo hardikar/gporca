@@ -198,3 +198,40 @@ CPhysicalFullMergeJoin::Edm
 	return CEnfdDistribution::EdmSubset;
 }
 
+CDistributionSpec *
+CPhysicalFullMergeJoin::PdsDerive
+(
+	IMemoryPool *mp,
+	CExpressionHandle &exprhdl
+	)
+	const
+{
+	CDistributionSpec *pdsOuter = exprhdl.Pdpplan(0 /*child_index*/)->Pds();
+#ifdef GPOS_DEBUG
+	CDistributionSpec *pdsInner = exprhdl.Pdpplan(1 /*child_index*/)->Pds();
+#endif
+
+	if (CDistributionSpec::EdtHashed == pdsOuter->Edt())
+	{
+		// Merge join requires both sides to be hashed
+		GPOS_ASSERT(CDistributionSpec::EdtHashed == pdsInner->Edt());
+
+		CDistributionSpecHashed *pdshashed = CDistributionSpecHashed::PdsConvert(pdsOuter);
+		pdshashed->Pdrgpexpr()->AddRef();
+		// XXX TODO We should do something like PdsDeriveFromHashedChildren
+		return GPOS_NEW(mp) CDistributionSpecHashed
+		(
+			pdshashed->Pdrgpexpr(),
+			false /* fNullsCollocated */
+		);
+	}
+
+	// Merge join requires both sides to be singleton if not hashed
+	GPOS_ASSERT(CDistributionSpec::EdtSingleton == pdsOuter->Edt() ||
+				CDistributionSpec::EdtStrictSingleton == pdsOuter->Edt());
+
+	// otherwise, pass through outer distribution
+	pdsOuter->AddRef();
+	return pdsOuter;
+}
+

@@ -114,6 +114,13 @@ namespace gpopt
 				ULONG // ulOptReq
 				);
 
+			virtual
+			CDistributionSpec *PdsDerive
+				(
+					IMemoryPool *mp,
+					CExpressionHandle &exprhdl
+				) const;
+
 	}; // class CPhysicalFullMergeJoin
 
 }
