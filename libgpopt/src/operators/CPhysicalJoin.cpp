@@ -546,6 +546,8 @@ CPhysicalJoin::FMergeJoinCompatible
 	{
 		pexprPredOuter = (*pexprPred)[0];
 		pexprPredInner = (*pexprPred)[1];
+		GPOS_ASSERT(CUtils::FScalarIdent(pexprPredOuter));
+		GPOS_ASSERT(CUtils::FScalarIdent(pexprPredInner));
 	}
 	else
 	{
