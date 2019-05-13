@@ -1164,6 +1164,42 @@ CPredicateUtils::FIdentIDFConst
 	return true;
 }
 
+// is the given expression of the form (col IS DISTINCT FROM const)
+BOOL
+CPredicateUtils::FEqIdentsOfSameType
+	(
+	CExpression *pexpr
+	)
+{
+	if (!CPredicateUtils::IsEqualityOp(pexpr))
+	{
+		return false;
+	}
+	CExpression *pexprLeft = (*pexpr)[0];
+	CExpression *pexprRight = (*pexpr)[1];
+
+	// left side must be scalar ident
+	if (COperator::EopScalarIdent != pexprLeft->Pop()->Eopid())
+	{
+		return false;
+	}
+
+	// right side must be a scalar iden
+	if (COperator::EopScalarIdent != pexprRight->Pop()->Eopid())
+	{
+		return false;
+	}
+
+	CScalarIdent *left_ident = CScalarIdent::PopConvert(pexprLeft->Pop());
+	CScalarIdent *right_ident = CScalarIdent::PopConvert(pexprRight->Pop());
+	if (!left_ident->MdidType()->Equals(right_ident->MdidType()))
+	{
+		return false;
+	}
+
+	return true;
+}
+
 
 // is the given expression is of the form (col IS DISTINCT FROM const)
 // ignoring cast on either sides

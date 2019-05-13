@@ -1412,6 +1412,12 @@ namespace gpopt
 				pdrgpexprInner->Append(pexprPredInner);
 
 			}
+			else
+			{
+				// In case of FULL merge joins, all the merge clauses must be merge
+				// compatible or we cannot create a merge join.
+				return;
+			}
 		}
 		GPOS_ASSERT(pdrgpexprInner->Size() == pdrgpexprOuter->Size());
 

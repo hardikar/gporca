@@ -542,12 +542,11 @@ CPhysicalJoin::FMergeJoinCompatible
 
 	CExpression *pexprPredOuter = NULL;
 	CExpression *pexprPredInner = NULL;
-	if (CPredicateUtils::IsEqualityOp(pexprPred))
+	// Only merge join between ScalarIdents of the same types is currently supported
+	if (CPredicateUtils::FEqIdentsOfSameType(pexprPred))
 	{
 		pexprPredOuter = (*pexprPred)[0];
 		pexprPredInner = (*pexprPred)[1];
-		GPOS_ASSERT(CUtils::FScalarIdent(pexprPredOuter));
-		GPOS_ASSERT(CUtils::FScalarIdent(pexprPredInner));
 	}
 	else
 	{
@@ -562,7 +561,11 @@ CPhysicalJoin::FMergeJoinCompatible
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
 
+	// MJ sends a distribution request for merge clauses on both sides, they
+	// must, therefore, be hashable and merge joinable.
 	BOOL fCompatible = fPredKeysSeparated &&
+		md_accessor->RetrieveType(pmdidTypeOuter)->IsHashable() &&
+		md_accessor->RetrieveType(pmdidTypeInner)->IsHashable() &&
 		md_accessor->RetrieveType(pmdidTypeOuter)->IsMergeJoinable() &&
 		md_accessor->RetrieveType(pmdidTypeInner)->IsMergeJoinable();
 
