@@ -24,9 +24,9 @@
 
 #include "gpopt/operators/CPhysicalFullMergeJoin.h"
 
-
 using namespace gpopt;
 
+#define GPOPT_MAX_HASH_DIST_REQUESTS	6
 
 // ctor
 CPhysicalFullMergeJoin::CPhysicalFullMergeJoin
@@ -45,7 +45,7 @@ CPhysicalFullMergeJoin::CPhysicalFullMergeJoin
 	GPOS_ASSERT(NULL != inner_merge_clauses);
 	GPOS_ASSERT(outer_merge_clauses->Size() == inner_merge_clauses->Size());
 
-	SetDistrRequests(2);
+	SetDistrRequests(outer_merge_clauses->Size() + 1);
 }
 
 
@@ -71,16 +71,29 @@ CPhysicalFullMergeJoin::PdsRequired
 	GPOS_ASSERT(2 > child_index);
 
 	// if expression has to execute on a single host then we need a gather
-	if (ulOptReq == 0 || exprhdl.NeedsSingletonExecution() || exprhdl.HasOuterRefs())
+	if (exprhdl.NeedsSingletonExecution() || exprhdl.HasOuterRefs())
 	{
 		return PdsRequireSingleton(mp, exprhdl, pdsRequired, child_index);
 	}
 
-	GPOS_ASSERT(ulOptReq == 1);
-
 	CExpressionArray *clauses = (child_index == 0) ? m_outer_merge_clauses: m_inner_merge_clauses;
-	clauses->AddRef();
 
+	// XXX TODO Handle case when either side is replicated.
+	ULONG num_hash_reqs = std::min((ULONG) GPOPT_MAX_HASH_DIST_REQUESTS, clauses->Size());
+	if (ulOptReq < num_hash_reqs)
+	{
+		CExpressionArray *pdrgpexprCurrent = GPOS_NEW(mp) CExpressionArray(mp);
+		CExpression *expr = (*clauses)[ulOptReq];
+		expr->AddRef();
+		pdrgpexprCurrent->Append(expr);
+
+		CDistributionSpecHashed *pds =
+			GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexprCurrent, true /* fNullsCollocated */);
+		return pds;
+	}
+
+	GPOS_ASSERT(ulOptReq == num_hash_reqs);
+	clauses->AddRef();
 	CDistributionSpecHashed *pds =
 		GPOS_NEW(mp) CDistributionSpecHashed(clauses, true /* fNullsCollocated */);
 	return pds;
@@ -195,7 +208,7 @@ CPhysicalFullMergeJoin::Edm
 	ULONG // ulOptReq
 	)
 {
-	return CEnfdDistribution::EdmSubset;
+	return CEnfdDistribution::EdmExact;
 }
 
 CDistributionSpec *
