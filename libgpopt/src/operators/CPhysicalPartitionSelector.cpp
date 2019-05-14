@@ -558,7 +558,7 @@ CRewindabilitySpec *
 CPhysicalPartitionSelector::PrsRequired
 	(
 	IMemoryPool *mp,
-	CExpressionHandle &exprhdl,
+	CExpressionHandle &,//exprhdl,
 	CRewindabilitySpec *prsRequired,
 	ULONG child_index,
 	CDrvdProp2dArray *, // pdrgpdpCtxt
@@ -568,7 +568,9 @@ CPhysicalPartitionSelector::PrsRequired
 {
 	GPOS_ASSERT(0 == child_index);
 
-	return PrsPassThru(mp, exprhdl, prsRequired, child_index);
+	return GPOS_NEW(mp) CRewindabilitySpec(CRewindabilitySpec::ErtNotRewindable, prsRequired->Emht());
+
+	//return PrsPassThru(mp, exprhdl, prsRequired, child_index);
 }
 
 //---------------------------------------------------------------------------
@@ -787,12 +789,13 @@ CPhysicalPartitionSelector::PpimDerive
 CRewindabilitySpec *
 CPhysicalPartitionSelector::PrsDerive
 	(
-	IMemoryPool *, // mp
+	IMemoryPool *mp,
 	CExpressionHandle &exprhdl
 	)
 	const
 {
-	return PrsDerivePassThruOuter(exprhdl);
+	CRewindabilitySpec *prs = exprhdl.Pdpplan(0 /*child_index*/)->Prs();
+	return GPOS_NEW(mp) CRewindabilitySpec(CRewindabilitySpec::ErtNotRewindable, prs->Emht());
 }
 
 //---------------------------------------------------------------------------
@@ -850,7 +853,7 @@ CPhysicalPartitionSelector::EpetRewindability
 	const
 {
 	// rewindability is preserved on operator's output
-	return CEnfdProp::EpetOptional;
+	return CEnfdProp::EpetRequired;
 }
 
 //---------------------------------------------------------------------------
