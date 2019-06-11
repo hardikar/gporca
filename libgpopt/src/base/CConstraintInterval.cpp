@@ -50,6 +50,14 @@ CConstraintInterval::CConstraintInterval
 {
 	GPOS_ASSERT(NULL != colref);
 	GPOS_ASSERT(NULL != pdrgprng);
+
+	if (!CDefaultComparator::FUseBuiltinIntEvaluators() ||
+		!CUtils::FIntType(m_pcr->RetrieveType()->MDId()) ||
+		m_pdrgprng->Size() > 20)
+	{
+		m_pdrgprng->Clear();
+	}
+
 	m_pcrsUsed = GPOS_NEW(mp) CColRefSet(mp);
 	m_pcrsUsed->Include(colref);
 }
@@ -1074,6 +1082,7 @@ CConstraintInterval::PciUnion
 	ULONG ulSnd = 0;
 	const ULONG ulNumRangesFst = m_pdrgprng->Size();
 	const ULONG ulNumRangesSnd = pdrgprngOther->Size();
+
 	while (ulFst < ulNumRangesFst && ulSnd < ulNumRangesSnd)
 	{
 		CRange *prangeThis = (*m_pdrgprng)[ulFst];

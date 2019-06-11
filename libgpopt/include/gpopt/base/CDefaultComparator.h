@@ -75,6 +75,7 @@ namespace gpopt
 				)
 				const;
 
+	public:
 			// return true iff we use built-in evaluation for integers
 			static
 			BOOL
@@ -84,7 +85,6 @@ namespace gpopt
 						!GPOS_FTRACE(EopttraceUseExternalConstantExpressionEvaluationForInts);
 			}
 
-		public:
 			// ctor
 			CDefaultComparator(IConstExprEvaluator *pceeval);
 
