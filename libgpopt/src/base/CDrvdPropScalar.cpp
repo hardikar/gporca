@@ -28,6 +28,7 @@ using namespace gpopt;
 //---------------------------------------------------------------------------
 CDrvdPropScalar::CDrvdPropScalar()
 	:
+	DrvdPropArray(NULL, NULL),
 	m_pcrsDefined(NULL),
 	m_pcrsSetReturningFunction(NULL),
 	m_pcrsUsed(NULL),

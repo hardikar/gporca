@@ -34,6 +34,7 @@ using namespace gpopt;
 CDrvdPropPlan::CDrvdPropPlan
 	()
 	:
+	DrvdPropArray(NULL, NULL),
 	m_pos(NULL),
 	m_pds(NULL),
 	m_prs(NULL),

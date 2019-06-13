@@ -23,6 +23,8 @@
 #include "gpopt/base/CKeyCollection.h"
 #include "gpopt/base/CPartInfo.h"
 
+#include "gpopt/exception.h"
+
 using namespace gpopt;
 
 //---------------------------------------------------------------------------
@@ -36,6 +38,7 @@ using namespace gpopt;
 CDrvdPropRelational::CDrvdPropRelational
 	()
 	:
+	DrvdPropArray(NULL, NULL),
 	m_pcrsOutput(NULL),
 	m_pcrsOuter(NULL),
 	m_pcrsNotNull(NULL),

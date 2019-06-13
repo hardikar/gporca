@@ -21,7 +21,14 @@
 
 namespace gpopt {
 
-	DrvdPropArray::DrvdPropArray()
+	DrvdPropArray::DrvdPropArray
+	(
+	CExpressionHandle *exprhdl,
+	CDrvdPropCtxt *drvd_prop_ctxt
+	)
+	:
+	m_exprhdl(exprhdl),
+	m_drvd_prop_ctxt(drvd_prop_ctxt)
 	{}
 
 	IOstream &operator << (IOstream &os, const DrvdPropArray &drvdprop)
