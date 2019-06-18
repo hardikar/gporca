@@ -52,6 +52,10 @@ namespace gpopt
 
 		private:
 
+			CExpression *m_expr;
+
+			CDrvdPropCtxt *m_drvd_prop_ctxt;
+
 			// output columns
 			CColRefSet *m_pcrsOutput;
 

@@ -13,6 +13,8 @@
 #include "gpos/task/CAutoSuspendAbort.h"
 #include "gpos/task/CWorker.h"
 
+#include "gpopt/exception.h"
+
 #include "gpopt/base/CUtils.h"
 #include "gpopt/operators/CLogical.h"
 #include "gpopt/operators/CLogicalDynamicGet.h"
@@ -36,6 +38,8 @@ using namespace gpopt;
 CDrvdPropRelational::CDrvdPropRelational
 	()
 	:
+	m_expr(NULL),
+	m_drvd_prop_ctxt(NULL),
 	m_pcrsOutput(NULL),
 	m_pcrsOuter(NULL),
 	m_pcrsNotNull(NULL),
@@ -63,6 +67,7 @@ CDrvdPropRelational::~CDrvdPropRelational()
 	{
 		CAutoSuspendAbort asa;
 
+		CRefCount::SafeRelease(m_expr);
 		CRefCount::SafeRelease(m_pcrsOutput);
 		CRefCount::SafeRelease(m_pcrsOuter);
 		CRefCount::SafeRelease(m_pcrsNotNull);
@@ -93,10 +98,20 @@ CDrvdPropRelational::Derive
 	(
 	CMemoryPool *mp,
 	CExpressionHandle &exprhdl,
-	CDrvdPropCtxt * // pdpctxt
+	CDrvdPropCtxt *pdpctxt
 	)
 {
 	GPOS_CHECK_ABORT;
+
+	if (m_expr != NULL || m_drvd_prop_ctxt != NULL)
+	{
+		GPOS_RAISE(gpopt::ExmaGPOPT, gpopt::ExmiUnsatisfiedRequiredProperties);
+	}
+
+	m_expr = exprhdl.Pexpr();
+	m_expr->AddRef();
+
+	m_drvd_prop_ctxt = pdpctxt;
 
 	CLogical *popLogical = CLogical::PopConvert(exprhdl.Pop());
 
