@@ -96,10 +96,19 @@ CDrvdPropRelational::Derive
 	(
 	CMemoryPool *mp,
 	CExpressionHandle &exprhdl,
-	CDrvdPropCtxt * // pdpctxt
+	CDrvdPropCtxt *pdpctxt
 	)
 {
 	GPOS_CHECK_ABORT;
+
+	if (m_exprhdl != NULL || m_drvd_prop_ctxt != NULL)
+	{
+		GPOS_RAISE(gpopt::ExmaGPOPT, gpopt::ExmiUnsatisfiedRequiredProperties);
+	}
+
+	m_exprhdl = &exprhdl;
+
+	m_drvd_prop_ctxt = pdpctxt;
 
 	CLogical *popLogical = CLogical::PopConvert(exprhdl.Pop());
 

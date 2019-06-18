@@ -83,6 +83,8 @@ namespace gpopt
 			// private copy ctor
 			DrvdPropArray(const DrvdPropArray &);
 
+		protected:
+
 			CExpressionHandle *m_exprhdl;
 
 			CDrvdPropCtxt *m_drvd_prop_ctxt;
