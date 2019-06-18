@@ -2237,7 +2237,7 @@ CEngine::FCheckEnfdProps
 	CExpressionHandle exprhdl(mp);
 	exprhdl.Attach(pcc);
 	exprhdl.DerivePlanProps();
-	pcc->Release();
+
 
 	CPhysical *popPhysical = CPhysical::PopConvert(exprhdl.Pop());
 	CReqdPropPlan *prpp = poc->Prpp();
@@ -2246,6 +2246,7 @@ CEngine::FCheckEnfdProps
 	// and whether it is a motion over unresolved part consumers
 	if (!FValidCTEAndPartitionProperties(mp, exprhdl, prpp))
 	{
+		pcc->Release();
 		return false;
 	}
 
@@ -2294,6 +2295,7 @@ CEngine::FCheckEnfdProps
 	// G and H as its child.
 	if (FProhibited(epetOrder, epetDistribution, epetRewindability, epetPartitionPropagation))
 	{
+		pcc->Release();
 		return false;
 	}
 
@@ -2317,6 +2319,7 @@ CEngine::FCheckEnfdProps
 	}
 	pdrgpexprEnforcers->Release();
 	pexpr->Release();
+	pcc->Release();
 	
 	return FOptimize(epetOrder, epetDistribution, epetRewindability, epetPartitionPropagation);
 }
