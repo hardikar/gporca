@@ -114,9 +114,6 @@ CDrvdPropRelational::Derive
 
 	// call output derivation function on the operator
 	m_pcrsOutput = popLogical->PcrsDeriveOutput(mp, exprhdl);
-
-	// derive outer-references
-	m_pcrsOuter = popLogical->PcrsDeriveOuter(mp, exprhdl);
 	
 	// derive not null columns
 	m_pcrsNotNull = popLogical->PcrsDeriveNotNull(mp, exprhdl);
@@ -435,8 +432,17 @@ CDrvdPropRelational::PcrsOutput() const
 
 // outer references
 CColRefSet *
-CDrvdPropRelational::PcrsOuter() const
+CDrvdPropRelational::PcrsOuter()
 {
+	if (NULL != m_pcrsOuter)
+	{
+		CMemoryPool *mp = COptCtxt::PoctxtFromTLS()->Pmp();
+		CLogical *popLogical = CLogical::PopConvert(m_exprhdl->Pop());
+
+		// derive outer-references
+		m_pcrsOuter = popLogical->PcrsDeriveOuter(mp, *m_exprhdl);
+	}
+
 	return m_pcrsOuter;
 }
 
