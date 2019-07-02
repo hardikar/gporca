@@ -82,7 +82,7 @@ CDrvdPropCtxtPlan::PdpctxtCopy
 	{
 		ULONG id = *(hmulpdpiter.Key());
 		CDrvdPropPlan *pdpplan = const_cast<CDrvdPropPlan *>(hmulpdpiter.Value());
-		pdpplan->AddRef();
+		pdpplan = (CDrvdPropPlan *) pdpplan->Copy(mp);
 	#ifdef GPOS_DEBUG
 		BOOL fInserted =
 	#endif // GPOS_DEBUG
@@ -125,7 +125,7 @@ CDrvdPropCtxtPlan::AddProps
 
 	if (m_fUpdateCTEMap)
 	{
-		pdpplanProducer->AddRef();
+		pdpplanProducer = (CDrvdPropPlan *) pdpplanProducer->Copy(m_mp);
 #ifdef GPOS_DEBUG
 		BOOL fInserted =
 #endif // GPOS_DEBUG
@@ -202,7 +202,7 @@ CDrvdPropCtxtPlan::CopyCTEProducerProps
 {
 	GPOS_ASSERT(NULL != pdpplan);
 
-	pdpplan->AddRef();
+	pdpplan = (CDrvdPropPlan *) pdpplan->Copy(m_mp);
 #ifdef GPOS_DEBUG
 	BOOL fInserted =
 #endif // GPOS_DEBUG

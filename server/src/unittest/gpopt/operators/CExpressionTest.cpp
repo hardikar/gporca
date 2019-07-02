@@ -992,7 +992,7 @@ CExpressionTest::EresUnittest_FValidPlan_InvalidCTEs()
 
 	CExpression *pexprProducer = CTestUtils::PexprLogicalCTEProducerOverSelect(mp, ulCTEId);
 	CDrvdPropPlan *pdpplan = CDrvdPropPlan::Pdpplan(pexprPlan->PdpDerive());
-	pdpplan->AddRef();
+	pdpplan = (CDrvdPropPlan *) pdpplan->Copy(mp);
 	pcter->Insert(ulCTEId, CCTEMap::EctProducer /*ect*/, true /*fRequired*/, pdpplan);
 	CColRefSet *pcrsCopy = GPOS_NEW(mp) CColRefSet(mp, *pcrs);
 	CReqdPropPlan *prppIncompatibleCTE = GPOS_NEW(mp) CReqdPropPlan(pcrsCopy, peo, ped, per, pcter);
@@ -1166,7 +1166,7 @@ CExpressionTest::EresCheckCachedReqdCols
 
 		// add plan props of current child to derived props array
 		DrvdPropArray *pdp = pexprChild->PdpDerive();
-		pdp->AddRef();
+		pdp = pdp->Copy(mp);
 		pdrgpdp->Append(pdp);
 	}
 

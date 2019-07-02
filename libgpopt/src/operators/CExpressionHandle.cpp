@@ -85,7 +85,7 @@ CExpressionHandle::~CExpressionHandle()
 	CRefCount::SafeRelease(m_pgexpr);
 	CRefCount::SafeRelease(m_pstats);
 	CRefCount::SafeRelease(m_prp);
-	CRefCount::SafeRelease(m_pdpplan);
+	GPOS_DELETE(m_pdpplan);
 	CRefCount::SafeRelease(m_pdrgpstat);
 	CRefCount::SafeRelease(m_pdrgprp);
 }

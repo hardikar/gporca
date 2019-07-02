@@ -28,7 +28,7 @@ namespace gpopt
 	class CReqdPropPlan;
 	
 	// dynamic array for properties
-	typedef CDynamicPtrArray<DrvdPropArray, CleanupRelease> CDrvdProp2dArray;
+	typedef CDynamicPtrArray<DrvdPropArray, CleanupDelete> CDrvdProp2dArray;
 
 	//---------------------------------------------------------------------------
 	//	@class:
@@ -62,7 +62,7 @@ namespace gpopt
 	//		CExpressionHandle::DeriveProps().
 	//
 	//---------------------------------------------------------------------------
-	class DrvdPropArray : public CRefCount
+	class DrvdPropArray
 	{
 
 		public:
@@ -107,6 +107,10 @@ namespace gpopt
 			// print
 			virtual
 			IOstream &OsPrint(IOstream &os) const = 0;
+
+			// TODO: This should be deleted here
+			virtual
+			DrvdPropArray *Copy(CMemoryPool *) = 0;
 
 #ifdef GPOS_DEBUG
 			// debug print for interactive debugging sessions only

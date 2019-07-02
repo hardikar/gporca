@@ -219,7 +219,7 @@ CGroup::~CGroup()
 {
 	CRefCount::SafeRelease(m_pdrgpexprHashJoinKeysOuter);
 	CRefCount::SafeRelease(m_pdrgpexprHashJoinKeysInner);
-	CRefCount::SafeRelease(m_pdp);
+	GPOS_DELETE(m_pdp);
 	CRefCount::SafeRelease(m_pexprScalar);
 	CRefCount::SafeRelease(m_pccDummy);
 	CRefCount::SafeRelease(m_pstats);

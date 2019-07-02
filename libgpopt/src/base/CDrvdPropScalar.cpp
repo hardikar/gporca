@@ -222,4 +222,26 @@ CDrvdPropScalar::OsPrint
 		return os;
 }
 
+DrvdPropArray *
+CDrvdPropScalar::Copy(CMemoryPool *mp)
+{
+	CDrvdPropScalar *pdp = GPOS_NEW(mp) CDrvdPropScalar();
+
+	pdp->m_pcrsDefined = m_pcrsDefined;
+	m_pcrsDefined->AddRef();
+
+	pdp->m_pcrsSetReturningFunction = m_pcrsSetReturningFunction;
+	m_pcrsSetReturningFunction->AddRef();
+
+	pdp->m_pcrsUsed = m_pcrsUsed;
+	m_pcrsUsed->AddRef();
+
+	pdp->m_ppartinfo = m_ppartinfo;
+	m_ppartinfo->AddRef();
+
+	pdp->m_pfp = m_pfp;
+	m_pfp->AddRef();
+
+	return pdp;
+}
 // EOF

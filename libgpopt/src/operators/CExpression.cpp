@@ -296,12 +296,12 @@ CExpression::~CExpression()
 	{
 		CAutoSuspendAbort asa;
 
-		CRefCount::SafeRelease(m_pdprel);
 		CRefCount::SafeRelease(m_pstats);
 		CRefCount::SafeRelease(m_prpp);
-		CRefCount::SafeRelease(m_pdpplan);
-		CRefCount::SafeRelease(m_pdpscalar);
 		CRefCount::SafeRelease(m_pdrgpexpr);
+		GPOS_DELETE(m_pdpplan);
+		GPOS_DELETE(m_pdpscalar);
+		GPOS_DELETE(m_pdprel);
 
 		m_pop->Release();
 	}
@@ -332,7 +332,7 @@ CExpression::CopyGroupPropsAndStats
 	GPOS_ASSERT(NULL != pdp);
 
 	// copy properties
-	pdp->AddRef();
+	pdp = pdp->Copy(m_mp);
 	if (m_pgexpr->Pgroup()->FScalar())
 	{
 		GPOS_ASSERT(NULL == m_pdpscalar);
@@ -344,6 +344,9 @@ CExpression::CopyGroupPropsAndStats
 		GPOS_ASSERT(NULL == m_pdprel);
 
 		m_pdprel = CDrvdPropRelational::GetRelationalProperties(pdp);
+		m_pdprel->m_expr->Release();
+		m_pdprel->m_expr = this;
+		GPOS_ASSERT(m_pdprel->m_expr == this);
 	}
 
 	IStatistics *stats = NULL;
@@ -557,10 +560,13 @@ CExpression::PdpDerive
 		{
 			case DrvdPropArray::EptRelational:
 				m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+				break;
 			case DrvdPropArray::EptPlan:
 				m_pdpplan = GPOS_NEW(m_mp) CDrvdPropPlan();
+				break;
 			case DrvdPropArray::EptScalar:
 				m_pdpscalar = GPOS_NEW(m_mp) CDrvdPropScalar();
+				break;
 			default:
 				break;
 		}
@@ -695,15 +701,15 @@ CExpression::ResetDerivedProperty
 	switch (ept)
 	{
 		case DrvdPropArray::EptRelational:
-			CRefCount::SafeRelease(m_pdprel);
+			GPOS_DELETE(m_pdprel);
 			m_pdprel = NULL;
 			break;
 		case DrvdPropArray::EptPlan:
-			CRefCount::SafeRelease(m_pdpplan);
+			GPOS_DELETE(m_pdpplan);
 			m_pdpplan = NULL;
 			break;
 		case DrvdPropArray::EptScalar:
-			CRefCount::SafeRelease(m_pdpscalar);
+			GPOS_DELETE(m_pdpscalar);
 			m_pdpscalar  = NULL;
 			break;
 		default:
@@ -861,7 +867,7 @@ CExpression::PrppDecorate
 
 			// add plan props of current child to derived props array
 			DrvdPropArray *pdp = pexprChild->PdpDerive();
-			pdp->AddRef();
+			pdp = pdp->Copy(m_mp);
 			pdrgpdp->Append(pdp);
 		}
 

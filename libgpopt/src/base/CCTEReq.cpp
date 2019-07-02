@@ -50,7 +50,7 @@ CCTEReq::CCTEReqEntry::CCTEReqEntry
 //---------------------------------------------------------------------------
 CCTEReq::CCTEReqEntry::~CCTEReqEntry()
 {
-	CRefCount::SafeRelease(m_pdpplan);
+	GPOS_DELETE(m_pdpplan);
 }
 
 //---------------------------------------------------------------------------
@@ -226,7 +226,7 @@ CCTEReq::InsertConsumer
 	GPOS_ASSERT(NULL != pdpplan);
 	GPOS_ASSERT(ulProducerId == id && "unexpected CTE producer plan properties");
 
-	pdpplan->AddRef();
+	pdpplan = (CDrvdPropPlan *) pdpplan->Copy(m_mp);
 	Insert(id, CCTEMap::EctConsumer, true /*fRequired*/, pdpplan);
 }
 
@@ -389,7 +389,7 @@ CCTEReq::PcterUnresolved
 		CDrvdPropPlan *pdpplan = pcre->PdpplanProducer();
 		if (NULL != pdpplan)
 		{
-			pdpplan->AddRef();
+			pdpplan = (CDrvdPropPlan *) pdpplan->Copy(m_mp);
 		}
 
 		pcterUnresolved->Insert(id, pcre->Ect(), fRequired, pdpplan);
@@ -435,7 +435,7 @@ CCTEReq::PcterUnresolvedSequence
 			// already found, so mark it as optional
 			CDrvdPropPlan *pdpplan = pcre->PdpplanProducer();
 			GPOS_ASSERT(NULL != pdpplan);
-			pdpplan->AddRef();
+			pdpplan = (CDrvdPropPlan *) pdpplan->Copy(m_mp);
 			pcterUnresolved->Insert(id, ect, false /*fReqiored*/, pdpplan);
 		}
 		else if (!fRequired && CCTEMap::EctProducer == ect && CCTEMap::EctSentinel != ectDrvd)
@@ -454,7 +454,7 @@ CCTEReq::PcterUnresolvedSequence
 			GPOS_ASSERT_IMP(NULL == pdpplan, CCTEMap::EctProducer == ect);
 			if (NULL != pdpplan)
 			{
-				pdpplan->AddRef();
+				pdpplan = (CDrvdPropPlan *) pdpplan->Copy(m_mp);
 			}
 			pcterUnresolved->Insert(id, ect, fRequired, pdpplan);
 		}
@@ -497,7 +497,7 @@ CCTEReq::PcterAllOptional
 		CDrvdPropPlan *pdpplan = pcre->PdpplanProducer();
 		if (NULL != pdpplan)
 		{
-			pdpplan->AddRef();
+			pdpplan = (CDrvdPropPlan *) pdpplan->Copy(mp);
 		}
 		pcter->Insert(pcre->Id(), pcre->Ect(), false /*fRequired*/, pdpplan);
 	}

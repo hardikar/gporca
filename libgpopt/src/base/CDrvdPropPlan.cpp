@@ -264,4 +264,30 @@ CDrvdPropPlan::OsPrint
 		return os;
 }
 
+DrvdPropArray *
+CDrvdPropPlan::Copy(CMemoryPool *mp)
+{
+	CDrvdPropPlan *pdp =
+		GPOS_NEW(mp) CDrvdPropPlan();
+
+	pdp->m_pos = m_pos;
+	m_pos->AddRef();
+
+	pdp->m_pds = m_pds;
+	m_pds->AddRef();
+
+	pdp->m_prs = m_prs;
+	m_prs->AddRef();
+
+	pdp->m_ppim = m_ppim;
+	m_ppim->AddRef();
+
+	pdp->m_ppfm = m_ppfm;
+	m_ppfm->AddRef();
+
+	pdp->m_pcm = m_pcm;
+	m_pcm->AddRef();
+
+	return pdp;
+}
 // EOF

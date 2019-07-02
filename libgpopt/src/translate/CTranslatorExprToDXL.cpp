@@ -116,7 +116,7 @@ CTranslatorExprToDXL::~CTranslatorExprToDXL()
 	CRefCount::SafeRelease(m_pdrgpiSegments);
 	m_phmcrdxln->Release();
 	m_phmcrdxlnIndexLookup->Release();
-	CRefCount::SafeRelease(m_pdpplan);
+	GPOS_DELETE(m_pdpplan);
 }
 
 //---------------------------------------------------------------------------
@@ -281,7 +281,7 @@ CTranslatorExprToDXL::PdxlnTranslate
 	GPOS_ASSERT(NULL == m_pdpplan);
 	
 	m_pdpplan = CDrvdPropPlan::Pdpplan(pexpr->PdpDerive());
-	m_pdpplan->AddRef();
+	m_pdpplan = (gpopt::CDrvdPropPlan *) m_pdpplan->Copy(m_mp);
 
 	CDistributionSpecArray *pdrgpdsBaseTables = GPOS_NEW(m_mp) CDistributionSpecArray(m_mp);
 	ULONG ulNonGatherMotions = 0;

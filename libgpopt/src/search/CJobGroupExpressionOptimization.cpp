@@ -405,8 +405,8 @@ CJobGroupExpressionOptimization::DerivePrevChildProps
 	CExpressionHandle exprhdl(psc->GetGlobalMemoryPool());
 	exprhdl.Attach(pccChildBest);
 	exprhdl.DerivePlanProps();
-	exprhdl.Pdp()->AddRef();
-	m_pdrgpdp->Append(exprhdl.Pdp());
+	DrvdPropArray *pdpCopy = exprhdl.Pdp()->Copy(psc->GetGlobalMemoryPool());
+	m_pdrgpdp->Append(pdpCopy);
 
 	// copy stats of child's best cost context to current stats context
 	IStatistics *pstat = pccChildBest->Pstats();

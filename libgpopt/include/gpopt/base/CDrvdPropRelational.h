@@ -50,6 +50,8 @@ namespace gpopt
 	class CDrvdPropRelational : public DrvdPropArray
 	{
 
+		friend class CExpression;
+
 		private:
 
 			CExpression *m_expr;
@@ -177,6 +179,9 @@ namespace gpopt
 			// print function
 			virtual
 			IOstream &OsPrint(IOstream &os) const;
+
+			virtual
+			DrvdPropArray *Copy(CMemoryPool *);
 
 	}; // class CDrvdPropRelational
 

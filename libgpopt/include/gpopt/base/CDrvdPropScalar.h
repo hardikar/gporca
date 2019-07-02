@@ -170,6 +170,8 @@ namespace gpopt
 			virtual
 			IOstream &OsPrint(IOstream &os) const;
 
+			DrvdPropArray *Copy(CMemoryPool *mp);
+
 	}; // class CDrvdPropScalar
 
 }

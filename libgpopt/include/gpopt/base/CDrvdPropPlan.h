@@ -45,7 +45,6 @@ namespace gpopt
 	//---------------------------------------------------------------------------
 	class CDrvdPropPlan : public DrvdPropArray
 	{
-
 		private:
 
 			// derived sort order
@@ -146,6 +145,8 @@ namespace gpopt
 			// print function
 			virtual
 			IOstream &OsPrint(IOstream &os) const;
+
+		DrvdPropArray *Copy(CMemoryPool *mp);
 
 	}; // class CDrvdPropPlan
 	

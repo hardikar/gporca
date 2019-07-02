@@ -30,11 +30,11 @@ namespace gpopt
 
 	// hash map from CTE id to corresponding producer plan properties
 	typedef CHashMap<ULONG, CDrvdPropPlan, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupRelease<CDrvdPropPlan> > UlongToDrvdPropPlanMap;
+					CleanupDelete<ULONG>, CleanupDelete<CDrvdPropPlan> > UlongToDrvdPropPlanMap;
 
 	// iterator for plan properties map
 	typedef CHashMapIter<ULONG, CDrvdPropPlan, gpos::HashValue<ULONG>, gpos::Equals<ULONG>,
-					CleanupDelete<ULONG>, CleanupRelease<CDrvdPropPlan> > UlongToDrvdPropPlanMapIter;
+					CleanupDelete<ULONG>, CleanupDelete<CDrvdPropPlan> > UlongToDrvdPropPlanMapIter;
 
 	// forward declaration
 	class CCTEReq;
@@ -109,7 +109,7 @@ namespace gpopt
 					virtual
 					~CCTEMapEntry()
 					{
-						CRefCount::SafeRelease(m_pdpplan);
+						GPOS_DELETE(m_pdpplan);
 					}
 
 					// cte id

@@ -99,8 +99,8 @@ CCostContext::~CCostContext()
 	CRefCount::SafeRelease(m_pgexprForStats);
 	CRefCount::SafeRelease(m_poc);
 	CRefCount::SafeRelease(m_pdrgpoc);
-	CRefCount::SafeRelease(m_pdpplan);
 	CRefCount::SafeRelease(m_pstats);
+	GPOS_DELETE(m_pdpplan);
 }
 
 
@@ -242,8 +242,7 @@ CCostContext::DerivePlanProps
 		GPOS_ASSERT(NULL != pdpplan);
 
 		// set derived plan properties
-		pdpplan->AddRef();
-		m_pdpplan = pdpplan;
+		m_pdpplan = (CDrvdPropPlan *) pdpplan->Copy(mp);
 		GPOS_ASSERT(NULL != m_pdpplan);
 	}
 }

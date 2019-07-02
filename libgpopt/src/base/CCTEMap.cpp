@@ -70,7 +70,7 @@ CCTEMap::Insert
 
 	if (NULL != pdpplan)
 	{
-		pdpplan->AddRef();
+		pdpplan = (CDrvdPropPlan *) pdpplan->Copy(m_mp);
 	}
 
 	CCTEMapEntry *pcme = GPOS_NEW(m_mp) CCTEMapEntry(ulCteId, ect, pdpplan);

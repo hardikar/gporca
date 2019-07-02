@@ -1125,8 +1125,8 @@ CEngine::PdrgpocOptimizeChildren
 		CExpressionHandle exprhdlChild(m_mp);
 		exprhdlChild.Attach(pccChildBest);
 		exprhdlChild.DerivePlanProps();
-		exprhdlChild.Pdp()->AddRef();
-		pdrgpdp->Append(exprhdlChild.Pdp());
+		DrvdPropArray *pdpCopy = exprhdlChild.Pdp()->Copy(m_mp);
+		pdrgpdp->Append(pdpCopy);
 
 		// copy stats of child's best cost context to current stats context
 		IStatistics *pstat = pccChildBest->Pstats();

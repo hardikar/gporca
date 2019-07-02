@@ -67,7 +67,8 @@ CDrvdPropRelational::~CDrvdPropRelational()
 	{
 		CAutoSuspendAbort asa;
 
-		CRefCount::SafeRelease(m_expr);
+		if (NULL != m_expr && 0 != m_expr->RefCount())
+			m_expr->Release();
 		CRefCount::SafeRelease(m_pcrsOutput);
 		CRefCount::SafeRelease(m_pcrsOuter);
 		CRefCount::SafeRelease(m_pcrsNotNull);
@@ -109,7 +110,7 @@ CDrvdPropRelational::Derive
 	}
 
 	m_expr = exprhdl.Pexpr();
-	m_expr->AddRef();
+	// m_expr->AddRef();
 
 	m_drvd_prop_ctxt = pdpctxt;
 
@@ -518,6 +519,46 @@ BOOL
 CDrvdPropRelational::FHasPartialIndexes() const
 {
 	return m_fHasPartialIndexes;
+}
+
+DrvdPropArray *
+CDrvdPropRelational::Copy(CMemoryPool *mp)
+{
+	CDrvdPropRelational *pdp =
+		GPOS_NEW(mp) CDrvdPropRelational();
+
+	pdp->m_expr = m_expr;
+	m_expr->AddRef();
+
+	pdp->m_pcrsOutput = m_pcrsOutput;
+	m_pcrsOutput->AddRef();
+
+	pdp->m_pcrsOuter = m_pcrsOuter;
+	m_pcrsOuter->AddRef();
+
+	pdp->m_pcrsNotNull = m_pcrsNotNull;
+	m_pcrsNotNull->AddRef();
+
+	pdp->m_pcrsCorrelatedApply = m_pcrsCorrelatedApply;
+	m_pcrsCorrelatedApply->AddRef();
+
+	pdp->m_pkc = m_pkc;
+	if (NULL != m_pkc)
+		m_pkc->AddRef();
+
+	pdp->m_pdrgpfd = m_pdrgpfd;
+	m_pdrgpfd->AddRef();
+
+	pdp->m_ppartinfo = m_ppartinfo;
+	m_ppartinfo->AddRef();
+
+	pdp->m_ppc = m_ppc;
+	m_ppc->AddRef();
+
+	pdp->m_pfp = m_pfp;
+	m_pfp->AddRef();
+
+	return pdp;
 }
 
 // EOF
