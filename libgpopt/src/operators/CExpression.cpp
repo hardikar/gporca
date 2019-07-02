@@ -311,6 +311,18 @@ CExpression::~CExpression()
 #endif // GPOS_DEBUG
 }
 
+void
+CExpression::Release()
+{
+	//std::cout << "FOO" << std::endl;
+	if (RefCount() == 2 && NULL != m_pdprel && m_pdprel->RefCount() == 1)
+	{
+		ExchangeAddUlongPtrWithInt(&m_refs, -1);
+	}
+
+	CRefCount::Release();
+
+}
 
 //---------------------------------------------------------------------------
 //	@function:

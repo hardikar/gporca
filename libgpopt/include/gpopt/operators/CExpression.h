@@ -121,6 +121,8 @@ namespace gpopt
 			CExpression(const CExpression &);
 						
 		public:
+
+			void Release();
 		
 			// ctor's with different arity
 

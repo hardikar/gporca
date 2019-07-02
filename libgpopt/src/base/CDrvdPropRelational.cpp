@@ -67,7 +67,9 @@ CDrvdPropRelational::~CDrvdPropRelational()
 	{
 		CAutoSuspendAbort asa;
 
-		CRefCount::SafeRelease(m_expr);
+		if (NULL != m_expr && 0 != m_expr->RefCount())
+			m_expr->Release();
+		//CRefCount::SafeRelease(m_expr);
 		CRefCount::SafeRelease(m_pcrsOutput);
 		CRefCount::SafeRelease(m_pcrsOuter);
 		CRefCount::SafeRelease(m_pcrsNotNull);
@@ -83,7 +85,6 @@ CDrvdPropRelational::~CDrvdPropRelational()
 	CWorker::Self()->ResetTimeSlice();
 #endif // GPOS_DEBUG
 }
-
 
 //---------------------------------------------------------------------------
 //	@function:

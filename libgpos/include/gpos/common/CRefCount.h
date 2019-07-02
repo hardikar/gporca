@@ -41,7 +41,7 @@ namespace gpos
 	//---------------------------------------------------------------------------
 	class CRefCount : public CHeapObject
 	{
-		private:
+		protected:
 		
 			// reference counter -- first in class to be in sync with Check()
 			volatile ULONG_PTR m_refs;
@@ -99,7 +99,7 @@ namespace gpos
 			}
 
 			// count down
-			void Release()
+			virtual void Release()
 			{
 #ifdef GPOS_DEBUG	
 				Check();
