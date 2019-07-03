@@ -30,7 +30,8 @@
 namespace gpopt
 {
 	// cleanup function for arrays
-	class CExpression;	
+	class CExpression;
+	struct SDrvdPropInfo;
 	typedef CDynamicPtrArray<CExpression, CleanupRelease> CExpressionArray;
 
 	// array of arrays of expression pointers
@@ -251,6 +252,8 @@ namespace gpopt
 			// derive properties, determine the suitable derived property type internally
 			DrvdPropArray *PdpDerive(CDrvdPropCtxt *pdpctxt = NULL);
 
+			SDrvdPropInfo GetDrvdPropRelational(CDrvdPropCtxt *pdpctxt = NULL);
+
 			// derive statistics
 			IStatistics *PstatsDerive(CReqdPropRelational *prprel, IStatisticsArray *stats_ctxt);
 
@@ -324,6 +327,16 @@ namespace gpopt
 	}; // class CExpression
 
 
+	struct SDrvdPropInfo
+	{
+		CExpression *m_expr;
+		CDrvdPropRelational *m_pdprel;
+
+		SDrvdPropInfo(CExpression *expr, CDrvdPropRelational *pdprel) : m_expr(expr), m_pdprel(pdprel) {}
+
+		CColRefSet *PcrsOuter();
+	};
+
 	// shorthand for printing
 	inline
 	IOstream &operator << (IOstream &os, CExpression &expr)
@@ -340,6 +353,7 @@ namespace gpopt
 					CleanupDelete<ULONG>, CleanupRelease<CExpression> > UlongToExprMapIter;
 
 }
+
 
 
 #endif // !GPOPT_CExpression_H

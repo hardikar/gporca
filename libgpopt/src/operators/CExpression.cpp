@@ -571,6 +571,41 @@ CExpression::PdpDerive
 	return Pdp(ept);
 }
 
+SDrvdPropInfo
+CExpression::GetDrvdPropRelational(CDrvdPropCtxt *pdpctxt)
+{
+	GPOS_CHECK_STACK_SIZE;
+	GPOS_CHECK_ABORT;
+
+#ifdef GPOS_DEBUG
+	const DrvdPropArray::EPropType ept = Ept();
+	AssertValidPropDerivation(ept);
+#endif // GPOS_DEBUG
+
+	// see if suitable prop is already cached
+	if (NULL == m_pdprel)
+	{
+		const ULONG arity = Arity();
+		for (ULONG ul = 0; ul < arity; ul++)
+		{
+			CExpression *pexprChild = (*m_pdrgpexpr)[ul];
+			DrvdPropArray *pdp = pexprChild->PdpDerive(pdpctxt);
+
+			// add child props to derivation context
+			CDrvdPropCtxt::AddDerivedProps(pdp, pdpctxt);
+		}
+
+		CExpressionHandle exprhdl(m_mp);
+		exprhdl.Attach(this);
+		exprhdl.CopyStats();
+
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+
+		m_pdprel->Derive2(m_mp, exprhdl, pdpctxt);
+	}
+
+	return SDrvdPropInfo(this, m_pdprel);
+}
 
 
 //---------------------------------------------------------------------------
@@ -1550,6 +1585,14 @@ CExpression::FValidPartEnforcers
 	}
 
 	return true;
+}
+
+
+// outer references
+CColRefSet *
+SDrvdPropInfo::PcrsOuter()
+{
+	return m_pdprel->PcrsOuter(m_expr);
 }
 
 // EOF

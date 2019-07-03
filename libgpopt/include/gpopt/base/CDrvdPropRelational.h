@@ -123,11 +123,14 @@ namespace gpopt
 			// derivation function
 			void Derive(CMemoryPool *mp, CExpressionHandle &exprhdl, CDrvdPropCtxt *pdpctxt);
 
+			void Derive2(CMemoryPool *mp, CExpressionHandle &exprhdl, CDrvdPropCtxt *pdpctxt);
+
 			// output columns
 			CColRefSet *PcrsOutput() const;
 
 			// outer references
 			CColRefSet *PcrsOuter() const;
+			CColRefSet *PcrsOuter(CExpression *);
 			
 			// nullable columns
 			CColRefSet *PcrsNotNull() const;
