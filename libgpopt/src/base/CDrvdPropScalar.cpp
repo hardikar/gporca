@@ -242,6 +242,11 @@ CDrvdPropScalar::Copy(CMemoryPool *mp)
 	pdp->m_pfp = m_pfp;
 	m_pfp->AddRef();
 
+	pdp->m_fHasSubquery = m_fHasSubquery;
+	pdp->m_fHasNonScalarFunction = m_fHasNonScalarFunction;
+	pdp->m_fHasScalarArrayCmp = m_fHasScalarArrayCmp;
+	pdp->m_ulDistinctAggs = m_ulDistinctAggs;
+
 	return pdp;
 }
 // EOF

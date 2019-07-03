@@ -546,17 +546,23 @@ CDrvdPropRelational::Copy(CMemoryPool *mp)
 	if (NULL != m_pkc)
 		m_pkc->AddRef();
 
+	pdp->m_ppc = m_ppc;
+	m_ppc->AddRef();
+
+	pdp->m_maxcard = m_maxcard;
+
+	pdp->m_ulJoinDepth = m_ulJoinDepth;
+
 	pdp->m_pdrgpfd = m_pdrgpfd;
 	m_pdrgpfd->AddRef();
 
 	pdp->m_ppartinfo = m_ppartinfo;
 	m_ppartinfo->AddRef();
 
-	pdp->m_ppc = m_ppc;
-	m_ppc->AddRef();
-
 	pdp->m_pfp = m_pfp;
 	m_pfp->AddRef();
+
+	pdp->m_fHasPartialIndexes = m_fHasPartialIndexes;
 
 	return pdp;
 }
