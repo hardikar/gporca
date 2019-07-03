@@ -344,9 +344,6 @@ CExpression::CopyGroupPropsAndStats
 		GPOS_ASSERT(NULL == m_pdprel);
 
 		m_pdprel = CDrvdPropRelational::GetRelationalProperties(pdp);
-		m_pdprel->m_expr->Release();
-		m_pdprel->m_expr = this;
-		GPOS_ASSERT(m_pdprel->m_expr == this);
 	}
 
 	IStatistics *stats = NULL;
