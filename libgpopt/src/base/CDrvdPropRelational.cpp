@@ -304,7 +304,7 @@ CDrvdPropRelational::PdrgpfdChild
 	CFunctionalDependencyArray *pdrgpfdChild = exprhdl.GetRelationalProperties(child_index)->Pdrgpfd();
 
 	// get output columns of the parent
-	CColRefSet *pcrsOutput = CDrvdPropRelational::GetRelationalProperties(exprhdl.Pdp())->PcrsOutput();
+	CColRefSet *pcrsOutput = exprhdl.PcrsOutput();
 
 	// collect child FD's that are applicable to the parent
 	CFunctionalDependencyArray *pdrgpfd = GPOS_NEW(mp) CFunctionalDependencyArray(mp);
@@ -370,7 +370,7 @@ CDrvdPropRelational::PdrgpfdLocal
 		pcrsKey->Include(pdrgpcrKey);
 
 		// get output columns
-		CColRefSet *pcrsOutput = CDrvdPropRelational::GetRelationalProperties(exprhdl.Pdp())->PcrsOutput();
+		CColRefSet *pcrsOutput = exprhdl.PcrsOutput();
 		CColRefSet *pcrsDetermined = GPOS_NEW(mp) CColRefSet(mp);
 		pcrsDetermined->Include(pcrsOutput);
 		pcrsDetermined->Exclude(pcrsKey);

@@ -588,7 +588,7 @@ CPhysical::PcrsChildReqd
 	}
 
 	// intersect computed column set with child's output columns
-	pcrs->Intersection(exprhdl.GetRelationalProperties(child_index)->PcrsOutput());
+	pcrs->Intersection(exprhdl.PcrsOutput(child_index));
 
 	// lookup map again to handle concurrent map lookup/insertion
 	{
@@ -640,7 +640,7 @@ CPhysical::FUnaryProvidesReqdCols
 {
 	GPOS_ASSERT(NULL != pcrsRequired);
 
-	CColRefSet *pcrsOutput = exprhdl.GetRelationalProperties(0 /*child_index*/)->PcrsOutput();
+	CColRefSet *pcrsOutput = exprhdl.PcrsOutput(0 /*child_index*/);
 
 	return pcrsOutput->ContainsAll(pcrsRequired);
 }
