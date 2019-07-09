@@ -592,7 +592,6 @@ CExpression::PdpDerive
 }
 
 
-
 //---------------------------------------------------------------------------
 //	@function:
 //		CExpression::PstatsDerive
@@ -1570,6 +1569,42 @@ CExpression::FValidPartEnforcers
 	}
 
 	return true;
+}
+
+CColRefSet *
+CExpression::PcrsOuter()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->PcrsOuter(exprhdl);
+}
+
+CColRefSet *
+CExpression::PcrsOutput()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->PcrsOutput(exprhdl);
+}
+
+CPropConstraint *
+CExpression::Ppc()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->Ppc(exprhdl);
 }
 
 // EOF

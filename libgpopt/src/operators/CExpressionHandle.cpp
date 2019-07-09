@@ -1095,7 +1095,6 @@ CExpressionHandle::GetRelationalProperties
 	GPOS_RAISE(gpopt::ExmaGPOPT, gpopt::ExmiUnsatisfiedRequiredProperties);
 }
 
-
 //---------------------------------------------------------------------------
 //	@function:
 //		CExpressionHandle::GetRelationalProperties
@@ -1805,4 +1804,72 @@ CExpressionHandle::Pstats()
 {
 	return m_pstats;
 }
+
+
+CColRefSet *
+CExpressionHandle::PcrsOuter(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->PcrsOuter();
+	}
+
+	return GetRelationalProperties(i)->PcrsOuter();
+}
+
+CColRefSet *
+CExpressionHandle::PcrsOuter()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->PcrsOuter();
+	}
+
+	return GetRelationalProperties()->PcrsOuter();
+}
+
+CColRefSet *
+CExpressionHandle::PcrsOutput(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->PcrsOutput();
+	}
+
+	return GetRelationalProperties(i)->PcrsOutput();
+}
+
+CColRefSet *
+CExpressionHandle::PcrsOutput()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->PcrsOutput();
+	}
+
+	return GetRelationalProperties()->PcrsOutput();
+}
+
+CPropConstraint *
+CExpressionHandle::Ppc(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->Ppc();
+	}
+
+	return GetRelationalProperties(i)->Ppc();
+}
+
+CPropConstraint *
+CExpressionHandle::Ppc()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->Ppc();
+	}
+
+	return GetRelationalProperties()->Ppc();
+}
+
 // EOF

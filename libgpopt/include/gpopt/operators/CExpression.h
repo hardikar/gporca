@@ -40,6 +40,7 @@ namespace gpopt
 	class CDrvdPropPlan;
 	class CDrvdPropCtxt;
 	class CDrvdPropCtxtPlan;
+	class CPropConstraint;
 
 	using namespace gpos;
 	using namespace gpnaucrates;
@@ -327,6 +328,11 @@ namespace gpopt
 			// rehydrate expression from a given cost context and child expressions
 			static
 			CExpression *PexprRehydrate(CMemoryPool *mp, CCostContext *pcc, CExpressionArray *pdrgpexpr, CDrvdPropCtxtPlan *pdpctxtplan);
+
+			// Property accessors
+			CColRefSet *PcrsOuter();
+			CColRefSet *PcrsOutput();
+			CPropConstraint *Ppc();
 
 	}; // class CExpression
 
