@@ -3283,10 +3283,7 @@ CTranslatorExprToDXL::PcrsOuterRefsForCorrelatedNLJoin
 
 	CExpression *pexprInnerChild = (*pexpr)[1];
 
-	// get inner child's relational properties
-	CDrvdPropRelational *pdprel = CDrvdPropRelational::GetRelationalProperties(pexprInnerChild->Pdp(DrvdPropArray::EptRelational));
-
-	return pdprel->PcrsOuter();
+	return pexprInnerChild->PcrsOuter();
 }
 
 
@@ -3750,12 +3747,9 @@ CTranslatorExprToDXL::PdxlnNLJoin
 	CDrvdPropRelational *pdprelOuter =
 			CDrvdPropRelational::GetRelationalProperties(pexprOuterChild->Pdp(DrvdPropArray::EptRelational));
 
-	CDrvdPropRelational *pdprelInner =
-			CDrvdPropRelational::GetRelationalProperties(pexprInnerChild->Pdp(DrvdPropArray::EptRelational));
-
 	GPOS_ASSERT_IMP(COperator::EopPhysicalInnerIndexNLJoin != pop->Eopid() &&
 					COperator::EopPhysicalLeftOuterIndexNLJoin != pop->Eopid()
-			, pdprelInner->PcrsOuter()->IsDisjoint(pdprelOuter->PcrsOutput()) &&
+			, pexprInnerChild->PcrsOuter()->IsDisjoint(pdprelOuter->PcrsOutput()) &&
 			"detected outer references in NL inner child");
 #endif // GPOS_DEBUG
 
