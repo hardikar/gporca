@@ -571,6 +571,31 @@ CExpression::PdpDerive
 	return Pdp(ept);
 }
 
+CColRefSet *
+CExpression::PcrsOuter()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+		m_pdprel->Derive2(m_mp, this, NULL /* XXX */);
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->PcrsOuter(exprhdl);
+}
+
+CColRefSet *
+CExpression::PcrsOutput()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+		m_pdprel->Derive2(m_mp, this, NULL /* XXX */);
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->PcrsOutput(exprhdl);
+}
 
 
 //---------------------------------------------------------------------------

@@ -199,10 +199,8 @@ CDecorrelator::FProcess
 	GPOS_ASSERT_IMP(CUtils::FApply(pexpr->Pop()), CUtils::FCorrelatedApply(pexpr->Pop()) &&
 			"Apply expression is encountered by decorrelator");
 
-	CDrvdPropRelational *pdprel = CDrvdPropRelational::GetRelationalProperties(pexpr->PdpDerive());
-
 	// no outer references?
-	if (0 == pdprel->PcrsOuter()->Size())
+	if (0 == pexpr->PcrsOuter()->Size())
 	{
 		pexpr->AddRef();
 		*ppexprDecorrelated = pexpr;

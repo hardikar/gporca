@@ -281,6 +281,11 @@ namespace gpopt
 			// as columns used by all its scalar children
 			CColRefSet *PcrsUsedColumns(CMemoryPool *mp);
 
+			CColRefSet *PcrsOuter();
+			CColRefSet *PcrsOuter(ULONG i);
+
+			CColRefSet *PcrsOutput();
+			CColRefSet *PcrsOutput(ULONG i);
 		friend class CExpression;
 
 	}; // class CExpressionHandle

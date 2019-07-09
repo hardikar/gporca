@@ -321,6 +321,11 @@ namespace gpopt
 			CExpression *PexprRehydrate(CMemoryPool *mp, CCostContext *pcc, CExpressionArray *pdrgpexpr, CDrvdPropCtxtPlan *pdpctxtplan);
 
 
+			// Property accessors
+		    CColRefSet *PcrsOuter();
+			CColRefSet *PcrsOutput();
+
+
 	}; // class CExpression
 
 

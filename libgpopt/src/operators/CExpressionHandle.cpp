@@ -1095,7 +1095,49 @@ CExpressionHandle::GetRelationalProperties
 	GPOS_RAISE(gpopt::ExmaGPOPT, gpopt::ExmiUnsatisfiedRequiredProperties);
 }
 
+CColRefSet *
+CExpressionHandle::PcrsOuter(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->PcrsOuter();
+	}
 
+	return GetRelationalProperties(i)->PcrsOuter();
+}
+
+CColRefSet *
+CExpressionHandle::PcrsOuter()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->PcrsOuter();
+	}
+
+	return GetRelationalProperties()->PcrsOuter();
+}
+
+CColRefSet *
+CExpressionHandle::PcrsOutput(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->PcrsOutput();
+	}
+
+	return GetRelationalProperties(i)->PcrsOutput();
+}
+
+CColRefSet *
+CExpressionHandle::PcrsOutput()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->PcrsOutput();
+	}
+
+	return GetRelationalProperties()->PcrsOutput();
+}
 //---------------------------------------------------------------------------
 //	@function:
 //		CExpressionHandle::GetRelationalProperties
