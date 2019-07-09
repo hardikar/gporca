@@ -859,7 +859,7 @@ CUtils::FUsesNullableCol
 	CColRefSet *pcrsNotNull = CDrvdPropRelational::GetRelationalProperties(pexprLogical->PdpDerive())->PcrsNotNull();
 	CColRefSet *pcrsUsed = GPOS_NEW(mp) CColRefSet(mp);
 	pcrsUsed->Include(CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed());
-	pcrsUsed->Intersection(CDrvdPropRelational::GetRelationalProperties(pexprLogical->PdpDerive())->PcrsOutput());
+	pcrsUsed->Intersection(pexprLogical->PcrsOutput());
 
 	BOOL fUsesNullableCol = !pcrsNotNull->ContainsAll(pcrsUsed);
 	pcrsUsed->Release();
@@ -1904,7 +1904,7 @@ CUtils::PexprCountStarAndSum
 	CExpression *pexprLogical
 	)
 {
-	GPOS_ASSERT(CDrvdPropRelational::GetRelationalProperties(pexprLogical->PdpDerive())->PcrsOutput()->FMember(colref));
+	GPOS_ASSERT(pexprLogical->PcrsOutput()->FMember(colref));
 
 	CColumnFactory *col_factory = COptCtxt::PoctxtFromTLS()->Pcf();
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
@@ -2593,7 +2593,7 @@ CUtils::PdrgpcrGroupingKey
 	CKeyCollection *pkc = CDrvdPropRelational::GetRelationalProperties(pexpr->PdpDerive())->Pkc();
 	GPOS_ASSERT(NULL != pkc);
 
-	CColRefSet *pcrsOutput = CDrvdPropRelational::GetRelationalProperties(pexpr->PdpDerive())->PcrsOutput();
+	CColRefSet *pcrsOutput = pexpr->PcrsOutput();
 
 	// filter out system columns since they may introduce columns with undefined sort/hash operators
 	CColRefArray *colref_array = PdrgpcrNonSystemCols(mp, pcrsOutput);
@@ -3287,8 +3287,8 @@ CUtils::FUsesChildColsOnly
 	CMemoryPool *mp = amp.Pmp();
 	CColRefSet *pcrsUsed =  exprhdl.GetDrvdScalarProps(2 /*child_index*/)->PcrsUsed();
 	CColRefSet *pcrs = GPOS_NEW(mp) CColRefSet(mp);
-	pcrs->Include(exprhdl.GetRelationalProperties(0 /*child_index*/)->PcrsOutput());
-	pcrs->Include(exprhdl.GetRelationalProperties(1 /*child_index*/)->PcrsOutput());
+	pcrs->Include(exprhdl.PcrsOutput(0 /*child_index*/));
+	pcrs->Include(exprhdl.PcrsOutput(1 /*child_index*/));
 	BOOL fUsesChildCols = pcrs->ContainsAll(pcrsUsed);
 	pcrs->Release();
 
@@ -3309,7 +3309,7 @@ CUtils::FInnerUsesExternalCols
 	{
 		return false;
 	}
-	CColRefSet *pcrsOutput = exprhdl.GetRelationalProperties(0 /*child_index*/)->PcrsOutput();
+	CColRefSet *pcrsOutput = exprhdl.PcrsOutput(0 /*child_index*/);
 
 	return !pcrsOutput->ContainsAll(outer_refs);
 }
@@ -3322,7 +3322,7 @@ CUtils::FInnerUsesExternalColsOnly
 	)
 {
 	return FInnerUsesExternalCols(exprhdl) &&
-			exprhdl.PcrsOuter(1)->IsDisjoint(exprhdl.GetRelationalProperties(0)->PcrsOutput());
+			exprhdl.PcrsOuter(1)->IsDisjoint(exprhdl.PcrsOutput(0));
 }
 
 // check if given columns have available comparison operators
@@ -4887,7 +4887,7 @@ CUtils::FInnerRefInProjectList
 	GPOS_ASSERT(COperator::EopLogicalProject == pexpr->Pop()->Eopid());
 
 	// extract output columns of the relational child
-	CColRefSet *pcrsOuterOutput = CDrvdPropRelational::GetRelationalProperties((*pexpr)[0]->PdpDerive())->PcrsOutput();
+	CColRefSet *pcrsOuterOutput = (*pexpr)[0]->PcrsOutput();
 
 	// Project List with one project element
 	CExpression *pexprInner = (*pexpr)[1];

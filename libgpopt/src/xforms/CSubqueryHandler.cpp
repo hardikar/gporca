@@ -274,7 +274,7 @@ CSubqueryHandler::FProjectCountSubquery
 		return false;
 	}
 
-	CColRefSet *pcrsOutput = CDrvdPropRelational::GetRelationalProperties(pexprPrjChild->PdpDerive())->PcrsOutput();
+	CColRefSet *pcrsOutput = pexprPrjChild->PcrsOutput();
 	if (1 < pcrsOutput->Size())
 	{
 		// fail if GbAgg has more than one output column
@@ -335,7 +335,7 @@ CSubqueryHandler::Psd
 
 	CExpression *pexprInner = (*pexprSubquery)[0];
 	CColRefSet *outer_refs = (*pexprSubquery)[0]->PcrsOuter();
-	CColRefSet *pcrsOuterOutput = CDrvdPropRelational::GetRelationalProperties(pexprOuter->PdpDerive())->PcrsOutput();
+	CColRefSet *pcrsOuterOutput = pexprOuter->PcrsOutput();
 
 	SSubqueryDesc *psd = GPOS_NEW(mp) SSubqueryDesc();
 	psd->m_returns_set = (1 < CDrvdPropRelational::GetRelationalProperties(pexprInner->PdpDerive())->Maxcard().Ull());
@@ -781,8 +781,8 @@ CSubqueryHandler::FCreateGrpCols
 	GPOS_ASSERT(NULL != ppdrgpcr);
 	GPOS_ASSERT(NULL != pfGbOnInner);
 
-	CColRefSet *pcrsOuterOutput =  CDrvdPropRelational::GetRelationalProperties(pexprOuter->PdpDerive())->PcrsOutput();
-	CColRefSet *pcrsInnerOutput = CDrvdPropRelational::GetRelationalProperties(pexprInner->PdpDerive())->PcrsOutput();
+	CColRefSet *pcrsOuterOutput =  pexprOuter->PcrsOutput();
+	CColRefSet *pcrsInnerOutput = pexprInner->PcrsOutput();
 
 	BOOL fGbOnInner = false;
 	CExpression *pexprScalar = NULL;
@@ -1243,8 +1243,7 @@ CSubqueryHandler::FCreateCorrelatedApplyForExistentialSubquery
 
 	// for existential subqueries, any column produced by inner expression
 	// can be used to check for empty answers; we use first column for that
-	CDrvdPropRelational *pdpInner = CDrvdPropRelational::GetRelationalProperties(pexprInner->PdpDerive());
-	CColRef *colref = pdpInner->PcrsOutput()->PcrFirst();
+	CColRef *colref = pexprInner->PcrsOutput()->PcrFirst();
 
 	pexprInner->AddRef();
 	if (EsqctxtFilter == esqctxt)
@@ -1484,7 +1483,7 @@ CSubqueryHandler::PexprIsNotNull
 	{
 		CColRefSet *pcrsUsed = GPOS_NEW(mp) CColRefSet(mp);
 		pcrsUsed->Include(CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed());
-		pcrsUsed->Intersection(CDrvdPropRelational::GetRelationalProperties(pexprOuter->PdpDerive())->PcrsOutput());
+		pcrsUsed->Intersection(pexprOuter->PcrsOutput());
 		BOOL fHasOuterRefs = (0 < pcrsUsed->Size());
 		pcrsUsed->Release();
 
@@ -1876,10 +1875,9 @@ CSubqueryHandler::FRemoveExistentialSubquery
 	{
 		GPOS_ASSERT(EsqctxtFilter == esqctxt);
 
-		CDrvdPropRelational *pdpInner = CDrvdPropRelational::GetRelationalProperties(pexprInner->PdpDerive());
 		// for existential subqueries, any column produced by inner expression
 		// can be used to check for empty answers; we use first column for that
-		CColRef *colref = pdpInner->PcrsOutput()->PcrFirst();
+		CColRef *colref = pexprInner->PcrsOutput()->PcrFirst();
 
 		if (COperator::EopScalarSubqueryExists == op_id)
 		{
