@@ -577,10 +577,13 @@ CExpression::PdpDerive
 		{
 			case DrvdPropArray::EptRelational:
 				m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+				break;
 			case DrvdPropArray::EptPlan:
 				m_pdpplan = GPOS_NEW(m_mp) CDrvdPropPlan();
+				break;
 			case DrvdPropArray::EptScalar:
 				m_pdpscalar = GPOS_NEW(m_mp) CDrvdPropScalar();
+				break;
 			default:
 				break;
 		}
