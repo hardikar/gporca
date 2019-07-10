@@ -333,6 +333,7 @@ namespace gpopt
 			CColRefSet *PcrsOuter();
 			CColRefSet *PcrsOutput();
 			CColRefSet *PcrsNotNull();
+			CColRefSet* PcrsCorrelatedApply();
 			CPropConstraint *Ppc();
 
 	}; // class CExpression
