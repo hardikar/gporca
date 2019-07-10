@@ -332,6 +332,7 @@ namespace gpopt
 			// Property accessors
 			CColRefSet *PcrsOuter();
 			CColRefSet *PcrsOutput();
+			CColRefSet *PcrsNotNull();
 			CPropConstraint *Ppc();
 
 	}; // class CExpression

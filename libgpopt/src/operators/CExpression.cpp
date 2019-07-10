@@ -43,6 +43,7 @@ static CHAR szExprBarOpPrefix[] =	"|--";
 static CHAR szExprPlusOpPrefix[] =	"+--";
 
 
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CExpression::CExpression
@@ -1602,6 +1603,18 @@ CExpression::PcrsOutput()
 	CExpressionHandle exprhdl(m_mp);
 	exprhdl.Attach(this);
 	return m_pdprel->PcrsOutput(exprhdl);
+}
+
+CColRefSet *
+CExpression::PcrsNotNull()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->PcrsNotNull(exprhdl);
 }
 
 CPropConstraint *

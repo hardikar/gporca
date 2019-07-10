@@ -287,6 +287,9 @@ namespace gpopt
 			CColRefSet *PcrsOutput();
 			CColRefSet *PcrsOutput(ULONG i);
 
+			CColRefSet *PcrsNotNull();
+			CColRefSet *PcrsNotNull(ULONG i);
+
 			CPropConstraint *Ppc();
 			CPropConstraint *Ppc(ULONG i);
 		friend class CExpression;

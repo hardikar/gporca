@@ -1849,6 +1849,28 @@ CExpressionHandle::PcrsOutput()
 	return GetRelationalProperties()->PcrsOutput();
 }
 
+CColRefSet *
+CExpressionHandle::PcrsNotNull(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->PcrsNotNull();
+	}
+
+	return GetRelationalProperties(i)->PcrsNotNull();
+}
+
+CColRefSet *
+CExpressionHandle::PcrsNotNull()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->PcrsNotNull();
+	}
+
+	return GetRelationalProperties()->PcrsNotNull();
+}
+
 CPropConstraint *
 CExpressionHandle::Ppc(ULONG i)
 {
