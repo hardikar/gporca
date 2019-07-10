@@ -87,7 +87,7 @@ namespace gpopt
 
 			// true if all logical operators in the group are of type CLogicalDynamicGet,
 			// and the dynamic get has partial indexes
-			BOOL m_fHasPartialIndexes;
+			BOOL *m_pfHasPartialIndexes;
 
 			// private copy ctor
 			CDrvdPropRelational(const CDrvdPropRelational &);
@@ -134,36 +134,47 @@ namespace gpopt
 			
 			// nullable columns
 			CColRefSet *PcrsNotNull() const;
+			CColRefSet *PcrsNotNull(CExpressionHandle &);
 
 			// columns from the inner child of a correlated-apply expression that can be used above the apply expression
 			CColRefSet *PcrsCorrelatedApply() const;
+			CColRefSet *PcrsCorrelatedApply(CExpressionHandle &);
 
 			// key collection
 			CKeyCollection *Pkc() const;
+			CKeyCollection *Pkc(CExpressionHandle &);
 		
 			// functional dependencies
 			CFunctionalDependencyArray *Pdrgpfd() const;
+			CFunctionalDependencyArray *Pdrgpfd(CExpressionHandle &);
 
 			// check if relation has a key
 			BOOL FHasKey() const;
+			BOOL FHasKey(CExpressionHandle &);
 
 			// max cardinality
 			CMaxCard Maxcard() const;
+			CMaxCard Maxcard(CExpressionHandle &);
 
 			// join depth
 			ULONG JoinDepth() const;
+			ULONG JoinDepth(CExpressionHandle &);
 
 			// partition consumers
 			CPartInfo *Ppartinfo() const;
+			CPartInfo *Ppartinfo(CExpressionHandle &);
 
 			// constraint property
 			CPropConstraint *Ppc() const;
+			CPropConstraint *Ppc(CExpressionHandle &);
 
 			// function properties
 			CFunctionProp *Pfp() const;
+			CFunctionProp *Pfp(CExpressionHandle &);
 
 			// has partial indexes
 			BOOL FHasPartialIndexes() const;
+			BOOL FHasPartialIndexes(CExpressionHandle &exprhdl);
 
 			// shorthand for conversion
 			static
