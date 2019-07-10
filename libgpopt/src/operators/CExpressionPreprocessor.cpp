@@ -1170,8 +1170,7 @@ CExpressionPreprocessor::FEquivClassFromChild
 		{
 			continue;
 		}
-		CDrvdPropRelational *pdprel = CDrvdPropRelational::GetRelationalProperties(pexprChild->PdpDerive());
-		CColRefSetArray *pdrgpcrs = pdprel->Ppc()->PdrgpcrsEquivClasses();
+		CColRefSetArray *pdrgpcrs = pexprChild->Ppc()->PdrgpcrsEquivClasses();
 		if (pcrs->FContained(pdrgpcrs))
 		{
 			return true;
@@ -1195,10 +1194,8 @@ CExpressionPreprocessor::PexprAddEqualityPreds
 	GPOS_ASSERT(NULL != pexpr);
 	GPOS_ASSERT(pexpr->Pop()->FLogical());
 
-	CDrvdPropRelational *pdprel = CDrvdPropRelational::GetRelationalProperties(pexpr->PdpDerive());
-
 	const ULONG ulChildren = pexpr->Arity();
-	CPropConstraint *ppc = pdprel->Ppc();
+	CPropConstraint *ppc = pexpr->Ppc();
 
 	CExpression *pexprPred = NULL;
 	COperator *pop = pexpr->Pop();
@@ -1499,7 +1496,7 @@ CExpressionPreprocessor::PexprFromConstraints
 	CDrvdPropRelational *pdprel = CDrvdPropRelational::GetRelationalProperties(pexpr->PdpDerive());
 
 	const ULONG ulChildren = pexpr->Arity();
-	CPropConstraint *ppc = pdprel->Ppc();
+	CPropConstraint *ppc = pexpr->Ppc();
 	CColRefSet *pcrsNotNull = pdprel->PcrsNotNull();
 
 	CExpressionArray *pdrgpexprChildren = GPOS_NEW(mp) CExpressionArray(mp);
