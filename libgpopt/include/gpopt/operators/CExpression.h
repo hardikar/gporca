@@ -25,7 +25,7 @@
 #include "gpopt/base/CReqdPropRelational.h"
 #include "gpopt/base/CPrintPrefix.h"
 #include "gpopt/operators/COperator.h"
-
+#include "gpopt/base/CKeyCollection.h"
 
 namespace gpopt
 {
@@ -333,7 +333,8 @@ namespace gpopt
 			CColRefSet *PcrsOuter();
 			CColRefSet *PcrsOutput();
 			CColRefSet *PcrsNotNull();
-			CColRefSet* PcrsCorrelatedApply();
+			CColRefSet *PcrsCorrelatedApply();
+			CKeyCollection *Pkc();
 			CPropConstraint *Ppc();
 			CMaxCard Maxcard();
 

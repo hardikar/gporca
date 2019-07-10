@@ -32,6 +32,7 @@
 #include "gpopt/operators/CLogicalCTEConsumer.h"
 #include "gpopt/operators/CPhysicalCTEConsumer.h"
 #include "gpopt/base/COptCtxt.h"
+#include "gpopt/base/CKeyCollection.h"
 
 #include "gpopt/exception.h"
 
@@ -1913,6 +1914,28 @@ CExpressionHandle::PcrsCorrelatedApply()
 	}
 
 	return GetRelationalProperties()->PcrsCorrelatedApply();
+}
+
+CKeyCollection *
+CExpressionHandle::Pkc(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->Pkc();
+	}
+
+	return GetRelationalProperties(i)->Pkc();
+}
+
+CKeyCollection *
+CExpressionHandle::Pkc()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->Pkc();
+	}
+
+	return GetRelationalProperties()->Pkc();
 }
 
 CPropConstraint *

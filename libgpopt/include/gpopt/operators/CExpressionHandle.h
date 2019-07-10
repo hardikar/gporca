@@ -296,6 +296,9 @@ namespace gpopt
 			CMaxCard Maxcard();
 			CMaxCard Maxcard(ULONG i);
 
+			CKeyCollection *Pkc();
+			CKeyCollection *Pkc(ULONG i);
+
 			CPropConstraint *Ppc();
 			CPropConstraint *Ppc(ULONG i);
 		friend class CExpression;

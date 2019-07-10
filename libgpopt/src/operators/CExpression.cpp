@@ -32,6 +32,8 @@
 #include "gpopt/operators/CExpressionHandle.h"
 #include "gpopt/search/CGroupExpression.h"
 #include "naucrates/traceflags/traceflags.h"
+#include "gpopt/base/CKeyCollection.h"
+
 
 
 using namespace gpnaucrates;
@@ -1639,6 +1641,18 @@ CExpression::Maxcard()
 	CExpressionHandle exprhdl(m_mp);
 	exprhdl.Attach(this);
 	return m_pdprel->Maxcard(exprhdl);
+}
+
+CKeyCollection *
+CExpression::Pkc()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->Pkc(exprhdl);
 }
 
 CPropConstraint *
