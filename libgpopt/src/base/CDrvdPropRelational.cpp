@@ -46,7 +46,8 @@ CDrvdPropRelational::CDrvdPropRelational
 	m_ppartinfo(NULL),
 	m_ppc(NULL),
 	m_pfp(NULL),
-	m_pfHasPartialIndexes(NULL)
+	m_pfHasPartialIndexes(NULL),
+	m_is_complete(false)
 {}
 
 
@@ -136,6 +137,8 @@ CDrvdPropRelational::Derive
 	GPOS_ASSERT(NULL != m_ppartinfo);
 
 	FHasPartialIndexes(exprhdl);
+
+	m_is_complete = true;
 }
 
 void

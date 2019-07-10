@@ -556,6 +556,9 @@ CExpression::PdpDerive
 	AssertValidPropDerivation(ept);
 #endif // GPOS_DEBUG
 
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+
 	// see if suitable prop is already cached
 	if (NULL == Pdp(ept))
 	{
@@ -569,8 +572,6 @@ CExpression::PdpDerive
 			CDrvdPropCtxt::AddDerivedProps(pdp, pdpctxt);
 		}
 
-		CExpressionHandle exprhdl(m_mp);
-		exprhdl.Attach(this);
 		exprhdl.CopyStats();
 
 		switch (ept)
@@ -588,6 +589,11 @@ CExpression::PdpDerive
 				break;
 		}
 
+		Pdp(ept)->Derive(m_mp, exprhdl, pdpctxt);
+	}
+
+	else if (!Pdp(ept)->IsComplete())
+	{
 		Pdp(ept)->Derive(m_mp, exprhdl, pdpctxt);
 	}
 

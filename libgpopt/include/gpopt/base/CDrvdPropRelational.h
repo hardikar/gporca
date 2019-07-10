@@ -104,6 +104,8 @@ namespace gpopt
 			static
 			CFunctionalDependencyArray *Pdrgpfd(CMemoryPool *mp, CExpressionHandle &exprhdl);
 
+			BOOL m_is_complete;
+
 		public:
 
 			// ctor
@@ -119,6 +121,9 @@ namespace gpopt
 			{
 				return EptRelational;
 			}
+
+			virtual
+			BOOL IsComplete() const { return m_is_complete; }
 
 			// derivation function
 			void Derive(CMemoryPool *mp, CExpressionHandle &exprhdl, CDrvdPropCtxt *pdpctxt);
