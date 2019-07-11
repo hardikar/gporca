@@ -50,7 +50,29 @@ namespace gpopt
 	class CDrvdPropRelational : public DrvdPropArray
 	{
 
+		enum EDrvdPropType
+		{
+			// TODO: Rename this enum and internal variables at least!
+			EdptPcrsOutput = 0,
+			EdptPcrsOuter,
+			EdptPcrsNotNull,
+			EdptPcrsCorrelatedApply,
+			EdptPkc,
+			EdptPdrgpfd,
+			EdptMaxCard,
+			EdptPpartinfo,
+			EdptPpc,
+			EdptPfp,
+			EdptJoinDepth,
+			EdptFHasPartialIndexes,
+			EdptSentinel
+		};
+
 		private:
+
+			CMemoryPool *m_mp;
+
+			CBitSet *m_is_prop_derived;
 
 			// output columns
 			CColRefSet *m_pcrsOutput;
@@ -71,7 +93,7 @@ namespace gpopt
 			CFunctionalDependencyArray *m_pdrgpfd;
 			
 			// max card
-			CMaxCard *m_maxcard;
+			CMaxCard m_maxcard;
 			
 			// join depth (number of relations in underlying tree)
 			ULONG m_ulJoinDepth;
@@ -87,7 +109,7 @@ namespace gpopt
 
 			// true if all logical operators in the group are of type CLogicalDynamicGet,
 			// and the dynamic get has partial indexes
-			BOOL *m_pfHasPartialIndexes;
+			BOOL m_fHasPartialIndexes;
 
 			// private copy ctor
 			CDrvdPropRelational(const CDrvdPropRelational &);
@@ -109,7 +131,7 @@ namespace gpopt
 		public:
 
 			// ctor
-			CDrvdPropRelational();
+			CDrvdPropRelational(CMemoryPool *mp);
 
 			// dtor
 			virtual 

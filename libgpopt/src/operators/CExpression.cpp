@@ -578,7 +578,7 @@ CExpression::PdpDerive
 		switch (ept)
 		{
 			case DrvdPropArray::EptRelational:
-				m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+				m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
 				break;
 			case DrvdPropArray::EptPlan:
 				m_pdpplan = GPOS_NEW(m_mp) CDrvdPropPlan();
@@ -1586,7 +1586,7 @@ CExpression::PcrsOuter()
 {
 	if (m_pdprel == NULL)
 	{
-		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
 	}
 	CExpressionHandle exprhdl(m_mp);
 	exprhdl.Attach(this);
@@ -1598,7 +1598,7 @@ CExpression::PcrsOutput()
 {
 	if (m_pdprel == NULL)
 	{
-		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
 	}
 	CExpressionHandle exprhdl(m_mp);
 	exprhdl.Attach(this);
@@ -1610,7 +1610,7 @@ CExpression::PcrsNotNull()
 {
 	if (m_pdprel == NULL)
 	{
-		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
 	}
 	CExpressionHandle exprhdl(m_mp);
 	exprhdl.Attach(this);
@@ -1622,7 +1622,7 @@ CExpression::PcrsCorrelatedApply()
 {
 	if (m_pdprel == NULL)
 	{
-		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
 	}
 	CExpressionHandle exprhdl(m_mp);
 	exprhdl.Attach(this);
@@ -1634,7 +1634,7 @@ CExpression::Maxcard()
 {
 	if (m_pdprel == NULL)
 	{
-		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
 	}
 	CExpressionHandle exprhdl(m_mp);
 	exprhdl.Attach(this);
@@ -1646,7 +1646,7 @@ CExpression::Ppc()
 {
 	if (m_pdprel == NULL)
 	{
-		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
 	}
 	CExpressionHandle exprhdl(m_mp);
 	exprhdl.Attach(this);
