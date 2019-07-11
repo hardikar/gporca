@@ -1058,7 +1058,7 @@ CLogical::JoinDepth
 	{
 		if (!exprhdl.FScalarChild(ul))
 		{
-			ulDepth = ulDepth + exprhdl.GetRelationalProperties(ul)->JoinDepth();
+			ulDepth = ulDepth + exprhdl.JoinDepth(ul);
 		}
 	}
 
