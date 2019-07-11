@@ -301,6 +301,10 @@ namespace gpopt
 
 			CPropConstraint *Ppc();
 			CPropConstraint *Ppc(ULONG i);
+
+			ULONG JoinDepth();
+			ULONG JoinDepth(ULONG i);
+
 		friend class CExpression;
 
 	}; // class CExpressionHandle

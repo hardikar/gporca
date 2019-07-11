@@ -1666,4 +1666,16 @@ CExpression::Ppc()
 	return m_pdprel->Ppc(exprhdl);
 }
 
+ULONG
+CExpression::JoinDepth()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->JoinDepth(exprhdl);
+}
+
 // EOF

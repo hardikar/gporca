@@ -337,6 +337,7 @@ namespace gpopt
 			CKeyCollection *Pkc();
 			CPropConstraint *Ppc();
 			CMaxCard Maxcard();
+			ULONG JoinDepth();
 
 	}; // class CExpression
 

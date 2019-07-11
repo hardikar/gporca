@@ -1960,4 +1960,26 @@ CExpressionHandle::Ppc()
 	return GetRelationalProperties()->Ppc();
 }
 
+ULONG
+CExpressionHandle::JoinDepth(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->JoinDepth();
+	}
+
+	return GetRelationalProperties(i)->JoinDepth();
+}
+
+ULONG
+CExpressionHandle::JoinDepth()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->JoinDepth();
+	}
+
+	return GetRelationalProperties()->JoinDepth();
+}
+
 // EOF
