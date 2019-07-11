@@ -305,6 +305,9 @@ namespace gpopt
 			ULONG JoinDepth();
 			ULONG JoinDepth(ULONG i);
 
+			CFunctionProp *Pfp();
+			CFunctionProp *Pfp(ULONG i);
+
 		friend class CExpression;
 
 	}; // class CExpressionHandle

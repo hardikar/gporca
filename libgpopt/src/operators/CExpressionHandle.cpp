@@ -1982,4 +1982,26 @@ CExpressionHandle::JoinDepth()
 	return GetRelationalProperties()->JoinDepth();
 }
 
+CFunctionProp *
+CExpressionHandle::Pfp(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->Pfp();
+	}
+
+	return GetRelationalProperties(i)->Pfp();
+}
+
+CFunctionProp *
+CExpressionHandle::Pfp()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->Pfp();
+	}
+
+	return GetRelationalProperties()->Pfp();
+}
+
 // EOF

@@ -338,6 +338,7 @@ namespace gpopt
 			CPropConstraint *Ppc();
 			CMaxCard Maxcard();
 			ULONG JoinDepth();
+			CFunctionProp *Pfp();
 
 	}; // class CExpression
 
