@@ -808,7 +808,7 @@ CSubqueryHandler::FCreateGrpCols
 	}
 	else
 	{
-		if (NULL == CDrvdPropRelational::GetRelationalProperties(pexprOuter->PdpDerive())->Pkc())
+		if (NULL == pexprOuter->Pkc())
 		{
 			// outer expression must have a key
 			return false;
