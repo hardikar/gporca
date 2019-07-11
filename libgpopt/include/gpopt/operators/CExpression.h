@@ -335,6 +335,7 @@ namespace gpopt
 			CColRefSet *PcrsNotNull();
 			CColRefSet* PcrsCorrelatedApply();
 			CPropConstraint *Ppc();
+			CMaxCard Maxcard();
 
 	}; // class CExpression
 

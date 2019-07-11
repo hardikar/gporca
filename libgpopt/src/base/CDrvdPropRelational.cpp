@@ -42,6 +42,7 @@ CDrvdPropRelational::CDrvdPropRelational
 	m_pcrsCorrelatedApply(NULL),
 	m_pkc(NULL),
 	m_pdrgpfd(NULL),
+	m_maxcard(NULL),
 	m_ulJoinDepth(0),
 	m_ppartinfo(NULL),
 	m_ppc(NULL),
@@ -73,6 +74,7 @@ CDrvdPropRelational::~CDrvdPropRelational()
 		CRefCount::SafeRelease(m_ppartinfo);
 		CRefCount::SafeRelease(m_ppc);
 		CRefCount::SafeRelease(m_pfp);
+		GPOS_DELETE(m_maxcard);
 		GPOS_DELETE(m_pfHasPartialIndexes);
 	}
 
@@ -366,7 +368,7 @@ CDrvdPropRelational::OsPrint
 		os << ", " << *m_pkc;
 	}
 	
-	os << ", Max Card: " << m_maxcard;
+	os << ", Max Card: " << *m_maxcard;
 
 	os << ", Join Depth: " << m_ulJoinDepth;
 
@@ -541,21 +543,21 @@ CDrvdPropRelational::FHasKey(CExpressionHandle &exprhdl)
 CMaxCard
 CDrvdPropRelational::Maxcard() const
 {
-	return m_maxcard;
+	return *m_maxcard;
 }
 
 CMaxCard
 CDrvdPropRelational::Maxcard(CExpressionHandle &exprhdl)
 {
-	// XXX: Is GPOPT_MAX_CARD a valid value for max card?
-	if (m_maxcard.Ull() == GPOPT_MAX_CARD)
+	if (NULL == m_maxcard)
 	{
 		CMemoryPool *mp = COptCtxt::PoctxtFromTLS()->Pmp();
 		CLogical *popLogical = CLogical::PopConvert(exprhdl.Pop());
-		m_maxcard = popLogical->Maxcard(mp, exprhdl);
+		m_maxcard = GPOS_NEW(mp) CMaxCard();
+		*m_maxcard = popLogical->Maxcard(mp, exprhdl);
 	}
 
-	return m_maxcard;
+	return *m_maxcard;
 }
 
 // join depth

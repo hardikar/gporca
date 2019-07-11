@@ -1871,6 +1871,28 @@ CExpressionHandle::PcrsNotNull()
 	return GetRelationalProperties()->PcrsNotNull();
 }
 
+CMaxCard
+CExpressionHandle::Maxcard(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->Maxcard();
+	}
+
+	return GetRelationalProperties(i)->Maxcard();
+}
+
+CMaxCard
+CExpressionHandle::Maxcard()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->Maxcard();
+	}
+
+	return GetRelationalProperties()->Maxcard();
+}
+
 CColRefSet *
 CExpressionHandle::PcrsCorrelatedApply(ULONG i)
 {

@@ -71,7 +71,7 @@ namespace gpopt
 			CFunctionalDependencyArray *m_pdrgpfd;
 			
 			// max card
-			CMaxCard m_maxcard;
+			CMaxCard *m_maxcard;
 			
 			// join depth (number of relations in underlying tree)
 			ULONG m_ulJoinDepth;

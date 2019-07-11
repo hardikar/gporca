@@ -293,6 +293,9 @@ namespace gpopt
 			CColRefSet *PcrsCorrelatedApply();
 			CColRefSet *PcrsCorrelatedApply(ULONG i);
 
+			CMaxCard Maxcard();
+			CMaxCard Maxcard(ULONG i);
+
 			CPropConstraint *Ppc();
 			CPropConstraint *Ppc(ULONG i);
 		friend class CExpression;

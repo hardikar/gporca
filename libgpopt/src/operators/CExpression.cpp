@@ -1629,6 +1629,17 @@ CExpression::PcrsCorrelatedApply()
 	return m_pdprel->PcrsCorrelatedApply(exprhdl);
 }
 
+CMaxCard
+CExpression::Maxcard()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational();
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->Maxcard(exprhdl);
+}
 
 CPropConstraint *
 CExpression::Ppc()
