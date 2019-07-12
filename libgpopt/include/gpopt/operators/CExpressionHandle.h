@@ -311,6 +311,9 @@ namespace gpopt
 			CFunctionalDependencyArray *Pdrgpfd();
 			CFunctionalDependencyArray *Pdrgpfd(ULONG i);
 
+			CPartInfo *Ppartinfo();
+			CPartInfo *Ppartinfo(ULONG i);
+
 		friend class CExpression;
 
 	}; // class CExpressionHandle

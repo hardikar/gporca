@@ -340,6 +340,7 @@ namespace gpopt
 			ULONG JoinDepth();
 			CFunctionProp *Pfp();
 			CFunctionalDependencyArray *Pdrgpfd();
+			CPartInfo *Ppartinfo();
 
 	}; // class CExpression
 

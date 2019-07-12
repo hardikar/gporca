@@ -2025,4 +2025,26 @@ CExpressionHandle::Pdrgpfd()
 	return GetRelationalProperties()->Pdrgpfd();
 }
 
+CPartInfo *
+CExpressionHandle::Ppartinfo(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->Ppartinfo();
+	}
+
+	return GetRelationalProperties(i)->Ppartinfo();
+}
+
+CPartInfo *
+CExpressionHandle::Ppartinfo()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->Ppartinfo();
+	}
+
+	return GetRelationalProperties()->Ppartinfo();
+}
+
 // EOF
