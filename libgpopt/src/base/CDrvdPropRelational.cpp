@@ -662,7 +662,6 @@ CDrvdPropRelational::FHasPartialIndexes(CExpressionHandle &exprhdl)
 					exprhdl.GetRelationalProperties(0 /*child_index*/)->FHasPartialIndexes();
 		}
 
-		m_is_prop_derived->ExchangeSet(EdptFHasPartialIndexes);
 	}
 
 	return m_fHasPartialIndexes;
