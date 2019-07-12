@@ -1560,8 +1560,7 @@ CExpression::FValidPartEnforcers
 {
 	GPOS_ASSERT(Pop()->FPhysical());
 
-	CDrvdPropRelational *pdprel = GetDrvdPropRelational();
-	CPartInfo *ppartinfo = pdprel->Ppartinfo();
+	CPartInfo *ppartinfo = Ppartinfo();
 	GPOS_ASSERT(NULL != ppartinfo);
 
 	if (0 == ppartinfo->UlConsumers())
