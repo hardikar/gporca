@@ -3196,7 +3196,7 @@ CTranslatorDXLToExpr::PexprAggFunc
 		for (ULONG ul = 0; ul < pdrgpexprArgs->Size(); ul++)
 		{
 			CExpression *pexprAggrefChild = (*pdrgpexprArgs)[ul];
-			CDrvdPropScalar *pdpScalar = CDrvdPropScalar::GetDrvdScalarProps(pexprAggrefChild->PdpDerive());
+			CDrvdPropScalar *pdpScalar = pexprAggrefChild->DerivePropsScalar();
 
 			if (pdpScalar->FHasNonScalarFunction())
 			{

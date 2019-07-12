@@ -989,7 +989,7 @@ CExpressionTest::EresUnittest_FValidPlan_InvalidCTEs()
 	ULONG ulCTEId = 0;
 
 	CExpression *pexprProducer = CTestUtils::PexprLogicalCTEProducerOverSelect(mp, ulCTEId);
-	CDrvdPropPlan *pdpplan = CDrvdPropPlan::Pdpplan(pexprPlan->PdpDerive());
+	CDrvdPropPlan *pdpplan = pexprPlan->DerivePropsPlan();
 	pdpplan->AddRef();
 	pcter->Insert(ulCTEId, CCTEMap::EctProducer /*ect*/, true /*fRequired*/, pdpplan);
 	CColRefSet *pcrsCopy = GPOS_NEW(mp) CColRefSet(mp, *pcrs);

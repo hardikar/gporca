@@ -122,7 +122,7 @@ CXformEagerAgg::Transform
 	CColRefSet *push_down_gb_cols = GPOS_NEW(mp) CColRefSet
 		(
 		mp,
-		*(CDrvdPropScalar::GetDrvdScalarProps(join_condition_expr->PdpDerive())->PcrsUsed())
+		*(join_condition_expr->DerivePropsScalar()->PcrsUsed())
 		);
 	CColRefSet *grouping_cols = (CLogicalGbAgg::PopConvert(agg_expr->Pop()))->PcrsLocalUsed();
 	push_down_gb_cols->Union(grouping_cols);

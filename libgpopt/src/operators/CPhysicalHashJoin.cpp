@@ -565,7 +565,7 @@ CPhysicalHashJoin::PdshashedPassThru
 		 for (ULONG ul = 0; ul < size; ul++)
 		 {
 			 CExpression *pexpr = (*pdrgpexprIncomingRequest)[ul];
-			 CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexpr->PdpDerive())->PcrsUsed();
+			 CColRefSet *pcrsUsed = pexpr->DerivePropsScalar()->PcrsUsed();
 			 if (pcrsOuterOutput->ContainsAll(pcrsUsed))
 			 {
 				 // hashed expression uses columns from outer child only, add it to request

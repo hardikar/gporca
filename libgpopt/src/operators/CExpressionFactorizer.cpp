@@ -365,7 +365,7 @@ CExpressionFactorizer::PcrsUsedByPushableScalar
 		return NULL;
 	}
 
-	CDrvdPropScalar *pdpscalar = CDrvdPropScalar::GetDrvdScalarProps(pexpr->PdpDerive());
+	CDrvdPropScalar *pdpscalar = pexpr->DerivePropsScalar();
 	if (0 < pdpscalar->PcrsDefined()->Size() ||
 	    pdpscalar->FHasSubquery() ||
 	    IMDFunction::EfsVolatile == pdpscalar->Pfp()->Efs() ||
@@ -739,7 +739,7 @@ CExpressionFactorizer::PcrsColumnsProducedByChildren
 			if (pexprGrandChild->Pop()->FScalar())
 			{
 				CColRefSet *pcrsChildDefined =
-						CDrvdPropScalar::GetDrvdScalarProps(pexprGrandChild->PdpDerive())->PcrsDefined();
+						pexprGrandChild->DerivePropsScalar()->PcrsDefined();
 				pcrs->Include(pcrsChildDefined);
 			}
 		}

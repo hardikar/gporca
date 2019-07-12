@@ -264,7 +264,7 @@ CSubqueryHandler::FProjectCountSubquery
 	CExpression *pexprPrj = (*pexprSubquery)[0];
 	CExpression *pexprPrjChild = (*pexprPrj)[0];
 	CExpression *pexprPrjList = (*pexprPrj)[1];
-	CDrvdPropScalar *pdpscalar = CDrvdPropScalar::GetDrvdScalarProps(pexprPrjList->PdpDerive());
+	CDrvdPropScalar *pdpscalar = pexprPrjList->DerivePropsScalar();
 
 	if (COperator::EopLogicalGbAgg != pexprPrjChild->Pop()->Eopid() ||
 		pdpscalar->FHasNonScalarFunction() ||
@@ -340,7 +340,7 @@ CSubqueryHandler::Psd
 	SSubqueryDesc *psd = GPOS_NEW(mp) SSubqueryDesc();
 	psd->m_returns_set = (1 < pexprInner->Maxcard().Ull());
 	psd->m_fHasOuterRefs = pexprInner->HasOuterRefs();
-	psd->m_fHasVolatileFunctions = (IMDFunction::EfsVolatile == CDrvdPropScalar::GetDrvdScalarProps(pexprSubquery->PdpDerive())->Pfp()->Efs());
+	psd->m_fHasVolatileFunctions = (IMDFunction::EfsVolatile == pexprSubquery->DerivePropsScalar()->Pfp()->Efs());
 	psd->m_fHasSkipLevelCorrelations = 0 < outer_refs->Size() && !pcrsOuterOutput->ContainsAll(outer_refs);
 
 	psd->m_fHasCountAgg = CUtils::FHasCountAgg((*pexprSubquery)[0], &psd->m_pcrCountAgg);
@@ -797,7 +797,7 @@ CSubqueryHandler::FCreateGrpCols
 	CColRefArray *colref_array = NULL;
 	if (fGbOnInner)
 	{
-		CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed();
+		CColRefSet *pcrsUsed = pexprScalar->DerivePropsScalar()->PcrsUsed();
 		CColRefSet *pcrsGb = GPOS_NEW(mp) CColRefSet(mp);
 		pcrsGb->Include(pcrsUsed);
 		pcrsGb->Difference(pcrsOuterOutput);
@@ -1423,7 +1423,7 @@ CSubqueryHandler::FRemoveAnySubquery
 		//       Once we do that, we can remove the line below and related code.
 		const IMDFunction *pmdFunc = md_accessor->RetrieveFunc(pmdOp->FuncMdId());
 		// function attributes for the children of the subquery
-		CDrvdPropScalar *pdpscalar = CDrvdPropScalar::GetDrvdScalarProps(pexprSubquery->PdpDerive());
+		CDrvdPropScalar *pdpscalar = pexprSubquery->DerivePropsScalar();
 
 		if (IMDFunction::EfsVolatile == pmdFunc->GetFuncStability() ||
 			IMDFunction::EfsVolatile == pdpscalar->Pfp()->Efs())
@@ -1482,7 +1482,7 @@ CSubqueryHandler::PexprIsNotNull
 	if (fUsesInnerNullable)
 	{
 		CColRefSet *pcrsUsed = GPOS_NEW(mp) CColRefSet(mp);
-		pcrsUsed->Include(CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed());
+		pcrsUsed->Include(pexprScalar->DerivePropsScalar()->PcrsUsed());
 		pcrsUsed->Intersection(pexprOuter->PcrsOutput());
 		BOOL fHasOuterRefs = (0 < pcrsUsed->Size());
 		pcrsUsed->Release();
@@ -2063,7 +2063,7 @@ CSubqueryHandler::FRecursiveHandler
 
 		GPOS_ASSERT(NULL != pexprNewScalar);
 
-		if (CDrvdPropScalar::GetDrvdScalarProps(pexprScalarChild->PdpDerive())->FHasSubquery())
+		if (pexprScalarChild->DerivePropsScalar()->FHasSubquery())
 		{
 			// the logical expression must have been updated during recursion
 			GPOS_ASSERT(NULL != pexprNewLogical);
@@ -2238,7 +2238,7 @@ CSubqueryHandler::FProcess
 	AssertValidArguments(m_mp, pexprOuter, pexprScalar, ppexprNewOuter, ppexprResidualScalar);
 #endif // GPOS_DEBUG
 
-	if (!CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->FHasSubquery())
+	if (!pexprScalar->DerivePropsScalar()->FHasSubquery())
 	{
 		// no subqueries, add-ref root node and return immediately
 		pexprScalar->AddRef();

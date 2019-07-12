@@ -77,7 +77,7 @@ CXformJoin2IndexApply::ComputeColumnSets
 	) const
 {
 	CColRefSet *pcrsInnerOutput = pexprInner->PcrsOutput();
-	*ppcrsScalarExpr = CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed();
+	*ppcrsScalarExpr = pexprScalar->DerivePropsScalar()->PcrsUsed();
 	*ppcrsOuterRefs = GPOS_NEW(mp) CColRefSet(mp, **ppcrsScalarExpr);
 	(*ppcrsOuterRefs)->Difference(pcrsInnerOutput);
 

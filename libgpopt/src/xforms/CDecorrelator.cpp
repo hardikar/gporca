@@ -148,7 +148,7 @@ CDecorrelator::FDelayable
  	if (COperator::EopLogicalLeftSemiJoin == op_id || COperator::EopLogicalLeftAntiSemiJoin == op_id)
  	{
  		// for semi-joins, we disallow predicates referring to inner child to be pulled above the join
- 		CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed();
+ 		CColRefSet *pcrsUsed = pexprScalar->DerivePropsScalar()->PcrsUsed();
  		CColRefSet *pcrsInner = (*pexprLogical)[1]->PcrsOutput();
  		if (!pcrsUsed->IsDisjoint(pcrsInner))
  		{
@@ -303,7 +303,7 @@ CDecorrelator::FProcessPredicate
 	for(ULONG ul = 0; ul < length && fSuccess; ul++)
 	{
 		CExpression *pexprConj = (*pdrgpexprConj)[ul];
-		CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprConj->PdpDerive())->PcrsUsed();
+		CColRefSet *pcrsUsed = pexprConj->DerivePropsScalar()->PcrsUsed();
 		
 		if (pcrsOutput->ContainsAll(pcrsUsed))
 		{
@@ -443,7 +443,7 @@ CDecorrelator::FProcessGbAgg
 	CExpression *pexprTemp = CPredicateUtils::PexprConjunction(mp, pdrgpexprCorrelations);
 	CColRefSet *pcrs = 
 		GPOS_NEW(mp) CColRefSet(mp,
-			*(CDrvdPropScalar::GetDrvdScalarProps(pexprTemp->PdpDerive())->PcrsUsed()));
+			*(pexprTemp->DerivePropsScalar()->PcrsUsed()));
 		
 	pcrs->Intersection(pcrsOutput);
 	pexprTemp->Release();
@@ -572,7 +572,7 @@ CDecorrelator::FProcessAssert
 
 	// fail if assert expression has outer references
 	CColRefSet *pcrsOutput = (*pexpr)[0]->PcrsOutput();
-	CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsed = pexprScalar->DerivePropsScalar()->PcrsUsed();
 	if (!pcrsOutput->ContainsAll(pcrsUsed))
 	{
 		return false;
@@ -688,7 +688,7 @@ CDecorrelator::FProcessProject
 
 	// fail if project elements have outer references
 	CColRefSet *pcrsOutput = (*pexpr)[0]->PcrsOutput();
-	CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprPrjList->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsed = pexprPrjList->DerivePropsScalar()->PcrsUsed();
 	if (!pcrsOutput->ContainsAll(pcrsUsed))
 	{
 		return false;

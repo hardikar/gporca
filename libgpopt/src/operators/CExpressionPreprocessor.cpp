@@ -1637,7 +1637,7 @@ CExpressionPreprocessor::CollectCTEPredicates
 		)
 	{
 		CExpression *pexprScalar = (*pexpr)[1];
-		if (!CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->FHasSubquery())
+		if (!pexprScalar->DerivePropsScalar()->FHasSubquery())
 		{
 			CExpression *pexprChild = (*pexpr)[0];
 			CLogicalCTEConsumer *popConsumer = CLogicalCTEConsumer::PopConvert(pexprChild->Pop());
@@ -1864,8 +1864,8 @@ CExpressionPreprocessor::PexprPruneUnusedComputedColsRecursive
 	if (COperator::EopLogicalProject == pop->Eopid() || COperator::EopLogicalGbAgg == pop->Eopid())
 	{
 		CExpression *pexprProjList = (*pexpr)[1];
-		CColRefSet *pcrsDefined = CDrvdPropScalar::GetDrvdScalarProps(pexprProjList->PdpDerive())->PcrsDefined();
-		CColRefSet *pcrsSetReturningFunction = CDrvdPropScalar::GetDrvdScalarProps(pexprProjList->PdpDerive())->PcrsSetReturningFunction();
+		CColRefSet *pcrsDefined = pexprProjList->DerivePropsScalar()->PcrsDefined();
+		CColRefSet *pcrsSetReturningFunction = pexprProjList->DerivePropsScalar()->PcrsSetReturningFunction();
 
 		pcrsReqd->Include(CLogical::PopConvert(pop)->PcrsLocalUsed());
 		// columns containing set-returning functions are needed for correct query results
@@ -1993,7 +1993,7 @@ CExpressionPreprocessor::PexprPruneProjListProjectOrGbAgg
 			{
 				pexprPrEl->AddRef();
 				pdrgpexprPrElRemain->Append(pexprPrEl);
-				pcrsReqdNew->Include(CDrvdPropScalar::GetDrvdScalarProps(pexprPrEl->PdpDerive())->PcrsUsed());
+				pcrsReqdNew->Include(pexprPrEl->DerivePropsScalar()->PcrsUsed());
 			}
 		}
 

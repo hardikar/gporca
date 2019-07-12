@@ -363,7 +363,7 @@ CLogicalDynamicGetBase::PstatsDeriveFilter
 
 	if (NULL != pexprFilterNew)
 	{
-		pdpscalar = CDrvdPropScalar::GetDrvdScalarProps(pexprFilterNew->PdpDerive());
+		pdpscalar = pexprFilterNew->DerivePropsScalar();
 		pcrsStat->Include(pdpscalar->PcrsUsed());
 	}
 

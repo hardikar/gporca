@@ -39,7 +39,9 @@ namespace gpopt
 	class CGroupExpression;
 	class CDrvdPropPlan;
 	class CDrvdPropCtxt;
+	class CDrvdPropCtxtRelational;
 	class CDrvdPropCtxtPlan;
+	class CDrvdPropCtxtScalar;
 	class CPropConstraint;
 
 	using namespace gpos;
@@ -100,6 +102,11 @@ namespace gpopt
 
 			// get expression's derived property given its type
 			DrvdPropArray *Pdp(const DrvdPropArray::EPropType ept) const;
+
+	public:
+			// derive properties, determine the suitable derived property type internally
+			DrvdPropArray *PdpDerive(CDrvdPropCtxt *pdpctxt = NULL);
+	private:
 
 #ifdef GPOS_DEBUG
 
@@ -257,11 +264,14 @@ namespace gpopt
 			// get the suitable derived property type based on operator
 			DrvdPropArray::EPropType Ept() const;
 
-			// derive properties, determine the suitable derived property type internally
-			DrvdPropArray *PdpDerive(CDrvdPropCtxt *pdpctxt = NULL);
-
 			// derive statistics
 			IStatistics *PstatsDerive(CReqdPropRelational *prprel, IStatisticsArray *stats_ctxt);
+
+			CDrvdPropRelational *DerivePropsRelational(CDrvdPropCtxtRelational *pdpctxt = NULL);
+
+			CDrvdPropPlan *DerivePropsPlan(CDrvdPropCtxtPlan *pdpctxt = NULL);
+
+			CDrvdPropScalar *DerivePropsScalar(CDrvdPropCtxtScalar *pdpctxt = NULL);
 
 			// reset a derived property
 			void ResetDerivedProperty(DrvdPropArray::EPropType ept);

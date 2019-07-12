@@ -858,7 +858,7 @@ CUtils::FUsesNullableCol
 
 	CColRefSet *pcrsNotNull = pexprLogical->PcrsNotNull();
 	CColRefSet *pcrsUsed = GPOS_NEW(mp) CColRefSet(mp);
-	pcrsUsed->Include(CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed());
+	pcrsUsed->Include(pexprScalar->DerivePropsScalar()->PcrsUsed());
 	pcrsUsed->Intersection(pexprLogical->PcrsOutput());
 
 	BOOL fUsesNullableCol = !pcrsNotNull->ContainsAll(pcrsUsed);
@@ -894,8 +894,7 @@ CUtils::FHasSubquery
 	GPOS_ASSERT(NULL != pexpr);
 	GPOS_ASSERT(pexpr->Pop()->FScalar());
 
-	DrvdPropArray *pdp = pexpr->PdpDerive();
-	CDrvdPropScalar *pdpscalar = CDrvdPropScalar::GetDrvdScalarProps(pdp);
+	CDrvdPropScalar *pdpscalar = pexpr->DerivePropsScalar();
 
 	return pdpscalar->FHasSubquery();
 }
@@ -927,7 +926,7 @@ CUtils::FHasSubqueryOrApply
 			return true;
 		}
 
-		if (pop->FScalar() && CDrvdPropScalar::GetDrvdScalarProps(pexpr->PdpDerive())->FHasSubquery())
+		if (pop->FScalar() && pexpr->DerivePropsScalar()->FHasSubquery())
 		{
 			return true;
 		}
@@ -3193,7 +3192,7 @@ CUtils::FVarFreeExpr
 		return true;
 	}
 	
-	CDrvdPropScalar *pdpScalar = CDrvdPropScalar::GetDrvdScalarProps(pexpr->PdpDerive());
+	CDrvdPropScalar *pdpScalar = pexpr->DerivePropsScalar();
 	if (pdpScalar->FHasSubquery())
 	{
 		return false;
@@ -4127,7 +4126,7 @@ CUtils::PcrsExtractColumns
 	for (ULONG ul = 0; ul < length; ul++)
 	{
 		CExpression *pexpr = (*pdrgpexpr)[ul];
-		pcrs->Include(CDrvdPropScalar::GetDrvdScalarProps(pexpr->PdpDerive())->PcrsUsed());
+		pcrs->Include(pexpr->DerivePropsScalar()->PcrsUsed());
 	}
 
 	return pcrs;
@@ -4390,7 +4389,7 @@ CUtils::FDuplicateHazardMotion
 	GPOS_ASSERT(CUtils::FPhysicalMotion(pexprMotion->Pop()));
 
 	CExpression *pexprChild = (*pexprMotion)[0];
-	CDrvdPropPlan *pdpplanChild = CDrvdPropPlan::Pdpplan(pexprChild->PdpDerive());
+	CDrvdPropPlan *pdpplanChild = pexprChild->DerivePropsPlan();
 	CDistributionSpec *pdsChild = pdpplanChild->Pds();
 	CDistributionSpec::EDistributionType edtChild = pdsChild->Edt();
 
@@ -4448,7 +4447,7 @@ CUtils::PexprCollapseProjects
 	CColRefSet *pcrsDefinedChild = GPOS_NEW(mp) CColRefSet
 										(
 										mp,
-										*CDrvdPropScalar::GetDrvdScalarProps(pexprChildScalar->PdpDerive())->PcrsDefined()
+										*pexprChildScalar->DerivePropsScalar()->PcrsDefined()
 										);
 
 	// array of project elements for the new child project node
@@ -4458,7 +4457,7 @@ CUtils::PexprCollapseProjects
 	CExpressionArray *pdrgpexprSetReturnFunc = GPOS_NEW(mp) CExpressionArray(mp);
 	ULONG ulCollapsableSetReturnFunc = 0;
 
-	BOOL fChildProjElHasSetReturn = CDrvdPropScalar::GetDrvdScalarProps(pexprChildScalar->PdpDerive())->FHasNonScalarFunction();
+	BOOL fChildProjElHasSetReturn = pexprChildScalar->DerivePropsScalar()->FHasNonScalarFunction();
 
 	// iterate over the parent project elements and see if we can add it to the child's project node
 	CExpressionArray *pdrgpexprPrEl = GPOS_NEW(mp) CExpressionArray(mp);
@@ -4470,12 +4469,12 @@ CUtils::PexprCollapseProjects
 		CColRefSet *pcrsUsed = GPOS_NEW(mp) CColRefSet
 											(
 											mp,
-											*CDrvdPropScalar::GetDrvdScalarProps(pexprPrE->PdpDerive())->PcrsUsed()
+											*pexprPrE->DerivePropsScalar()->PcrsUsed()
 											);
 
 		pexprPrE->AddRef();
 
-		BOOL fHasSetReturn = CDrvdPropScalar::GetDrvdScalarProps(pexprPrE->PdpDerive())->FHasNonScalarFunction();
+		BOOL fHasSetReturn = pexprPrE->DerivePropsScalar()->FHasNonScalarFunction();
 
 		pcrsUsed->Intersection(pcrsDefinedChild);
 		ULONG ulIntersect = pcrsUsed->Size();
@@ -4761,7 +4760,7 @@ CUtils::ValidateCTEProducerConsumerLocality
 	{
 		// For any of these physical motions, the outer child's execution needs to be
 		// tracked for depending upon the distribution spec
-		CDrvdPropPlan *pdpplanChild = CDrvdPropPlan::Pdpplan((*pexpr)[0]->PdpDerive());
+		CDrvdPropPlan *pdpplanChild = (*pexpr)[0]->DerivePropsPlan();
 		CDistributionSpec *pdsChild = pdpplanChild->Pds();
 
 		eelt = CUtils::ExecLocalityType(pdsChild);
@@ -4996,7 +4995,7 @@ CUtils::PcrExtractFromScExpression
  	CExpression *pexpr
 	)
 {
-	CDrvdPropScalar *pdrvdPropScalar = CDrvdPropScalar::GetDrvdScalarProps(pexpr->PdpDerive());
+	CDrvdPropScalar *pdrvdPropScalar = pexpr->DerivePropsScalar();
 	if (pdrvdPropScalar->PcrsUsed()->Size() == 1)
 		return pdrvdPropScalar->PcrsUsed()->PcrFirst();
 

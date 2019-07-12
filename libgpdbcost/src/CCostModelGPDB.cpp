@@ -918,7 +918,7 @@ CCostModelGPDB::CostHashJoin
 
 	// get the number of columns used in join condition
 	CExpression *pexprJoinCond= exprhdl.PexprScalarChild(2);
-	CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprJoinCond->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsed = pexprJoinCond->DerivePropsScalar()->PcrsUsed();
 	const ULONG ulColsUsed = pcrsUsed->Size();
 
 	// TODO 2014-03-14
@@ -1014,7 +1014,7 @@ CCostModelGPDB::CostIndexNLJoin
 
 	// get the number of columns used in join condition
 	CExpression *pexprJoinCond= exprhdl.PexprScalarChild(2);
-	CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprJoinCond->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsed = pexprJoinCond->DerivePropsScalar()->PcrsUsed();
 	const ULONG ulColsUsed = pcrsUsed->Size();
 
 	// cost of Index apply contains three parts:
@@ -1098,7 +1098,7 @@ CCostModelGPDB::CostNLJoin
 
 	// get the number of columns used in join condition
 	CExpression *pexprJoinCond= exprhdl.PexprScalarChild(2);
-	CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprJoinCond->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsed = pexprJoinCond->DerivePropsScalar()->PcrsUsed();
 	const ULONG ulColsUsed = pcrsUsed->Size();
 
 	// cost of nested loop join contains three parts:
@@ -1389,7 +1389,7 @@ CCostModelGPDB::CostBitmapTableScan
 
 	CCost result(0.0);
 	CExpression *pexprIndexCond = exprhdl.PexprScalarChild(1 /*child_index*/);
-	CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprIndexCond->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsed = pexprIndexCond->DerivePropsScalar()->PcrsUsed();
 	CColRefSet *outerRefs = exprhdl.PcrsOuter();
 	CColRefSet *pcrsLocalUsed = GPOS_NEW(mp) CColRefSet(mp, *pcrsUsed);
 

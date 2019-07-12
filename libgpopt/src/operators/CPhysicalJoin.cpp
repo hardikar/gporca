@@ -477,8 +477,8 @@ CPhysicalJoin::FHashJoinCompatible
 	IMDId *pmdidTypeOuter = CScalar::PopConvert(pexprPredOuter->Pop())->MdidType();
 	IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
 
-	CColRefSet *pcrsUsedPredOuter = CDrvdPropScalar::GetDrvdScalarProps(pexprPredOuter->PdpDerive())->PcrsUsed();
-	CColRefSet *pcrsUsedPredInner = CDrvdPropScalar::GetDrvdScalarProps(pexprPredInner->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsedPredOuter = pexprPredOuter->DerivePropsScalar()->PcrsUsed();
+	CColRefSet *pcrsUsedPredInner = pexprPredInner->DerivePropsScalar()->PcrsUsed();
 
 	CColRefSet *outer_refs = pexprOuter->PcrsOutput();
 	CColRefSet *pcrsInner = pexprInner->PcrsOutput();
@@ -613,9 +613,9 @@ CPhysicalJoin::AddHashKeys
 	GPOS_ASSERT(NULL != pexprPredOuter);
 	GPOS_ASSERT(NULL != pexprPredInner);
 
-	CColRefSet *pcrsPredOuter = CDrvdPropScalar::GetDrvdScalarProps(pexprPredOuter->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsPredOuter = pexprPredOuter->DerivePropsScalar()->PcrsUsed();
 #ifdef GPOS_DEBUG
-	CColRefSet *pcrsPredInner = CDrvdPropScalar::GetDrvdScalarProps(pexprPredInner->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsPredInner = pexprPredInner->DerivePropsScalar()->PcrsUsed();
 #endif // GPOS_DEBUG
 
 	// determine outer and inner hash keys

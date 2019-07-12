@@ -494,7 +494,7 @@ CStatsPredUtils::CreateStatsPredConj
 	for (ULONG ul = 0; ul < size; ul++)
 	{
 		CExpression *predicate_expr = (*pred_expr_conjuncts)[ul];
-		CColRefSet *col_refset_used = CDrvdPropScalar::GetDrvdScalarProps(predicate_expr->PdpDerive())->PcrsUsed();
+		CColRefSet *col_refset_used = predicate_expr->DerivePropsScalar()->PcrsUsed();
 		if (NULL != outer_refs && outer_refs->ContainsAll(col_refset_used))
 		{
 			// skip predicate with outer references
@@ -558,7 +558,7 @@ CStatsPredUtils::CreateStatsPredDisj
 	for (ULONG ul = 0; ul < size; ul++)
 	{
 		CExpression *expr = (*disjunct_expr)[ul];
-		CColRefSet *col_refset_used = CDrvdPropScalar::GetDrvdScalarProps(expr->PdpDerive())->PcrsUsed();
+		CColRefSet *col_refset_used = expr->DerivePropsScalar()->PcrsUsed();
 		if (NULL != outer_refs && outer_refs->ContainsAll(col_refset_used))
 		{
 			// skip predicate with outer references
@@ -601,7 +601,7 @@ CStatsPredUtils::AddSupportedStatsFilters
 	GPOS_ASSERT(NULL != predicate_expr);
 	GPOS_ASSERT(NULL != pred_stats_array);
 
-	CColRefSet *col_refset_used = CDrvdPropScalar::GetDrvdScalarProps(predicate_expr->PdpDerive())->PcrsUsed();
+	CColRefSet *col_refset_used = predicate_expr->DerivePropsScalar()->PcrsUsed();
 	if (NULL != outer_refs && outer_refs->ContainsAll(col_refset_used))
 	{
 		// skip predicates with outer references
@@ -1132,7 +1132,7 @@ CStatsPredUtils::ExtractJoinStatsFromJoinPred
 	GPOS_ASSERT(NULL != output_col_refsets);
 	GPOS_ASSERT(NULL != unsupported_expr_array);
 
-	CColRefSet *col_refset_used = CDrvdPropScalar::GetDrvdScalarProps(join_pred_expr->PdpDerive())->PcrsUsed();
+	CColRefSet *col_refset_used = join_pred_expr->DerivePropsScalar()->PcrsUsed();
 
 	if (outer_refs->ContainsAll(col_refset_used))
 	{

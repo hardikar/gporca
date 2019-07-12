@@ -105,7 +105,7 @@ CXformSubqJoin2Apply::CollectSubqueries
 		CColRefSet *outer_refs = GPOS_NEW(mp) CColRefSet(mp, *((*pexpr)[0]->PcrsOuter()));
 
 		// add columns used by subquery
-		outer_refs->Union(CDrvdPropScalar::GetDrvdScalarProps(pexpr->PdpDerive())->PcrsUsed());
+		outer_refs->Union(pexpr->DerivePropsScalar()->PcrsUsed());
 
 		ULONG child_index = gpos::ulong_max;
 		const ULONG size = pdrgpcrs->Size();
@@ -322,7 +322,7 @@ CXformSubqJoin2Apply::Transform
 	// check if join columns in join condition are still accessible after subquery pushdown
 	CExpression *pexprJoin = (*pexprSubqsPushedDown)[0];
 	CExpression *pexprJoinCondition = (*pexprJoin)[pexprJoin->Arity() - 1];
-	CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprJoinCondition->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsed = pexprJoinCondition->DerivePropsScalar()->PcrsUsed();
 	CColRefSet *pcrsJoinOutput = pexprJoin->PcrsOutput();
 	if (!pcrsJoinOutput->ContainsAll(pcrsUsed))
 	{
@@ -335,7 +335,7 @@ CXformSubqJoin2Apply::Transform
 	pexprSelect->Release();
 
 	CExpression *pexprResult = NULL;
-	BOOL fHasSubquery = CDrvdPropScalar::GetDrvdScalarProps((*pexprSubqsPushedDown)[1]->PdpDerive())->FHasSubquery();
+	BOOL fHasSubquery = (*pexprSubqsPushedDown)[1]->DerivePropsScalar()->FHasSubquery();
 	if (fHasSubquery)
 	{
 		// unnest subqueries remaining in the top Select expression

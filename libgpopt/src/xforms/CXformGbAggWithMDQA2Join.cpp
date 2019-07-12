@@ -104,7 +104,7 @@ CXformGbAggWithMDQA2Join::PexprMDQAs2Join
 {
 	GPOS_ASSERT(NULL != pexpr);
 	GPOS_ASSERT(COperator::EopLogicalGbAgg == pexpr->Pop()->Eopid());
-	GPOS_ASSERT(CDrvdPropScalar::GetDrvdScalarProps((*pexpr)[1]->PdpDerive())->FHasMultipleDistinctAggs());
+	GPOS_ASSERT((*pexpr)[1]->DerivePropsScalar()->FHasMultipleDistinctAggs());
 
 	// extract components
 	CExpression *pexprChild = (*pexpr)[0];
@@ -168,7 +168,7 @@ CXformGbAggWithMDQA2Join::PexprExpandMDQAs
 	COperator *pop = pexpr->Pop();
 	if (CLogicalGbAgg::PopConvert(pop)->FGlobal())
 	{
-		BOOL fHasMultipleDistinctAggs = CDrvdPropScalar::GetDrvdScalarProps((*pexpr)[1]->PdpDerive())->FHasMultipleDistinctAggs();
+		BOOL fHasMultipleDistinctAggs = (*pexpr)[1]->DerivePropsScalar()->FHasMultipleDistinctAggs();
 		if (fHasMultipleDistinctAggs)
 		{
 			CExpression *pexprExpanded = PexprMDQAs2Join(mp, pexpr);

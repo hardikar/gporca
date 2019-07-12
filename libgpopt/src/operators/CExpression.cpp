@@ -21,6 +21,7 @@
 #include "gpopt/base/CAutoOptCtxt.h"
 #include "gpopt/base/CColRefSet.h"
 #include "gpopt/base/CDistributionSpec.h"
+#include "gpopt/base/CDrvdPropCtxtScalar.h"
 #include "gpopt/base/CDrvdPropCtxtRelational.h"
 #include "gpopt/base/CDrvdPropCtxtPlan.h"
 #include "gpopt/base/CDrvdPropRelational.h"
@@ -600,6 +601,126 @@ CExpression::PdpDerive
 	}
 
 	return Pdp(ept);
+}
+
+CDrvdPropRelational *
+CExpression::DerivePropsRelational
+	(
+	CDrvdPropCtxtRelational *pdpctxt
+	)
+{
+	GPOS_CHECK_STACK_SIZE;
+	GPOS_CHECK_ABORT;
+
+#ifdef GPOS_DEBUG
+	AssertValidPropDerivation(Ept());
+#endif // GPOS_DEBUG
+
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+
+	if (NULL == m_pdprel)
+	{
+		const ULONG arity = Arity();
+		for (ULONG ul = 0; ul < arity; ul++)
+		{
+			CExpression *pexprChild = (*m_pdrgpexpr)[ul];
+			DrvdPropArray *pdp = pexprChild->DerivePropsRelational(pdpctxt);
+
+			// add child props to derivation context
+			CDrvdPropCtxt::AddDerivedProps(pdp, pdpctxt);
+		}
+
+		exprhdl.CopyStats();
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
+		m_pdprel->Derive(m_mp, exprhdl, pdpctxt);
+	}
+	else if (!m_pdprel->IsComplete())
+	{
+		m_pdprel->Derive(m_mp, exprhdl, pdpctxt);
+	}
+
+	return m_pdprel;
+}
+
+CDrvdPropPlan *
+CExpression::DerivePropsPlan
+	(
+	CDrvdPropCtxtPlan *pdpctxt
+	)
+{
+	GPOS_CHECK_STACK_SIZE;
+	GPOS_CHECK_ABORT;
+
+#ifdef GPOS_DEBUG
+	AssertValidPropDerivation(Ept());
+#endif // GPOS_DEBUG
+
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+
+	if (NULL == m_pdprel)
+	{
+		const ULONG arity = Arity();
+		for (ULONG ul = 0; ul < arity; ul++)
+		{
+			CExpression *pexprChild = (*m_pdrgpexpr)[ul];
+			DrvdPropArray *pdp = pexprChild->DerivePropsPlan(pdpctxt);
+
+			// add child props to derivation context
+			CDrvdPropCtxt::AddDerivedProps(pdp, pdpctxt);
+		}
+
+		exprhdl.CopyStats();
+		m_pdpplan = GPOS_NEW(m_mp) CDrvdPropPlan();
+		m_pdpplan->Derive(m_mp, exprhdl, pdpctxt);
+	}
+	else if (!m_pdprel->IsComplete())
+	{
+		m_pdpplan->Derive(m_mp, exprhdl, pdpctxt);
+	}
+
+	return m_pdpplan;
+}
+
+CDrvdPropScalar *
+CExpression::DerivePropsScalar
+	(
+	CDrvdPropCtxtScalar *pdpctxt
+	)
+{
+	GPOS_CHECK_STACK_SIZE;
+	GPOS_CHECK_ABORT;
+
+#ifdef GPOS_DEBUG
+	AssertValidPropDerivation(Ept());
+#endif // GPOS_DEBUG
+
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+
+	if (NULL == m_pdprel)
+	{
+		const ULONG arity = Arity();
+		for (ULONG ul = 0; ul < arity; ul++)
+		{
+			CExpression *pexprChild = (*m_pdrgpexpr)[ul];
+			DrvdPropArray *pdp = pexprChild->DerivePropsScalar(pdpctxt);
+
+			// add child props to derivation context
+			CDrvdPropCtxt::AddDerivedProps(pdp, pdpctxt);
+		}
+
+		exprhdl.CopyStats();
+		m_pdpscalar = GPOS_NEW(m_mp) CDrvdPropScalar();
+		m_pdpscalar->Derive(m_mp, exprhdl, pdpctxt);
+	}
+	else if (!m_pdprel->IsComplete())
+	{
+		m_pdpscalar->Derive(m_mp, exprhdl, pdpctxt);
+	}
+
+	return m_pdpscalar;
 }
 
 
@@ -1455,7 +1576,7 @@ CExpression::PexprRehydrate
 
 			os << std::endl << "INVALID EXPRESSION: " << std::endl << *pexpr;
 			os << std::endl << "REQUIRED PROPERTIES: " << std::endl << *(pcc->Poc()->Prpp());
-			os << std::endl << "DERIVED PROPERTIES: " << std::endl << *CDrvdPropPlan::Pdpplan(pexpr->PdpDerive()) << std::endl;
+			os << std::endl << "DERIVED PROPERTIES: " << std::endl << *pexpr->DerivePropsPlan() << std::endl;
 		}
 #endif  // GPOS_DEBUG
 		GPOS_RAISE(gpopt::ExmaGPOPT, gpopt::ExmiUnsatisfiedRequiredProperties);
@@ -1533,7 +1654,7 @@ CExpression::FValidChildrenDistribution
 	if (COperator::EopPhysicalMotionGather == Pop()->Eopid())
 	{
 		CExpression *pexprChild = (*this)[0];
-		CDrvdPropPlan *pdpplanChild = CDrvdPropPlan::Pdpplan(pexprChild->PdpDerive(pdpctxtplan));
+		CDrvdPropPlan *pdpplanChild = pexprChild->DerivePropsPlan(pdpctxtplan);
 		if (CDistributionSpec::EdtSingleton == pdpplanChild->Pds()->Edt() ||
 			CDistributionSpec::EdtStrictSingleton == pdpplanChild->Pds()->Edt())
 		{

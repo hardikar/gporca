@@ -356,7 +356,7 @@ COptimizer::CheckCTEConsistency
 	)
 {
 	UlongToUlongMap *phmulul = GPOS_NEW(mp) UlongToUlongMap(mp);
-	CDrvdPropPlan *pdpplanChild = CDrvdPropPlan::Pdpplan(pexpr->PdpDerive());
+	CDrvdPropPlan *pdpplanChild = pexpr->DerivePropsPlan();
 	CDistributionSpec *pdsChild = pdpplanChild->Pds();
 
 	CUtils::EExecLocalityType eelt = CUtils::ExecLocalityType(pdsChild);

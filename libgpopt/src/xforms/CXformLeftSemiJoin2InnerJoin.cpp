@@ -120,7 +120,7 @@ CXformLeftSemiJoin2InnerJoin::Transform
 	// construct grouping columns by collecting used columns in the join predicate
 	// that come from join's inner child
 	CColRefSet *pcrsOuterOutput = pexprOuter->PcrsOutput();
-	CColRefSet *pcrsUsed = CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed();
+	CColRefSet *pcrsUsed = pexprScalar->DerivePropsScalar()->PcrsUsed();
 	CColRefSet *pcrsGb = GPOS_NEW(mp) CColRefSet(mp);
 	pcrsGb->Include(pcrsUsed);
 	pcrsGb->Difference(pcrsOuterOutput);

@@ -280,7 +280,7 @@ CTranslatorExprToDXL::PdxlnTranslate
 
 	GPOS_ASSERT(NULL == m_pdpplan);
 	
-	m_pdpplan = CDrvdPropPlan::Pdpplan(pexpr->PdpDerive());
+	m_pdpplan = pexpr->DerivePropsPlan();
 	m_pdpplan->AddRef();
 
 	CDistributionSpecArray *pdrgpdsBaseTables = GPOS_NEW(m_mp) CDistributionSpecArray(m_mp);
@@ -781,13 +781,13 @@ CTranslatorExprToDXL::AddBitmapFilterColumns
 	if (NULL != pexprRecheckCond)
 	{
 		// add the columns used in the recheck condition
-		pcrsAdditional->Include(CDrvdPropScalar::GetDrvdScalarProps(pexprRecheckCond->PdpDerive())->PcrsUsed());
+		pcrsAdditional->Include(pexprRecheckCond->DerivePropsScalar()->PcrsUsed());
 	}
 
 	if (NULL != pexprScalar)
 	{
 		// add the columns used in the filter condition
-		pcrsAdditional->Include(CDrvdPropScalar::GetDrvdScalarProps(pexprScalar->PdpDerive())->PcrsUsed());
+		pcrsAdditional->Include(pexprScalar->DerivePropsScalar()->PcrsUsed());
 	}
 
 	CColRefSet *pcrsBitmap =  GPOS_NEW(mp) CColRefSet(mp);
@@ -2298,7 +2298,7 @@ CTranslatorExprToDXL::PdxlnComputeScalar
 	for (ULONG ul = 0; ul < ulPrLs; ul++)
 	{
 		CExpression *pexprPrE = (*pexprProjList)[ul];
-		CDrvdPropScalar *pdpscalar = CDrvdPropScalar::GetDrvdScalarProps(pexprPrE->PdpDerive());
+		CDrvdPropScalar *pdpscalar = pexprPrE->DerivePropsScalar();
 
 		// for column that doesn't contain set-returning function, if it is not the
 		// required column in the relational plan properties, then no need to add them
@@ -3950,9 +3950,9 @@ CTranslatorExprToDXL::PdxlnHashJoin
 			 CPhysicalJoin::ExtractHashJoinExpressions(pexprPred, &pexprPredOuter, &pexprPredInner);
 
 			 // align extracted columns with outer and inner children of the join
-			 CColRefSet *pcrsPredInner = CDrvdPropScalar::GetDrvdScalarProps(pexprPredInner->PdpDerive())->PcrsUsed();
+			 CColRefSet *pcrsPredInner = pexprPredInner->DerivePropsScalar()->PcrsUsed();
 #ifdef GPOS_DEBUG
-			 CColRefSet *pcrsPredOuter = CDrvdPropScalar::GetDrvdScalarProps(pexprPredOuter->PdpDerive())->PcrsUsed();
+			 CColRefSet *pcrsPredOuter = pexprPredOuter->DerivePropsScalar()->PcrsUsed();
 #endif // GPOS_DEBUG
 			 if (outer_refs->ContainsAll(pcrsPredInner))
 			 {
@@ -7939,7 +7939,7 @@ CTranslatorExprToDXL::GetInputSegIdsArray
 
 	// derive the distribution of child expression
 	CExpression *pexprChild = (*pexprMotion)[0];
-	CDrvdPropPlan *pdpplan = CDrvdPropPlan::Pdpplan(pexprChild->PdpDerive());
+	CDrvdPropPlan *pdpplan = pexprChild->DerivePropsPlan();
 	CDistributionSpec *pds = pdpplan->Pds();
 
 	if (CDistributionSpec::EdtSingleton == pds->Edt() || CDistributionSpec::EdtStrictSingleton == pds->Edt())
