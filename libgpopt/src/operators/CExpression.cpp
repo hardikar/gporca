@@ -1690,4 +1690,16 @@ CExpression::Pfp()
 	return m_pdprel->Pfp(exprhdl);
 }
 
+CFunctionalDependencyArray *
+CExpression::Pdrgpfd()
+{
+	if (m_pdprel == NULL)
+	{
+		m_pdprel = GPOS_NEW(m_mp) CDrvdPropRelational(m_mp);
+	}
+	CExpressionHandle exprhdl(m_mp);
+	exprhdl.Attach(this);
+	return m_pdprel->Pdrgpfd(exprhdl);
+}
+
 // EOF

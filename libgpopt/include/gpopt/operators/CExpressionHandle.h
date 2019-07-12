@@ -308,6 +308,9 @@ namespace gpopt
 			CFunctionProp *Pfp();
 			CFunctionProp *Pfp(ULONG i);
 
+			CFunctionalDependencyArray *Pdrgpfd();
+			CFunctionalDependencyArray *Pdrgpfd(ULONG i);
+
 		friend class CExpression;
 
 	}; // class CExpressionHandle

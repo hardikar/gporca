@@ -2003,4 +2003,26 @@ CExpressionHandle::Pfp()
 	return GetRelationalProperties()->Pfp();
 }
 
+CFunctionalDependencyArray *
+CExpressionHandle::Pdrgpfd(ULONG i)
+{
+	if (NULL != Pexpr())
+	{
+		return (*Pexpr())[i]->Pdrgpfd();
+	}
+
+	return GetRelationalProperties(i)->Pdrgpfd();
+}
+
+CFunctionalDependencyArray *
+CExpressionHandle::Pdrgpfd()
+{
+	if (NULL != Pexpr())
+	{
+		return Pexpr()->Pdrgpfd();
+	}
+
+	return GetRelationalProperties()->Pdrgpfd();
+}
+
 // EOF
