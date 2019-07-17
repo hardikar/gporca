@@ -385,6 +385,24 @@ CCostModelGPDB::CostChildren
 		res = res + dCostChild;
 	}
 
+	if (CUtils::FCorrelatedNLJoin(exprhdl.Pop()) && exprhdl.Pop(1) != NULL && exprhdl.Pop(1)->Eopid() == COperator::EopPhysicalSpool)
+	{
+		CColRefSet *pcrsOuterRefsSpool = exprhdl.GetRelationalProperties(1)->PcrsOuter();
+		CColRefSet *pcrsOutputOuter = exprhdl.GetRelationalProperties(0)->PcrsOutput();
+
+		CColRefSet *pcrsSkipLevelOuterRefs = GPOS_NEW(mp) CColRefSet(mp);
+		pcrsSkipLevelOuterRefs->Include(pcrsOuterRefsSpool);
+		pcrsSkipLevelOuterRefs->Exclude(pcrsOutputOuter);
+
+		if (pcrsSkipLevelOuterRefs->Size() == 0)
+		{
+			// discount the Spool <- THIS IS A HACK!
+			res = res * 0.99;
+		}
+
+		pcrsSkipLevelOuterRefs->Release();
+	}
+
 	return CCost(res);
 }
 
