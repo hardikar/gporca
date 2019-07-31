@@ -9,6 +9,7 @@
 //		Implementation of GPDB cost model
 //---------------------------------------------------------------------------
 
+#include "gpopt/base/CColRefSetIter.h"
 #include "gpopt/base/COrderSpec.h"
 #include "gpopt/base/CWindowFrame.h"
 #include "gpopt/metadata/CTableDescriptor.h"
@@ -978,7 +979,36 @@ CCostModelGPDB::CostHashJoin
 	}
 	CCost costChild = CostChildren(mp, exprhdl, pci, pcmgpdb->GetCostModelParams());
 
-	return costChild + costLocal;
+	CDouble skew_ratio = 1;
+	ULONG arity = exprhdl.Arity();
+	for (ULONG ul = 0; ul < arity - 1; ++ul)
+	{
+		COperator *popChild = exprhdl.Pop(ul);
+		if (NULL == popChild || COperator::EopPhysicalMotionHashDistribute != popChild->Eopid())
+		{
+			continue;
+		}
+
+		CPhysicalMotion *motion = CPhysicalMotion::PopConvert(popChild);
+		CColRefSet *columns = motion->Pds()->PcrsUsed(mp);
+
+		CDouble ndv = 1.0;
+		CColRefSetIter iter(*columns);
+		while (iter.Advance())
+		{
+			CColRef *colref = iter.Pcr();
+			ndv = ndv * pci->Pcstats(ul)->GetNDVs(colref);
+		}
+
+		if (ndv < pcmgpdb->UlHosts() && (ndv >= 1))
+		{
+			CDouble sk = pcmgpdb->UlHosts() / ndv;
+			skew_ratio =  (sk > 1) ? sk : 1;
+		}
+
+		columns->Release();
+	}
+	return costChild + CCost(costLocal.Get() * skew_ratio);
 }
 
 //---------------------------------------------------------------------------

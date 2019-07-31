@@ -351,6 +351,12 @@ namespace gpopt
 						return m_pcstats;
 					}
 
+					// return additional cost statistics
+					CCostingStats *Pcstats(ULONG child_index) const
+					{
+						return m_pdrgstatsChildren[child_index];
+					}
+
 			}; // struct SCostingInfo
 
 			// return number of hosts (nodes) that store data
