@@ -35,7 +35,7 @@ namespace gpos
 	//
 	//---------------------------------------------------------------------------
 	class CMemoryPoolManager
-	{	
+	{
 		public:
 
 			// different types of pools
@@ -72,14 +72,9 @@ namespace gpos
 			// global instance
 			static CMemoryPoolManager *m_memory_pool_mgr;
 
-			// private ctor
-			CMemoryPoolManager(CMemoryPool *internal);
 
 			// create new pool of given type
-			CMemoryPool *New
-				(
-				AllocType alloc_type
-				);
+			virtual CMemoryPool *New(AllocType alloc_type);
 
 			// no copy ctor
 			CMemoryPoolManager(const CMemoryPoolManager&);
@@ -91,17 +86,27 @@ namespace gpos
 			static
 			void DestroyMemoryPoolAtShutdown(CMemoryPool *mp);
 
+		protected:
+
+			// private ctor
+			CMemoryPoolManager(CMemoryPool *internal);
+
+			CMemoryPool *GetInternalMemoryPool()
+			{
+				return m_internal_memory_pool;
+			}
+
 		public:
 
 			// create new memory pool
-			CMemoryPool *Create
+			virtual CMemoryPool *Create
 				(
 				CMemoryPoolManager::AllocType alloc_type
 				);
-				
+
 			// release memory pool
 			void Destroy(CMemoryPool *);
-			
+
 #ifdef GPOS_DEBUG
 			// print internal contents of allocated memory pools
 			IOstream &OsPrint(IOstream &os);
@@ -147,7 +152,7 @@ namespace gpos
 
 			// initialize global instance
 			static
-			GPOS_RESULT Init(void* (*) (SIZE_T), void (*) (void*));
+			GPOS_RESULT Init(CMemoryPoolManager *manager);
 
 			// global accessor
 			static
