@@ -165,7 +165,8 @@ CConstraint::PcnstrFromScalarExpr
 	(
 	CMemoryPool *mp,
 	CExpression *pexpr,
-	CColRefSetArray **ppdrgpcrs // output equivalence classes
+	CColRefSetArray **ppdrgpcrs, // output equivalence classes
+	BOOL in_constraint
 	)
 {
 	GPOS_ASSERT(NULL != pexpr);
@@ -198,7 +199,7 @@ CConstraint::PcnstrFromScalarExpr
 		*ppdrgpcrs = GPOS_NEW(mp) CColRefSetArray(mp);
 
 		// first, try creating a single interval constraint from the expression
-		pcnstr = CConstraintInterval::PciIntervalFromScalarExpr(mp, pexpr, colref);
+		pcnstr = CConstraintInterval::PciIntervalFromScalarExpr(mp, pexpr, colref, in_constraint);
 		if (NULL == pcnstr && CUtils::FScalarArrayCmp(pexpr))
 		{
 			// if the interval creation failed, try creating a disjunction or conjunction
