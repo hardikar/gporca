@@ -937,7 +937,8 @@ EresUnittest_CConstraintIntervalFromArrayExprIncludesNull()
 
 	CColRef *colref = CDrvdPropRelational::GetRelationalProperties(pexprIn->PdpDerive())->PcrsOutput()->PcrAny();
 	CConstraintInterval *pci = CConstraintInterval::PciIntervalFromScalarExpr(mp, (*pexprIn)[1], colref);
-	GPOS_RTL_ASSERT(pci->FIncludesNull());
+	(*pexprIn)[1]->DbgPrint();
+	GPOS_RTL_ASSERT(!pci->FIncludesNull());
 	GPOS_RTL_ASSERT(2 == pci->Pdrgprng()->Size());
 	pexprIn->Release();
 	pci->Release();

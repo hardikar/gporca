@@ -174,7 +174,7 @@ CConstraintInterval::PciIntervalFromScalarExpr
 		case COperator::EopScalarArrayCmp:
 			if (GPOS_FTRACE(EopttraceArrayConstraints))
 			{
-				pci = CConstraintInterval::PcnstrIntervalFromScalarArrayCmp(mp, pexpr, colref);
+				pci = CConstraintInterval::PcnstrIntervalFromScalarArrayCmp(mp, pexpr, colref, infer_nullability);
 			}
 			break;
 		default:
@@ -199,7 +199,8 @@ CConstraintInterval::PcnstrIntervalFromScalarArrayCmp
 	(
 	CMemoryPool *mp,
 	CExpression *pexpr,
-	CColRef *colref
+	CColRef *colref,
+	BOOL infer_nullability
 	)
 {
 	if (!CPredicateUtils::FCompareIdentToConstArray(pexpr))
@@ -231,6 +232,7 @@ CConstraintInterval::PcnstrIntervalFromScalarArrayCmp
 	// construct ranges representing IN or NOT IN
 	CRangeArray *prgrng = GPOS_NEW(mp) CRangeArray(mp);
 
+	BOOL fContainsNull;
 	switch(cmp_type)
 	{
 		case IMDType::EcmptEq:
@@ -242,6 +244,11 @@ CConstraintInterval::PcnstrIntervalFromScalarArrayCmp
 				CRange *prng = GPOS_NEW(mp) CRange(pcomp, IMDType::EcmptEq, (*apdatumsortedset)[ul]);
 				prgrng->Append(prng);
 			}
+
+			// (col = const) usually implies (col IS NOT NULL) for these ops. But,
+			// if asked not infer this (e.g in table constraints), include NULL in
+			// the final interval.
+			fContainsNull = !infer_nullability;
 			break;
 		}
 		case IMDType::EcmptNEq:
@@ -275,6 +282,11 @@ CConstraintInterval::PcnstrIntervalFromScalarArrayCmp
 			mdid->AddRef();
 			CRange *prng = GPOS_NEW(mp) CRange(mdid, pcomp, pprevdatum, CRange::EriExcluded, NULL, CRange::EriExcluded);
 			prgrng->Append(prng);
+
+			// (col <> const) usually implies (col IS NOT NULL) for these ops. But,
+			// if asked not infer this (e.g in table constraints), include NULL in
+			// the final interval.
+			fContainsNull = !infer_nullability;
 			break;
 		}
 		default:
@@ -284,8 +296,6 @@ CConstraintInterval::PcnstrIntervalFromScalarArrayCmp
 			return NULL;
 		}
 	}
-
-	BOOL fContainsNull = apdatumsortedset->FIncludesNull();
 
 	return GPOS_NEW(mp) CConstraintInterval(mp, colref, prgrng, fContainsNull);
 }
