@@ -151,7 +151,7 @@ CConstraintInterval::PciIntervalFromScalarExpr
 			pci = PciIntervalFromScalarNullTest(mp, pexpr, colref);
 			break;
 		case COperator::EopScalarBoolOp:
-			pci =  PciIntervalFromScalarBoolOp(mp, pexpr, colref);
+			pci =  PciIntervalFromScalarBoolOp(mp, pexpr, colref, infer_nullability);
 			break;
 		case COperator::EopScalarCmp:
 			pci =  PciIntervalFromScalarCmp(mp, pexpr, colref, infer_nullability);
@@ -531,7 +531,8 @@ CConstraintInterval::PciIntervalFromScalarBoolOp
 	(
 	CMemoryPool *mp,
 	CExpression *pexpr,
-	CColRef *colref
+	CColRef *colref,
+	BOOL infer_nullability
 	)
 {
 	GPOS_ASSERT(NULL != pexpr);
@@ -543,10 +544,10 @@ CConstraintInterval::PciIntervalFromScalarBoolOp
 	switch (eboolop)
 	{
 		case CScalarBoolOp::EboolopAnd:
-			return PciIntervalFromScalarBoolAnd(mp, pexpr, colref);
+			return PciIntervalFromScalarBoolAnd(mp, pexpr, colref, infer_nullability);
 
 		case CScalarBoolOp::EboolopOr:
-			return PciIntervalFromScalarBoolOr(mp, pexpr, colref);
+			return PciIntervalFromScalarBoolOr(mp, pexpr, colref, infer_nullability);
 
 		case CScalarBoolOp::EboolopNot:
 		{
@@ -578,7 +579,8 @@ CConstraintInterval::PciIntervalFromScalarBoolOr
 	(
 	CMemoryPool *mp,
 	CExpression *pexpr,
-	CColRef *colref
+	CColRef *colref,
+	BOOL infer_nullability
 	)
 {
 	GPOS_ASSERT(NULL != pexpr);
@@ -591,7 +593,7 @@ CConstraintInterval::PciIntervalFromScalarBoolOr
 	CConstraintIntervalArray *child_constraints = GPOS_NEW(mp) CConstraintIntervalArray(mp);
 	for (ULONG ul = 0; ul < arity; ul++)
 	{
-		CConstraintInterval *pciChild = PciIntervalFromScalarExpr(mp, (*pexpr)[ul], colref);
+		CConstraintInterval *pciChild = PciIntervalFromScalarExpr(mp, (*pexpr)[ul], colref, infer_nullability);
 
 		if (NULL == pciChild)
 		{
@@ -655,7 +657,8 @@ CConstraintInterval::PciIntervalFromScalarBoolAnd
 	(
 	CMemoryPool *mp,
 	CExpression *pexpr,
-	CColRef *colref
+	CColRef *colref,
+	BOOL infer_nullability
 	)
 {
 	GPOS_ASSERT(NULL != pexpr);
@@ -665,10 +668,10 @@ CConstraintInterval::PciIntervalFromScalarBoolAnd
 	const ULONG arity = pexpr->Arity();
 	GPOS_ASSERT(0 < arity);
 
-	CConstraintInterval *pci = PciIntervalFromScalarExpr(mp, (*pexpr)[0], colref);
+	CConstraintInterval *pci = PciIntervalFromScalarExpr(mp, (*pexpr)[0], colref, infer_nullability);
 	for (ULONG ul = 1; ul < arity; ul++)
 	{
-		CConstraintInterval *pciChild = PciIntervalFromScalarExpr(mp, (*pexpr)[ul], colref);
+		CConstraintInterval *pciChild = PciIntervalFromScalarExpr(mp, (*pexpr)[ul], colref, infer_nullability);
 		// here is where we will return a NULL child from not being able to create a
 		// CConstraint interval from the ScalarExpr
 		if (NULL != pciChild && NULL != pci)
