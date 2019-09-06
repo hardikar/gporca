@@ -86,7 +86,8 @@ CConstraint::PcnstrFromScalarArrayCmp
 	(
 	CMemoryPool *mp,
 	CExpression *pexpr,
-	CColRef *colref
+	CColRef *colref,
+	BOOL infer_nullability
 	)
 {
 	GPOS_ASSERT(NULL != pexpr);
@@ -132,7 +133,7 @@ CConstraint::PcnstrFromScalarArrayCmp
 		for (ULONG ul = 0; ul < arity; ul++)
 		{
 			CScalarConst *popScConst = CUtils::PScalarArrayConstChildAt(pexprArray,ul);
-			CConstraintInterval *pci =  CConstraintInterval::PciIntervalFromColConstCmp(mp, colref, cmp_type, popScConst);
+			CConstraintInterval *pci =  CConstraintInterval::PciIntervalFromColConstCmp(mp, colref, cmp_type, popScConst, infer_nullability);
 			pdrgpcnstr->Append(pci);
 		}
 
@@ -204,7 +205,7 @@ CConstraint::PcnstrFromScalarExpr
 		{
 			// if the interval creation failed, try creating a disjunction or conjunction
 			// of several interval constraints in the array case
-			pcnstr = PcnstrFromScalarArrayCmp(mp, pexpr, colref);
+			pcnstr = PcnstrFromScalarArrayCmp(mp, pexpr, colref, infer_nullability);
 		}
 
 		if (NULL != pcnstr)
