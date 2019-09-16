@@ -67,14 +67,13 @@ namespace gpos
 			BOOL m_allow_global_new;
 
 			// hash table to maintain created pools
-			CSyncHashtable<CMemoryPool, ULONG_PTR> m_hash_table;
+			CSyncHashtable<CMemoryPool, ULONG_PTR> m_ht_all_pools;
 
 			// global instance
 			static CMemoryPoolManager *m_memory_pool_mgr;
 
-
 			// create new pool of given type
-			virtual CMemoryPool *New(AllocType alloc_type);
+			virtual CMemoryPool *NewMemoryPool(AllocType alloc_type);
 
 			// no copy ctor
 			CMemoryPoolManager(const CMemoryPoolManager&);
@@ -88,7 +87,7 @@ namespace gpos
 
 		protected:
 
-			// private ctor
+			// ctor
 			CMemoryPoolManager(CMemoryPool *internal);
 
 			CMemoryPool *GetInternalMemoryPool()
@@ -99,7 +98,7 @@ namespace gpos
 		public:
 
 			// create new memory pool
-			virtual CMemoryPool *Create
+			virtual CMemoryPool *CreateMemoryPool
 				(
 				CMemoryPoolManager::AllocType alloc_type
 				);
