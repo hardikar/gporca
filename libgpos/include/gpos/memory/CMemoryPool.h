@@ -46,7 +46,6 @@ GPOS_CPL_ASSERT(GPOS_MEM_ALIGNED_STRUCT_SIZE(gpos::ULONG) == GPOS_MEM_ARCH);
 
 // max allocation per request: 1GB
 #define GPOS_MEM_ALLOC_MAX			(0x40000000)
-#define GPOS_MEM_GUARD_SIZE			(GPOS_SIZEOF(BYTE))
 
 #define GPOS_MEM_OFFSET_POS(p,ullOffset) ((void *)((BYTE*)(p) + ullOffset))
 
@@ -71,16 +70,6 @@ namespace gpos
 
 		private:
 
-			// common header for each allocation
-			struct AllocHeader
-			{
-				// pointer to pool
-				CMemoryPool *m_mp;
-
-				// allocation request size
-				ULONG m_alloc;
-			};
-
 			// hash key is only set by pool manager
 			ULONG_PTR m_hash_key;
 
@@ -102,6 +91,7 @@ namespace gpos
 
 			enum EAllocationType
 			{
+				EatUnknown = 0x00,
 				EatSingleton = 0x7f,
 				EatArray = 0x7e
 			};
@@ -121,44 +111,13 @@ namespace gpos
 				return m_hash_key;
 			}
 
-			// get allocation size
-			static
-			ULONG GetAllocSize
-				(
-				ULONG requested
-				)
-			{
-				return GPOS_SIZEOF(AllocHeader) +
-				       GPOS_MEM_ALIGNED_SIZE(requested + GPOS_MEM_GUARD_SIZE);
-			}
-
 			// set allocation header and footer, return pointer to user data
 			void *FinalizeAlloc(void *ptr, ULONG alloc, EAllocationType eat);
 
-			// return allocation to owning memory pool
-			inline static void
-			FreeAlloc
-				(
-				void *ptr,
-				EAllocationType eat
-				)
-			{
-				GPOS_ASSERT(ptr != NULL);
-
-				AllocHeader *header = static_cast<AllocHeader*>(ptr) - 1;
-				BYTE *alloc_type = static_cast<BYTE*>(ptr) + header->m_alloc;
-				GPOS_RTL_ASSERT(*alloc_type == eat);
-				header->m_mp->Free(header);
-			}
-
 			// implementation of placement new with memory pool
-			void *NewImpl
-				(
-				SIZE_T size,
-				const CHAR *filename,
-				ULONG line,
-				EAllocationType type
-				);
+			virtual
+			void *NewImpl(const ULONG bytes, const CHAR *file, const ULONG line,
+						  CMemoryPool::EAllocationType eat) = 0;
 
 			// implementation of array-new with memory pool
 			template <typename T>
@@ -190,14 +149,6 @@ namespace gpos
 				return array;
 			}
 
-			// delete implementation
-			static
-			void DeleteImpl
-				(
-				void *ptr,
-				EAllocationType type
-				);
-
 			// allocate memory; return NULL if the memory could not be allocated
 			virtual
 			void *Allocate
@@ -206,11 +157,6 @@ namespace gpos
 				const CHAR *filename,
 				const ULONG line
 				) = 0;
-
-			// free memory previously allocated by a call to pvAllocate; NULL may be passed
-			virtual
-			void Free(void *memory) = 0;
-
 
 			// return total allocated size
 			virtual
