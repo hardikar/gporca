@@ -16,6 +16,7 @@
 #include "gpos/error/CFSimulator.h"
 #endif // GPOS_DEBUG
 #include "gpos/memory/CMemoryPool.h"
+#include "gpos/memory/CMemoryPoolTracker.h"
 #include "gpos/memory/CMemoryPoolManager.h"
 #include "gpos/memory/CMemoryVisitorPrint.h"
 #include "gpos/task/ITask.h"
@@ -35,35 +36,18 @@ CMemoryPool::SizeOfAlloc
 {
 	GPOS_ASSERT(NULL != ptr);
 
-	const AllocHeader *header = static_cast<const AllocHeader*>(ptr) - 1;
-	return header->m_alloc;
+	// FIGGY
+	const CMemoryPoolTracker::SAllocHeader *header = static_cast<const CMemoryPoolTracker::SAllocHeader*>(ptr) - 1;
+	return header->m_alloc_size;
 }
 
-//---------------------------------------------------------------------------
-//	@function:
-//		DeleteImpl
-//
-//	@doc:
-//		implementation of Delete that can be used by operator new functions
-//
-//---------------------------------------------------------------------------
+
 void
-CMemoryPool::DeleteImpl
-	(
-	void *ptr,
-	EAllocationType eat
-	)
+CMemoryPool::DeleteImpl(void *ptr, EAllocationType eat)
 {
-	// deletion of NULL pointers is legal
-	if (NULL == ptr)
-	{
-		return;
-	}
+	CMemoryPoolTracker::DeleteImpl(ptr, eat);
+}
 
-	// release allocation
-	FreeAlloc(ptr, eat);
-
-}  // namespace gpos
 
 // EOF
 
@@ -104,7 +88,6 @@ CMemoryPool::OsPrint
 
 	return os;
 }
-
 
 //---------------------------------------------------------------------------
 //	@function:

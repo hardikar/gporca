@@ -158,8 +158,6 @@ CMemoryPoolTracker::DeleteImpl
 	// FIGGY eat = 0 sucks!
 	GPOS_RTL_ASSERT(eat == 0 || *alloc_type == eat);
 
-	ULONG user_size = header->m_user_size;
-
 	// update stats and allocation list
 	GPOS_ASSERT(NULL != header->m_mp);
 	header->m_mp->RecordFree(header);
@@ -167,6 +165,7 @@ CMemoryPoolTracker::DeleteImpl
 #ifdef GPOS_DEBUG
 	// mark user memory as unused in debug mode
 	// FIGGY: Maybe clean up header also
+	ULONG user_size = header->m_user_size;
 	clib::Memset(ptr, GPOS_MEM_FREED_PATTERN_CHAR, user_size);
 #endif // GPOS_DEBUG
 

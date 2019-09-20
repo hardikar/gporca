@@ -111,9 +111,6 @@ namespace gpos
 				return m_hash_key;
 			}
 
-			// set allocation header and footer, return pointer to user data
-			void *FinalizeAlloc(void *ptr, ULONG alloc, EAllocationType eat);
-
 			// implementation of placement new with memory pool
 			virtual
 			void *NewImpl(const ULONG bytes, const CHAR *file, const ULONG line,
@@ -149,15 +146,6 @@ namespace gpos
 				return array;
 			}
 
-			// allocate memory; return NULL if the memory could not be allocated
-			virtual
-			void *Allocate
-				(
-				const ULONG num_bytes,
-				const CHAR *filename,
-				const ULONG line
-				) = 0;
-
 			// return total allocated size
 			virtual
 			ULLONG TotalAllocatedSize() const
@@ -170,6 +158,9 @@ namespace gpos
 			// was made from a CMemoryPool
 			static
 			ULONG SizeOfAlloc(const void *ptr);
+
+			static
+			void DeleteImpl(void *ptr, EAllocationType eat);
 
 #ifdef GPOS_DEBUG
 

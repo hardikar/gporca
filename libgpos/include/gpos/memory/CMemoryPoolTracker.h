@@ -30,6 +30,9 @@ namespace gpos
 	// memory pool with statistics and debugging support
 	class CMemoryPoolTracker : public CMemoryPool
 	{
+		// FIGGY
+		friend class CMemoryPool;
+
 		private:
 
 			//---------------------------------------------------------------------------
