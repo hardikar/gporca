@@ -138,7 +138,7 @@ CMemoryPoolTracker::NewImpl
 #endif // GPOS_DEBUG
 
 	// add a footer with the allocation type (singleton/array)
-	BYTE *alloc_type = reinterpret_cast<BYTE*>(header + 1) + alloc_size;
+	BYTE *alloc_type = reinterpret_cast<BYTE*>(ptr_result) + bytes;
 	*alloc_type = eat;
 
 	return ptr_result;
@@ -152,8 +152,9 @@ CMemoryPoolTracker::DeleteImpl
 	)
 {
 	SAllocHeader *header = static_cast<SAllocHeader*>(ptr) - 1;
-	ULONG alloc_size = header->m_alloc_size;
-	BYTE *alloc_type = static_cast<BYTE*>(ptr) + alloc_size;
+	// ULONG alloc_size = header->m_alloc_size;
+	ULONG user_size = header->m_user_size;
+	BYTE *alloc_type = static_cast<BYTE*>(ptr) + user_size;
 
 	// FIGGY eat = 0 sucks!
 	GPOS_RTL_ASSERT(eat == 0 || *alloc_type == eat);
@@ -165,7 +166,6 @@ CMemoryPoolTracker::DeleteImpl
 #ifdef GPOS_DEBUG
 	// mark user memory as unused in debug mode
 	// FIGGY: Maybe clean up header also
-	ULONG user_size = header->m_user_size;
 	clib::Memset(ptr, GPOS_MEM_FREED_PATTERN_CHAR, user_size);
 #endif // GPOS_DEBUG
 
