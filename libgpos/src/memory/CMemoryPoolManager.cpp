@@ -46,12 +46,18 @@ CMemoryPoolManager::CMemoryPoolManager
 	)
 	:
 	m_internal_memory_pool(internal),
-	m_allow_global_new(true)
+	m_allow_global_new(true),
+	m_ht_all_pools(NULL)
 {
 	GPOS_ASSERT(NULL != internal);
 	GPOS_ASSERT(GPOS_OFFSET(CMemoryPool, m_link) == GPOS_OFFSET(CMemoryPoolTracker, m_link));
+}
 
-	m_ht_all_pools.Init
+void
+CMemoryPoolManager::Init()
+{
+	m_ht_all_pools = GPOS_NEW(m_internal_memory_pool) CSyncHashtable<CMemoryPool, ULONG_PTR>();
+	m_ht_all_pools->Init
 		(
 		m_internal_memory_pool,
 		GPOS_MEMORY_POOL_HT_SIZE,
@@ -99,6 +105,7 @@ CMemoryPoolManager::Init
 					(
 					internal
 					);
+			m_memory_pool_mgr->Init();
 		}
 		GPOS_CATCH_EX(ex)
 		{
@@ -126,7 +133,7 @@ CMemoryPoolManager::CreateMemoryPool()
 		// HERE BE DRAGONS
 		// See comment in CCache::InsertEntry
 		const ULONG_PTR hashKey = mp->GetHashKey();
-		MemoryPoolKeyAccessor acc(m_ht_all_pools, hashKey);
+		MemoryPoolKeyAccessor acc(*m_ht_all_pools, hashKey);
 		acc.Insert(mp);
 	}
 
@@ -170,7 +177,7 @@ CMemoryPoolManager::Destroy
 		// HERE BE DRAGONS
 		// See comment in CCache::InsertEntry
 		const ULONG_PTR hashKey = mp->GetHashKey();
-		MemoryPoolKeyAccessor acc(m_ht_all_pools, hashKey);
+		MemoryPoolKeyAccessor acc(*m_ht_all_pools, hashKey);
 		acc.Remove(mp);
 	}
 
@@ -192,7 +199,7 @@ ULLONG
 CMemoryPoolManager::TotalAllocatedSize()
 {
 	ULLONG total_size = 0;
-	MemoryPoolIter iter(m_ht_all_pools);
+	MemoryPoolIter iter(*m_ht_all_pools);
 	while (iter.Advance())
 	{
 		MemoryPoolIterAccessor acc(iter);
@@ -206,7 +213,18 @@ CMemoryPoolManager::TotalAllocatedSize()
 	return total_size;
 }
 
+void
+CMemoryPoolManager::DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat)
+{
+	CMemoryPoolTracker::DeleteImpl(ptr, eat);
+}
 
+
+ULONG
+CMemoryPoolManager::SizeOfAlloc(const void* ptr)
+{
+	return CMemoryPoolTracker::SizeOfAlloc(ptr);
+}
 #ifdef GPOS_DEBUG
 
 //---------------------------------------------------------------------------
@@ -225,7 +243,7 @@ CMemoryPoolManager::OsPrint
 {
 	os << "Print memory pools: " << std::endl;
 
-	MemoryPoolIter iter(m_ht_all_pools);
+	MemoryPoolIter iter(*m_ht_all_pools);
 	while (iter.Advance())
 	{
 		CMemoryPool *mp = NULL;
@@ -264,7 +282,7 @@ CMemoryPoolManager::PrintOverSizedPools
 	CAutoTraceFlag Net(EtraceSimulateNetError, false);
 	CAutoTraceFlag IO(EtraceSimulateIOError, false);
 
-	MemoryPoolIter iter(m_ht_all_pools);
+	MemoryPoolIter iter(*m_ht_all_pools);
 	while (iter.Advance())
 	{
 		MemoryPoolIterAccessor acc(iter);
@@ -333,7 +351,8 @@ CMemoryPoolManager::Cleanup()
 
 	// cleanup left-over memory pools;
 	// any such pool means that we have a leak
-	m_ht_all_pools.DestroyEntries(DestroyMemoryPoolAtShutdown);
+	m_ht_all_pools->DestroyEntries(DestroyMemoryPoolAtShutdown);
+	GPOS_DELETE(m_ht_all_pools);
 }
 
 

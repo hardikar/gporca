@@ -59,7 +59,7 @@ namespace gpos
 			BOOL m_allow_global_new;
 
 			// hash table to maintain created pools
-			CSyncHashtable<CMemoryPool, ULONG_PTR> m_ht_all_pools;
+			CSyncHashtable<CMemoryPool, ULONG_PTR> *m_ht_all_pools;
 
 			// global instance
 			static CMemoryPoolManager *m_memory_pool_mgr;
@@ -88,6 +88,8 @@ namespace gpos
 			}
 
 		public:
+
+			void Init();
 
 			// create new memory pool
 			virtual CMemoryPool *CreateMemoryPool();
@@ -137,6 +139,12 @@ namespace gpos
 
 			// return total allocated size in bytes
 			ULLONG TotalAllocatedSize();
+
+			virtual
+			void DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat);
+
+			virtual
+			ULONG SizeOfAlloc(const void* ptr);
 
 			// initialize global instance
 			static

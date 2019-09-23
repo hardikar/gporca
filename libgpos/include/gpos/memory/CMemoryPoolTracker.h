@@ -110,6 +110,9 @@ namespace gpos
 			static
 			void DeleteImpl(void *ptr, EAllocationType eat);
 
+			static
+			ULONG SizeOfAlloc(const void *ptr);
+
 			// return total allocated size
 			virtual
 			ULLONG TotalAllocatedSize() const
