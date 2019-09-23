@@ -116,7 +116,6 @@ CMemoryPoolTracker::NewImpl
 
 	// successful allocation: update header information and any memory pool data
 	SAllocHeader *header = static_cast<SAllocHeader*>(ptr);
-	RecordAllocation(header);
 
 	GPOS_OOM_CHECK(ptr);
 
@@ -128,6 +127,7 @@ CMemoryPoolTracker::NewImpl
 	header->m_filename = file;
 	header->m_line = line;
 	header->m_user_size = bytes;
+	RecordAllocation(header);
 
 	void *ptr_result = header + 1;
 
