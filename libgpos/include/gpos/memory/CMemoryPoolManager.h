@@ -138,6 +138,12 @@ namespace gpos
 			// return total allocated size in bytes
 			ULLONG TotalAllocatedSize();
 
+			virtual
+			void DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat);
+
+			virtual
+			ULONG SizeOfAlloc(const void* ptr);
+
 			// initialize global instance
 			static
 			GPOS_RESULT Init(CMemoryPoolManager *manager);

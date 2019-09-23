@@ -29,23 +29,18 @@ const ULONG_PTR CMemoryPool::m_invalid = ULONG_PTR_MAX;
 
 
 ULONG
-CMemoryPool::SizeOfAlloc
-	(
-	const void *ptr
-	)
+CMemoryPool::SizeOfAlloc(const void *ptr)
 {
 	GPOS_ASSERT(NULL != ptr);
 
-	// FIGGY
-	const CMemoryPoolTracker::SAllocHeader *header = static_cast<const CMemoryPoolTracker::SAllocHeader*>(ptr) - 1;
-	return header->m_alloc_size;
+	return CMemoryPoolManager::GetMemoryPoolMgr()->SizeOfAlloc(ptr);
 }
 
 
 void
 CMemoryPool::DeleteImpl(void *ptr, EAllocationType eat)
 {
-	CMemoryPoolTracker::DeleteImpl(ptr, eat);
+	CMemoryPoolManager::GetMemoryPoolMgr()->DeleteImpl(ptr, eat);
 }
 
 

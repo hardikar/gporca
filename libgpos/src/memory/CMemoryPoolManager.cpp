@@ -206,7 +206,18 @@ CMemoryPoolManager::TotalAllocatedSize()
 	return total_size;
 }
 
+void
+CMemoryPoolManager::DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat)
+{
+	CMemoryPoolTracker::DeleteImpl(ptr, eat);
+}
 
+
+ULONG
+CMemoryPoolManager::SizeOfAlloc(const void* ptr)
+{
+	return CMemoryPoolTracker::SizeOfAlloc(ptr);
+}
 #ifdef GPOS_DEBUG
 
 //---------------------------------------------------------------------------
