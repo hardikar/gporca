@@ -42,11 +42,15 @@ CMemoryPoolManager *CMemoryPoolManager::m_memory_pool_mgr = NULL;
 //---------------------------------------------------------------------------
 CMemoryPoolManager::CMemoryPoolManager
 	(
-	CMemoryPool *internal
+	CMemoryPool *internal,
+	void (*free_fn) (void *, CMemoryPool::EAllocationType eat),
+	ULONG (*alloc_size_fn) (const void* ptr)
 	)
 	:
 	m_internal_memory_pool(internal),
-	m_allow_global_new(true)
+	m_allow_global_new(true),
+	m_free_fn(free_fn),
+	m_alloc_size_fn(alloc_size_fn)
 {
 	GPOS_ASSERT(NULL != internal);
 	GPOS_ASSERT(GPOS_OFFSET(CMemoryPool, m_link) == GPOS_OFFSET(CMemoryPoolTracker, m_link));
@@ -97,7 +101,9 @@ CMemoryPoolManager::Init
 		{
 			CMemoryPoolManager::m_memory_pool_mgr = GPOS_NEW(internal) CMemoryPoolManager
 					(
-					internal
+					internal,
+					CMemoryPoolTracker::DeleteImpl,
+					CMemoryPoolTracker::SizeOfAlloc
 					);
 		}
 		GPOS_CATCH_EX(ex)
@@ -209,7 +215,7 @@ CMemoryPoolManager::TotalAllocatedSize()
 void
 CMemoryPoolManager::DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat)
 {
-	CMemoryPoolTracker::DeleteImpl(ptr, eat);
+	m_free_fn(ptr, eat);
 }
 
 

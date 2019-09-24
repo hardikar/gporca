@@ -80,12 +80,17 @@ namespace gpos
 		protected:
 
 			// ctor
-			CMemoryPoolManager(CMemoryPool *internal);
+			CMemoryPoolManager(CMemoryPool *internal,
+							   void (*free_fn) (void *, CMemoryPool::EAllocationType eat),
+							   ULONG (*alloc_size_fn) (const void* ptr));
 
 			CMemoryPool *GetInternalMemoryPool()
 			{
 				return m_internal_memory_pool;
 			}
+
+			void (*m_free_fn) (void *, CMemoryPool::EAllocationType eat);
+			ULONG (*m_alloc_size_fn) (const void *);
 
 		public:
 
@@ -138,7 +143,6 @@ namespace gpos
 			// return total allocated size in bytes
 			ULLONG TotalAllocatedSize();
 
-			virtual
 			void DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat);
 
 			virtual

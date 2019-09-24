@@ -32,15 +32,17 @@ ULONG
 CMemoryPool::SizeOfAlloc(const void *ptr)
 {
 	GPOS_ASSERT(NULL != ptr);
+	CMemoryPoolManager *mgr = CMemoryPoolManager::GetMemoryPoolMgr();
 
-	return CMemoryPoolManager::GetMemoryPoolMgr()->SizeOfAlloc(ptr);
+	return mgr->SizeOfAlloc(ptr);
 }
 
 
 void
 CMemoryPool::DeleteImpl(void *ptr, EAllocationType eat)
 {
-	CMemoryPoolManager::GetMemoryPoolMgr()->DeleteImpl(ptr, eat);
+	CMemoryPoolManager *mgr = CMemoryPoolManager::GetMemoryPoolMgr();
+	mgr->DeleteImpl(ptr, eat);
 }
 
 
