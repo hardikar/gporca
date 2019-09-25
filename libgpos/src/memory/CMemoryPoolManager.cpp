@@ -43,14 +43,16 @@ CMemoryPoolManager *CMemoryPoolManager::m_memory_pool_mgr = NULL;
 CMemoryPoolManager::CMemoryPoolManager
 	(
 	CMemoryPool *internal,
-	void (*free_fn) (void *, CMemoryPool::EAllocationType eat),
-	ULONG (*alloc_size_fn) (const void* ptr)
+	NewMemoryPoolFn new_memory_pool_fn,
+	FreeAllocFn free_alloc_fn,
+	SizeOfAllocFn size_of_alloc_fn
 	)
 	:
 	m_internal_memory_pool(internal),
 	m_allow_global_new(true),
-	m_free_fn(free_fn),
-	m_alloc_size_fn(alloc_size_fn)
+	m_new_memory_pool_fn(new_memory_pool_fn),
+	m_free_alloc_fn(free_alloc_fn),
+	m_size_of_alloc_fn(size_of_alloc_fn)
 {
 	GPOS_ASSERT(NULL != internal);
 	GPOS_ASSERT(GPOS_OFFSET(CMemoryPool, m_link) == GPOS_OFFSET(CMemoryPoolTracker, m_link));
@@ -81,42 +83,47 @@ CMemoryPoolManager::CMemoryPoolManager
 GPOS_RESULT
 CMemoryPoolManager::Init
 	(
-		CMemoryPoolManager *manager
+	 gpos::NewMemoryPoolFn new_memory_pool_fn,
+	 gpos::FreeAllocFn free_alloc_fn,
+	 gpos::SizeOfAllocFn size_of_alloc_fn
 	)
 {
 	GPOS_ASSERT(NULL == CMemoryPoolManager::m_memory_pool_mgr);
 
-	if (manager != NULL)
-		CMemoryPoolManager::m_memory_pool_mgr = manager;
-	else
+	if (new_memory_pool_fn == NULL || free_alloc_fn == NULL || size_of_alloc_fn == NULL)
 	{
-		// raw allocation of memory for internal memory pools
-		void *alloc_internal = Malloc(sizeof(CMemoryPoolTracker));
-
-		// create internal memory pool
-		CMemoryPool *internal = new(alloc_internal) CMemoryPoolTracker();
-
-		// instantiate manager
-		GPOS_TRY
-		{
-			CMemoryPoolManager::m_memory_pool_mgr = GPOS_NEW(internal) CMemoryPoolManager
-					(
-					internal,
-					CMemoryPoolTracker::DeleteImpl,
-					CMemoryPoolTracker::SizeOfAlloc
-					);
-		}
-		GPOS_CATCH_EX(ex)
-		{
-			if (GPOS_MATCH_EX(ex, CException::ExmaSystem, CException::ExmiOOM))
-			{
-				Free(alloc_internal);
-
-				return GPOS_OOM;
-			}
-		}
-		GPOS_CATCH_END;
+		new_memory_pool_fn = CMemoryPoolTracker::NewMemoryPoolTracker;
+		free_alloc_fn = CMemoryPoolTracker::DeleteImpl;
+		size_of_alloc_fn = CMemoryPoolTracker::SizeOfAlloc;
 	}
+
+	// raw allocation of memory for internal memory pools
+	void *alloc_internal = Malloc(sizeof(CMemoryPoolTracker));
+
+	// create internal memory pool
+	CMemoryPool *internal = new(alloc_internal) CMemoryPoolTracker();
+
+	// instantiate manager
+	GPOS_TRY
+	{
+		CMemoryPoolManager::m_memory_pool_mgr = GPOS_NEW(internal) CMemoryPoolManager
+				(
+				internal,
+				new_memory_pool_fn,
+				free_alloc_fn,
+				size_of_alloc_fn
+				);
+	}
+	GPOS_CATCH_EX(ex)
+	{
+		if (GPOS_MATCH_EX(ex, CException::ExmaSystem, CException::ExmiOOM))
+		{
+			Free(alloc_internal);
+
+			return GPOS_OOM;
+		}
+	}
+	GPOS_CATCH_END;
 
 	return GPOS_OK;
 }
@@ -125,7 +132,7 @@ CMemoryPoolManager::Init
 CMemoryPool *
 CMemoryPoolManager::CreateMemoryPool()
 {
-	CMemoryPool *mp = NewMemoryPool();
+	CMemoryPool *mp = m_new_memory_pool_fn(m_internal_memory_pool);
 
 	// accessor scope
 	{
@@ -137,21 +144,6 @@ CMemoryPoolManager::CreateMemoryPool()
 	}
 
 	return mp;
-}
-
-
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::NewMemoryPool
-//
-//	@doc:
-//		Create new pool
-//
-//---------------------------------------------------------------------------
-CMemoryPool *
-CMemoryPoolManager::NewMemoryPool()
-{
-	return GPOS_NEW(m_internal_memory_pool) CMemoryPoolTracker();
 }
 
 
@@ -215,14 +207,14 @@ CMemoryPoolManager::TotalAllocatedSize()
 void
 CMemoryPoolManager::DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat)
 {
-	m_free_fn(ptr, eat);
+	m_free_alloc_fn(ptr, eat);
 }
 
 
 ULONG
 CMemoryPoolManager::SizeOfAlloc(const void* ptr)
 {
-	return CMemoryPoolTracker::SizeOfAlloc(ptr);
+	return m_size_of_alloc_fn(ptr);
 }
 #ifdef GPOS_DEBUG
 

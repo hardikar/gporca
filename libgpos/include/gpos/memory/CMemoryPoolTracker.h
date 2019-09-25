@@ -108,6 +108,9 @@ namespace gpos
 						  CMemoryPool::EAllocationType eat);
 
 			static
+			CMemoryPool *NewMemoryPoolTracker(CMemoryPool *mp);
+
+			static
 			void DeleteImpl(void *ptr, EAllocationType eat);
 
 			static

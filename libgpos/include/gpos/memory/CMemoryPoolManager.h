@@ -20,12 +20,17 @@
 #include "gpos/common/CSyncHashtableIter.h"
 #include "gpos/memory/CMemoryPool.h"
 
-
-
 #define GPOS_MEMORY_POOL_HT_SIZE	(1024)		// number of hash table buckets
 
 namespace gpos
 {
+
+	typedef CMemoryPool *(*NewMemoryPoolFn) (CMemoryPool *CMemoryPool);
+
+	typedef void (*FreeAllocFn) (void *, CMemoryPool::EAllocationType eat);
+
+	typedef ULONG (*SizeOfAllocFn) (const void *);
+
 	//---------------------------------------------------------------------------
 	//	@class:
 	//		CMemoryPoolManager
@@ -61,11 +66,15 @@ namespace gpos
 			// hash table to maintain created pools
 			CSyncHashtable<CMemoryPool, ULONG_PTR> m_ht_all_pools;
 
+			// function pointers
+			NewMemoryPoolFn m_new_memory_pool_fn;
+
+			FreeAllocFn m_free_alloc_fn;
+
+			SizeOfAllocFn m_size_of_alloc_fn;
+
 			// global instance
 			static CMemoryPoolManager *m_memory_pool_mgr;
-
-			// create new pool of given type
-			virtual CMemoryPool *NewMemoryPool();
 
 			// no copy ctor
 			CMemoryPoolManager(const CMemoryPoolManager&);
@@ -77,25 +86,16 @@ namespace gpos
 			static
 			void DestroyMemoryPoolAtShutdown(CMemoryPool *mp);
 
-		protected:
-
 			// ctor
 			CMemoryPoolManager(CMemoryPool *internal,
-							   void (*free_fn) (void *, CMemoryPool::EAllocationType eat),
-							   ULONG (*alloc_size_fn) (const void* ptr));
-
-			CMemoryPool *GetInternalMemoryPool()
-			{
-				return m_internal_memory_pool;
-			}
-
-			void (*m_free_fn) (void *, CMemoryPool::EAllocationType eat);
-			ULONG (*m_alloc_size_fn) (const void *);
+							   NewMemoryPoolFn new_memory_pool_fn,
+							   FreeAllocFn free_alloc_fn,
+							   SizeOfAllocFn size_of_alloc_fn);
 
 		public:
 
 			// create new memory pool
-			virtual CMemoryPool *CreateMemoryPool();
+			CMemoryPool *CreateMemoryPool();
 
 			// release memory pool
 			void Destroy(CMemoryPool *);
@@ -117,7 +117,6 @@ namespace gpos
 				return m_global_memory_pool;
 			}
 
-			virtual
 			~CMemoryPoolManager()
 			{
 			}
@@ -145,12 +144,13 @@ namespace gpos
 
 			void DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat);
 
-			virtual
 			ULONG SizeOfAlloc(const void* ptr);
 
 			// initialize global instance
 			static
-			GPOS_RESULT Init(CMemoryPoolManager *manager);
+			GPOS_RESULT Init(gpos::NewMemoryPoolFn new_memory_pool_fn,
+							 gpos::FreeAllocFn free_alloc_fn,
+							 gpos::SizeOfAllocFn);
 
 			// global accessor
 			static

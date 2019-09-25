@@ -173,6 +173,12 @@ CMemoryPoolTracker::DeleteImpl
 	clib::Free(header);
 }
 
+CMemoryPool *
+CMemoryPoolTracker::NewMemoryPoolTracker(CMemoryPool *mp)
+{
+	return GPOS_NEW(mp) CMemoryPoolTracker();
+}
+
 ULONG
 CMemoryPoolTracker::SizeOfAlloc(const void *ptr)
 {
