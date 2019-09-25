@@ -59,7 +59,7 @@ namespace gpos
 			BOOL m_allow_global_new;
 
 			// hash table to maintain created pools
-			CSyncHashtable<CMemoryPool, ULONG_PTR> m_ht_all_pools;
+			CSyncHashtable<CMemoryPool, ULONG_PTR> *m_ht_all_pools;
 
 			// global instance
 			static CMemoryPoolManager *m_memory_pool_mgr;
@@ -141,6 +141,8 @@ namespace gpos
 			// initialize global instance
 			static
 			GPOS_RESULT Init(CMemoryPoolManager *manager);
+
+			void Init();
 
 			// global accessor
 			static
