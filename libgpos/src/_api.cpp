@@ -116,7 +116,7 @@ void gpos_init(struct gpos_init_params* params) {
 
 	CWorker::abort_requested_by_system = params->abort_requested;
 
-	if (GPOS_OK != gpos::CMemoryPoolManager::Init((CMemoryPoolManager *) params->memorypool_manager))
+	if (GPOS_OK != gpos::CMemoryPoolManager::Init())
 	{
 		return;
 	}

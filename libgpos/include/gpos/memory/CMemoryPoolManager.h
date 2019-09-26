@@ -77,6 +77,8 @@ namespace gpos
 			static
 			void DestroyMemoryPoolAtShutdown(CMemoryPool *mp);
 
+			void Setup();
+
 		protected:
 
 			// ctor
@@ -87,9 +89,36 @@ namespace gpos
 				return m_internal_memory_pool;
 			}
 
-		public:
+			template<typename ManagerType, typename PoolType>
+			static
+			GPOS_RESULT SetupMemoryPoolManager()
+			{
+				// raw allocation of memory for internal memory pools
+				void *alloc_internal = gpos::clib::Malloc(sizeof(PoolType));
 
-			void Init();
+				// create internal memory pool
+				CMemoryPool *internal = new(alloc_internal) PoolType();
+
+				// instantiate manager
+				GPOS_TRY
+				{
+					m_memory_pool_mgr = GPOS_NEW(internal) ManagerType(internal);
+					m_memory_pool_mgr->Setup();
+				}
+				GPOS_CATCH_EX(ex)
+				{
+					if (GPOS_MATCH_EX(ex, CException::ExmaSystem, CException::ExmiOOM))
+					{
+						gpos::clib::Free(alloc_internal);
+
+						return GPOS_OOM;
+					}
+				}
+				GPOS_CATCH_END;
+				return GPOS_OK;
+			}
+
+		public:
 
 			// create new memory pool
 			virtual CMemoryPool *CreateMemoryPool();
@@ -148,7 +177,7 @@ namespace gpos
 
 			// initialize global instance
 			static
-			GPOS_RESULT Init(CMemoryPoolManager *manager);
+			GPOS_RESULT Init();
 
 			// global accessor
 			static

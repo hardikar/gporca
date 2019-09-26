@@ -54,7 +54,7 @@ CMemoryPoolManager::CMemoryPoolManager
 }
 
 void
-CMemoryPoolManager::Init()
+CMemoryPoolManager::Setup()
 {
 	m_ht_all_pools = GPOS_NEW(m_internal_memory_pool) CSyncHashtable<CMemoryPool, ULONG_PTR>();
 	m_ht_all_pools->Init
@@ -81,42 +81,11 @@ CMemoryPoolManager::Init()
 //
 //---------------------------------------------------------------------------
 GPOS_RESULT
-CMemoryPoolManager::Init
-	(
-		CMemoryPoolManager *manager
-	)
+CMemoryPoolManager::Init()
 {
-	GPOS_ASSERT(NULL == CMemoryPoolManager::m_memory_pool_mgr);
-
-	if (manager != NULL)
-		CMemoryPoolManager::m_memory_pool_mgr = manager;
-	else
+	if (NULL == CMemoryPoolManager::m_memory_pool_mgr)
 	{
-		// raw allocation of memory for internal memory pools
-		void *alloc_internal = Malloc(sizeof(CMemoryPoolTracker));
-
-		// create internal memory pool
-		CMemoryPool *internal = new(alloc_internal) CMemoryPoolTracker();
-
-		// instantiate manager
-		GPOS_TRY
-		{
-			CMemoryPoolManager::m_memory_pool_mgr = GPOS_NEW(internal) CMemoryPoolManager
-					(
-					internal
-					);
-			m_memory_pool_mgr->Init();
-		}
-		GPOS_CATCH_EX(ex)
-		{
-			if (GPOS_MATCH_EX(ex, CException::ExmaSystem, CException::ExmiOOM))
-			{
-				Free(alloc_internal);
-
-				return GPOS_OOM;
-			}
-		}
-		GPOS_CATCH_END;
+		return SetupMemoryPoolManager<CMemoryPoolManager, CMemoryPoolTracker>();
 	}
 
 	return GPOS_OK;
