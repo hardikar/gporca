@@ -77,6 +77,7 @@ namespace gpos
 			static
 			void DestroyMemoryPoolAtShutdown(CMemoryPool *mp);
 
+			// Set up CMemoryPoolManager's internals.
 			void Setup();
 
 		protected:
@@ -98,6 +99,7 @@ namespace gpos
 				return m_internal_memory_pool;
 			}
 
+			// Initialize global memory pool manager using given types
 			template<typename ManagerType, typename PoolType>
 			static
 			GPOS_RESULT SetupGlobalMemoryPoolManager()
@@ -130,7 +132,7 @@ namespace gpos
 		public:
 
 			// create new memory pool
-			virtual CMemoryPool *CreateMemoryPool();
+			CMemoryPool *CreateMemoryPool();
 
 			// release memory pool
 			void Destroy(CMemoryPool *);
@@ -178,9 +180,11 @@ namespace gpos
 			// return total allocated size in bytes
 			ULLONG TotalAllocatedSize();
 
+			// free memory allocation
 			virtual
 			void DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat);
 
+			// get user requested size of allocation
 			virtual
 			ULONG UserSizeOfAlloc(const void* ptr);
 

@@ -32,14 +32,7 @@ using namespace gpos::clib;
 // global instance of memory pool manager
 CMemoryPoolManager *CMemoryPoolManager::m_memory_pool_mgr = NULL;
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::CMemoryPoolManager
-//
-//	@doc:
-//		Ctor.
-//
-//---------------------------------------------------------------------------
+// ctor
 CMemoryPoolManager::CMemoryPoolManager
 	(
 	CMemoryPool *internal,
@@ -55,6 +48,12 @@ CMemoryPoolManager::CMemoryPoolManager
 	GPOS_ASSERT(GPOS_OFFSET(CMemoryPool, m_link) == GPOS_OFFSET(CMemoryPoolTracker, m_link));
 }
 
+// Set up CMemoryPoolManager's internals.
+// This must be done here instead of the constructor because CMemoryPoolManager
+// uses virtual methods for determining the correct CMemoryPool for
+// allocations; and these virtual methods must not be called in the
+// constructor, or else it will use the base class allocator instead of the one
+// defined in derived-class virtual function.
 void
 CMemoryPoolManager::Setup()
 {
@@ -74,14 +73,7 @@ CMemoryPoolManager::Setup()
 	m_global_memory_pool = CreateMemoryPool();
 }
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::Init
-//
-//	@doc:
-//		Initializer for global memory pool manager
-//
-//---------------------------------------------------------------------------
+// Initialize global memory pool manager using CMemoryPoolTracker
 GPOS_RESULT
 CMemoryPoolManager::Init()
 {
@@ -112,14 +104,7 @@ CMemoryPoolManager::CreateMemoryPool()
 }
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::NewMemoryPool
-//
-//	@doc:
-//		Create new pool
-//
-//---------------------------------------------------------------------------
+// Allocate a new NewMemoryPool
 CMemoryPool *
 CMemoryPoolManager::NewMemoryPool()
 {
@@ -127,14 +112,7 @@ CMemoryPoolManager::NewMemoryPool()
 }
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::Destroy
-//
-//	@doc:
-//		Release returned pool
-//
-//---------------------------------------------------------------------------
+// Release given memory pool
 void
 CMemoryPoolManager::Destroy
 	(
@@ -158,14 +136,7 @@ CMemoryPoolManager::Destroy
 }
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::TotalAllocatedSize
-//
-//	@doc:
-//		Return total allocated size in bytes
-//
-//---------------------------------------------------------------------------
+// Return total allocated size in bytes
 ULLONG
 CMemoryPoolManager::TotalAllocatedSize()
 {
@@ -184,28 +155,24 @@ CMemoryPoolManager::TotalAllocatedSize()
 	return total_size;
 }
 
+// free memory allocation
 void
 CMemoryPoolManager::DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat)
 {
 	CMemoryPoolTracker::DeleteImpl(ptr, eat);
 }
 
-
+// get user requested size of allocation
 ULONG
 CMemoryPoolManager::UserSizeOfAlloc(const void* ptr)
 {
 	return CMemoryPoolTracker::UserSizeOfAlloc(ptr);
 }
+
 #ifdef GPOS_DEBUG
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::OsPrint
-//
-//	@doc:
-//		Print contents of all allocated memory pools
-//
-//---------------------------------------------------------------------------
+
+// Print contents of all allocated memory pools
 IOstream &
 CMemoryPoolManager::OsPrint
 	(
@@ -233,14 +200,7 @@ CMemoryPoolManager::OsPrint
 }
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::PrintOverSizedPools
-//
-//	@doc:
-//		Print memory pools with total allocated size above given threshold
-//
-//---------------------------------------------------------------------------
+// Print memory pools with total allocated size above given threshold
 void
 CMemoryPoolManager::PrintOverSizedPools
 	(
@@ -273,14 +233,7 @@ CMemoryPoolManager::PrintOverSizedPools
 #endif // GPOS_DEBUG
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::DestroyMemoryPoolAtShutdown
-//
-//	@doc:
-//		Destroy a memory pool at shutdown
-//
-//---------------------------------------------------------------------------
+// Destroy a memory pool at shutdown
 void
 CMemoryPoolManager::DestroyMemoryPoolAtShutdown
 	(
@@ -298,14 +251,8 @@ CMemoryPoolManager::DestroyMemoryPoolAtShutdown
 }
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::Cleanup
-//
-//	@doc:
-//		Clean-up memory pools
-//
-//---------------------------------------------------------------------------
+// Clean-up memory pools
+// Counterpart to CMemoryPoolManager::Setup()
 void
 CMemoryPoolManager::Cleanup()
 {
@@ -327,14 +274,7 @@ CMemoryPoolManager::Cleanup()
 }
 
 
-//---------------------------------------------------------------------------
-//	@function:
-//		CMemoryPoolManager::Shutdown
-//
-//	@doc:
-//		Delete memory pools and release manager
-//
-//---------------------------------------------------------------------------
+// Delete memory pools and release manager
 void
 CMemoryPoolManager::Shutdown()
 {

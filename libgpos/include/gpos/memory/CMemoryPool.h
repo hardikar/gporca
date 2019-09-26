@@ -154,11 +154,11 @@ namespace gpos
 				return 0;
 			}
 
-			// determine the size (in bytes) of an allocation that
-			// was made from a CMemoryPool
+			// requested size of allocation
 			static
 			ULONG UserSizeOfAlloc(const void *ptr);
 
+			// free allocation
 			static
 			void DeleteImpl(void *ptr, EAllocationType eat);
 

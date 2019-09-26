@@ -27,7 +27,7 @@ using namespace gpos;
 // invalid exception
 const ULONG_PTR CMemoryPool::m_invalid = ULONG_PTR_MAX;
 
-
+// get user requested size of allocation
 ULONG
 CMemoryPool::UserSizeOfAlloc(const void *ptr)
 {
@@ -42,9 +42,6 @@ CMemoryPool::DeleteImpl(void *ptr, EAllocationType eat)
 {
 	CMemoryPoolManager::GetMemoryPoolMgr()->DeleteImpl(ptr, eat);
 }
-
-
-// EOF
 
 #ifdef GPOS_DEBUG
 
@@ -122,7 +119,3 @@ CMemoryPool::AssertEmpty
 }
 
 #endif // GPOS_DEBUG
-
-
-// EOF
-

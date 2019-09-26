@@ -30,29 +30,20 @@ namespace gpos
 	// memory pool with statistics and debugging support
 	class CMemoryPoolTracker : public CMemoryPool
 	{
-		// FIGGY
-		friend class CMemoryPool;
-
 		private:
 
-			//---------------------------------------------------------------------------
-			//	@struct:
-			//		AllocHeader
-			//
-			//	@doc:
-			//		Defines memory block header layout for all allocations;
-			//	 	does not include the pointer to the pool;
-			//
-			//---------------------------------------------------------------------------
+
+			// Defines memory block header layout for all allocations;
+			// does not include the pointer to the pool;
 			struct SAllocHeader
 			{
 				// pointer to pool
 				CMemoryPoolTracker *m_mp;
 
-				// allocation request size
+				// total allocation size (including headers)
 				ULONG m_alloc_size;
 
-				// user-visible size
+				// user requested size
 				ULONG m_user_size;
 
 				// sequence number
@@ -85,8 +76,10 @@ namespace gpos
 			// private copy ctor
 			CMemoryPoolTracker(CMemoryPoolTracker &);
 
+			// record a successful allocation
 			void RecordAllocation(SAllocHeader *header);
 
+			// record a successful free
 			void RecordFree(SAllocHeader *header);
 
 		protected:
@@ -104,12 +97,15 @@ namespace gpos
 			virtual
 			void TearDown();
 
+			// allocate memory
 			void *NewImpl(const ULONG bytes, const CHAR *file, const ULONG line,
 						  CMemoryPool::EAllocationType eat);
 
+			// free memory allocation
 			static
 			void DeleteImpl(void *ptr, EAllocationType eat);
 
+			// get user requested size of allocation
 			static
 			ULONG UserSizeOfAlloc(const void *ptr);
 
