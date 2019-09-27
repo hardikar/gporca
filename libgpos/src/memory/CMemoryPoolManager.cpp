@@ -42,12 +42,14 @@ CMemoryPoolManager *CMemoryPoolManager::m_memory_pool_mgr = NULL;
 //---------------------------------------------------------------------------
 CMemoryPoolManager::CMemoryPoolManager
 	(
-	CMemoryPool *internal
+	CMemoryPool *internal,
+	EMemoryPoolType memory_pool_type
 	)
 	:
 	m_internal_memory_pool(internal),
 	m_allow_global_new(true),
-	m_ht_all_pools(NULL)
+	m_ht_all_pools(NULL),
+	m_memory_pool_type(memory_pool_type)
 {
 	GPOS_ASSERT(NULL != internal);
 	GPOS_ASSERT(GPOS_OFFSET(CMemoryPool, m_link) == GPOS_OFFSET(CMemoryPoolTracker, m_link));

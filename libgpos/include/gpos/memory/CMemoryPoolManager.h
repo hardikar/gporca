@@ -81,8 +81,17 @@ namespace gpos
 
 		protected:
 
+			enum EMemoryPoolType
+			{
+				EMemoryPoolTracker = 0,
+				EMemoryPoolExternal,
+				EMemoryPoolSentinel
+			};
+
+			EMemoryPoolType m_memory_pool_type;
+
 			// ctor
-			CMemoryPoolManager(CMemoryPool *internal);
+			CMemoryPoolManager(CMemoryPool *internal, EMemoryPoolType memory_pool_type);
 
 			CMemoryPool *GetInternalMemoryPool()
 			{
@@ -102,7 +111,7 @@ namespace gpos
 				// instantiate manager
 				GPOS_TRY
 				{
-					m_memory_pool_mgr = GPOS_NEW(internal) ManagerType(internal);
+					m_memory_pool_mgr = GPOS_NEW(internal) ManagerType(internal, EMemoryPoolTracker);
 					m_memory_pool_mgr->Setup();
 				}
 				GPOS_CATCH_EX(ex)
