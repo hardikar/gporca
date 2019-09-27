@@ -174,7 +174,7 @@ CMemoryPoolTracker::DeleteImpl
 }
 
 ULONG
-CMemoryPoolTracker::SizeOfAlloc(const void *ptr)
+CMemoryPoolTracker::UserSizeOfAlloc(const void *ptr)
 {
 	const CMemoryPoolTracker::SAllocHeader *header = static_cast<const CMemoryPoolTracker::SAllocHeader*>(ptr) - 1;
 	return header->m_user_size;

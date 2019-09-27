@@ -85,7 +85,7 @@ CMemoryPoolManager::Init()
 {
 	if (NULL == CMemoryPoolManager::m_memory_pool_mgr)
 	{
-		return SetupMemoryPoolManager<CMemoryPoolManager, CMemoryPoolTracker>();
+		return SetupGlobalMemoryPoolManager<CMemoryPoolManager, CMemoryPoolTracker>();
 	}
 
 	return GPOS_OK;
@@ -190,9 +190,9 @@ CMemoryPoolManager::DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat)
 
 
 ULONG
-CMemoryPoolManager::SizeOfAlloc(const void* ptr)
+CMemoryPoolManager::UserSizeOfAlloc(const void* ptr)
 {
-	return CMemoryPoolTracker::SizeOfAlloc(ptr);
+	return CMemoryPoolTracker::UserSizeOfAlloc(ptr);
 }
 #ifdef GPOS_DEBUG
 

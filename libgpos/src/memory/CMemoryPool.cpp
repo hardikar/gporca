@@ -29,11 +29,11 @@ const ULONG_PTR CMemoryPool::m_invalid = ULONG_PTR_MAX;
 
 
 ULONG
-CMemoryPool::SizeOfAlloc(const void *ptr)
+CMemoryPool::UserSizeOfAlloc(const void *ptr)
 {
 	GPOS_ASSERT(NULL != ptr);
 
-	return CMemoryPoolManager::GetMemoryPoolMgr()->SizeOfAlloc(ptr);
+	return CMemoryPoolManager::GetMemoryPoolMgr()->UserSizeOfAlloc(ptr);
 }
 
 

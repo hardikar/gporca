@@ -157,7 +157,7 @@ namespace gpos
 			// determine the size (in bytes) of an allocation that
 			// was made from a CMemoryPool
 			static
-			ULONG SizeOfAlloc(const void *ptr);
+			ULONG UserSizeOfAlloc(const void *ptr);
 
 			static
 			void DeleteImpl(void *ptr, EAllocationType eat);
@@ -242,7 +242,7 @@ namespace gpos
 
 				// Invoke destructor on each array element in reverse
 				// order from construction.
-				const SIZE_T  num_elements = CMemoryPool::SizeOfAlloc(object_array) / sizeof(T);
+				const SIZE_T  num_elements = CMemoryPool::UserSizeOfAlloc(object_array) / sizeof(T);
 				for (SIZE_T idx = num_elements - 1; idx < num_elements; --idx) {
 					object_array[idx].~T();
 				}

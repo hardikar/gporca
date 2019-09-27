@@ -91,7 +91,7 @@ namespace gpos
 
 			template<typename ManagerType, typename PoolType>
 			static
-			GPOS_RESULT SetupMemoryPoolManager()
+			GPOS_RESULT SetupGlobalMemoryPoolManager()
 			{
 				// raw allocation of memory for internal memory pools
 				void *alloc_internal = gpos::clib::Malloc(sizeof(PoolType));
@@ -173,7 +173,7 @@ namespace gpos
 			void DeleteImpl(void* ptr, CMemoryPool::EAllocationType eat);
 
 			virtual
-			ULONG SizeOfAlloc(const void* ptr);
+			ULONG UserSizeOfAlloc(const void* ptr);
 
 			// initialize global instance
 			static
