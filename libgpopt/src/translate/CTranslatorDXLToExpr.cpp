@@ -4081,8 +4081,10 @@ CTranslatorDXLToExpr::AddDistributionColumns
 		INT attno = pmdcol->AttrNum();
 		ULONG *pulPos = phmiulAttnoColMapping->Find(&attno);
 		GPOS_ASSERT(NULL != pulPos);
-		
-		ptabdesc->AddDistributionColumn(*pulPos);
+
+		IMDId *opfamily = pmdrel->GetDistrOpfamilyAt(ul);
+		opfamily->AddRef();
+		ptabdesc->AddDistributionColumn(*pulPos, opfamily);
 	}
 }
 
