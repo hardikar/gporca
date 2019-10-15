@@ -294,6 +294,13 @@ CMDRelationCtasGPDB::GetDistrColAt
 	return GetMdCol(distr_key_pos);
 }
 
+IMDId *
+CMDRelationCtasGPDB::GetDistrOpfamilyAt(ULONG) const
+{
+	// FIGGY
+	return NULL;
+}
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CMDRelationCtasGPDB::Serialize

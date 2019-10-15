@@ -294,6 +294,7 @@ CPhysical::PdsCompute
 		{
 			const CColumnDescriptorArray *pdrgpcoldesc = ptabdesc->PdrgpcoldescDist();
 			CColRefArray *colref_array = GPOS_NEW(mp) CColRefArray(mp);
+			IMdIdArray *opfamilies = GPOS_NEW(mp) IMdIdArray(mp);
 			
 			const ULONG size = pdrgpcoldesc->Size();
 			for (ULONG ul = 0; ul < size; ul++)
@@ -305,11 +306,16 @@ CPhysical::PdsCompute
 				
 				CColRef *colref = (*pdrgpcrOutput)[ulPos];
 				colref_array->Append(colref);
+
+				IMDId *opfamily = (*ptabdesc->DistrOpfamilies())[ul];
+				opfamily->AddRef();
+				opfamilies->Append(opfamily);
 			}
 
 			CExpressionArray *pdrgpexpr = CUtils::PdrgpexprScalarIdents(mp, colref_array);
 			colref_array->Release();
 
+			GPOS_ASSERT(opfamilies->Size() == pdrgpexpr->Size());
 			pds = GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexpr, true /*fNullsColocated*/);
 			break;
 		}
