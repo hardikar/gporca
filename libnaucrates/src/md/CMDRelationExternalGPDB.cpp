@@ -294,6 +294,12 @@ CMDRelationExternalGPDB::NonDroppedColAt
 	return *pul;
 }
 
+IMDId *
+CMDRelationExternalGPDB::GetDistrOpfamilyAt(ULONG) const
+{
+	// FIGGY
+	return NULL;
+}
 //---------------------------------------------------------------------------
 //	@function:
 //		CMDRelationExternalGPDB::GetPosFromAttno

@@ -222,6 +222,9 @@ namespace gpmd
 			virtual
 			const IMDColumn *GetDistrColAt(ULONG pos) const;
 
+			virtual
+			IMDId *GetDistrOpfamilyAt(ULONG pos) const;
+
 			// number of indices
 			virtual
 			ULONG IndexCount() const
