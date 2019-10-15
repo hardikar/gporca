@@ -2272,6 +2272,7 @@ CTranslatorDXLToExpr::RegisterMDRelationCtas
 			pdxlopCTAS->Ereldistrpolicy(),
 			mdcol_array,
 			pdxlopCTAS->GetDistrColPosArray(),
+			pdxlopCTAS->GetDistrOpfamilies(),
 			GPOS_NEW(m_mp) ULongPtr2dArray(m_mp), // keyset_array,
 			pdxlopCTAS->GetDxlCtasStorageOption(),
 			vartypemod_array
@@ -4033,8 +4034,16 @@ CTranslatorDXLToExpr::AddDistributionColumns
 		INT attno = pmdcol->AttrNum();
 		ULONG *pulPos = phmiulAttnoColMapping->Find(&attno);
 		GPOS_ASSERT(NULL != pulPos);
-		
-		ptabdesc->AddDistributionColumn(*pulPos);
+
+		IMDId *opfamily = NULL;
+		if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+		{
+			opfamily = pmdrel->GetDistrOpfamilyAt(ul);
+			GPOS_ASSERT(NULL != opfamily);
+			opfamily->AddRef();
+		}
+
+		ptabdesc->AddDistributionColumn(*pulPos, opfamily);
 	}
 }
 
