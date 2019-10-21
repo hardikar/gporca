@@ -266,6 +266,7 @@ namespace gpopt
 				CExpression *pexprJoin,
 				CExpressionArray *pdrgpexprOuter,
 				CExpressionArray *pdrgpexprInner,
+				IMdIdArray *opfamilies,
 				CXformResult *pxfres
 				);
 
@@ -1215,6 +1216,7 @@ namespace gpopt
 		CExpression *pexprJoin,
 		CExpressionArray *pdrgpexprOuter,
 		CExpressionArray *pdrgpexprInner,
+		IMdIdArray *opfamilies,
 		CXformResult *pxfres
 		)
 	{
@@ -1228,11 +1230,11 @@ namespace gpopt
 		{
 			(*pexprJoin)[ul]->AddRef();
 		}
-		CExpression *pexprResult = GPOS_NEW(mp) CExpression(mp,
-														GPOS_NEW(mp) T(mp, pdrgpexprOuter, pdrgpexprInner),
-														(*pexprJoin)[0],
-														(*pexprJoin)[1],
-														(*pexprJoin)[2]);
+		T *op = GPOS_NEW(mp) T(mp, pdrgpexprOuter, pdrgpexprInner, opfamilies);
+		CExpression *pexprResult = GPOS_NEW(mp) CExpression(mp, op,
+															(*pexprJoin)[0],
+															(*pexprJoin)[1],
+															(*pexprJoin)[2]);
 		pxfres->Add(pexprResult);
 	}
 
@@ -1280,11 +1282,12 @@ namespace gpopt
 				// no reason to try to do the same again
 				pdrgpexprOuter->Release();
 				pdrgpexprInner->Release();
+				join_opfamilies->Release();
 			}
 			else
 			{
 				// we have computed hash join keys on scalar child before, reuse them
-				AddHashOrMergeJoinAlternative<T>(mp, pexpr, pdrgpexprOuter, pdrgpexprInner, pxfres);
+				AddHashOrMergeJoinAlternative<T>(mp, pexpr, pdrgpexprOuter, pdrgpexprInner, join_opfamilies, pxfres);
 			}
 
 			return;
@@ -1319,8 +1322,9 @@ namespace gpopt
 				pdrgpexprInner->Append(pexprPredInner);
 
 				CMDAccessor *mda = COptCtxt::PoctxtFromTLS()->Pmda();
-				const IMDScalarOp *scop = mda->RetrieveScOp(mdid_scop);
-				join_opfamilies->Append(scop->HashOpfamiliyMdid());
+				IMDId *scop_mdid = mda->RetrieveScOp(mdid_scop)->HashOpfamiliyMdid();
+				scop_mdid->AddRef();
+				join_opfamilies->Append(scop_mdid);
 			}
 		}
 		GPOS_ASSERT(pdrgpexprInner->Size() == pdrgpexprOuter->Size());
@@ -1339,13 +1343,14 @@ namespace gpopt
 		// Add an alternative only if we found at least one hash-joinable predicate
 		if (0 != pdrgpexprOuter->Size())
 		{
-			AddHashOrMergeJoinAlternative<T>(mp, pexprResult, pdrgpexprOuter, pdrgpexprInner, pxfres);
+			AddHashOrMergeJoinAlternative<T>(mp, pexprResult, pdrgpexprOuter, pdrgpexprInner, join_opfamilies, pxfres);
 		}
 		else
 		{
 			// clean up
 			pdrgpexprOuter->Release();
 			pdrgpexprInner->Release();
+			join_opfamilies->Release();
 		}
 
 		pexprResult->Release();
@@ -1390,7 +1395,7 @@ namespace gpopt
 			else
 			{
 				// we have computed join keys on scalar child before, reuse them
-				AddHashOrMergeJoinAlternative<T>(mp, pexpr, pdrgpexprOuter, pdrgpexprInner, pxfres);
+				AddHashOrMergeJoinAlternative<T>(mp, pexpr, pdrgpexprOuter, pdrgpexprInner, join_opfamilies, pxfres);
 			}
 
 			return;
@@ -1451,7 +1456,7 @@ namespace gpopt
 		// Add an alternative only if we found at least one merge-joinable predicate
 		if (0 != pdrgpexprOuter->Size())
 		{
-			AddHashOrMergeJoinAlternative<T>(mp, pexprResult, pdrgpexprOuter, pdrgpexprInner, pxfres);
+			AddHashOrMergeJoinAlternative<T>(mp, pexprResult, pdrgpexprOuter, pdrgpexprInner, join_opfamilies, pxfres);
 		}
 		else
 		{

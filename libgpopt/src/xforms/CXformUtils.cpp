@@ -2567,6 +2567,7 @@ CXformUtils::LookupJoinKeys
 	GPOS_ASSERT(NULL != pgroupScalar->PdrgpexprJoinKeysInner());
 
 	*join_opfamilies = pgroupScalar->JoinOpfamilies();
+	(*join_opfamilies)->AddRef();
 
 	// extract used columns by hash join keys
 	CColRefSet *pcrsUsedOuter = CUtils::PcrsExtractColumns(mp, pgroupScalar->PdrgpexprJoinKeysOuter());

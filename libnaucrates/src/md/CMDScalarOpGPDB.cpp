@@ -82,6 +82,7 @@ CMDScalarOpGPDB::~CMDScalarOpGPDB()
 	CRefCount::SafeRelease(m_mdid_type_right);
 	CRefCount::SafeRelease(m_mdid_commute_opr);
 	CRefCount::SafeRelease(m_mdid_inverse_opr);
+	CRefCount::SafeRelease(m_mdid_hash_opfamily);
 	
 	GPOS_DELETE(m_mdname);
 	GPOS_DELETE(m_dxl_str);
