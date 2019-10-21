@@ -316,7 +316,7 @@ CPhysical::PdsCompute
 			colref_array->Release();
 
 			GPOS_ASSERT(opfamilies->Size() == pdrgpexpr->Size());
-			pds = GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexpr, true /*fNullsColocated*/);
+			pds = GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexpr, true /*fNullsColocated*/, opfamilies);
 			break;
 		}
 

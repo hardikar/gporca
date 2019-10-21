@@ -39,16 +39,19 @@ using namespace gpopt;
 CDistributionSpecHashed::CDistributionSpecHashed
 	(
 	CExpressionArray *pdrgpexpr,
-	BOOL fNullsColocated
+	BOOL fNullsColocated,
+	IMdIdArray *opfamilies
 	)
 	:
 	m_pdrgpexpr(pdrgpexpr),
+	m_opfamilies(opfamilies),
 	m_fNullsColocated(fNullsColocated),
 	m_pdshashedEquiv(NULL),
 	m_equiv_hash_exprs(NULL)
 {
 	GPOS_ASSERT(NULL != pdrgpexpr);
 	GPOS_ASSERT(0 < pdrgpexpr->Size());
+	GPOS_ASSERT(opfamilies->Size() == pdrgpexpr->Size());
 }
 
 //---------------------------------------------------------------------------
@@ -63,16 +66,19 @@ CDistributionSpecHashed::CDistributionSpecHashed
 	(
 	CExpressionArray *pdrgpexpr,
 	BOOL fNullsColocated,
-	CDistributionSpecHashed *pdshashedEquiv
+	CDistributionSpecHashed *pdshashedEquiv,
+	IMdIdArray *opfamilies
 	)
 	:
 	m_pdrgpexpr(pdrgpexpr),
+	m_opfamilies(opfamilies),
 	m_fNullsColocated(fNullsColocated),
 	m_pdshashedEquiv(pdshashedEquiv),
 	m_equiv_hash_exprs(NULL)
 {
 	GPOS_ASSERT(NULL != pdrgpexpr);
 	GPOS_ASSERT(0 < pdrgpexpr->Size());
+	GPOS_ASSERT(opfamilies == NULL || opfamilies->Size() == pdrgpexpr->Size());
 }
 
 //---------------------------------------------------------------------------
@@ -88,6 +94,35 @@ CDistributionSpecHashed::~CDistributionSpecHashed()
 	m_pdrgpexpr->Release();
 	CRefCount::SafeRelease(m_pdshashedEquiv);
 	CRefCount::SafeRelease(m_equiv_hash_exprs);
+	CRefCount::SafeRelease(m_opfamilies);
+}
+
+
+BOOL
+CDistributionSpecHashed::IsOpfamilyCompatible
+	(
+	const CDistributionSpecHashed *other_spec
+	) const
+{
+	if (NULL == m_opfamilies && NULL == other_spec->m_opfamilies)
+	{
+		return true;
+	}
+
+	if (NULL == m_opfamilies ^ NULL == other_spec->m_opfamilies)
+	{
+		return false;
+	}
+
+	for (ULONG ul = 0; ul < m_opfamilies->Size(); ul++)
+	{
+		if (!(*m_opfamilies)[ul]->Equals((*other_spec->m_opfamilies)[ul]))
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 //---------------------------------------------------------------------------
@@ -193,6 +228,7 @@ CDistributionSpecHashed::FMatchSubset
 
 	if (ulOtherExprs < ulOwnExprs ||
 		!FNullsColocatedCompatible(pdsHashed) ||
+		!IsOpfamilyCompatible(pdsHashed) || // FIGGY - this is not *really* a subset check
 		!FDuplicateSensitiveCompatible(pdsHashed))
 	{
 		return false;
@@ -207,6 +243,7 @@ CDistributionSpecHashed::FMatchSubset
 		for (ULONG ulInner = 0; ulInner < ulOtherExprs; ulInner++)
 		{
 			CExpression *pexprOther = CCastUtils::PexprWithoutBinaryCoercibleCasts((*(pdsHashed->m_pdrgpexpr))[ulInner]);
+			// FIGGY
 			if (CUtils::Equals(pexprOwn, pexprOther))
 			{
 				fFound = true;
@@ -370,6 +407,7 @@ CDistributionSpecHashed::HashValue() const
 			}
 		}
 	}
+	// FIGGY
 	return ulHash;
 }
 
@@ -412,6 +450,7 @@ CDistributionSpecHashed::FMatchHashedDistribution
 
 	if (m_pdrgpexpr->Size() != pdshashed->m_pdrgpexpr->Size() ||
 		!FNullsColocatedCompatible(pdshashed) ||
+		!IsOpfamilyCompatible(pdshashed) ||
 		IsDuplicateSensitive() != pdshashed->IsDuplicateSensitive())
 	{
 		return false;
@@ -509,6 +548,11 @@ CDistributionSpecHashed::Equals
 	// if the equivalent spec are not equal, the spec objects are not equal
 	if (!equals)
 		return false;
+
+	if (!IsOpfamilyCompatible(other_spec))
+	{
+		return false;
+	}
 
 	BOOL matches = m_fNullsColocated == other_spec->FNullsColocated() &&
 	m_is_duplicate_sensitive == other_spec->IsDuplicateSensitive() &&
@@ -765,6 +809,15 @@ CDistributionSpecHashed::OsPrint
 				CExpression *equiv_distribution_expr = (*equiv_distribution_exprs)[id];
 				os << *equiv_distribution_expr << ",";
 			}
+		}
+	}
+
+	if (NULL != m_opfamilies && m_opfamilies->Size() > 0) // FIGGY
+	{
+		os << ", opfamilies: ";
+		for (ULONG ul = 0; ul < m_opfamilies->Size(); ul++)
+		{
+			(*m_opfamilies)[ul]->OsPrint(os);
 		}
 	}
 
