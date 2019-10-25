@@ -27,18 +27,21 @@ CMDIdScCmp::CMDIdScCmp
 	(
 	CMDIdGPDB *left_mdid,
 	CMDIdGPDB *right_mdid,
+	CMDIdGPDB *opfamily_mdid,
 	IMDType::ECmpType cmp_type
 	)
 	:
 	m_mdid_left(left_mdid),
 	m_mdid_right(right_mdid),
+	m_mdid_opfamily(opfamily_mdid),
 	m_comparision_type(cmp_type),
 	m_str(m_mdid_array, GPOS_ARRAY_SIZE(m_mdid_array))
 {
 	GPOS_ASSERT(left_mdid->IsValid());
 	GPOS_ASSERT(right_mdid->IsValid());
+	//GPOS_ASSERT(opfamily_mdid->IsValid()); // FIGGY
 	GPOS_ASSERT(IMDType::EcmptOther != cmp_type);
-	
+
 	GPOS_ASSERT(left_mdid->Sysid().Equals(right_mdid->Sysid()));
 	
 	// serialize mdid into static string 
@@ -57,6 +60,7 @@ CMDIdScCmp::~CMDIdScCmp()
 {
 	m_mdid_left->Release();
 	m_mdid_right->Release();
+	m_mdid_opfamily->Release();
 }
 
 //---------------------------------------------------------------------------
@@ -73,14 +77,17 @@ CMDIdScCmp::Serialize()
 	// serialize mdid as SystemType.mdidLeft;mdidRight;CmpType
 	m_str.AppendFormat
 			(
-			GPOS_WSZ_LIT("%d.%d.%d.%d;%d.%d.%d;%d"), 
+			GPOS_WSZ_LIT("%d.%d.%d.%d;%d.%d.%d;%d.%d.%d;%d"),
 			MdidType(), 
-					   m_mdid_left->Oid(),
-			m_mdid_left->VersionMajor(),
-			m_mdid_left->VersionMinor(),
-					   m_mdid_right->Oid(),
-			m_mdid_right->VersionMajor(),
-			m_mdid_right->VersionMinor(),
+			m_mdid_left->Oid(),
+			 	m_mdid_left->VersionMajor(),
+			 	m_mdid_left->VersionMinor(),
+			m_mdid_right->Oid(),
+			 	m_mdid_right->VersionMajor(),
+			 	m_mdid_right->VersionMinor(),
+			m_mdid_opfamily->Oid(),
+			 	m_mdid_opfamily->VersionMajor(),
+			 	m_mdid_opfamily->VersionMinor(),
 			m_comparision_type
 			);
 }
@@ -138,11 +145,10 @@ CMDIdScCmp::GetRightMdid() const
 ULONG
 CMDIdScCmp::HashValue() const
 {
-	return gpos::CombineHashes
-								(
-								MdidType(), 
-								gpos::CombineHashes(m_mdid_left->HashValue(), m_mdid_right->HashValue())
-								);
+	ULONG hash = gpos::CombineHashes(m_mdid_left->HashValue(), m_mdid_right->HashValue());
+	hash = gpos::CombineHashes(MdidType(), hash);
+	hash = gpos::CombineHashes(m_mdid_opfamily->HashValue(), hash);
+	return hash;
 }
 
 //---------------------------------------------------------------------------
@@ -169,7 +175,8 @@ CMDIdScCmp::Equals
 	
 	return m_mdid_left->Equals(pmdidScCmp->GetLeftMdid()) &&
 			m_mdid_right->Equals(pmdidScCmp->GetRightMdid()) &&
-			m_comparision_type == pmdidScCmp->ParseCmpType(); 
+			m_comparision_type == pmdidScCmp->ParseCmpType() &&
+			m_mdid_opfamily->Equals(pmdidScCmp->GetOpfamilyMdid());
 }
 
 //---------------------------------------------------------------------------

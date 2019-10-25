@@ -709,7 +709,9 @@ CMDAccessorTest::EresUnittest_ScCmp()
 #ifdef GPOS_DEBUG
 	const IMDScCmp *pmdScEqIntBigInt = 
 #endif // GPOS_DEBUG
-	mda.Pmdsccmp(pmdtypeInt->MDId(), pmdtypeBigInt->MDId(), IMDType::EcmptEq);
+	mda.RetrieveScalarCmp(pmdtypeInt->MDId(), pmdtypeBigInt->MDId(),
+				 pmdtypeInt->GetDefaultOpfamilyMdid(),
+				 IMDType::EcmptEq);
 	
 	GPOS_ASSERT(IMDType::EcmptEq == pmdScEqIntBigInt->ParseCmpType());
 	GPOS_ASSERT(pmdScEqIntBigInt->GetLeftMdid()->Equals(pmdtypeInt->MDId()));

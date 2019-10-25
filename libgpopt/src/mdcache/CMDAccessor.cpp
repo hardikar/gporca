@@ -1063,10 +1063,11 @@ CMDAccessor::Pmdcast
 //
 //---------------------------------------------------------------------------
 const IMDScCmp *
-CMDAccessor::Pmdsccmp
+CMDAccessor::RetrieveScalarCmp
 	(
 	IMDId *left_mdid,
 	IMDId *right_mdid,
+	IMDId *opfamily_mdid,
 	IMDType::ECmpType cmp_type
 	)
 {	
@@ -1076,9 +1077,13 @@ CMDAccessor::Pmdsccmp
 	
 	left_mdid->AddRef();
 	right_mdid->AddRef();
-	
+	opfamily_mdid->AddRef();
+
 	CAutoP<IMDId> a_pmdidScCmp;
-	a_pmdidScCmp = GPOS_NEW(m_mp) CMDIdScCmp(CMDIdGPDB::CastMdid(left_mdid), CMDIdGPDB::CastMdid(right_mdid), cmp_type);
+	a_pmdidScCmp = GPOS_NEW(m_mp) CMDIdScCmp(CMDIdGPDB::CastMdid(left_mdid),
+											 CMDIdGPDB::CastMdid(right_mdid),
+											 CMDIdGPDB::CastMdid(opfamily_mdid),
+											 cmp_type);
 	
 	const IMDCacheObject *pmdobj = GetImdObj(a_pmdidScCmp.Value());
 		

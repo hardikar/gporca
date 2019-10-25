@@ -92,7 +92,8 @@ CMDAccessorUtils::FCmpExists
 	CMDAccessor *md_accessor,
 	IMDId *left_mdid,
 	IMDId *right_mdid,
-	IMDType::ECmpType cmp_type
+	IMDType::ECmpType cmp_type,
+	IMDId *opfamily_mdid // FIGGY
 	)
 {
 	GPOS_ASSERT(NULL != md_accessor);
@@ -102,7 +103,7 @@ CMDAccessorUtils::FCmpExists
 
 	GPOS_TRY
 	{
-		(void) GetScCmpMdid(md_accessor, left_mdid, right_mdid, cmp_type);
+		(void) GetScCmpMdid(md_accessor, left_mdid, right_mdid, cmp_type, opfamily_mdid);
 
 		return true;
 	}
@@ -125,7 +126,8 @@ CMDAccessorUtils::GetScCmpMdid
 	CMDAccessor *md_accessor,
 	IMDId *left_mdid,
 	IMDId *right_mdid,
-	IMDType::ECmpType cmp_type
+	IMDType::ECmpType cmp_type,
+	IMDId *opfamily_mdid // FIGGY
 	)
 {
 	GPOS_ASSERT(NULL != md_accessor);
@@ -140,20 +142,29 @@ CMDAccessorUtils::GetScCmpMdid
 
 	IMDId *sc_cmp_mdid;
 
+	if (opfamily_mdid == NULL)
+	{
+		const IMDType *pmdtypeLeft = md_accessor->RetrieveType(left_mdid);
+		opfamily_mdid = pmdtypeLeft->GetDefaultOpfamilyMdid();
+	}
+
 	// if the left & right are the same, first check the MDType
 	if (left_mdid->Equals(right_mdid))
 	{
 		const IMDType *pmdtypeLeft = md_accessor->RetrieveType(left_mdid);
+		IMDId *type_opfamily_mdid = pmdtypeLeft->GetDefaultOpfamilyMdid();
 		sc_cmp_mdid = pmdtypeLeft->GetMdidForCmpType(cmp_type);
 
-		if (IMDId::IsValid(sc_cmp_mdid))
+		if (IMDId::IsValid(sc_cmp_mdid) && opfamily_mdid->Equals(type_opfamily_mdid))
 		{
 			return sc_cmp_mdid;
 		}
 	}
 
 	// then check for an explicit operator
-	sc_cmp_mdid = md_accessor->Pmdsccmp(left_mdid, right_mdid, cmp_type)->MdIdOp();
+	const IMDScCmp *sc_cmp = md_accessor->RetrieveScalarCmp(left_mdid, right_mdid,
+															opfamily_mdid, cmp_type);
+	sc_cmp_mdid = sc_cmp->MdIdOp();
 
 	// either sc_cmp_mdid is valid or an exception was raised during lookup
 	GPOS_ASSERT(IMDId::IsValid(sc_cmp_mdid));
@@ -205,35 +216,38 @@ CMDAccessorUtils::GetScCmpMdIdConsiderCasts
 	CMDAccessor *md_accessor,
 	IMDId *left_mdid,
 	IMDId *right_mdid,
-	IMDType::ECmpType cmp_type
+	IMDType::ECmpType cmp_type,
+	IMDId *mdid_opfamily
 	)
 {
 	GPOS_ASSERT(NULL != left_mdid);
 	GPOS_ASSERT(NULL != right_mdid);
 	GPOS_ASSERT(IMDType::EcmptOther > cmp_type);
 
+	// FIGGY: WHAT ABOUT CASTS? DO THEY CARE ABOUT OPFAMILIES?
+
 	// left op right
-	if (CMDAccessorUtils::FCmpExists(md_accessor, left_mdid, right_mdid, cmp_type))
+	if (CMDAccessorUtils::FCmpExists(md_accessor, left_mdid, right_mdid, cmp_type, mdid_opfamily))
 	{
-		return CMDAccessorUtils::GetScCmpMdid(md_accessor, left_mdid, right_mdid, cmp_type);
+		return CMDAccessorUtils::GetScCmpMdid(md_accessor, left_mdid, right_mdid, cmp_type, mdid_opfamily);
 	}
 
 	// left op cast(right)
-	if (CMDAccessorUtils::FCmpExists(md_accessor, left_mdid, left_mdid, cmp_type) &&
+	if (CMDAccessorUtils::FCmpExists(md_accessor, left_mdid, left_mdid, cmp_type, mdid_opfamily) &&
 		CMDAccessorUtils::FCastExists(md_accessor, right_mdid, left_mdid))
 	{
-		return CMDAccessorUtils::GetScCmpMdid(md_accessor, left_mdid, left_mdid, cmp_type);
+		return CMDAccessorUtils::GetScCmpMdid(md_accessor, left_mdid, left_mdid, cmp_type, mdid_opfamily);
 	}
 
 	// cast(left) op right
-	if (CMDAccessorUtils::FCmpExists(md_accessor, right_mdid, right_mdid, cmp_type) &&
+	if (CMDAccessorUtils::FCmpExists(md_accessor, right_mdid, right_mdid, cmp_type, mdid_opfamily) &&
 		CMDAccessorUtils::FCastExists(md_accessor, left_mdid, right_mdid))
 	{
-		return CMDAccessorUtils::GetScCmpMdid(md_accessor, right_mdid, right_mdid, cmp_type);
+		return CMDAccessorUtils::GetScCmpMdid(md_accessor, right_mdid, right_mdid, cmp_type, mdid_opfamily);
 	}
 
 	// call to raise an error on non-comparable data types
-	return CMDAccessorUtils::GetScCmpMdid(md_accessor, left_mdid, right_mdid, cmp_type);
+	return CMDAccessorUtils::GetScCmpMdid(md_accessor, left_mdid, right_mdid, cmp_type, mdid_opfamily);
 }
 
 // similar to GetScCmpMdIdConsiderCasts() but also add the appropriate casts to
@@ -245,13 +259,14 @@ CMDAccessorUtils::GetScCmpMdIdApplyCasts
 	CMDAccessor *md_accessor,
 	CExpression*& pexprLeft,
 	CExpression*& pexprRight,
-	IMDType::ECmpType cmp_type
+	IMDType::ECmpType cmp_type,
+	IMDId *mdid_opfamily
 	)
 {
 	IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
 	IMDId *right_mdid = CScalar::PopConvert(pexprRight->Pop())->MdidType();
 
-	IMDId *op_mdid = CMDAccessorUtils::GetScCmpMdIdConsiderCasts(md_accessor, left_mdid, right_mdid, cmp_type);
+	IMDId *op_mdid = CMDAccessorUtils::GetScCmpMdIdConsiderCasts(md_accessor, left_mdid, right_mdid, cmp_type, mdid_opfamily);
 	const IMDScalarOp *op = md_accessor->RetrieveScOp(op_mdid);
 	IMDId *op_left_mdid = op->GetLeftMdid();
 	IMDId *op_right_mdid = op->GetRightMdid();

@@ -355,7 +355,8 @@ namespace gpopt
 			const IMDCast *Pmdcast(IMDId *mdid_src, IMDId *mdid_dest);
 			
 			// retrieve a scalar comparison object from the cache
-			const IMDScCmp *Pmdsccmp(IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type);
+			const IMDScCmp *RetrieveScalarCmp(IMDId *left_mdid, IMDId *right_mdid,
+											  IMDId *opfamily_mdid, IMDType::ECmpType cmp_type);
 
 			// construct a statistics object for the columns of the given relation
 			IStatistics *Pstats

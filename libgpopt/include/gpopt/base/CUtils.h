@@ -144,7 +144,7 @@ namespace gpopt
 
 			// generate a comparison expression for two expressions
 			static
-			CExpression *PexprScalarCmp(CMemoryPool *mp, CExpression *pexprLeft, CExpression *pexprRight, IMDType::ECmpType cmp_type);
+			CExpression *PexprScalarCmp(CMemoryPool *mp, CExpression *pexprLeft, CExpression *pexprRight, IMDType::ECmpType cmp_type, IMDId *opfamily=NULL); // FIGGY
 
 			// generate a comparison against Zero
 			static

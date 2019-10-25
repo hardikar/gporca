@@ -2850,26 +2850,33 @@ CDXLOperatorFactory::GetScCmpMdId
 	Edxltoken target_elem
 	)
 {
-	GPOS_ASSERT(2 * GPDXL_GPDB_MDID_COMPONENTS + 1 == remaining_tokens->Size());
+	CMemoryPool *mp = dxl_memory_manager->Pmp();
+	GPOS_ASSERT(GPDXL_SC_CMD_MDID_COMPONENTS * GPDXL_GPDB_MDID_COMPONENTS + 1 == remaining_tokens->Size());
 
-	CMDIdGPDB *left_mdid = GetGPDBMdId(dxl_memory_manager, remaining_tokens, target_attr, target_elem);
-	XMLChArray *right_xml = GPOS_NEW(dxl_memory_manager->Pmp()) XMLChArray(dxl_memory_manager->Pmp());
-	
-	for (ULONG ul = GPDXL_GPDB_MDID_COMPONENTS; ul < GPDXL_GPDB_MDID_COMPONENTS * 2 + 1; ul++)
+	CMDIdGPDB *mdids[GPDXL_SC_CMD_MDID_COMPONENTS];
+	for (ULONG i = 0; i < GPDXL_SC_CMD_MDID_COMPONENTS; ++i)
 	{
-		right_xml->Append((*remaining_tokens)[ul]);
+		XMLChArray *tokens = GPOS_NEW(dxl_memory_manager->Pmp()) XMLChArray(mp);
+
+		for (ULONG j = 0; j < GPDXL_GPDB_MDID_COMPONENTS; j++)
+		{
+			tokens->Append((*remaining_tokens)[i*GPDXL_GPDB_MDID_COMPONENTS + j]);
+		}
+
+		mdids[i] = GetGPDBMdId(dxl_memory_manager, tokens, target_attr, target_elem);
+
+		tokens->Release();
 	}
-	
-	CMDIdGPDB *right_mdid = GetGPDBMdId(dxl_memory_manager, right_xml, target_attr, target_elem);
-	
+
 	// parse the comparison type from the last component of the mdid
-	XMLCh *xml_str_comp_type = (*right_xml)[right_xml->Size() - 1];
-	IMDType::ECmpType cmp_type = (IMDType::ECmpType) ConvertAttrValueToUlong(dxl_memory_manager, xml_str_comp_type, target_attr, target_elem);
+	XMLCh *xml_str_comp_type = (*remaining_tokens)[remaining_tokens->Size() - 1];
+	IMDType::ECmpType cmp_type = (IMDType::ECmpType) ConvertAttrValueToUlong(dxl_memory_manager,
+																			 xml_str_comp_type,
+																			 target_attr, target_elem);
 	GPOS_ASSERT(IMDType::EcmptOther > cmp_type);
-	
-	right_xml->Release();
-	
-	return GPOS_NEW(dxl_memory_manager->Pmp()) CMDIdScCmp(left_mdid, right_mdid, cmp_type);
+
+	return GPOS_NEW(mp) CMDIdScCmp(mdids[0] /* left_mdid */, mdids[1], /* right_mdid */
+								   mdids[2] /* opfamily_mdid */, cmp_type);
 }
 
 

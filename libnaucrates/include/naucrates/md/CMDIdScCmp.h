@@ -17,6 +17,8 @@
 #include "naucrates/md/IMDType.h"
 #include "naucrates/md/CMDIdGPDB.h"
 
+#define GPDXL_SC_CMD_MDID_COMPONENTS 3
+
 namespace gpmd
 {
 	using namespace gpos;
@@ -38,10 +40,13 @@ namespace gpmd
 			
 			// mdid of destinatin type
 			CMDIdGPDB *m_mdid_right;
-	
+
+			// mdid of opfamily
+			CMDIdGPDB *m_mdid_opfamily;
+
 			// comparison type
 			IMDType::ECmpType m_comparision_type;
-			
+
 			// buffer for the serialized mdid
 			WCHAR m_mdid_array[GPDXL_MDID_LENGTH];
 			
@@ -56,7 +61,8 @@ namespace gpmd
 			
 		public:
 			// ctor
-			CMDIdScCmp(CMDIdGPDB *left_mdid, CMDIdGPDB *right_mdid, IMDType::ECmpType cmp_type);
+			CMDIdScCmp(CMDIdGPDB *left_mdid, CMDIdGPDB *right_mdid,
+					   CMDIdGPDB *opfamily_mdid, IMDType::ECmpType cmp_type);
 			
 			// dtor
 			virtual
@@ -89,7 +95,12 @@ namespace gpmd
 			{ 
 				return m_comparision_type;
 			}
-			
+
+			IMDId *GetOpfamilyMdid() const
+			{
+				return m_mdid_opfamily;
+			}
+
 			// equality check
 			virtual
 			BOOL Equals(const IMDId *mdid) const;
@@ -102,7 +113,9 @@ namespace gpmd
 			virtual
 			BOOL IsValid() const
 			{
-				return IMDId::IsValid(m_mdid_left) && IMDId::IsValid(m_mdid_right) && IMDType::EcmptOther != m_comparision_type;
+				return IMDId::IsValid(m_mdid_left) && IMDId::IsValid(m_mdid_right) &&
+						(m_mdid_opfamily == NULL || IMDId::IsValid(m_mdid_opfamily)) && // FIGGY
+						IMDType::EcmptOther != m_comparision_type;
 			}
 
 			// serialize mdid in DXL as the value of the specified attribute

@@ -48,11 +48,11 @@ namespace gpopt
 
 			// does a scalar comparison object between given types exist
 			static
-			BOOL FCmpExists(CMDAccessor *md_accessor, IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type);
+			BOOL FCmpExists(CMDAccessor *md_accessor, IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type, IMDId *opfamily_mdid=NULL); // FIGGY
 
 			// get scalar comparison mdid between the given types
 			static
-			IMDId *GetScCmpMdid(CMDAccessor *md_accessor, IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type);
+			IMDId *GetScCmpMdid(CMDAccessor *md_accessor, IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type, IMDId *opfamily_mdid=NULL);
 
 			// check is a comparison between given types or a comparison after casting
 			// one side to an another exists
@@ -62,11 +62,11 @@ namespace gpopt
 			// return the mdid of the given scalar comparison between the two types
 			// also considering casts
 			static
-			IMDId *GetScCmpMdIdConsiderCasts(CMDAccessor *md_accessor, IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type);
+			IMDId *GetScCmpMdIdConsiderCasts(CMDAccessor *md_accessor, IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type, IMDId *opfamily=NULL); // FIGGY
 
 			// similar to GetScCmpMdIdConsiderCasts() but also add the appropriate casts
 			static
-			IMDId *GetScCmpMdIdApplyCasts(CMemoryPool *mp, CMDAccessor *md_accessor, CExpression*& pexprLeft, CExpression*& pexprRight, IMDType::ECmpType cmp_type);
+			IMDId *GetScCmpMdIdApplyCasts(CMemoryPool *mp, CMDAccessor *md_accessor, CExpression*& pexprLeft, CExpression*& pexprRight, IMDType::ECmpType cmp_type, IMDId *opfamily=NULL); // FIGGY
 
 			// is scalar operator commutative? this can be used with ScalarOp and ScalarCmp
 			static
