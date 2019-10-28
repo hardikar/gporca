@@ -570,6 +570,7 @@ CDXLTokens::Init
 			{EdxltokenMDTypeFixedLength, GPOS_WSZ_LIT("IsFixedLength")},
 			{EdxltokenMDTypeLength, GPOS_WSZ_LIT("Length")},
 			{EdxltokenMDTypeByValue, GPOS_WSZ_LIT("PassByValue")},
+			{EdxltokenMDTypeDefaultOpfamily, GPOS_WSZ_LIT("DefaultOpfamily")},
 			{EdxltokenMDTypeEqOp, GPOS_WSZ_LIT("EqualityOp")},
 			{EdxltokenMDTypeNEqOp, GPOS_WSZ_LIT("InequalityOp")},
 			{EdxltokenMDTypeLTOp, GPOS_WSZ_LIT("LessThanOp")},

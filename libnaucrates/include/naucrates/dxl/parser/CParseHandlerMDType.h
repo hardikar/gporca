@@ -47,6 +47,9 @@ namespace gpdxl
 			
 			// id and version of the type
 			IMDId *m_mdid;
+
+			// default btree opfamily
+			IMDId *m_mdid_opfamily;
 			
 			// type name
 			CMDName *m_mdname;

@@ -89,6 +89,9 @@ namespace gpmd
 			{
 				return EmdtType;
 			}
+
+			virtual
+			IMDId *GetDefaultOpfamilyMdid() const = 0;
 			
 			// md id of cache object
 			virtual 

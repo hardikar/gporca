@@ -48,6 +48,7 @@ CMDTypeOidGPDB::CMDTypeOidGPDB
 	m_mp(mp)
 {
 	m_mdid = GPOS_NEW(mp) CMDIdGPDB(GPDB_OID_OID);
+	m_mdid_opfamily = GPOS_NEW(mp) CMDIdGPDB(GPDB_OID_OPFAMILY);
 	m_mdid_op_eq = GPOS_NEW(mp) CMDIdGPDB(GPDB_OID_EQ_OP);
 	m_mdid_op_neq = GPOS_NEW(mp) CMDIdGPDB(GPDB_OID_NEQ_OP);
 	m_mdid_op_lt = GPOS_NEW(mp) CMDIdGPDB(GPDB_OID_LT_OP);
@@ -81,6 +82,7 @@ CMDTypeOidGPDB::CMDTypeOidGPDB
 CMDTypeOidGPDB::~CMDTypeOidGPDB()
 {
 	m_mdid->Release();
+	m_mdid_opfamily->Release();
 	m_mdid_op_eq->Release();
 	m_mdid_op_neq->Release();
 	m_mdid_op_lt->Release();
@@ -132,6 +134,12 @@ IMDId *
 CMDTypeOidGPDB::MDId() const
 {
 	return m_mdid;
+}
+
+IMDId *
+CMDTypeOidGPDB::GetDefaultOpfamilyMdid() const
+{
+	return m_mdid_opfamily;
 }
 
 //---------------------------------------------------------------------------

@@ -49,6 +49,7 @@ CMDTypeBoolGPDB::CMDTypeBoolGPDB
 	m_mp(mp)
 {
 	m_mdid = GPOS_NEW(mp) CMDIdGPDB(GPDB_BOOL_OID);
+	m_mdid_opfamily = GPOS_NEW(mp) CMDIdGPDB(GPDB_BOOL_OPFAMILY);
 	m_mdid_op_eq = GPOS_NEW(mp) CMDIdGPDB(GPDB_BOOL_EQ_OP);
 	m_mdid_op_neq = GPOS_NEW(mp) CMDIdGPDB(GPDB_BOOL_NEQ_OP);
 	m_mdid_op_lt = GPOS_NEW(mp) CMDIdGPDB(GPDB_BOOL_LT_OP);
@@ -83,6 +84,7 @@ CMDTypeBoolGPDB::CMDTypeBoolGPDB
 CMDTypeBoolGPDB::~CMDTypeBoolGPDB()
 {
 	m_mdid->Release();
+	m_mdid_opfamily->Release();
 	m_mdid_op_eq->Release();
 	m_mdid_op_neq->Release();
 	m_mdid_op_lt->Release();
@@ -201,6 +203,12 @@ IMDId *
 CMDTypeBoolGPDB::MDId() const
 {
 	return m_mdid;
+}
+
+IMDId *
+CMDTypeBoolGPDB::GetDefaultOpfamilyMdid() const
+{
+	return m_mdid_opfamily;
 }
 
 //---------------------------------------------------------------------------

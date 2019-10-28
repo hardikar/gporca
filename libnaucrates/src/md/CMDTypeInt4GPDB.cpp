@@ -48,6 +48,7 @@ CMDTypeInt4GPDB::CMDTypeInt4GPDB
 	m_mp(mp)
 {
 	m_mdid = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT4_OID);
+	m_mdid_opfamily = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT4_OPFAMILY);
 	m_mdid_op_eq = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT4_EQ_OP);
 	m_mdid_op_neq = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT4_NEQ_OP);
 	m_mdid_op_lt = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT4_LT_OP);
@@ -80,6 +81,7 @@ CMDTypeInt4GPDB::CMDTypeInt4GPDB
 CMDTypeInt4GPDB::~CMDTypeInt4GPDB()
 {
 	m_mdid->Release();
+	m_mdid_opfamily->Release();
 	m_mdid_op_eq->Release();
 	m_mdid_op_neq->Release();
 	m_mdid_op_lt->Release();
@@ -118,7 +120,6 @@ CMDTypeInt4GPDB::CreateInt4Datum
 	return GPOS_NEW(mp) CDatumInt4GPDB(m_mdid->Sysid(), value, is_null);
 }
 
-
 //---------------------------------------------------------------------------
 //	@function:
 //		CMDTypeInt4GPDB::MDId
@@ -131,6 +132,12 @@ IMDId *
 CMDTypeInt4GPDB::MDId() const
 {
 	return m_mdid;
+}
+
+IMDId *
+CMDTypeInt4GPDB::GetDefaultOpfamilyMdid() const
+{
+	return m_mdid_opfamily;
 }
 
 //---------------------------------------------------------------------------

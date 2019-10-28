@@ -84,6 +84,7 @@ CParseHandlerMDType::CParseHandlerMDType
 CParseHandlerMDType::~CParseHandlerMDType()
 {
 	m_mdid->Release();
+	m_mdid_opfamily->Release();
 	m_mdid_eq_op->Release();
 	m_mdid_neq_op->Release();
 	m_mdid_lt_op->Release();
@@ -258,6 +259,7 @@ CParseHandlerMDType::ParseMdid
 		{EdxltokenMDTypeAggAvg, &m_mdid_avg_op},
 		{EdxltokenMDTypeAggSum, &m_mdid_sum_op},
 		{EdxltokenMDTypeAggCount, &m_mdid_count_op},
+		{EdxltokenMDTypeDefaultOpfamily, &m_mdid_opfamily},
 	};
 	
 	Edxltoken token_type = EdxltokenSentinel;
@@ -415,6 +417,7 @@ CParseHandlerMDType::EndElement
 
 			default:
 				m_mdid->AddRef();
+				m_mdid_opfamily->AddRef();
 				m_mdid_eq_op->AddRef();
 				m_mdid_neq_op->AddRef();
 				m_mdid_lt_op->AddRef();
@@ -447,6 +450,7 @@ CParseHandlerMDType::EndElement
 										m_istype_fixed_Length,
 										length,
 										m_type_passed_by_value,
+										m_mdid_opfamily,
 										m_mdid_eq_op,
 										m_mdid_neq_op,
 										m_mdid_lt_op,

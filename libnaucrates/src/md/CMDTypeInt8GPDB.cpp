@@ -54,6 +54,7 @@ CMDTypeInt8GPDB::CMDTypeInt8GPDB
 	m_mp(mp)
 {
 	m_mdid = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT8_OID);
+	m_mdid_opfamily = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT8_OPFAMILY);
 	m_mdid_op_eq = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT8_EQ_OP);
 	m_mdid_op_neq = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT8_NEQ_OP);
 	m_mdid_op_lt = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT8_LT_OP);
@@ -87,6 +88,7 @@ CMDTypeInt8GPDB::CMDTypeInt8GPDB
 CMDTypeInt8GPDB::~CMDTypeInt8GPDB()
 {
 	m_mdid->Release();
+	m_mdid_opfamily->Release();
 	m_mdid_op_eq->Release();
 	m_mdid_op_neq->Release();
 	m_mdid_op_lt->Release();
@@ -138,6 +140,12 @@ IMDId *
 CMDTypeInt8GPDB::MDId() const
 {
 	return m_mdid;
+}
+
+IMDId *
+CMDTypeInt8GPDB::GetDefaultOpfamilyMdid() const
+{
+	return m_mdid_opfamily;
 }
 
 //---------------------------------------------------------------------------

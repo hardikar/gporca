@@ -19,6 +19,7 @@
 #include "naucrates/md/IMDTypeInt8.h"
 
 #define GPDB_INT8_OID OID(20)
+#define GPDB_INT8_OPFAMILY OID(1976)
 #define GPDB_INT8_LENGTH 8
 #define GPDB_INT8_EQ_OP OID(410)
 #define GPDB_INT8_NEQ_OP OID(411)
@@ -72,6 +73,7 @@ namespace gpmd
 		
 		// type id
 		IMDId *m_mdid;
+		IMDId *m_mdid_opfamily;
 		
 		// mdids of different operators
 		IMDId *m_mdid_op_eq;
@@ -132,6 +134,9 @@ namespace gpmd
 		// type id
 		virtual 
 		IMDId *MDId() const;
+
+		virtual
+		IMDId *GetDefaultOpfamilyMdid() const;
 		
 		// type name
 		virtual 
