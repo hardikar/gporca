@@ -597,6 +597,7 @@ CDXLTokens::Init
 			{EdxltokenGPDBScalarOpLTOpId, GPOS_WSZ_LIT("LessThanMergeOp")},
 			{EdxltokenGPDBScalarOpGTOpId, GPOS_WSZ_LIT("GreaterThanMergeOp")},
 			{EdxltokenGPDBScalarOpCmpType, GPOS_WSZ_LIT("ComparisonType")},
+			{EdxltokenGPDBScalarOpHashOpfamily, GPOS_WSZ_LIT("HashOpfamily")},
 			
 			{EdxltokenCmpEq, GPOS_WSZ_LIT("Eq")}, 
 			{EdxltokenCmpNeq, GPOS_WSZ_LIT("NEq")},	
