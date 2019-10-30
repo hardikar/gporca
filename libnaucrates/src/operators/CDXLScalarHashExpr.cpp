@@ -27,13 +27,13 @@ using namespace gpdxl;
 CDXLScalarHashExpr::CDXLScalarHashExpr
 	(
 	CMemoryPool *mp,
-	IMDId *mdid_type
+	IMDId *opfamily
 	)
 	:
 	CDXLScalar(mp),
-	m_mdid_type(mdid_type)
+	m_mdid_opfamily(opfamily)
 {
-	GPOS_ASSERT(m_mdid_type->IsValid());
+	GPOS_ASSERT(m_mdid_opfamily->IsValid());
 }
 
 //---------------------------------------------------------------------------
@@ -46,7 +46,7 @@ CDXLScalarHashExpr::CDXLScalarHashExpr
 //---------------------------------------------------------------------------
 CDXLScalarHashExpr::~CDXLScalarHashExpr()
 {
-	m_mdid_type->Release();
+	m_mdid_opfamily->Release();
 }
 
 //---------------------------------------------------------------------------
@@ -87,9 +87,9 @@ CDXLScalarHashExpr::GetOpNameStr() const
 //
 //---------------------------------------------------------------------------
 IMDId *
-CDXLScalarHashExpr::MdidType() const
+CDXLScalarHashExpr::MdidOpfamily() const
 {
-	return m_mdid_type;
+	return m_mdid_opfamily;
 }
 
 //---------------------------------------------------------------------------
@@ -111,7 +111,7 @@ CDXLScalarHashExpr::SerializeToDXL
 	const CWStringConst *element_name = GetOpNameStr();
 	xml_serializer->OpenElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);
 
-	m_mdid_type->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenTypeId));
+	m_mdid_opfamily->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenOpfamily));
 
 	node->SerializeChildrenToDXL(xml_serializer);
 	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);
