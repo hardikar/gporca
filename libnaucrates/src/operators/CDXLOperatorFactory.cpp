@@ -1480,7 +1480,7 @@ CDXLOperatorFactory::MakeDXLHashExpr
 							(
 							dxl_memory_manager,
 							attrs,
-							EdxltokenTypeId,
+							EdxltokenOpfamily,
 							EdxltokenScalarHashExpr
 							);
 
