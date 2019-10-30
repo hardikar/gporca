@@ -46,12 +46,14 @@ CPhysicalHashJoin::CPhysicalHashJoin
 	(
 	CMemoryPool *mp,
 	CExpressionArray *pdrgpexprOuterKeys,
-	CExpressionArray *pdrgpexprInnerKeys
+	CExpressionArray *pdrgpexprInnerKeys,
+	IMdIdArray *hash_opfamilies
 	)
 	:
 	CPhysicalJoin(mp),
 	m_pdrgpexprOuterKeys(pdrgpexprOuterKeys),
 	m_pdrgpexprInnerKeys(pdrgpexprInnerKeys),
+	m_hash_opfamilies(hash_opfamilies),
 	m_pdrgpdsRedistributeRequests(NULL)
 {
 	GPOS_ASSERT(NULL != mp);
@@ -107,6 +109,7 @@ CPhysicalHashJoin::~CPhysicalHashJoin()
 {
 	m_pdrgpexprOuterKeys->Release();
 	m_pdrgpexprInnerKeys->Release();
+	CRefCount::SafeRelease(m_hash_opfamilies);
 	CRefCount::SafeRelease(m_pdrgpdsRedistributeRequests);
 }
 

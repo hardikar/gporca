@@ -4059,8 +4059,9 @@ CTranslatorExprToDXL::PdxlnHashJoin
 		{
 			CExpression *pexprPredOuter;
 			CExpression *pexprPredInner;
+			IMDId *mdid_scop;
 			CPhysicalJoin::AlignJoinKeyOuterInner(pexprPred, pexprOuterChild, pexprInnerChild,
-												   &pexprPredOuter, &pexprPredInner);
+												   &pexprPredOuter, &pexprPredInner, &mdid_scop);
 
 			pexprPredOuter->AddRef();
 			pexprPredInner->AddRef();
