@@ -557,6 +557,7 @@ namespace gpdxl
 		EdxltokenGPDBScalarOpLTOpId,
 		EdxltokenGPDBScalarOpGTOpId,
 		EdxltokenGPDBScalarOpCmpType,
+		EdxltokenGPDBScalarOpHashOpfamily,
 		
 		EdxltokenCmpEq, 
 		EdxltokenCmpNeq,	
