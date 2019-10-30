@@ -13,6 +13,8 @@
 
 #include "gpos/base.h"
 
+#include "naucrates/md/IMDScalarOp.h"
+
 #include "gpopt/base/CUtils.h"
 #include "gpopt/base/CCastUtils.h"
 #include "gpopt/base/CColRef.h"
@@ -226,13 +228,15 @@ namespace gpopt
 			static
 			void LookupJoinKeys(CMemoryPool *mp, CExpression *pexpr,
 								CExpressionArray **ppdrgpexprOuter,
-								CExpressionArray **ppdrgpexprInner);
+								CExpressionArray **ppdrgpexprInner,
+								IMdIdArray **join_opfamilies);
 
 			// cache join keys on scalar child group
 			static
 			void CacheJoinKeys(CExpression *pexpr,
 							   CExpressionArray *pdrgpexprOuter,
-							   CExpressionArray *pdrgpexprInner);
+							   CExpressionArray *pdrgpexprInner,
+							   IMdIdArray *join_opfamilies);
 
 			// helper to extract equality from a given expression
 			static
@@ -1261,9 +1265,10 @@ namespace gpopt
 		CMemoryPool *mp = pxfctxt->Pmp();
 		CExpressionArray *pdrgpexprOuter = NULL;
 		CExpressionArray *pdrgpexprInner = NULL;
+		IMdIdArray *join_opfamilies = NULL;
 
 		// check if we have already computed hash join keys for the scalar child
-		LookupJoinKeys(mp, pexpr, &pdrgpexprOuter, &pdrgpexprInner);
+		LookupJoinKeys(mp, pexpr, &pdrgpexprOuter, &pdrgpexprInner, &join_opfamilies);
 		if (NULL != pdrgpexprOuter)
 		{
 			GPOS_ASSERT(NULL != pdrgpexprInner);
@@ -1275,6 +1280,7 @@ namespace gpopt
 				// no reason to try to do the same again
 				pdrgpexprOuter->Release();
 				pdrgpexprInner->Release();
+				CRefCount::SafeRelease(join_opfamilies);
 			}
 			else
 			{
@@ -1294,6 +1300,11 @@ namespace gpopt
 		pdrgpexprOuter = GPOS_NEW(mp) CExpressionArray(mp);
 		pdrgpexprInner = GPOS_NEW(mp) CExpressionArray(mp);
 
+		if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+		{
+			join_opfamilies = GPOS_NEW(mp) IMdIdArray(mp);
+		}
+
 		CExpressionArray *pdrgpexpr = CCastUtils::PdrgpexprCastEquality(mp, pexprScalar);
 		ULONG ulPreds = pdrgpexpr->Size();
 		for (ULONG ul = 0; ul < ulPreds; ul++)
@@ -1312,9 +1323,19 @@ namespace gpopt
 				pdrgpexprOuter->Append(pexprPredOuter);
 				pdrgpexprInner->Append(pexprPredInner);
 
+				if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+				{
+					CMDAccessor *mda = COptCtxt::PoctxtFromTLS()->Pmda();
+					IMDId *hash_opfamily = mda->RetrieveScOp(mdid_scop)->HashOpfamiliyMdid();
+					GPOS_ASSERT(NULL != hash_opfamily);
+					hash_opfamily->AddRef();
+					join_opfamilies->Append(hash_opfamily);
+				}
 			}
 		}
 		GPOS_ASSERT(pdrgpexprInner->Size() == pdrgpexprOuter->Size());
+		GPOS_ASSERT_IMP(GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution),
+						pdrgpexprInner->Size() == join_opfamilies->Size());
 
 		// construct new HashJoin expression using explicit casting, if needed
 		pexpr->Pop()->AddRef();
@@ -1325,7 +1346,7 @@ namespace gpopt
 									 	CPredicateUtils::PexprConjunction(mp, pdrgpexpr));
 
 		// cache hash join keys on scalar child group
-		CacheJoinKeys(pexprResult, pdrgpexprOuter, pdrgpexprInner);
+		CacheJoinKeys(pexprResult, pdrgpexprOuter, pdrgpexprInner, join_opfamilies);
 
 		// Add an alternative only if we found at least one hash-joinable predicate
 		if (0 != pdrgpexprOuter->Size())
@@ -1337,6 +1358,7 @@ namespace gpopt
 			// clean up
 			pdrgpexprOuter->Release();
 			pdrgpexprInner->Release();
+			CRefCount::SafeRelease(join_opfamilies);
 		}
 
 		pexprResult->Release();
@@ -1362,9 +1384,10 @@ namespace gpopt
 		CMemoryPool *mp = pxfctxt->Pmp();
 		CExpressionArray *pdrgpexprOuter = NULL;
 		CExpressionArray *pdrgpexprInner = NULL;
+		IMdIdArray *join_opfamilies = NULL;
 
 		// check if we have already computed join keys for the scalar child
-		LookupJoinKeys(mp, pexpr, &pdrgpexprOuter, &pdrgpexprInner);
+		LookupJoinKeys(mp, pexpr, &pdrgpexprOuter, &pdrgpexprInner, &join_opfamilies);
 		if (NULL != pdrgpexprOuter)
 		{
 			GPOS_ASSERT(NULL != pdrgpexprInner);
@@ -1376,6 +1399,7 @@ namespace gpopt
 				// no reason to try to do the same again
 				pdrgpexprOuter->Release();
 				pdrgpexprInner->Release();
+				CRefCount::SafeRelease(join_opfamilies);
 			}
 			else
 			{
@@ -1395,6 +1419,11 @@ namespace gpopt
 		pdrgpexprOuter = GPOS_NEW(mp) CExpressionArray(mp);
 		pdrgpexprInner = GPOS_NEW(mp) CExpressionArray(mp);
 
+		if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+		{
+			join_opfamilies = GPOS_NEW(mp) IMdIdArray(mp);
+		}
+
 		CExpressionArray *pdrgpexpr = CPredicateUtils::PdrgpexprConjuncts(mp, pexprScalar);
 		ULONG ulPreds = pdrgpexpr->Size();
 		for (ULONG ul = 0; ul < ulPreds; ul++)
@@ -1413,6 +1442,14 @@ namespace gpopt
 				pdrgpexprOuter->Append(pexprPredOuter);
 				pdrgpexprInner->Append(pexprPredInner);
 
+				if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+				{
+					CMDAccessor *mda = COptCtxt::PoctxtFromTLS()->Pmda();
+					const IMDScalarOp *scop = mda->RetrieveScOp(mdid_scop);
+					IMDId *hash_opfamily = scop->HashOpfamiliyMdid();
+					GPOS_ASSERT(NULL != hash_opfamily);
+					join_opfamilies->Append(hash_opfamily);
+				}
 			}
 			else
 			{
@@ -1425,6 +1462,8 @@ namespace gpopt
 			}
 		}
 		GPOS_ASSERT(pdrgpexprInner->Size() == pdrgpexprOuter->Size());
+		GPOS_ASSERT_IMP(GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution),
+						pdrgpexprInner->Size() == join_opfamilies->Size());
 
 		// construct new MergeJoin expression using explicit casting, if needed
 		pexpr->Pop()->AddRef();
@@ -1435,7 +1474,7 @@ namespace gpopt
 									 	CPredicateUtils::PexprConjunction(mp, pdrgpexpr));
 
 		// cache hash join keys on scalar child group
-		CacheJoinKeys(pexprResult, pdrgpexprOuter, pdrgpexprInner);
+		CacheJoinKeys(pexprResult, pdrgpexprOuter, pdrgpexprInner, join_opfamilies);
 
 		// Add an alternative only if we found at least one merge-joinable predicate
 		if (0 != pdrgpexprOuter->Size())
@@ -1447,6 +1486,7 @@ namespace gpopt
 			// clean up
 			pdrgpexprOuter->Release();
 			pdrgpexprInner->Release();
+			CRefCount::SafeRelease(join_opfamilies);
 		}
 
 		pexprResult->Release();

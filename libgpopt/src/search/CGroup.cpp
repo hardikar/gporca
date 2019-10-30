@@ -170,6 +170,7 @@ CGroup::CGroup
 	m_fScalar(fScalar),
 	m_pdrgpexprJoinKeysOuter(NULL),
 	m_pdrgpexprJoinKeysInner(NULL),
+	m_join_opfamilies(NULL),
 	m_pdp(NULL),
 	m_pstats(NULL),
 	m_pexprScalar(NULL),
@@ -219,6 +220,7 @@ CGroup::~CGroup()
 {
 	CRefCount::SafeRelease(m_pdrgpexprJoinKeysOuter);
 	CRefCount::SafeRelease(m_pdrgpexprJoinKeysInner);
+	CRefCount::SafeRelease(m_join_opfamilies);
 	CRefCount::SafeRelease(m_pdp);
 	CRefCount::SafeRelease(m_pexprScalar);
 	CRefCount::SafeRelease(m_pccDummy);
@@ -558,12 +560,14 @@ void
 CGroup::SetJoinKeys
 	(
 	CExpressionArray *pdrgpexprOuter,
-	CExpressionArray *pdrgpexprInner
+	CExpressionArray *pdrgpexprInner,
+	IMdIdArray *join_opfamilies
 	)
 {
 	GPOS_ASSERT(m_fScalar);
 	GPOS_ASSERT(NULL != pdrgpexprOuter);
 	GPOS_ASSERT(NULL != pdrgpexprInner);
+	// GPOS_ASSERT(NULL != join_opfamilies);
 
 	if (NULL != m_pdrgpexprJoinKeysOuter)
 	{
@@ -578,6 +582,12 @@ CGroup::SetJoinKeys
 
 	pdrgpexprInner->AddRef();
 	m_pdrgpexprJoinKeysInner = pdrgpexprInner;
+
+	if (join_opfamilies != NULL)
+	{
+		join_opfamilies->AddRef();
+	}
+	m_join_opfamilies = join_opfamilies;
 }
 
 
@@ -1778,6 +1788,8 @@ CGroup::OsPrintGrpScalarProps
 			os << szPrefix << *(*m_pdrgpexprJoinKeysInner)[ul]<< std::endl;
 		}
 	}
+
+	// FIGGY: Add some printing!
 
 	return os;
 }
