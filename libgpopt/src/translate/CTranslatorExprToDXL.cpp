@@ -4068,15 +4068,13 @@ CTranslatorExprToDXL::PdxlnHashJoin
 
 			CMDAccessor *mda = COptCtxt::PoctxtFromTLS()->Pmda();
 			const IMDScalarOp *scop = mda->RetrieveScOp(mdid_scop);
-			// FIGGY: for now we'll just use the first opfamily that can be supported!
-			IMDId *mdid_opfamily = scop->OpfamilyMdidAt(0);
 
 			// create hash join predicate based on conjunct type
 			if (CPredicateUtils::IsEqualityOp(pexprPred))
 			{
 				// FIGGY
 				pexprPred = CUtils::PexprScalarCmp(m_mp, pexprPredOuter, pexprPredInner,
-												   IMDType::EcmptEq, mdid_opfamily);
+												   IMDType::EcmptEq, scop->GetOpfamilies());
 			}
 			else
 			{

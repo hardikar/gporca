@@ -62,11 +62,11 @@ namespace gpopt
 			// return the mdid of the given scalar comparison between the two types
 			// also considering casts
 			static
-			IMDId *GetScCmpMdIdConsiderCasts(CMDAccessor *md_accessor, IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type, IMDId *opfamily=NULL); // FIGGY
+			IMDId *GetScCmpMdIdConsiderCasts(CMDAccessor *md_accessor, IMDId *left_mdid, IMDId *right_mdid, IMDType::ECmpType cmp_type, IMdIdArray *opfamilies=NULL); // FIGGY
 
 			// similar to GetScCmpMdIdConsiderCasts() but also add the appropriate casts
 			static
-			IMDId *GetScCmpMdIdApplyCasts(CMemoryPool *mp, CMDAccessor *md_accessor, CExpression*& pexprLeft, CExpression*& pexprRight, IMDType::ECmpType cmp_type, IMDId *opfamily=NULL); // FIGGY
+			IMDId *GetScCmpMdIdApplyCasts(CMemoryPool *mp, CMDAccessor *md_accessor, CExpression*& pexprLeft, CExpression*& pexprRight, IMDType::ECmpType cmp_type, IMdIdArray *opfamilies=NULL); // FIGGY
 
 			// is scalar operator commutative? this can be used with ScalarOp and ScalarCmp
 			static

@@ -399,7 +399,7 @@ CUtils::PexprScalarCmp
 	CExpression *pexprLeft,
 	CExpression *pexprRight,
 	IMDType::ECmpType cmp_type,
-	IMDId *mdid_opfamily
+	IMdIdArray *opfamilies
 	)
 {
 	GPOS_ASSERT(NULL != pexprLeft);
@@ -411,7 +411,7 @@ CUtils::PexprScalarCmp
 	CExpression *pexprNewLeft = pexprLeft;
 	CExpression *pexprNewRight = pexprRight;
 
-	IMDId *op_mdid = CMDAccessorUtils::GetScCmpMdIdApplyCasts(mp, md_accessor, pexprNewLeft, pexprNewRight, cmp_type, mdid_opfamily);
+	IMDId *op_mdid = CMDAccessorUtils::GetScCmpMdIdApplyCasts(mp, md_accessor, pexprNewLeft, pexprNewRight, cmp_type, opfamilies);
 
 	GPOS_ASSERT(pexprNewLeft != NULL);
 	GPOS_ASSERT(pexprNewRight != NULL);

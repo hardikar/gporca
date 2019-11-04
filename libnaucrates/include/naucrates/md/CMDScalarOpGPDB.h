@@ -162,6 +162,9 @@ namespace gpmd
 			// number of classes this operator belongs to
 			virtual
 			ULONG OpfamiliesCount() const;
+
+			virtual
+			IMdIdArray *GetOpfamilies() const;
 			
 			// operator class at given position
 			virtual

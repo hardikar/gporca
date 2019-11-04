@@ -314,6 +314,12 @@ CMDScalarOpGPDB::OpfamiliesCount() const
 	return m_mdid_op_classes_array->Size();
 }
 
+IMdIdArray *
+CMDScalarOpGPDB::GetOpfamilies() const
+{
+	return m_mdid_op_classes_array;
+}
+
 //---------------------------------------------------------------------------
 //	@function:
 //		CMDScalarOpGPDB::OpfamilyMdidAt
