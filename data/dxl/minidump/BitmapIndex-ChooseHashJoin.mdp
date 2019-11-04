@@ -164,10 +164,10 @@
         <dxl:CheckConstraints/>
       </dxl:Relation>
       <dxl:Index Mdid="0.213039.1.0" Name="bar_idx" IsClustered="false" IndexType="Bitmap" IndexItemType="0.2283.1.0" KeyColumns="0,1" IncludedColumns="0,1,2,3,4,5,6,7,8">
-        <dxl:OpClasses>
-          <dxl:OpClass Mdid="0.3027.1.0"/>
-          <dxl:OpClass Mdid="0.3027.1.0"/>
-        </dxl:OpClasses>
+        <dxl:Opfamilies>
+          <dxl:Opfamily Mdid="0.3027.1.0"/>
+          <dxl:Opfamily Mdid="0.3027.1.0"/>
+        </dxl:Opfamilies>
       </dxl:Index>
       <dxl:RelationStatistics Mdid="2.213036.1.0" Name="bar" Rows="989149.000000" EmptyRelation="false"/>
       <dxl:Relation Mdid="0.213036.1.0" Name="bar" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="8,2" NumberLeafPartitions="0">
@@ -1018,11 +1018,11 @@
         <dxl:OpFunc Mdid="0.65.1.0"/>
         <dxl:Commutator Mdid="0.96.1.0"/>
         <dxl:InverseOp Mdid="0.518.1.0"/>
-        <dxl:OpClasses>
-          <dxl:OpClass Mdid="0.1976.1.0"/>
-          <dxl:OpClass Mdid="0.1977.1.0"/>
-          <dxl:OpClass Mdid="0.3027.1.0"/>
-        </dxl:OpClasses>
+        <dxl:Opfamilies>
+          <dxl:Opfamily Mdid="0.1976.1.0"/>
+          <dxl:Opfamily Mdid="0.1977.1.0"/>
+          <dxl:Opfamily Mdid="0.3027.1.0"/>
+        </dxl:Opfamilies>
       </dxl:GPDBScalarOp>
       <dxl:ColumnStatistics Mdid="1.213036.1.0.1" Name="d" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="false">
         <dxl:StatsBucket Frequency="0.004621" DistinctValues="46.530971">

@@ -199,7 +199,7 @@ CParseHandlerMDGPDBScalarOp::StartElement
 													EdxltokenGPDBScalarOpInverseOpId
 													);
 	}
-	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenOpClasses), element_local_name))
+	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenOpfamilies), element_local_name))
 	{
 		// parse handler for operator class list
 		CParseHandlerBase *op_class_list_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenMetadataIdList), m_parse_handler_mgr, this);
