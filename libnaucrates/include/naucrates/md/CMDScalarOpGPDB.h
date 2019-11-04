@@ -157,11 +157,11 @@ namespace gpmd
 			
 			// number of classes this operator belongs to
 			virtual
-			ULONG OpClassesCount() const;
+			ULONG OpfamiliesCount() const;
 			
 			// operator class at given position
 			virtual
-			IMDId *OpClassMdidAt(ULONG pos) const;
+			IMDId *OpfamilyMdidAt(ULONG pos) const;
 			
 #ifdef GPOS_DEBUG
 			// debug print of the type in the provided stream

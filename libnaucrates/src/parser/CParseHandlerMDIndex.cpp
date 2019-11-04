@@ -186,8 +186,8 @@ CParseHandlerMDIndex::EndElement
 		GPOS_RAISE(gpdxl::ExmaDXL, gpdxl::ExmiDXLUnexpectedTag, str->GetBuffer());
 	}
 	
-	CParseHandlerMetadataIdList *pphMdidOpClasses = dynamic_cast<CParseHandlerMetadataIdList *>((*this)[0]);
-	IMdIdArray *mdid_op_classes_array = pphMdidOpClasses->GetMdIdArray();
+	CParseHandlerMetadataIdList *pphMdidOpfamilies = dynamic_cast<CParseHandlerMetadataIdList *>((*this)[0]);
+	IMdIdArray *mdid_op_classes_array = pphMdidOpfamilies->GetMdIdArray();
 	mdid_op_classes_array->AddRef();
 
 	m_imd_obj = GPOS_NEW(m_mp) CMDIndexGPDB
