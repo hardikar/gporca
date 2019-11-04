@@ -318,8 +318,8 @@ CMDIndexGPDB::Serialize
 		
 	// serialize operator class information
 	SerializeMDIdList(xml_serializer, m_mdid_op_classes_array, 
-						CDXLTokens::GetDXLTokenStr(EdxltokenOpClasses), 
-						CDXLTokens::GetDXLTokenStr(EdxltokenOpClass));
+						CDXLTokens::GetDXLTokenStr(EdxltokenOpfamilies), 
+						CDXLTokens::GetDXLTokenStr(EdxltokenOpfamily));
 	
 	if (NULL != m_mdpart_constraint)
 	{
@@ -418,11 +418,11 @@ CMDIndexGPDB::IsCompatible
 	// the classes the scalar comparison belongs to
 	const IMDId *mdid_op_class = (*m_mdid_op_classes_array)[key_pos];
 	
-	const ULONG op_classes_count = md_scalar_op->OpClassesCount();
+	const ULONG op_classes_count = md_scalar_op->OpfamiliesCount();
 	
 	for (ULONG ul = 0; ul < op_classes_count; ul++)
 	{
-		if (mdid_op_class->Equals(md_scalar_op->OpClassMdidAt(ul)))
+		if (mdid_op_class->Equals(md_scalar_op->OpfamilyMdidAt(ul)))
 		{
 			return true;
 		}

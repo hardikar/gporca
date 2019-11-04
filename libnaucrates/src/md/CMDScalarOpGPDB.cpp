@@ -287,8 +287,8 @@ CMDScalarOpGPDB::Serialize
 	if (0 < m_mdid_op_classes_array->Size())
 	{
 		SerializeMDIdList(xml_serializer, m_mdid_op_classes_array, 
-						CDXLTokens::GetDXLTokenStr(EdxltokenOpClasses), 
-						CDXLTokens::GetDXLTokenStr(EdxltokenOpClass));
+						CDXLTokens::GetDXLTokenStr(EdxltokenOpfamilies), 
+						CDXLTokens::GetDXLTokenStr(EdxltokenOpfamily));
 	}
 	
 	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), 
@@ -297,28 +297,28 @@ CMDScalarOpGPDB::Serialize
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CMDScalarOpGPDB::OpClassesCount
+//		CMDScalarOpGPDB::OpfamiliesCount
 //
 //	@doc:
 //		Number of classes this operator belongs to
 //
 //---------------------------------------------------------------------------
 ULONG
-CMDScalarOpGPDB::OpClassesCount() const
+CMDScalarOpGPDB::OpfamiliesCount() const
 {
 	return m_mdid_op_classes_array->Size();
 }
 
 //---------------------------------------------------------------------------
 //	@function:
-//		CMDScalarOpGPDB::OpClassMdidAt
+//		CMDScalarOpGPDB::OpfamilyMdidAt
 //
 //	@doc:
 //		Operator class at given position
 //
 //---------------------------------------------------------------------------
 IMDId *
-CMDScalarOpGPDB::OpClassMdidAt
+CMDScalarOpGPDB::OpfamilyMdidAt
 	(
 	ULONG pos
 	) 
