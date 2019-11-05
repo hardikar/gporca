@@ -472,6 +472,9 @@ namespace gpdxl
 		EdxltokenRelDistrRandom,
 		EdxltokenRelDistrReplicated,
 		EdxltokenConvertHashToRandom,
+
+		EdxltokenRelDistrOpfamilies,
+		EdxltokenRelDistrOpfamily,
 		
 		EdxltokenExtRelRejLimit,
 		EdxltokenExtRelRejLimitInRows,
