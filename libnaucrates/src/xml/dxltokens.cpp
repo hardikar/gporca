@@ -505,6 +505,9 @@ CDXLTokens::Init
 			{EdxltokenRelDistrRandom, GPOS_WSZ_LIT("Random")},
 			{EdxltokenRelDistrReplicated, GPOS_WSZ_LIT("Replicated")},
 			{EdxltokenConvertHashToRandom, GPOS_WSZ_LIT("ConvertHashToRandom")},
+
+			{EdxltokenRelDistrOpfamilies, GPOS_WSZ_LIT("DistrOpfamilies")},
+			{EdxltokenRelDistrOpfamily, GPOS_WSZ_LIT("DistrOpfamily")},
 			
 			{EdxltokenExtRelRejLimit, GPOS_WSZ_LIT("RejectLimit")},
 			{EdxltokenExtRelRejLimitInRows, GPOS_WSZ_LIT("RejectLimitInRows")},

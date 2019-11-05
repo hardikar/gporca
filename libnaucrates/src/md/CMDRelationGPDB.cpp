@@ -806,8 +806,8 @@ CMDRelationGPDB::Serialize
 
 	// serialize operator class information
 	SerializeMDIdList(xml_serializer, m_distr_opfamilies,
-					  CDXLTokens::GetDXLTokenStr(EdxltokenOpfamilies),
-					  CDXLTokens::GetDXLTokenStr(EdxltokenOpfamily));
+					  CDXLTokens::GetDXLTokenStr(EdxltokenRelDistrOpfamilies),
+					  CDXLTokens::GetDXLTokenStr(EdxltokenRelDistrOpfamily));
 
 	// serialize part constraint
 	if (NULL != m_mdpart_constraint)
