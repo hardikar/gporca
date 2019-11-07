@@ -309,6 +309,9 @@ select count(*) from x, y where (x.i > y.j AND x.j <= y.i);
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.26854909.1.1" Name="y10" Rows="0.000000" EmptyRelation="true"/>
       <dxl:Relation Mdid="0.26854909.1.0" Name="y10" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="1" Keys="9,10,4" PartitionColumns="0" PartitionTypes="r">
@@ -358,6 +361,9 @@ select count(*) from x, y where (x.i > y.j AND x.j <= y.i);
             <dxl:ConstValue TypeMdid="0.25.1.0" Value="AAAABXg=" LintValue="160629292"/>
           </dxl:Comparison>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Relation Mdid="0.26854909.1.1" Name="y10" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="1" Keys="9,10,4" PartitionColumns="0" PartitionTypes="r">
         <dxl:Columns>
@@ -406,6 +412,9 @@ select count(*) from x, y where (x.i > y.j AND x.j <= y.i);
             <dxl:ConstValue TypeMdid="0.25.1.0" Value="AAAABXg=" LintValue="160629292"/>
           </dxl:Comparison>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.26854909.1.1.5" Name="xmin" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000"/>
       <dxl:ColumnStatistics Mdid="1.26854909.1.1.4" Name="ctid" Width="6.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000"/>

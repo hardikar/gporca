@@ -104,6 +104,9 @@ EXPLAIN SELECT * FROM foo_1_prt_p2 WHERE c > 12 OR d > 13;
             </dxl:And>
           </dxl:Or>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBScalarOp Mdid="0.523.1.0" Name="&lt;=" ComparisonType="LEq" ReturnsNullOnNullInput="true">
         <dxl:LeftType Mdid="0.23.1.0"/>
@@ -232,6 +235,9 @@ EXPLAIN SELECT * FROM foo_1_prt_p2 WHERE c > 12 OR d > 13;
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.16680.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.16678.1.0.3" Name="d" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="false">
         <dxl:StatsBucket Frequency="1.000000" DistinctValues="1.000000">

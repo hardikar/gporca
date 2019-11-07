@@ -743,6 +743,9 @@
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.500842.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBAgg Mdid="0.2803.1.0" Name="count" IsSplittable="true">
         <dxl:ResultType Mdid="0.20.1.0"/>
@@ -1301,6 +1304,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.501311.1.1.7" Name="xmax" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.501311.1.1.6" Name="cmin" Width="4.000000"/>
@@ -1348,6 +1354,9 @@
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.500842.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.501311.1.1.5" Name="xmin" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.501311.1.1.4" Name="ctid" Width="6.000000"/>

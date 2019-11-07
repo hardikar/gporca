@@ -4899,6 +4899,10 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.17929.1.1.23" Name="tableoid" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.17929.1.1.22" Name="cmax" Width="4.000000"/>
@@ -6617,6 +6621,9 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.18359.1.1" Name="web_sales" Rows="719603.000000"/>
       <dxl:Relation Mdid="0.18359.1.1" Name="web_sales" IsTemporary="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="3,17" Keys="3,17;40,34">
@@ -6750,6 +6757,10 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.17929.1.1.21" Name="xmax" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.17929.1.1.20" Name="cmin" Width="4.000000"/>

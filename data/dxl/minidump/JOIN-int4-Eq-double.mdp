@@ -381,6 +381,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1988.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.440380.1.1" Name="aint" Rows="100.000000"/>
       <dxl:Relation Mdid="0.440380.1.1" Name="aint" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="7,1">
@@ -413,6 +416,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.489376.1.1.5" Name="cmax" Width="4.000000" NullFreq="0.000000"/>
       <dxl:ColumnStatistics Mdid="1.489376.1.1.4" Name="xmax" Width="4.000000" NullFreq="0.000000"/>

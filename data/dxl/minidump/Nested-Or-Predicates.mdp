@@ -492,6 +492,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.520054.1.1.65" Name="ctid" Width="6.000000"/>
       <dxl:ColumnStatistics Mdid="1.520054.1.1.64" Name="alt_fnd_pd_amt" Width="8.000000"/>

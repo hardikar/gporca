@@ -262,6 +262,9 @@
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.27119.25.1.7" Name="1.27119.25.1.7" Width="8.000000"/>
       <dxl:ColumnStatistics Mdid="1.27119.25.1.6" Name="1.27119.25.1.6" Width="8.000000"/>

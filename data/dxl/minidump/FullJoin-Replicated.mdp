@@ -180,6 +180,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.112887.1.0" Name="repl2" Rows="0.000000" EmptyRelation="true"/>
       <dxl:Relation Mdid="0.112887.1.0" Name="repl2" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Replicated" Keys="8,2" NumberLeafPartitions="0">
@@ -215,6 +216,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
     </dxl:Metadata>
     <dxl:Query>

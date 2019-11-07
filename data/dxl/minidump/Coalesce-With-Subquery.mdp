@@ -491,6 +491,7 @@
           <dxl:Trigger Mdid="0.10307.1.0"/>
         </dxl:Triggers>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:Relation Mdid="0.1262.1.1" Name="pg_database" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="MasterOnly" Keys="18,11">
         <dxl:Columns>
@@ -560,6 +561,7 @@
           <dxl:Trigger Mdid="0.10306.1.0"/>
         </dxl:Triggers>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.1213.1.1.13" Name="tableoid" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.1213.1.1.12" Name="cmax" Width="4.000000"/>
@@ -662,6 +664,7 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
     </dxl:Metadata>
     <dxl:Query>

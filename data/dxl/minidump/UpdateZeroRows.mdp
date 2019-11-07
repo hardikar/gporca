@@ -251,6 +251,9 @@
           <dxl:CheckConstraint Mdid="0.795148.1.0"/>
           <dxl:CheckConstraint Mdid="0.795147.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBScalarOp Mdid="0.531.1.0" Name="&lt;&gt;" ComparisonType="NEq">
         <dxl:LeftType Mdid="0.25.1.0"/>
@@ -365,6 +368,9 @@
           <dxl:CheckConstraint Mdid="0.795148.1.0"/>
           <dxl:CheckConstraint Mdid="0.795147.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
     </dxl:Metadata>
     <dxl:Query>

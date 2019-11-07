@@ -106,6 +106,9 @@ EXPLAIN SELECT * FROM foo_1_prt_p1 WHERE c < 10 AND d > 20;
             </dxl:And>
           </dxl:Or>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.827971.1.0" Name="foo_1_prt_p1" Rows="0.000000" EmptyRelation="true"/>
       <dxl:Relation Mdid="0.827971.1.0" Name="foo_1_prt_p1" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="10,4" NumberLeafPartitions="0">
@@ -152,6 +155,9 @@ EXPLAIN SELECT * FROM foo_1_prt_p1 WHERE c < 10 AND d > 20;
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.827974.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBScalarOp Mdid="0.521.1.0" Name="&gt;" ComparisonType="GT" ReturnsNullOnNullInput="true">
         <dxl:LeftType Mdid="0.23.1.0"/>

@@ -55,6 +55,7 @@ EXPLAIN SELECT xmin FROM foo UNION ALL SELECT xmin FROM bar;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.16388.1.1" Name="bar" Rows="0.000000" EmptyRelation="true"/>
       <dxl:Relation Mdid="0.16388.1.1" Name="bar" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Random" Keys="8,2" NumberLeafPartitions="0">
@@ -90,6 +91,7 @@ EXPLAIN SELECT xmin FROM foo UNION ALL SELECT xmin FROM bar;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:Type Mdid="0.16.1.0" Name="bool" IsRedistributable="true" IsHashable="true" IsMergeJoinable="true" IsComposite="false" IsFixedLength="true" Length="1" PassByValue="true">
         <dxl:DefaultOpfamily Mdid="0.424.1.0"/>

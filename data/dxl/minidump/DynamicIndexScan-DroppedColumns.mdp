@@ -163,6 +163,9 @@
             </dxl:Comparison>
           </dxl:Or>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1988.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Type Mdid="0.1700.1.0" Name="numeric" IsRedistributable="true" IsHashable="true" IsMergeJoinable="true" IsComposite="false" IsFixedLength="false" Length="-1" PassByValue="false">
         <dxl:DefaultOpfamily Mdid="0.1988.1.0"/>
@@ -387,6 +390,9 @@
             </dxl:Comparison>
           </dxl:Or>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1988.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.566955.1.1.7" Name="cmin" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.566955.1.1.6" Name="xmin" Width="4.000000"/>

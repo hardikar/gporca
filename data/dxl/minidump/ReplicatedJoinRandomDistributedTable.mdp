@@ -153,6 +153,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.16421.1.0" Name="r1" Rows="100.000000" EmptyRelation="false"/>
       <dxl:Relation Mdid="0.16421.1.0" Name="r1" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Replicated" Keys="8,2" NumberLeafPartitions="0">
@@ -188,6 +189,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.16421.1.0.0" Name="a" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="false">
         <dxl:StatsBucket Frequency="0.010101" DistinctValues="1.010101">

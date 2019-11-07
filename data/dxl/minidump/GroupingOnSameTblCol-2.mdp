@@ -1563,6 +1563,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.2372852.1.1.21" Name="country" Width="12.000000" NullFreq="0.064606" NdvRemain="6.000000" FreqRemain="0.065212">
         <dxl:StatsBucket Frequency="0.011461" DistinctValues="1.000000">
@@ -3409,6 +3412,9 @@
         <dxl:CheckConstraints/>
         <dxl:PartConstraint DefaultPartition="0" Unbounded="true">
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.2284492.1.1.11" Name="reason" Width="54.000000" NullFreq="0.785317" NdvRemain="36.000000" FreqRemain="0.789844">
         <dxl:StatsBucket Frequency="0.000765" DistinctValues="1.000000">

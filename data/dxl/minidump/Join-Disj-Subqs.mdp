@@ -460,6 +460,7 @@ OR
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.2898.1.1.7" Name="xmin" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000"/>
       <dxl:ColumnStatistics Mdid="1.2898.1.1.6" Name="oid" Width="8.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000"/>
@@ -621,6 +622,7 @@ OR
           <dxl:Trigger Mdid="0.10303.1.0"/>
         </dxl:Triggers>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:Relation Mdid="0.1260.1.1" Name="pg_authid" IsTemporary="false" HasOids="true" StorageType="Heap" DistributionPolicy="MasterOnly" Keys="24,17">
         <dxl:Columns>
@@ -709,6 +711,7 @@ OR
           <dxl:Trigger Mdid="0.10303.1.0"/>
         </dxl:Triggers>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:GPDBScalarOp Mdid="0.2799.1.0" Name="&lt;" ComparisonType="LT" ReturnsNullOnNullInput="true">
         <dxl:LeftType Mdid="0.27.1.0"/>

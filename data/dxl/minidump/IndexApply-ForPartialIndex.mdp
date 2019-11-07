@@ -200,6 +200,9 @@ explain select t1.a from t1, foo_prt t2, t3 where (t1.b = t2.a) and t2.a = t3.b;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Index Mdid="0.24641.1.0" Name="foo_idx_1_prt_managed" IsClustered="false" IndexType="B-tree" KeyColumns="0" IncludedColumns="0,1,2,3">
         <dxl:Opfamilies>
@@ -243,6 +246,9 @@ explain select t1.a from t1, foo_prt t2, t3 where (t1.b = t2.a) and t2.a = t3.b;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.22467.1.0.7" Name="tableoid" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="true"/>
       <dxl:ColumnStatistics Mdid="1.22467.1.0.6" Name="cmax" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="true"/>
@@ -282,6 +288,9 @@ explain select t1.a from t1, foo_prt t2, t3 where (t1.b = t2.a) and t2.a = t3.b;
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Index Mdid="0.24655.1.0" Name="foo_idx_1_prt_2" IsClustered="false" IndexType="Bitmap" IndexItemType="0.2283.1.0" KeyColumns="0" IncludedColumns="0,1,2,3">
         <dxl:Opfamilies>

@@ -171,6 +171,9 @@ insert into constraints_tab values (NULL, -1);
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.16427.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
     </dxl:Metadata>
     <dxl:Query>
