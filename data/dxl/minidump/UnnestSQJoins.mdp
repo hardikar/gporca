@@ -706,6 +706,7 @@ WHERE
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:Relation Mdid="0.2616.1.1" Name="pg_opclass" IsTemporary="false" StorageType="Heap" DistributionPolicy="MasterOnly">
         <dxl:Columns>
@@ -761,6 +762,7 @@ WHERE
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.2602.1.1.9" Name="cmax" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.2602.1.1.8" Name="xmax" Width="4.000000"/>
@@ -1078,6 +1080,7 @@ WHERE
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.2602.1.1.11" Name="gp_segment_id" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.2602.1.1.10" Name="tableoid" Width="4.000000"/>

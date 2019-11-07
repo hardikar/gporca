@@ -256,6 +256,9 @@ select * from x, y where (x.i > y.j);
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Relation Mdid="0.54648535.1.1" Name="y" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="9,10,4" PartitionColumns="0" PartitionTypes="r">
         <dxl:Columns>
@@ -310,6 +313,9 @@ select * from x, y where (x.i > y.j);
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Index Mdid="0.54648659.1.0" Name="y_idx_2" IsClustered="false" IndexType="B-tree" KeyColumns="1" IncludedColumns="0,1,2,3,4,5,6,7,8,9,10">
         <dxl:Opfamilies>
@@ -394,6 +400,9 @@ select * from x, y where (x.i > y.j);
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Relation Mdid="0.54648430.1.1" Name="x" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="9,10,4" PartitionColumns="0" PartitionTypes="r">
         <dxl:Columns>
@@ -448,6 +457,9 @@ select * from x, y where (x.i > y.j);
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.54648535.1.1.7" Name="xmax" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000"/>
       <dxl:ColumnStatistics Mdid="1.54648535.1.1.6" Name="cmin" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000"/>

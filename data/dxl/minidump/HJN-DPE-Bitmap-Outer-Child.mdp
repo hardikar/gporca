@@ -221,6 +221,9 @@ select * from dbs_target, dbs_helper where dbs_target.c1 = dbs_helper.c1 and dbs
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Relation Mdid="0.42822392.1.1" Name="dbs_target" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="8,9,3" PartitionColumns="1" PartitionTypes="r">
         <dxl:Columns>
@@ -272,6 +275,9 @@ select * from dbs_target, dbs_helper where dbs_target.c1 = dbs_helper.c1 and dbs
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.42823040.1.1.9" Name="gp_segment_id" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="true"/>
       <dxl:ColumnStatistics Mdid="1.42823040.1.1.8" Name="tableoid" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="true"/>
@@ -370,6 +376,9 @@ select * from dbs_target, dbs_helper where dbs_target.c1 = dbs_helper.c1 and dbs
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:MDCast Mdid="3.23.1.0;23.1.0" Name="int4" BinaryCoercible="true" SourceTypeId="0.23.1.0" DestinationTypeId="0.23.1.0" CastFuncId="0.0.0.0"/>
       <dxl:ColumnStatistics Mdid="1.42823040.1.1.7" Name="cmax" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="true"/>

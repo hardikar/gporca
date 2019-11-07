@@ -61,6 +61,7 @@ select * from P,X where P.a=X.a  and X.a  in (1,2);
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:GPDBScalarOp Mdid="0.521.1.0" Name="&gt;" ComparisonType="GT" ReturnsNullOnNullInput="true">
         <dxl:LeftType Mdid="0.23.1.0"/>
@@ -466,6 +467,9 @@ select * from P,X where P.a=X.a  and X.a  in (1,2);
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.36394823.1.1.5" Name="xmax" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000"/>
       <dxl:ColumnStatistics Mdid="1.36394823.1.1.4" Name="cmin" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000"/>

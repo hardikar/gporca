@@ -174,6 +174,9 @@ EXPLAIN SELECT * FROM t1 INNER JOIN t2 ON a =b INNER JOIN t3 ON b = c;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.74015.1.0" Name="t2" Rows="1001.000000" EmptyRelation="false"/>
       <dxl:Relation Mdid="0.74015.1.0" Name="t2" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="7,1" NumberLeafPartitions="0">
@@ -206,6 +209,9 @@ EXPLAIN SELECT * FROM t1 INNER JOIN t2 ON a =b INNER JOIN t3 ON b = c;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.74018.1.0" Name="t3" Rows="10.000000" EmptyRelation="false"/>
       <dxl:Relation Mdid="0.74018.1.0" Name="t3" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="7,1" NumberLeafPartitions="0">
@@ -238,6 +244,9 @@ EXPLAIN SELECT * FROM t1 INNER JOIN t2 ON a =b INNER JOIN t3 ON b = c;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.74018.1.0.0" Name="c" Width="4.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="false">
         <dxl:StatsBucket Frequency="0.111111" DistinctValues="1.111111">

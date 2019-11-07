@@ -186,6 +186,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBAgg Mdid="0.2101.1.0" Name="avg" IsSplittable="true" HashAggCapable="true">
         <dxl:ResultType Mdid="0.1700.1.0"/>

@@ -250,6 +250,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBScalarOp Mdid="0.98.1.0" Name="=" ComparisonType="Eq" ReturnsNullOnNullInput="true">
         <dxl:LeftType Mdid="0.25.1.0"/>
@@ -298,6 +301,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBAgg Mdid="0.2803.1.0" Name="count" IsSplittable="true" HashAggCapable="true">
         <dxl:ResultType Mdid="0.20.1.0"/>

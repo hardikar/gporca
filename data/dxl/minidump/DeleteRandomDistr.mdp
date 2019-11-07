@@ -164,6 +164,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.17027.1.1.7" Name="tableoid" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.17027.1.1.6" Name="cmax" Width="4.000000"/>

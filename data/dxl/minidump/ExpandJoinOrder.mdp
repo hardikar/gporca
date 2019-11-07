@@ -232,6 +232,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.92365.1.1" Name="t86" Rows="10.000000"/>
       <dxl:Relation Mdid="0.92365.1.1" Name="t86" IsTemporary="false" HasOids="false" StorageType="AppendOnly, Row-oriented" DistributionPolicy="Hash" DistributionColumns="0" Keys="11,9">
@@ -276,6 +279,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.92635.1.1" Name="t97" Rows="10.000000"/>
       <dxl:Relation Mdid="0.92635.1.1" Name="t97" IsTemporary="false" HasOids="false" StorageType="AppendOnly, Row-oriented" DistributionPolicy="Hash" DistributionColumns="0" Keys="13,11">
@@ -326,6 +332,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.92635.1.1.8" Name="c1198" Width="83271.000000"/>
       <dxl:ColumnStatistics Mdid="1.92635.1.1.1" Name="c1191" Width="74056.000000"/>
@@ -368,6 +377,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.92365.1.1.11" Name="gp_segment_id" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.92365.1.1.10" Name="tableoid" Width="4.000000"/>
@@ -450,6 +462,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.92635.1.1.11" Name="ctid" Width="6.000000"/>
       <dxl:ColumnStatistics Mdid="1.92635.1.1.10" Name="c1200" Width="74241.000000"/>

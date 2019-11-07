@@ -6043,6 +6043,10 @@ WHERE ((sale_type = 's'::text AND dyear = 2001 AND year_total &gt; 0::numeric) O
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.1962503.1.1" Name="date_dim" Rows="73049.000000" EmptyRelation="false"/>
       <dxl:Relation Mdid="0.1962503.1.1" Name="date_dim" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="0,6;33,34,28" PartitionColumns="6">
@@ -6156,6 +6160,9 @@ WHERE ((sale_type = 's'::text AND dyear = 2001 AND year_total &gt; 0::numeric) O
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBFunc Mdid="0.6083.1.0" Name="gp_partition_propagation" ReturnsSet="false" Stability="Volatile" DataAccess="NoSQL" IsStrict="true">
         <dxl:ResultType Mdid="0.2278.1.0"/>
@@ -14346,6 +14353,9 @@ WHERE ((sale_type = 's'::text AND dyear = 2001 AND year_total &gt; 0::numeric) O
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
     </dxl:Metadata>
     <dxl:Query>

@@ -72,6 +72,9 @@
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.2968.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Type Mdid="0.2950.1.0" Name="uuid" IsRedistributable="true" IsHashable="true" IsMergeJoinable="true" IsComposite="false" IsFixedLength="true" Length="16" PassByValue="false">
         <dxl:DefaultOpfamily Mdid="0.2968.1.0"/>

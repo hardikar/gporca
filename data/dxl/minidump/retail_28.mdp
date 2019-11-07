@@ -2326,6 +2326,9 @@ ORDER BY to_char(order_datetime,'YYYY-Q')
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBScalarOp Mdid="0.2372.1.0" Name="&lt;=" ComparisonType="LEq" ReturnsNullOnNullInput="true">
         <dxl:LeftType Mdid="0.1114.1.0"/>
@@ -2468,6 +2471,9 @@ ORDER BY to_char(order_datetime,'YYYY-Q')
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBFunc Mdid="0.6086.1.0" Name="gp_partition_inverse" ReturnsSet="true" Stability="Stable" DataAccess="NoSQL" IsStrict="true">
         <dxl:ResultType Mdid="0.2249.1.0"/>

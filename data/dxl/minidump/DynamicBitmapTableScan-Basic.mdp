@@ -104,6 +104,9 @@
             </dxl:Comparison>
           </dxl:And>
         </dxl:PartConstraint>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Type Mdid="0.23.1.0" Name="int4" IsRedistributable="true" IsHashable="true" IsMergeJoinable="true" IsComposite="false" IsFixedLength="true" Length="4" PassByValue="true">
         <dxl:DefaultOpfamily Mdid="0.1976.1.0"/>

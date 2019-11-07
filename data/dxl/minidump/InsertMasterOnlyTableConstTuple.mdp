@@ -138,6 +138,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
     </dxl:Metadata>
     <dxl:Query>

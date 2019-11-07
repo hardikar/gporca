@@ -228,6 +228,11 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.471019.1.1.11" Name="tableoid" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.471019.1.1.10" Name="cmax" Width="4.000000"/>

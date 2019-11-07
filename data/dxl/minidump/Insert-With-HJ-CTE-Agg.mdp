@@ -90,6 +90,9 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.426.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.57366.1.0.1" Name="language" Width="16.000000" NullFreq="0.000000" NdvRemain="1000.000000" FreqRemain="1.000000" ColStatsMissing="false"/>
       <dxl:ColumnStatistics Mdid="1.57366.1.0.0" Name="countrycode" Width="4.000000" NullFreq="0.000000" NdvRemain="1000.000000" FreqRemain="1.000000" ColStatsMissing="false"/>
@@ -145,6 +148,10 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.426.1.0"/>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Index Mdid="0.57364.1.0" Name="country_pkey" IsClustered="false" IndexType="B-tree" KeyColumns="0" IncludedColumns="0,1,2,3,4,5,6,7,8">
         <dxl:Opfamilies>
@@ -337,6 +344,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1994.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Index Mdid="0.57385.1.0" Name="countrylanguage_pkey" IsClustered="false" IndexType="B-tree" KeyColumns="0,1" IncludedColumns="0,1,2,3,4,5,6,7,8">
         <dxl:Opfamilies>

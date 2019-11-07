@@ -1099,6 +1099,7 @@
           <dxl:Trigger Mdid="0.10307.1.0"/>
         </dxl:Triggers>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.2608.1.1" Name="pg_depend" Rows="5602.000000"/>
       <dxl:Relation Mdid="0.2608.1.1" Name="pg_depend" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="MasterOnly" Keys="13,7">
@@ -1149,6 +1150,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.2608.1.1.9" Name="cmin" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.2608.1.1.8" Name="xmin" Width="4.000000"/>
@@ -1519,6 +1521,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:Relation Mdid="0.1259.1.1" Name="pg_class" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="MasterOnly" Keys="37,30">
         <dxl:Columns>
@@ -1640,6 +1643,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.2608.1.1.11" Name="cmax" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.2608.1.1.10" Name="xmax" Width="4.000000"/>
@@ -1856,6 +1860,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.5011.1.1.15" Name="oid" Width="8.000000"/>
       <dxl:ColumnStatistics Mdid="1.5011.1.1.14" Name="ctid" Width="6.000000"/>

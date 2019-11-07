@@ -197,6 +197,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.884235.1.1" Name="s" Rows="8.000000"/>
       <dxl:Relation Mdid="0.884235.1.1" Name="s" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Random" Keys="9,3">
@@ -235,6 +236,7 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies/>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.884139.1.1.9" Name="tableoid" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.884139.1.1.8" Name="cmax" Width="4.000000"/>

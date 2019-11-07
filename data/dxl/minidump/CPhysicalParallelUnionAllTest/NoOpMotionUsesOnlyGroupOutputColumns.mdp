@@ -184,6 +184,9 @@ EXPLAIN SELECT b, a FROM foo UNION ALL SELECT b, a FROM foo INTERSECT ALL SELECT
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:MDCast Mdid="3.20.1.0;20.1.0" Name="int8" BinaryCoercible="true" SourceTypeId="0.20.1.0" DestinationTypeId="0.20.1.0" CastFuncId="0.0.0.0"/>
       <dxl:MDCast Mdid="3.23.1.0;23.1.0" Name="int4" BinaryCoercible="true" SourceTypeId="0.23.1.0" DestinationTypeId="0.23.1.0" CastFuncId="0.0.0.0"/>

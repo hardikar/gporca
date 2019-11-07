@@ -78,6 +78,9 @@ Rows out:  1 rows at destination with 0.250 ms to first row, 0.251 ms to end.
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.16395.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Type Mdid="0.16.1.0" Name="bool" IsRedistributable="true" IsHashable="true" IsMergeJoinable="true" IsComposite="false" IsFixedLength="true" Length="1" PassByValue="true">
         <dxl:DefaultOpfamily Mdid="0.424.1.0"/>

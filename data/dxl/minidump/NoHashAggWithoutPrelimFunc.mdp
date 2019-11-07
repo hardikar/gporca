@@ -1026,6 +1026,10 @@ select product_id,concat('#attribute_'||attribute_id::varchar||':'||attribute) a
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:GPDBAgg Mdid="0.1553621.1.0" Name="concat" IsSplittable="false" HashAggCapable="false">
         <dxl:ResultType Mdid="0.25.1.0"/>

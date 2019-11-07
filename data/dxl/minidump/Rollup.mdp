@@ -1670,6 +1670,9 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.67018.1.1" Name="item" Rows="18042.000000"/>
       <dxl:Relation Mdid="0.67018.1.1" Name="item" IsTemporary="false" HasOids="false" StorageType="Heap" DistributionPolicy="Hash" DistributionColumns="0" Keys="0;28,22">
@@ -1767,6 +1770,9 @@
         </dxl:IndexInfoList>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.67018.1.1.23" Name="xmin" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.67018.1.1.22" Name="ctid" Width="6.000000"/>

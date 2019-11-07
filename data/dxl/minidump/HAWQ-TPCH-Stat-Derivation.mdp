@@ -826,6 +826,9 @@ ORDER BY s_name;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Type Mdid="0.1043.1.0" Name="varchar" IsRedistributable="true" IsHashable="true" IsMergeJoinable="true" IsComposite="false" IsFixedLength="false" Length="-1" PassByValue="false">
         <dxl:DefaultOpfamily Mdid="0.1994.1.0"/>
@@ -1960,6 +1963,9 @@ ORDER BY s_name;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.11778196.1.1.1" Name="n_name" Width="26.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="false">
         <dxl:StatsBucket Frequency="0.020000" DistinctValues="1.000000">
@@ -3303,6 +3309,9 @@ ORDER BY s_name;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:MDCast Mdid="3.23.1.0;23.1.0" Name="int4" BinaryCoercible="true" SourceTypeId="0.23.1.0" DestinationTypeId="0.23.1.0" CastFuncId="0.0.0.0"/>
       <dxl:ColumnStatistics Mdid="1.11778166.1.1.15" Name="l_comment" Width="27.000000" NullFreq="0.000000" NdvRemain="1105625.000000" FreqRemain="0.996413" ColStatsMissing="false">
@@ -4841,6 +4850,9 @@ ORDER BY s_name;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:RelationStatistics Mdid="2.11778166.1.1" Name="lineitem_ao_column_none_level0" Rows="76800000000.000000" EmptyRelation="false"/>
       <dxl:GPDBAgg Mdid="0.2803.1.0" Name="count" IsSplittable="true" HashAggCapable="true">
@@ -4910,6 +4922,9 @@ ORDER BY s_name;
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:MDCast Mdid="3.23.1.0;1700.1.0" Name="numeric" BinaryCoercible="false" SourceTypeId="0.23.1.0" DestinationTypeId="0.1700.1.0" CastFuncId="0.1740.1.0"/>
       <dxl:ColumnStatistics Mdid="1.11778166.1.1.13" Name="l_shipinstruct" Width="26.000000" NullFreq="0.000000" NdvRemain="0.000000" FreqRemain="0.000000" ColStatsMissing="false">

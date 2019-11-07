@@ -908,6 +908,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.426.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
     </dxl:Metadata>
     <dxl:Query>

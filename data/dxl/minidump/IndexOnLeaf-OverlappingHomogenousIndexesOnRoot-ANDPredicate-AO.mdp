@@ -194,6 +194,9 @@ EXPLAIN SELECT * FROM foo_1_prt_p2 WHERE c > 10 AND d > 13;
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.31217.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:CheckConstraint Mdid="0.31217.1.0" Name="foo_1_prt_p2_check" RelationMdid="0.31215.1.0">
         <dxl:And>

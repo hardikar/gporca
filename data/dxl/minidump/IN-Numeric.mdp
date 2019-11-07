@@ -121,6 +121,9 @@ explain select * from t_numeric where c5 in (10, 11);
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.4123353.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1988.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:Type Mdid="0.29.1.0" Name="cid" IsRedistributable="false" IsHashable="true" IsMergeJoinable="false" IsComposite="false" IsFixedLength="true" Length="4" PassByValue="true">
         <dxl:DefaultOpfamily Mdid="0.0.0.0"/>
@@ -189,6 +192,9 @@ explain select * from t_numeric where c5 in (10, 11);
         <dxl:CheckConstraints>
           <dxl:CheckConstraint Mdid="0.4123353.1.0"/>
         </dxl:CheckConstraints>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1988.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:CheckConstraint Mdid="0.4123353.1.0" Name="gt10" RelationMdid="0.4025183.1.0">
         <dxl:Comparison ComparisonOperator="&gt;" OperatorMdid="0.1756.1.0">

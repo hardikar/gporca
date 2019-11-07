@@ -1229,6 +1229,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.24657.1.1.5" Name="ctid" Width="6.000000"/>
       <dxl:ColumnStatistics Mdid="1.24657.1.1.4" Name="ps_comment" Width="125.000000"/>
@@ -1642,6 +1645,9 @@
         <dxl:IndexInfoList/>
         <dxl:Triggers/>
         <dxl:CheckConstraints/>
+        <dxl:DistrOpfamilies>
+          <dxl:DistrOpfamily Mdid="0.1976.1.0"/>
+        </dxl:DistrOpfamilies>
       </dxl:Relation>
       <dxl:ColumnStatistics Mdid="1.24657.1.1.7" Name="cmin" Width="4.000000"/>
       <dxl:ColumnStatistics Mdid="1.24657.1.1.6" Name="xmin" Width="4.000000"/>
