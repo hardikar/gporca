@@ -55,6 +55,7 @@ CParseHandlerMDRelation::CParseHandlerMDRelation
 	m_num_of_partitions(0),
 	m_key_sets_arrays(NULL),
 	m_part_constraint(NULL),
+	m_opfamilies_parse_handler(NULL),
 	m_level_with_default_part_array(NULL)
 {
 }
@@ -70,9 +71,9 @@ CParseHandlerMDRelation::CParseHandlerMDRelation
 void
 CParseHandlerMDRelation::StartElement
 	(
-	const XMLCh* const, // element_uri,
+	const XMLCh* const element_uri,
 	const XMLCh* const element_local_name,
-	const XMLCh* const, // element_qname
+	const XMLCh* const element_qname,
 	const Attributes& attrs
 	)
 {
@@ -101,6 +102,17 @@ CParseHandlerMDRelation::StartElement
 			m_parse_handler_mgr->ActivateParseHandler(pphPartConstraint);
 			this->Append(pphPartConstraint);
 		}
+
+		return;
+	}
+
+	if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenRelDistrOpfamilies), element_local_name))
+	{
+		// parse handler for check constraints
+		m_opfamilies_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenMetadataIdList), m_parse_handler_mgr, this);
+		m_parse_handler_mgr->ActivateParseHandler(m_opfamilies_parse_handler);
+		this->Append(m_opfamilies_parse_handler);
+		m_opfamilies_parse_handler->startElement(element_uri, element_local_name, element_qname, attrs);
 
 		return;
 	}
@@ -242,7 +254,6 @@ CParseHandlerMDRelation::EndElement
 	CParseHandlerMetadataIdList *pphMdidlTriggers = dynamic_cast<CParseHandlerMetadataIdList*>((*this)[2]);
 	CParseHandlerMetadataIdList *pphMdidlCheckConstraints = dynamic_cast<CParseHandlerMetadataIdList*>((*this)[3]);
 
-
 	GPOS_ASSERT(NULL != md_cols_parse_handler->GetMdColArray());
 	GPOS_ASSERT(NULL != pphMdlIndexInfo->GetMdIndexInfoArray());
 	GPOS_ASSERT(NULL != pphMdidlCheckConstraints->GetMdIdArray());
@@ -258,12 +269,10 @@ CParseHandlerMDRelation::EndElement
  	mdid_triggers_array->AddRef();
  	mdid_check_constraint_array->AddRef();
 
-
 	IMdIdArray *distr_opfamilies = NULL;
-	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+	if (m_opfamilies_parse_handler != NULL)
 	{
-		CParseHandlerMetadataIdList *pphMdidOpfamilies = dynamic_cast<CParseHandlerMetadataIdList *>((*this)[4]);
-		distr_opfamilies = pphMdidOpfamilies->GetMdIdArray();
+		distr_opfamilies = dynamic_cast<CParseHandlerMetadataIdList*>(m_opfamilies_parse_handler)->GetMdIdArray();
 		distr_opfamilies->AddRef();
 	}
 
@@ -378,14 +387,6 @@ CParseHandlerMDRelation::ParseChildNodes()
 	this->Append(index_info_list_parse_handler);
  	this->Append(trigger_list_parse_handler);
  	this->Append(check_constraint_list_parse_handler);
-
-	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
-	{
-		// parse handler for check constraints
-		CParseHandlerBase *opfamilies_parse_handler = CParseHandlerFactory::GetParseHandler(m_mp, CDXLTokens::XmlstrToken(EdxltokenMetadataIdList), m_parse_handler_mgr, this);
-		m_parse_handler_mgr->ActivateParseHandler(opfamilies_parse_handler);
-		this->Append(opfamilies_parse_handler);
-	}
 }
 
 

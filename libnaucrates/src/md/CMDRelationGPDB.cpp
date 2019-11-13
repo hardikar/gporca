@@ -60,7 +60,7 @@ CMDRelationGPDB::CMDRelationGPDB
 	m_md_col_array(mdcol_array),
 	m_dropped_cols(0),
 	m_distr_col_array(distr_col_array),
-	m_distr_opfamilies(NULL),
+	m_distr_opfamilies(distr_opfamilies),
 	m_convert_hash_to_random(convert_hash_to_random),
 	m_partition_cols_array(partition_cols_array),
 	m_str_part_types_array(str_part_types_array),
@@ -84,16 +84,12 @@ CMDRelationGPDB::CMDRelationGPDB
 	GPOS_ASSERT_IMP(convert_hash_to_random,
 			IMDRelation::EreldistrHash == rel_distr_policy &&
 			"Converting hash distributed table to random only possible for hash distributed tables");
+	GPOS_ASSERT(NULL == distr_opfamilies || distr_opfamilies->Size() == m_distr_col_array->Size());
 	
 	m_colpos_nondrop_colpos_map = GPOS_NEW(m_mp) UlongToUlongMap(m_mp);
 	m_attrno_nondrop_col_pos_map = GPOS_NEW(m_mp) IntToUlongMap(m_mp);
 	m_nondrop_col_pos_array = GPOS_NEW(m_mp) ULongPtrArray(m_mp);
 	m_col_width_array = GPOS_NEW(mp) CDoubleArray(mp);
-	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
-	{
-		GPOS_ASSERT(NULL != distr_opfamilies);
-		m_distr_opfamilies = distr_opfamilies;
-	}
 
 	const ULONG arity = mdcol_array->Size();
 	ULONG non_dropped_col_pos = 0;
