@@ -51,7 +51,7 @@ CDistributionSpecHashed::CDistributionSpecHashed
 {
 	GPOS_ASSERT(NULL != pdrgpexpr);
 	GPOS_ASSERT(0 < pdrgpexpr->Size());
-	GPOS_ASSERT(opfamilies->Size() == pdrgpexpr->Size());
+	GPOS_ASSERT(NULL == opfamilies || opfamilies->Size() == pdrgpexpr->Size());
 }
 
 //---------------------------------------------------------------------------
@@ -104,6 +104,12 @@ CDistributionSpecHashed::IsOpfamilyCompatible
 	const CDistributionSpecHashed *other_spec
 	) const
 {
+	if (!GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+	{
+		return true;
+	}
+
+	// FIGGY The next two checks should go
 	if (NULL == m_opfamilies && NULL == other_spec->m_opfamilies)
 	{
 		return true;
@@ -114,9 +120,20 @@ CDistributionSpecHashed::IsOpfamilyCompatible
 		return false;
 	}
 
+	if (m_opfamilies->Size() != other_spec->m_opfamilies->Size())
+	{
+		return false;
+	}
+
 	for (ULONG ul = 0; ul < m_opfamilies->Size(); ul++)
 	{
-		if (!(*m_opfamilies)[ul]->Equals((*other_spec->m_opfamilies)[ul]))
+		IMDId *opfamily = (*m_opfamilies)[ul];
+		IMDId *other_opfamily = (*other_spec->m_opfamilies)[ul];
+
+		GPOS_ASSERT(NULL != opfamily);
+		GPOS_ASSERT(NULL != other_opfamily);
+
+		if (!opfamily->Equals(other_opfamily))
 		{
 			return false;
 		}
