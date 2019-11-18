@@ -60,7 +60,7 @@ CMDRelationGPDB::CMDRelationGPDB
 	m_md_col_array(mdcol_array),
 	m_dropped_cols(0),
 	m_distr_col_array(distr_col_array),
-	m_distr_opfamilies(distr_opfamilies),
+	m_distr_opfamilies(NULL),
 	m_convert_hash_to_random(convert_hash_to_random),
 	m_partition_cols_array(partition_cols_array),
 	m_str_part_types_array(str_part_types_array),
@@ -89,6 +89,11 @@ CMDRelationGPDB::CMDRelationGPDB
 	m_attrno_nondrop_col_pos_map = GPOS_NEW(m_mp) IntToUlongMap(m_mp);
 	m_nondrop_col_pos_array = GPOS_NEW(m_mp) ULongPtrArray(m_mp);
 	m_col_width_array = GPOS_NEW(mp) CDoubleArray(mp);
+	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+	{
+		GPOS_ASSERT(NULL != distr_opfamilies);
+		m_distr_opfamilies = distr_opfamilies;
+	}
 
 	const ULONG arity = mdcol_array->Size();
 	ULONG non_dropped_col_pos = 0;
@@ -569,8 +574,13 @@ CMDRelationGPDB::GetDistrColAt
 IMDId *
 CMDRelationGPDB::GetDistrOpfamilyAt(ULONG pos) const
 {
-	GPOS_ASSERT(pos < m_distr_opfamilies->Size());
+	if (m_distr_opfamilies == NULL)
+	{
+		// FIGGY - raise exception here!
+		return NULL;
+	}
 
+	GPOS_ASSERT(pos < m_distr_opfamilies->Size());
 	return (*m_distr_opfamilies)[pos];
 }
 
@@ -804,10 +814,13 @@ CMDRelationGPDB::Serialize
 						CDXLTokens::GetDXLTokenStr(EdxltokenCheckConstraints),
 						CDXLTokens::GetDXLTokenStr(EdxltokenCheckConstraint));
 
-	// serialize operator class information
-	SerializeMDIdList(xml_serializer, m_distr_opfamilies,
-					  CDXLTokens::GetDXLTokenStr(EdxltokenRelDistrOpfamilies),
-					  CDXLTokens::GetDXLTokenStr(EdxltokenRelDistrOpfamily));
+	// serialize operator class information, if present
+	if (NULL != m_distr_opfamilies)
+	{
+		SerializeMDIdList(xml_serializer, m_distr_opfamilies,
+						  CDXLTokens::GetDXLTokenStr(EdxltokenRelDistrOpfamilies),
+						  CDXLTokens::GetDXLTokenStr(EdxltokenRelDistrOpfamily));
+	}
 
 	// serialize part constraint
 	if (NULL != m_mdpart_constraint)

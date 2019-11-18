@@ -51,7 +51,7 @@ CTableDescriptor::CTableDescriptor
 	m_rel_distr_policy(rel_distr_policy),
 	m_erelstoragetype(erelstoragetype),
 	m_pdrgpcoldescDist(NULL),
-	m_dist_opfamilies(NULL),
+	m_distr_opfamilies(NULL),
 	m_convert_hash_to_random(convert_hash_to_random),
 	m_pdrgpulPart(NULL),
 	m_pdrgpbsKeys(NULL),
@@ -64,9 +64,12 @@ CTableDescriptor::CTableDescriptor
 	
 	m_pdrgpcoldesc = GPOS_NEW(m_mp) CColumnDescriptorArray(m_mp);
 	m_pdrgpcoldescDist = GPOS_NEW(m_mp) CColumnDescriptorArray(m_mp);
-	m_dist_opfamilies = GPOS_NEW(m_mp) IMdIdArray(m_mp);
 	m_pdrgpulPart = GPOS_NEW(m_mp) ULongPtrArray(m_mp);
 	m_pdrgpbsKeys = GPOS_NEW(m_mp) CBitSetArray(m_mp);
+	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+	{
+		m_distr_opfamilies = GPOS_NEW(m_mp) IMdIdArray(m_mp);
+	}
 }
 
 
@@ -86,7 +89,7 @@ CTableDescriptor::~CTableDescriptor()
 	m_pdrgpcoldescDist->Release();
 	m_pdrgpulPart->Release();
 	m_pdrgpbsKeys->Release();
-	m_dist_opfamilies->Release();
+	CRefCount::SafeRelease(m_distr_opfamilies);
 }
 
 
@@ -210,10 +213,14 @@ CTableDescriptor::AddDistributionColumn
 	pcoldesc->AddRef();
 	m_pdrgpcoldescDist->Append(pcoldesc);
 
-	opfamily->AddRef();
-	m_dist_opfamilies->Append(opfamily);
+	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+	{
+		GPOS_ASSERT(NULL != opfamily);
+		opfamily->AddRef();
+		m_distr_opfamilies->Append(opfamily);
 
-	GPOS_ASSERT(m_pdrgpcoldescDist->Size() == m_dist_opfamilies->Size());
+		GPOS_ASSERT(m_pdrgpcoldescDist->Size() == m_distr_opfamilies->Size());
+	}
 }
 
 //---------------------------------------------------------------------------

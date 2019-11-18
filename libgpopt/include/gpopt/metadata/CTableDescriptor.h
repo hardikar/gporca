@@ -67,7 +67,7 @@ namespace gpopt
 			CColumnDescriptorArray *m_pdrgpcoldescDist;
 
 			// Opfamily used for hash distribution
-			IMdIdArray *m_dist_opfamilies;
+			IMdIdArray *m_distr_opfamilies;
 						
 			// if true, we need to consider a hash distributed table as random
 			// there are two possible scenarios:
@@ -167,7 +167,7 @@ namespace gpopt
 			// distribution column descriptors accessor
 			const IMdIdArray *DistrOpfamilies() const
 			{
-				return m_dist_opfamilies;
+				return m_distr_opfamilies;
 			}
 			
 			// partition column indexes accessor
