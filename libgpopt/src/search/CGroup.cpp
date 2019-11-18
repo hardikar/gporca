@@ -583,7 +583,10 @@ CGroup::SetJoinKeys
 	pdrgpexprInner->AddRef();
 	m_pdrgpexprJoinKeysInner = pdrgpexprInner;
 
-	join_opfamilies->AddRef();
+	if (join_opfamilies != NULL)
+	{
+		join_opfamilies->AddRef();
+	}
 	m_join_opfamilies = join_opfamilies;
 }
 

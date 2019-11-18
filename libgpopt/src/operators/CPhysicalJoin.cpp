@@ -17,6 +17,8 @@
 #include "gpopt/base/CDistributionSpecAny.h"
 #include "gpopt/base/CDistributionSpecReplicated.h"
 
+#include "naucrates/md/IMDScalarOp.h"
+
 #include "gpopt/operators/ops.h"
 #include "gpopt/operators/CExpressionHandle.h"
 
@@ -532,16 +534,19 @@ CPhysicalJoin::FHashJoinCompatible
 
 	CExpression *pexprPredOuter = NULL;
 	CExpression *pexprPredInner = NULL;
+	IMDId *mdid_scop = NULL;
 	if (CPredicateUtils::IsEqualityOp(pexprPred))
 	{
 		pexprPredOuter = (*pexprPred)[0];
 		pexprPredInner = (*pexprPred)[1];
+		mdid_scop = CScalarCmp::PopConvert(pexprPred->Pop())->MdIdOp();
 	}
 	else if (CPredicateUtils::FINDF(pexprPred))
 	{
 		CExpression *pexpr = (*pexprPred)[0];
 		pexprPredOuter = (*pexpr)[0];
 		pexprPredInner = (*pexpr)[1];
+		mdid_scop = CScalarIsDistinctFrom::PopConvert(pexpr->Pop())->MdIdOp();
 	}
 	else
 	{
@@ -552,6 +557,13 @@ CPhysicalJoin::FHashJoinCompatible
 	IMDId *pmdidTypeInner = CScalar::PopConvert(pexprPredInner->Pop())->MdidType();
 
 	CMDAccessor *md_accessor = COptCtxt::PoctxtFromTLS()->Pmda();
+
+	const IMDScalarOp *scop = md_accessor->RetrieveScOp(mdid_scop);
+	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution) &&
+		NULL == scop->HashOpfamiliyMdid())
+	{
+		return false;
+	}
 
 	if (md_accessor->RetrieveType(pmdidTypeOuter)->IsHashable() &&
 		md_accessor->RetrieveType(pmdidTypeInner)->IsHashable())
