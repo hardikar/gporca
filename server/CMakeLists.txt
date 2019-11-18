@@ -295,7 +295,13 @@ CDqaTest:
 DqaHavingMax DqaMax DqaMin DqaSubqueryMax DqaNoRedistribute;
 
 CMCVCardinalityTest:
-BpCharMCVCardinalityEquals BpCharMCVCardinalityGreaterThan TextMCVCardinalityEquals TextMCVCardinalityGreaterThan VarcharMCVCardinalityEquals VarcharMCVCardinalityGreaterThan Citext-Cardinality Name-Cardinality Char-Cardinality 
+BpCharMCVCardinalityEquals BpCharMCVCardinalityGreaterThan TextMCVCardinalityEquals TextMCVCardinalityGreaterThan VarcharMCVCardinalityEquals VarcharMCVCardinalityGreaterThan Citext-Cardinality Name-Cardinality Char-Cardinality;
+
+COpfamiliesTest:
+JoinCitextVarchar JoinDefaultOpfamiliesUsingNonDefaultOpfamilyOp
+MultiColumnAggWithDefaultOpfamilies JoinTinterval FullJoin-NonDefaultOpfamily
+JoinAbsEqWithoutOpfamilies 3WayJoinUsingOperatorsOfNonDefaultOpfamily
+
 ")
 
 set(mdp_dir "../data/dxl/minidump/")
