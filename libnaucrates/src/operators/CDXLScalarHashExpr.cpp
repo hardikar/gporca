@@ -12,6 +12,7 @@
 
 #include "naucrates/dxl/operators/CDXLNode.h"
 #include "naucrates/dxl/xml/CXMLSerializer.h"
+#include "naucrates/traceflags/traceflags.h"
 
 using namespace gpos;
 using namespace gpdxl;
@@ -33,7 +34,8 @@ CDXLScalarHashExpr::CDXLScalarHashExpr
 	CDXLScalar(mp),
 	m_mdid_opfamily(opfamily)
 {
-	GPOS_ASSERT(m_mdid_opfamily->IsValid());
+	GPOS_ASSERT_IMP(GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution),
+					m_mdid_opfamily->IsValid());
 }
 
 //---------------------------------------------------------------------------
@@ -46,7 +48,7 @@ CDXLScalarHashExpr::CDXLScalarHashExpr
 //---------------------------------------------------------------------------
 CDXLScalarHashExpr::~CDXLScalarHashExpr()
 {
-	m_mdid_opfamily->Release();
+	CRefCount::SafeRelease(m_mdid_opfamily);
 }
 
 //---------------------------------------------------------------------------
@@ -111,7 +113,10 @@ CDXLScalarHashExpr::SerializeToDXL
 	const CWStringConst *element_name = GetOpNameStr();
 	xml_serializer->OpenElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);
 
-	m_mdid_opfamily->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenOpfamily));
+	if (NULL != m_mdid_opfamily)
+	{
+		m_mdid_opfamily->Serialize(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenOpfamily));
+	}
 
 	node->SerializeChildrenToDXL(xml_serializer);
 	xml_serializer->CloseElement(CDXLTokens::GetDXLTokenStr(EdxltokenNamespacePrefix), element_name);

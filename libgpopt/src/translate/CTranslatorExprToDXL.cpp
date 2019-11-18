@@ -7916,7 +7916,7 @@ CTranslatorExprToDXL::PdxlnHashExprList
 	)
 {
 	GPOS_ASSERT(NULL != pdrgpexpr);
-	GPOS_ASSERT(NULL != opfamilies);
+	GPOS_ASSERT_IMP(GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution), NULL != opfamilies);
 	
 	CDXLNode *hash_expr_list = 
 			GPOS_NEW(m_mp) CDXLNode(m_mp, GPOS_NEW(m_mp) CDXLScalarHashExprList(m_mp));
@@ -7924,9 +7924,14 @@ CTranslatorExprToDXL::PdxlnHashExprList
 	for (ULONG ul = 0; ul < pdrgpexpr->Size(); ul++)
 	{
 		CExpression *pexpr = (*pdrgpexpr)[ul];
-		IMDId *opfamily = (*opfamilies)[ul];
-		opfamily->AddRef();
-	
+
+		IMDId *opfamily = NULL;
+		if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+		{
+			opfamily = (*opfamilies)[ul];
+			opfamily->AddRef();
+		}
+
 		// constrct a hash expr node for the col ref
 		CDXLNode *pdxlnHashExpr = GPOS_NEW(m_mp) CDXLNode
 												(
