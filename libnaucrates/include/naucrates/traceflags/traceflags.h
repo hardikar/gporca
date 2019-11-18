@@ -184,6 +184,9 @@ namespace gpos
 
 		// ExpandFullJoin
 		EopttraceExpandFullJoin = 103032,
+
+		// Support Opfamilies in distribution specs
+		EopttraceConsiderOpfamiliesForDistribution = 103033,
 		///////////////////////////////////////////////////////
 		///////////////////// statistics flags ////////////////
 		//////////////////////////////////////////////////////
