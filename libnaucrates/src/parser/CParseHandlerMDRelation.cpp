@@ -270,7 +270,7 @@ CParseHandlerMDRelation::EndElement
  	mdid_check_constraint_array->AddRef();
 
 	IMdIdArray *distr_opfamilies = NULL;
-	if (m_opfamilies_parse_handler != NULL)
+	if (m_rel_distr_policy == IMDRelation::EreldistrHash && m_opfamilies_parse_handler != NULL)
 	{
 		distr_opfamilies = dynamic_cast<CParseHandlerMetadataIdList*>(m_opfamilies_parse_handler)->GetMdIdArray();
 		distr_opfamilies->AddRef();

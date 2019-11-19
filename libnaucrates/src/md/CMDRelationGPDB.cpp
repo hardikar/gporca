@@ -811,7 +811,7 @@ CMDRelationGPDB::Serialize
 						CDXLTokens::GetDXLTokenStr(EdxltokenCheckConstraint));
 
 	// serialize operator class information, if present
-	if (NULL != m_distr_opfamilies)
+	if (EreldistrHash == m_rel_distr_policy && NULL != m_distr_opfamilies)
 	{
 		SerializeMDIdList(xml_serializer, m_distr_opfamilies,
 						  CDXLTokens::GetDXLTokenStr(EdxltokenRelDistrOpfamilies),
