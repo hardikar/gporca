@@ -13547,46 +13547,46 @@
             <dxl:Filter/>
             <dxl:SortingColumnList/>
             <dxl:HashExprList>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="3" ColName="ccd" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="4" ColName="ctd" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="396" ColName="ptd" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="12" ColName="bgt_c" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.21.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="1" ColName="fl_yr" TypeMdid="0.21.1.0"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="102" ColName="hr_su_div" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="103" ColName="hr_div" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="51" ColName="rs_type_lvl_1" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="170" ColName="wi_class" TypeMdid="0.1043.1.0" TypeModifier="259"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="407" ColName="pgm" TypeMdid="0.1043.1.0" TypeModifier="259"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="14" ColName="rs_agm_code" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="146" ColName="ccc_lvl5_d" TypeMdid="0.1043.1.0" TypeModifier="104"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="363" ColName="tfr_type" TypeMdid="0.1043.1.0" TypeModifier="259"/>
               </dxl:HashExpr>
-              <dxl:HashExpr TypeMdid="0.1043.1.0">
+              <dxl:HashExpr>
                 <dxl:Ident ColId="376" ColName="twea" TypeMdid="0.1043.1.0" TypeModifier="259"/>
               </dxl:HashExpr>
             </dxl:HashExprList>
