@@ -51,7 +51,11 @@ CDistributionSpecHashed::CDistributionSpecHashed
 {
 	GPOS_ASSERT(NULL != pdrgpexpr);
 	GPOS_ASSERT(0 < pdrgpexpr->Size());
-	GPOS_ASSERT(NULL == opfamilies || opfamilies->Size() == pdrgpexpr->Size());
+	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution) && NULL == opfamilies)
+	{
+		PopulateDefaultOpfamilies();
+	}
+	GPOS_ASSERT(m_opfamilies == NULL || m_opfamilies->Size() == m_pdrgpexpr->Size());
 }
 
 //---------------------------------------------------------------------------
@@ -78,7 +82,11 @@ CDistributionSpecHashed::CDistributionSpecHashed
 {
 	GPOS_ASSERT(NULL != pdrgpexpr);
 	GPOS_ASSERT(0 < pdrgpexpr->Size());
-	GPOS_ASSERT(opfamilies == NULL || opfamilies->Size() == pdrgpexpr->Size());
+	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution) && NULL == opfamilies)
+	{
+		PopulateDefaultOpfamilies();
+	}
+	GPOS_ASSERT(m_opfamilies == NULL || m_opfamilies->Size() == m_pdrgpexpr->Size());
 }
 
 //---------------------------------------------------------------------------
@@ -97,6 +105,22 @@ CDistributionSpecHashed::~CDistributionSpecHashed()
 	CRefCount::SafeRelease(m_opfamilies);
 }
 
+void
+CDistributionSpecHashed::PopulateDefaultOpfamilies()
+{
+	CMemoryPool *mp = COptCtxt::PoctxtFromTLS()->Pmp();
+	CMDAccessor *mda = COptCtxt::PoctxtFromTLS()->Pmda();
+	m_opfamilies = GPOS_NEW(mp) IMdIdArray(mp);
+	for (ULONG ul = 0; ul < m_pdrgpexpr->Size(); ++ul)
+	{
+		CExpression *expr = (*m_pdrgpexpr)[ul];
+		IMDId *mdid_type = CScalar::PopConvert(expr->Pop())->MdidType();
+		IMDId *mdid_opfamily = mda->RetrieveType(mdid_type)->GetDistrOpfamilyMdid();
+		GPOS_ASSERT(NULL != mdid_opfamily);
+		mdid_opfamily->AddRef();
+		m_opfamilies->Append(mdid_opfamily);
+	}
+}
 
 BOOL
 CDistributionSpecHashed::IsOpfamilyCompatible
