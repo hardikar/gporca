@@ -96,6 +96,8 @@ namespace gpopt
 			// dtor
 			virtual 
 			~CDistributionSpecHashed();
+
+			void PopulateDefaultOpfamilies();
 			
 			// distribution type accessor
 			virtual 
