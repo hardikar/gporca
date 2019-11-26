@@ -530,6 +530,7 @@ namespace gpdxl
 		EdxltokenMDTypeFixedLength,
 		EdxltokenMDTypeLength,
 		EdxltokenMDTypeByValue,
+		EdxltokenMDTypeDistrOpfamily,
 		EdxltokenMDTypeEqOp,
 		EdxltokenMDTypeNEqOp,
 		EdxltokenMDTypeLTOp,
