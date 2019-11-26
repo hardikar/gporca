@@ -47,6 +47,9 @@ namespace gpdxl
 			
 			// id and version of the type
 			IMDId *m_mdid;
+
+			// default distribution (hash) opfamily
+			IMDId *m_distr_opfamily;
 			
 			// type name
 			CMDName *m_mdname;

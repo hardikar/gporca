@@ -73,6 +73,8 @@ namespace gpmd
 			
 		// is type passed by value or by reference
 			BOOL m_is_passed_by_value;
+
+			IMDId *m_distr_opfamily;
 			
 			// id of equality operator for type
 			IMDId *m_mdid_op_eq;
@@ -145,6 +147,7 @@ namespace gpmd
 				BOOL is_fixed_length,
 				ULONG length, 
 				BOOL is_passed_by_value,
+				IMDId *mdid_distr_opfamily,
 				IMDId *mdid_op_eq,
 				IMDId *mdid_op_neq,
 				IMDId *mdid_op_lt,
@@ -252,6 +255,12 @@ namespace gpmd
 			IMDId *GetArrayTypeMdid() const
 			{
 				return m_mdid_type_array;
+			}
+
+			virtual
+			IMDId *GetDistrOpfamilyMdid() const
+			{
+				return m_distr_opfamily;
 			}
 			
 			// serialize object in DXL format

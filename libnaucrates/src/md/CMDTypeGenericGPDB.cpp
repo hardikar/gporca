@@ -53,6 +53,7 @@ CMDTypeGenericGPDB::CMDTypeGenericGPDB
 	BOOL is_fixed_length,
 	ULONG length, 
 	BOOL is_passed_by_value,
+	IMDId *mdid_distr_opfamily,
 	IMDId *mdid_op_eq,
 	IMDId *mdid_op_neq,
 	IMDId *mdid_op_lt,
@@ -80,6 +81,7 @@ CMDTypeGenericGPDB::CMDTypeGenericGPDB
 	m_is_fixed_length(is_fixed_length),
 	m_length(length),
 	m_is_passed_by_value(is_passed_by_value),
+	m_distr_opfamily(mdid_distr_opfamily),
 	m_mdid_op_eq(mdid_op_eq),
 	m_mdid_op_neq(mdid_op_neq),
 	m_mdid_op_lt(mdid_op_lt),
@@ -119,6 +121,7 @@ CMDTypeGenericGPDB::CMDTypeGenericGPDB
 CMDTypeGenericGPDB::~CMDTypeGenericGPDB()
 {
 	m_mdid->Release();
+	CRefCount::SafeRelease(m_distr_opfamily);
 	m_mdid_op_eq->Release();
 	m_mdid_op_neq->Release();
 	m_mdid_op_lt->Release();

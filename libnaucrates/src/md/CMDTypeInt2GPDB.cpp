@@ -48,6 +48,7 @@ CMDTypeInt2GPDB::CMDTypeInt2GPDB
 	m_mp(mp)
 {
 	m_mdid = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT2_OID);
+	m_distr_opfamily = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT2_OPFAMILY);
 	m_mdid_op_eq = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT2_EQ_OP);
 	m_mdid_op_neq = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT2_NEQ_OP);
 	m_mdid_op_lt = GPOS_NEW(mp) CMDIdGPDB(GPDB_INT2_LT_OP);
@@ -80,6 +81,7 @@ CMDTypeInt2GPDB::CMDTypeInt2GPDB
 CMDTypeInt2GPDB::~CMDTypeInt2GPDB()
 {
 	m_mdid->Release();
+	CRefCount::SafeRelease(m_distr_opfamily);
 	m_mdid_op_eq->Release();
 	m_mdid_op_neq->Release();
 	m_mdid_op_lt->Release();
@@ -131,6 +133,12 @@ IMDId *
 CMDTypeInt2GPDB::MDId() const
 {
 	return m_mdid;
+}
+
+IMDId *
+CMDTypeInt2GPDB::GetDistrOpfamilyMdid() const
+{
+	return m_distr_opfamily;
 }
 
 //---------------------------------------------------------------------------

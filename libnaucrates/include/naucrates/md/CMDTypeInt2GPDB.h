@@ -19,6 +19,7 @@
 #include "naucrates/md/IMDTypeInt2.h"
 
 #define GPDB_INT2_OID OID(21)
+#define GPDB_INT2_OPFAMILY OID(1977)
 #define GPDB_INT2_LENGTH 2
 #define GPDB_INT2_EQ_OP OID(94)
 #define GPDB_INT2_NEQ_OP OID(519)
@@ -70,6 +71,7 @@ namespace gpmd
 			
 			// type id
 			IMDId *m_mdid;
+			IMDId *m_distr_opfamily;
 			
 			// mdids of different operators
 			IMDId *m_mdid_op_eq;
@@ -128,11 +130,14 @@ namespace gpmd
 			{
 				return m_dxl_str;
 			}
-			
+
 			// accessor of metadata id
 			virtual 
 			IMDId *MDId() const;
-			
+
+			virtual
+			IMDId *GetDistrOpfamilyMdid() const;
+
 			// accessor of type name
 			virtual 
 			CMDName Mdname() const;

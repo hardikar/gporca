@@ -54,6 +54,11 @@ namespace gpmd
 
                 xml_serializer->AddAttribute(CDXLTokens::GetDXLTokenStr(EdxltokenMDTypeByValue), mdtype->IsPassedByValue());
 
+                if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution)) // FIGGY : This was to get tests passing for now.
+                {
+                    mdtype->SerializeMDIdAsElem(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenMDTypeDistrOpfamily), mdtype->GetDistrOpfamilyMdid());
+                }
+
                 mdtype->SerializeMDIdAsElem(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenMDTypeEqOp), mdtype->GetMdidForCmpType(IMDType::EcmptEq));
                 mdtype->SerializeMDIdAsElem(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenMDTypeNEqOp), mdtype->GetMdidForCmpType(IMDType::EcmptNEq));
                 mdtype->SerializeMDIdAsElem(xml_serializer, CDXLTokens::GetDXLTokenStr(EdxltokenMDTypeLTOp), mdtype->GetMdidForCmpType(IMDType::EcmptL));

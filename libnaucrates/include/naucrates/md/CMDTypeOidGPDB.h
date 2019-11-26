@@ -17,6 +17,7 @@
 #include "naucrates/md/IMDTypeOid.h"
 
 #define GPDB_OID_OID OID(26)
+#define GPDB_OID_OPFAMILY OID(1990)
 #define GPDB_OID_LENGTH 4
 #define GPDB_OID_EQ_OP OID(607)
 #define GPDB_OID_NEQ_OP OID(608)
@@ -69,6 +70,7 @@ namespace gpmd
 
 			// type id
 			IMDId *m_mdid;
+			IMDId *m_distr_opfamily;
 
 			// mdids of different comparison operators
 			IMDId *m_mdid_op_eq;
@@ -128,6 +130,9 @@ namespace gpmd
 
 			virtual
 			IMDId *MDId() const;
+
+			IMDId *
+			GetDistrOpfamilyMdid() const;
 
 			virtual
 			CMDName Mdname() const;
