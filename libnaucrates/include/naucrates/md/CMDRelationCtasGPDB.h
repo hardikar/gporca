@@ -76,6 +76,9 @@ namespace gpmd
 
 			// indices of distribution columns
 			ULongPtrArray *m_distr_col_array;
+
+			// distribution opfamilies
+			IMdIdArray *m_distr_opfamilies;
 			
 			// array of key sets
 			ULongPtr2dArray *m_keyset_array;
@@ -117,6 +120,7 @@ namespace gpmd
 				Ereldistrpolicy rel_distr_policy,
 							CMDColumnArray *mdcol_array,
 				ULongPtrArray *distr_col_array,
+				IMdIdArray *distr_opfamilies,
 				ULongPtr2dArray *keyset_array,
 				CDXLCtasStorageOptions *dxl_ctas_storage_options,
 				IntPtrArray *vartypemod_array

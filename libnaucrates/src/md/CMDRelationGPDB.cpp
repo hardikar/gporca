@@ -811,6 +811,7 @@ CMDRelationGPDB::Serialize
 						CDXLTokens::GetDXLTokenStr(EdxltokenCheckConstraint));
 
 	// serialize operator class information, if present
+	// FIGGY: Move this up in if EreldistrHash == m_rel_distr_policy. Also in CLogicalCTAS & RelationCTAS
 	if (EreldistrHash == m_rel_distr_policy && NULL != m_distr_opfamilies)
 	{
 		SerializeMDIdList(xml_serializer, m_distr_opfamilies,

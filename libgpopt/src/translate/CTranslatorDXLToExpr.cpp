@@ -2272,6 +2272,7 @@ CTranslatorDXLToExpr::RegisterMDRelationCtas
 			pdxlopCTAS->Ereldistrpolicy(),
 			mdcol_array,
 			pdxlopCTAS->GetDistrColPosArray(),
+			pdxlopCTAS->GetDistrOpfamilies(),
 			GPOS_NEW(m_mp) ULongPtr2dArray(m_mp), // keyset_array,
 			pdxlopCTAS->GetDxlCtasStorageOption(),
 			vartypemod_array
