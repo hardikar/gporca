@@ -71,8 +71,6 @@ namespace gpopt
 				return (m_is_duplicate_sensitive || !pds->m_is_duplicate_sensitive);
 			}
 
-			BOOL IsOpfamilyCompatible(const CDistributionSpecHashed *pds) const;
-
 			// exact match against given hashed distribution
 			BOOL FMatchHashedDistribution(const CDistributionSpecHashed *pdshashed) const;
 

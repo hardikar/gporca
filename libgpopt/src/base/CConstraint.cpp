@@ -29,6 +29,9 @@
 #include "gpopt/optimizer/COptimizerConfig.h"
 #include "gpopt/operators/CPredicateUtils.h"
 
+#include "naucrates/md/IMDScalarOp.h"
+#include "naucrates/md/IMDType.h"
+
 using namespace gpopt;
 
 // initialize constant true
@@ -421,6 +424,21 @@ CConstraint::PcnstrFromScalarCmp
 			!CUtils::FConstrainableType(pcrRight->RetrieveType()->MDId()))
 		{
 			return NULL;
+		}
+
+		if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution))
+		{
+			CMDAccessor *mda = COptCtxt::PoctxtFromTLS()->Pmda();
+			CScalarCmp *sc_cmp = CScalarCmp::PopConvert(pexpr->Pop());
+			const IMDScalarOp *op = mda->RetrieveScOp(sc_cmp->MdIdOp());
+
+			IMDId *left_mdid = CScalar::PopConvert(pexprLeft->Pop())->MdidType();
+			const IMDType *left_type = mda->RetrieveType(left_mdid);
+
+			if (!CUtils::Equals(op->HashOpfamiliyMdid(), left_type->GetDistrOpfamilyMdid()))
+			{
+				return NULL;
+			}
 		}
 
 		BOOL pcrLeftIncludesNull = infer_nulls_as && CColRef::EcrtTable == pcrLeft->Ecrt() ? 
