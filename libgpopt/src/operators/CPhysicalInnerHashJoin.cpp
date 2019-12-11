@@ -79,10 +79,15 @@ CPhysicalInnerHashJoin::PdshashedCreateMatching
 	// NB: The matching spec is added at the beginning.
 	pdshashedMatching->Pdrgpexpr()->AddRef();
 	pdshashed->AddRef();
+	if (NULL != pdshashedMatching->Opfamilies())
+	{
+		pdshashedMatching->Opfamilies()->AddRef();
+	}
 	CDistributionSpecHashed *pdsHashedMatchingEquivalents = GPOS_NEW(mp) CDistributionSpecHashed(
 												pdshashedMatching->Pdrgpexpr(),
 												pdshashedMatching->FNullsColocated(),
-												pdshashed // matching distribution spec is equivalent to passed distribution spec
+												pdshashed, // matching distribution spec is equivalent to passed distribution spec
+												pdshashedMatching->Opfamilies()
 												);
 	pdshashedMatching->Release();
 	return pdsHashedMatchingEquivalents;
