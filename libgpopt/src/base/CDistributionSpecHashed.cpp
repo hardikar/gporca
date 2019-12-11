@@ -154,7 +154,12 @@ CDistributionSpecHashed::PdsCopyWithRemappedColumns
 	// copy equivalent distribution
 	CDistributionSpec *pds = m_pdshashedEquiv->PdsCopyWithRemappedColumns(mp, colref_mapping, must_exist);
 	CDistributionSpecHashed *pdshashed = CDistributionSpecHashed::PdsConvert(pds);
-	return GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexpr, m_fNullsColocated, pdshashed);
+	if (NULL != m_opfamilies)
+	{
+		m_opfamilies->AddRef();
+	}
+	// FIGGY: Here we assumed that remapping columns will not change opfamily
+	return GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexpr, m_fNullsColocated, pdshashed, m_opfamilies);
 }
 
 
@@ -765,7 +770,11 @@ CDistributionSpecHashed::Copy
 	}
 
 	distribution_exprs->AddRef();
-	CDistributionSpecHashed *spec_copy = GPOS_NEW(mp) CDistributionSpecHashed(distribution_exprs, this->FNullsColocated(), spec);
+	if (NULL != m_opfamilies)
+	{
+		m_opfamilies->AddRef();
+	}
+	CDistributionSpecHashed *spec_copy = GPOS_NEW(mp) CDistributionSpecHashed(distribution_exprs, this->FNullsColocated(), spec, m_opfamilies);
 	equiv_distribution_exprs->Release();
 	GPOS_ASSERT(NULL != spec_copy);
 	return spec_copy;
@@ -886,9 +895,14 @@ CDistributionSpecHashed::Combine
 		GPOS_ASSERT(this->Pdrgpexpr()->Size() == exprs->Size());
 #endif
 		exprs->AddRef();
+		if (NULL != m_opfamilies)
+		{
+			m_opfamilies->AddRef();
+		}
 		combined_hashed_spec = GPOS_NEW(mp) CDistributionSpecHashed(exprs,
 																	this->FNullsColocated(),
-																	combined_hashed_spec);
+																	combined_hashed_spec,
+																	m_opfamilies);
 	}
 	all_distribution_exprs->Release();
 	distribution_exprs->Release();
