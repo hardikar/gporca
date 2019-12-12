@@ -91,6 +91,16 @@ namespace gpopt
 									IMdIdArray *opfamilies=NULL
 									);
 
+			// FIGGY RENAME THIS
+			static CDistributionSpecHashed* MakeHashedDistrSpec
+				(
+				CMemoryPool *mp,
+				CExpressionArray *pdrgpexpr,
+				BOOL fNullsColocated,
+				CDistributionSpecHashed *pdshashedEquiv,
+				IMdIdArray *opfamilies=NULL
+				);
+
 			// dtor
 			virtual 
 			~CDistributionSpecHashed();

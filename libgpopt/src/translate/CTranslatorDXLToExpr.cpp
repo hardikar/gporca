@@ -1801,7 +1801,15 @@ CTranslatorDXLToExpr::PexprLogicalSeqPr
 		if (0 < colref_array->Size())
 		{
 			CExpressionArray *pdrgpexprScalarIdents = CUtils::PdrgpexprScalarIdents(m_mp, colref_array);
-			pds = GPOS_NEW(m_mp) CDistributionSpecHashed(pdrgpexprScalarIdents, true /* fNullsCollocated */);
+			pds = CDistributionSpecHashed::MakeHashedDistrSpec(m_mp, pdrgpexprScalarIdents,
+															   true /* fNullsCollocated */,
+															   NULL, NULL);
+			if (NULL == pds)
+			{
+				// FIGGY: Implement it properly in Windows using pdrgpexpr instead of pds
+				GPOS_RAISE(gpdxl::ExmaMD, gpdxl::ExmiMDObjUnsupported, GPOS_WSZ_LIT("no default hash opclasses found in window function"));
+			}
+
 		}
 		else
 		{
