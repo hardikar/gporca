@@ -987,5 +987,37 @@ CDistributionSpecHashed::CompleteEquivSpec
 
 	return pdshashedEquiv;
 }
+
+CDistributionSpecHashed*
+CDistributionSpecHashed::MakeHashedDistrSpec
+	(
+	CMemoryPool *mp,
+	CExpressionArray *pdrgpexpr,
+	BOOL fNullsColocated,
+	CDistributionSpecHashed *pdshashedEquiv,
+	IMdIdArray *opfamilies
+	)
+{
+	if (GPOS_FTRACE(EopttraceConsiderOpfamiliesForDistribution) && NULL == opfamilies)
+	{
+		CMDAccessor *mda = COptCtxt::PoctxtFromTLS()->Pmda();
+		opfamilies = GPOS_NEW(mp) IMdIdArray(mp);
+		for (ULONG ul = 0; ul < pdrgpexpr->Size(); ++ul)
+		{
+			CExpression *expr = (*pdrgpexpr)[ul];
+			IMDId *mdid_type = CScalar::PopConvert(expr->Pop())->MdidType();
+			IMDId *mdid_opfamily = mda->RetrieveType(mdid_type)->GetDistrOpfamilyMdid();
+			if (NULL == mdid_opfamily)
+			{
+				opfamilies->Release();
+				return NULL;
+			}
+			mdid_opfamily->AddRef();
+			opfamilies->Append(mdid_opfamily);
+		}
+	}
+	return GPOS_NEW(mp) CDistributionSpecHashed(pdrgpexpr, fNullsColocated, pdshashedEquiv, opfamilies);
+
+}
 // EOF
 
