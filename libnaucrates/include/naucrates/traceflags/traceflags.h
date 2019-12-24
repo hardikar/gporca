@@ -187,6 +187,10 @@ namespace gpos
 
 		// Support Opfamilies in distribution specs
 		EopttraceConsiderOpfamiliesForDistribution = 103033,
+
+		// Support Opfamilies in distribution specs
+		EopttraceUseLegacyOpfamilies = 103034,
+
 		///////////////////////////////////////////////////////
 		///////////////////// statistics flags ////////////////
 		//////////////////////////////////////////////////////

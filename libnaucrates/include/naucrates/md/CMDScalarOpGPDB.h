@@ -78,6 +78,8 @@ namespace gpmd
 			// compatible hash op family
 			IMDId *m_mdid_hash_opfamily;
 
+			IMDId *m_mdid_legacy_hash_opfamily;
+
 			CMDScalarOpGPDB(const CMDScalarOpGPDB &);
 			
 		public:
@@ -97,7 +99,8 @@ namespace gpmd
 				IMDType::ECmpType cmp_type,
 				BOOL returns_null_on_null_input,
 				IMdIdArray *mdid_op_classes_array,
-				IMDId *m_mdid_hash_opfamily
+				IMDId *mdid_hash_opfamily,
+				IMDId *mdid_legacy_hash_opfamily
 				);
 			
 			~CMDScalarOpGPDB();
