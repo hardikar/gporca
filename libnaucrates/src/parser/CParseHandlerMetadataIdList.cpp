@@ -115,7 +115,7 @@ CParseHandlerMetadataIdList::StartElement
 	}
 	else if (0 == XMLString::compareString(CDXLTokens::XmlstrToken(EdxltokenOpfamily), element_local_name))
 	{
-		// opclass metadata id: array must be initialized already
+		// opfamily metadata id: array must be initialized already
 		GPOS_ASSERT(NULL != m_mdid_array);
 		
 		IMDId *mdid = CDXLOperatorFactory::ExtractConvertAttrValueToMdId(m_parse_handler_mgr->GetDXLMemoryManager(), attrs, EdxltokenMdid, EdxltokenOpfamily);
